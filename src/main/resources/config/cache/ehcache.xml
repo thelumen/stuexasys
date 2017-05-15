@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <!--diskStore：缓存数据持久化的目录 地址  -->
+    <diskStore path="java.io.tmpdir/shiro-ehcache"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+    />
+
+    <!-- 页面全部缓存 -->
+    <cache name="simplePageCachingFilter"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="60"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <!--shiro缓存-->
+    <cache name="shiro"
+           maxElementsInMemory="2000"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="0"
+           timeToLiveSeconds="0"
+           maxElementsOnDisk="100"
+           overflowToDisk="true"
+           memoryStoreEvictionPolicy="FIFO"
+           statistics="true">
+    </cache>
+
+
+</ehcache>
