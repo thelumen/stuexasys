@@ -8,23 +8,11 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-    <!-- 开启spring的注解 -->
+    <!--注解 -->
     <context:component-scan base-package="sunday.controller"/>
 
     <!-- 激活基于注解的配置 -->
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="true">
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>application/json;charset=UTF-8</value>
-                        <value>text/html;charset=UTF-8</value>
-                        <value>application/xml;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+    <mvc:annotation-driven/>
 
     <!-- JS-location配置 -->
     <mvc:resources mapping="/common/**" location="/common/"/>
@@ -35,7 +23,7 @@
     <!-- 处理静态资源的请求 -->
     <mvc:default-servlet-handler/>
 
-    <!-- springmvc的视图解析器 -->
+    <!-- 视图解析器 -->
     <bean id="internalResourceViewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value=""/>
@@ -53,4 +41,8 @@
     <!--如果访问的路径是/，那么直接跳转到index页面-->
     <mvc:view-controller path="/" view-name="forward:/index"/>
 
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
 </beans>  

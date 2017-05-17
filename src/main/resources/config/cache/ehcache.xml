@@ -13,19 +13,8 @@
             diskExpiryThreadIntervalSeconds="120"
     />
 
-    <!-- 页面全部缓存 -->
-    <cache name="simplePageCachingFilter"
-           maxElementsInMemory="10"
-           maxElementsOnDisk="10"
-           eternal="false"
-           overflowToDisk="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="60"
-           memoryStoreEvictionPolicy="LFU">
-    </cache>
-
     <!--shiro缓存-->
-    <cache name="shiro"
+    <cache name="yang-shiro"
            maxElementsInMemory="2000"
            maxEntriesLocalHeap="2000"
            eternal="false"

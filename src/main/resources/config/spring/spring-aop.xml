@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--开启aop注解-->
-    <!--<aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
+    <aop:aspectj-autoproxy/>
 
 
 

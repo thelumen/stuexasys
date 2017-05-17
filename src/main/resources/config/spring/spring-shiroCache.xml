@@ -7,11 +7,9 @@
     <!-- shiroEhCacheManagerFactoryBean -->
     <bean id="shiroEhCacheManagerFactoryBean"
           class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <!--必有属性，否则报错-->
         <property name="shared" value="true"/>
-        <property name="configLocation">
-            <value>classpath:config/cache/ehcache.xml</value>
-        </property>
+        <property name="configLocation"
+                  value="classpath:config/cache/ehcache.xml"/>
     </bean>
 
     <!-- shiro ehcache缓存 -->
