@@ -7,6 +7,7 @@ import java.util.Date;
  * At 19:06
  */
 public final class Manager {
+    private short id;
     private final String managerId;
     private final String password;
     private String name;
@@ -20,6 +21,14 @@ public final class Manager {
 
     public String getManagerId() {
         return managerId;
+    }
+
+    public short getId() {
+        return id;
+    }
+
+    public void setId(short id) {
+        this.id = id;
     }
 
     public String getPassword() {

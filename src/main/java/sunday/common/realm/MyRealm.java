@@ -10,10 +10,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 import sunday.pojo.*;
-import sunday.service.ManagerService;
-import sunday.service.RoleService;
-import sunday.service.StudentService;
-import sunday.service.TeacherService;
+import sunday.service.*;
 
 import java.util.*;
 
@@ -36,6 +33,8 @@ public class MyRealm extends AuthorizingRealm {
     @javax.annotation.Resource(name = "roleService")
     private RoleService roleService;
 
+    @javax.annotation.Resource(name = "resourceService")
+    private ResourceService resourceService;
 
     /**
      * 权限考证
@@ -75,9 +74,9 @@ public class MyRealm extends AuthorizingRealm {
         if (direction.equals("2")) {
             shiroInfo = getManagerInfo(realAccount, password);
         }
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("loginName", token.getUsername());
-        params.put("loginPassword", new String(token.getPassword()));
+//        Map<String, Object> params = new HashMap<String, Object>();
+//        params.put("loginName", token.getUsername());
+//        params.put("loginPassword", new String(token.getPassword()));
 //        List<User> users = userService.select(null, params);
 //        if (null != users && users.size() > 0) {
 //            //用户名是唯一的
@@ -143,6 +142,37 @@ public class MyRealm extends AuthorizingRealm {
         if (null != managers) {
             Manager manager = managers.get(0);
 
+            ShiroInfo shiroInfo = new ShiroInfo();
+            shiroInfo.setUserId(manager.getManagerId());
+            shiroInfo.setUserName(manager.getName());
+            shiroInfo.setUserLoginName(manager.getManagerId());
+            shiroInfo.setUserLoginPassword(manager.getPassword());
+
+            Set<String> rolesSet = new HashSet<>();
+            Set<String> permissionsSet = new HashSet<>();
+
+            Map<String, Object> managerInfo = new HashMap<String, Object>() {{
+                put("managerId", manager.getId());
+            }};
+            List<Role> roles = roleService.selectByManagerInfo(managerInfo);
+            if (null != roles) {
+                for (Role role : roles) {
+                    rolesSet.add(role.getName());
+
+                    Map<String, Object> roleInfo = new HashMap<String, Object>() {{
+                        put("roleId", role.getId());
+                    }};
+                    List<Resource> resources = resourceService.selectByRoleInfo(roleInfo);
+                    if (null != resources) {
+                        for (Resource resource : resources) {
+                            permissionsSet.add(resource.getPermission());
+                        }
+                    }
+                }
+            }
+            shiroInfo.setRoles(rolesSet);
+            shiroInfo.setPermissions(permissionsSet);
+            return shiroInfo;
         }
         return null;
     }
@@ -172,7 +202,28 @@ public class MyRealm extends AuthorizingRealm {
             Set<String> rolesSet = new HashSet<>();
             Set<String> permissionsSet = new HashSet<>();
 
-//            List<Role> roles=
+            Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+                put("teacherId", teacher.getId());
+            }};
+            List<Role> roles = roleService.selectByTeacherInfo(teacherInfo);
+            if (null != roles) {
+                for (Role role : roles) {
+                    rolesSet.add(role.getName());
+
+                    Map<String, Object> roleInfo = new HashMap<String, Object>() {{
+                        put("roleId", role.getId());
+                    }};
+                    List<Resource> resources = resourceService.selectByRoleInfo(roleInfo);
+                    if (null != resources) {
+                        for (Resource resource : resources) {
+                            permissionsSet.add(resource.getPermission());
+                        }
+                    }
+                }
+            }
+            shiroInfo.setRoles(rolesSet);
+            shiroInfo.setPermissions(permissionsSet);
+            return shiroInfo;
         }
         return null;
     }
