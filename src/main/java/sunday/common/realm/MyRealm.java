@@ -9,18 +9,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
-import sunday.pojo.Manager;
-import sunday.pojo.ShiroInfo;
-import sunday.pojo.Student;
-import sunday.pojo.Teacher;
+import sunday.pojo.*;
 import sunday.service.ManagerService;
 import sunday.service.RoleService;
 import sunday.service.StudentService;
 import sunday.service.TeacherService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by yang on 2017/2/8.
@@ -165,7 +160,20 @@ public class MyRealm extends AuthorizingRealm {
             put("password", password);
         }};
         List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            Teacher teacher = teachers.get(0);
 
+            ShiroInfo shiroInfo = new ShiroInfo();
+            shiroInfo.setUserId(teacher.getTeacherId());
+            shiroInfo.setUserName(teacher.getName());
+            shiroInfo.setUserLoginName(teacher.getTeacherId());
+            shiroInfo.setUserLoginPassword(teacher.getPassword());
+
+            Set<String> rolesSet = new HashSet<>();
+            Set<String> permissionsSet = new HashSet<>();
+
+//            List<Role> roles=
+        }
         return null;
     }
 
