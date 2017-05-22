@@ -23,7 +23,6 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * 授权
-     * 在调用controller方法时，如果方法上面有shiro注解，会触发下面的方法
      *
      * @param principalCollection
      * @return
@@ -44,7 +43,6 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * 身份认证
-     * 调用subject.login(token);的时候，会触发下面的方法
      *
      * @param authenticationToken
      * @return
