@@ -3,10 +3,24 @@ package sunday.common.realm;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
+import sunday.pojo.Manager;
+import sunday.pojo.ShiroInfo;
+import sunday.pojo.Student;
+import sunday.pojo.Teacher;
+import sunday.service.ManagerService;
+import sunday.service.RoleService;
+import sunday.service.StudentService;
+import sunday.service.TeacherService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yang on 2017/2/8.
@@ -15,30 +29,32 @@ import org.springframework.stereotype.Component;
 @Component("myRealm")
 public class MyRealm extends AuthorizingRealm {
 
-//    @javax.annotation.Resource(name = "userService")
-//    private ManagerService userService;
-//
-//    @javax.annotation.Resource(name = "roleService")
-//    private RoleService roleService;
+    @javax.annotation.Resource(name = "managerService")
+    private ManagerService managerService;
+
+    @javax.annotation.Resource(name = "teacherService")
+    private TeacherService teacherService;
+
+    @javax.annotation.Resource(name = "studentService")
+    private StudentService studentService;
+
+    @javax.annotation.Resource(name = "roleService")
+    private RoleService roleService;
+
 
     /**
-     * 授权
+     * 权限考证
      *
      * @param principalCollection
      * @return
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        ShiroInfo shiroInfo = (ShiroInfo) this.getAuthenticationCacheKey(principalCollection);
 
-        return null;
-//        //返回验证信息AuthenticationInfo,包括用户角色和权限
-//        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-//        //取得cache中的用户信息
-//        ShiroInfo shiroInfo = (ShiroInfo) this.getAuthenticationCacheKey(principalCollection);
-//
-//        authorizationInfo.setRoles(shiroInfo.getRoles());
-//        authorizationInfo.setStringPermissions(shiroInfo.getPermissions());
-//
-//        return authorizationInfo;
+        authorizationInfo.setRoles(shiroInfo.getRoles());
+        authorizationInfo.setStringPermissions(shiroInfo.getPermissions());
+        return authorizationInfo;
     }
 
     /**
@@ -49,10 +65,24 @@ public class MyRealm extends AuthorizingRealm {
      * @throws AuthenticationException
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-//        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-//        Map<String, Object> params = new HashMap<String, Object>();
-//        params.put("loginName", token.getUsername());
-//        params.put("loginPassword", new String(token.getPassword()));
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        String account = token.getUsername();
+        String direction = account.substring(account.length() - 1);
+        String realAccount = account.substring(0, account.length() - 1);
+        String password = new String(token.getPassword());
+        ShiroInfo shiroInfo;
+        if (direction.equals("0")) {
+            shiroInfo = getStudentInfo(realAccount, password);
+        }
+        if (direction.equals("1")) {
+            shiroInfo = getTeacherInfo(realAccount, password);
+        }
+        if (direction.equals("2")) {
+            shiroInfo = getManagerInfo(realAccount, password);
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("loginName", token.getUsername());
+        params.put("loginPassword", new String(token.getPassword()));
 //        List<User> users = userService.select(null, params);
 //        if (null != users && users.size() > 0) {
 //            //用户名是唯一的
@@ -99,6 +129,72 @@ public class MyRealm extends AuthorizingRealm {
 //        } else {
 //            throw new UnknownAccountException();
 //        }
+        return null;
+    }
+
+    /**
+     * 管理员信息
+     *
+     * @param realAccount
+     * @param password
+     * @return
+     */
+    private ShiroInfo getManagerInfo(String realAccount, String password) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("managerId", realAccount);
+            put("password", password);
+        }};
+        List<Manager> managers = managerService.select(null, params);
+        if (null != managers) {
+            Manager manager = managers.get(0);
+
+        }
+        return null;
+    }
+
+    /**
+     * 教师信息
+     *
+     * @param realAccount
+     * @param password
+     * @return
+     */
+    private ShiroInfo getTeacherInfo(String realAccount, String password) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", realAccount);
+            put("password", password);
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+
+        return null;
+    }
+
+    /**
+     * 学生无角色无权限
+     *
+     * @param realAccount
+     * @param password
+     * @return
+     */
+    private ShiroInfo getStudentInfo(String realAccount, String password) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", realAccount);
+            put("password", password);
+        }};
+        List<Student> students = studentService.select(null, params);
+        if (null != students) {
+            Student student = students.get(0);
+
+            ShiroInfo shiroInfo = new ShiroInfo();
+            shiroInfo.setUserId(student.getStudentId());
+            shiroInfo.setUserName(student.getName());
+            shiroInfo.setUserLoginName(student.getStudentId());
+            shiroInfo.setUserLoginPassword(student.getPassword());
+            shiroInfo.setRoles(null);
+            shiroInfo.setPermissions(null);
+
+            return shiroInfo;
+        }
         return null;
     }
 

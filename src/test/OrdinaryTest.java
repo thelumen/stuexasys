@@ -1,6 +1,4 @@
 import org.junit.Test;
-import sunday.common.enums.UserTypeEnum;
-import sunday.common.kit.TypeValidateKit;
 
 import static java.lang.System.out;
 
