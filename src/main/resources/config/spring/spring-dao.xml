@@ -6,6 +6,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
+
     <!-- 导入jdbc文件 -->
     <context:property-placeholder
             location="classpath:config/jdbc/jdbc.properties"/>

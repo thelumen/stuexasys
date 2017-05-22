@@ -3,9 +3,9 @@ package sunday.mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by yang on 2017/5/15.
- * At 15:51
+ * Created by yang on 2017/5/22.
+ * At 13:56
  */
 @Repository
-public interface UserMapper {
+public interface ShiroMapper {
 }

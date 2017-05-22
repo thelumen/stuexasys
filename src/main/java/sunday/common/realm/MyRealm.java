@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class MyRealm extends AuthorizingRealm {
 
 //    @javax.annotation.Resource(name = "userService")
-//    private UserService userService;
+//    private ManagerService userService;
 //
 //    @javax.annotation.Resource(name = "roleService")
 //    private RoleService roleService;

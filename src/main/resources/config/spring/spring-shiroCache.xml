@@ -4,7 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--ehcache-Bean-->
-    <!-- shiroEhCacheManagerFactoryBean -->
     <bean id="shiroEhCacheManagerFactoryBean"
           class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="shared" value="true"/>

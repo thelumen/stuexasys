@@ -6,54 +6,49 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js" charset="utf-8"></script>
 <![endif]-->
 <!--jQuery-->
-<script src="/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
+<script src="/common/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
 <!--Bootstrap-->
 <!-- Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="/jslib/bootstrap-3.3.7/css/bootstrap.min.css"
+<link rel="stylesheet" href="/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous">
 <!-- 可选的 Bootstrap 主题文件 -->
 <link rel="stylesheet"
-      href="/jslib/bootstrap-3.3.7/css/bootstrap-theme.min.css"
+      href="/common/jslib/bootstrap-3.3.7/css/bootstrap-theme.min.css"
       integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
       crossorigin="anonymous">
 <!-- Bootstrap 核心 JavaScript 文件 -->
-<script src="/jslib/bootstrap-3.3.7/js/bootstrap.min.js"
+<script src="/common/jslib/bootstrap-3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-<!-- select插件 -->
-<link href="/jslib/bootstap-select/bootstrap-select.min.css" rel="stylesheet"
-      charset="utf-8">
-<script src="/jslib/bootstap-select/bootstrap-select.min.js"
-        charset="utf-8"></script>
 <!--bootstrap-file-upload-->
-<link href="/jslib/bootstrap-fileupload/fileinput.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-fileupload/fileinput.min.css" rel="stylesheet"
       charset="utf-8">
-<script src="/jslib/bootstrap-fileupload/fileinput.min.js"
+<script src="/common/jslib/bootstrap-fileupload/fileinput.min.js"
         charset="utf-8"></script>
-<script src="/jslib/bootstrap-fileupload/zh.js" charset="utf-8"></script>
+<script src="/common/jslib/bootstrap-fileupload/zh.js" charset="utf-8"></script>
 <%--jquery-form--%>
-<script src="/jslib/jquery-form/jquery.form.js" charset="utf-8"></script>
+<script src="/common/jslib/jquery-form/jquery.form.js" charset="utf-8"></script>
 <!-- toastr插件 -->
-<link href="/jslib/toastr/toastr.css" rel="stylesheet" charset="utf-8">
-<script src="/jslib/toastr/toastr.js" charset="utf-8"></script>
+<link href="/common/jslib/toastr/toastr.css" rel="stylesheet" charset="utf-8">
+<script src="/common/jslib/toastr/toastr.js" charset="utf-8"></script>
 <%--表单序列化--%>
-<script src="/jslib/kit/form2Json.js" charset="utf-8"></script>
+<script src="/common/jslib/kit/form2Json.js" charset="utf-8"></script>
 <%--样式--%>
-<link href="/jslib/kit/myStyle.css" rel="stylesheet" charset="utf-8">
+<link href="/common/jslib/kit/myStyle.css" rel="stylesheet" charset="utf-8">
 <!-- sweetalert插件 -->
-<link href="/jslib/sweetAlert/sweetalert.css" rel="stylesheet" charset="utf-8">
-<script src="/jslib/sweetAlert/sweetalert.min.js" charset="utf-8"></script>
+<link href="/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet" charset="utf-8">
+<script src="/common/jslib/sweetAlert/sweetalert.min.js" charset="utf-8"></script>
 <!-- bootstrap-table插件 -->
-<link href="/jslib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"
       charset="utf-8">
-<script src="/jslib/bootstrap-table/bootstrap-table.min.js"
+<script src="/common/jslib/bootstrap-table/bootstrap-table.min.js"
         charset="utf-8"></script>
-<link href="/jslib/bootstrap-table/bootstrap-editable.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-table/bootstrap-editable.css" rel="stylesheet"
       charset="utf-8">
-<script src="/jslib/bootstrap-table/bootstrap-editable.js"
+<script src="/common/jslib/bootstrap-table/bootstrap-editable.js"
         charset="utf-8"></script>
-<script src="/jslib/bootstrap-table/bootstrap-table-zh-CN.js"
+<script src="/common/jslib/bootstrap-table/bootstrap-table-zh-CN.js"
         charset="utf-8"></script>
 <script charset="UTF-8">
     $.fn.bootstrapTable.queryParams = function (params) {
@@ -63,6 +58,6 @@
     }
 </script>
 <%--select2--%>
-<script src="/jslib/select2/select2.min.js" charset="utf-8"></script>
-<link href="/jslib/select2/select2.min.css" rel="stylesheet" charset="utf-8">
-<script src="/jslib/select2/zh-CN.js" charset="utf-8"></script>
+<script src="/common/jslib/select2/select2.min.js" charset="utf-8"></script>
+<link href="/common/jslib/select2/select2.min.css" rel="stylesheet" charset="utf-8">
+<script src="/common/jslib/select2/zh-CN.js" charset="utf-8"></script>
