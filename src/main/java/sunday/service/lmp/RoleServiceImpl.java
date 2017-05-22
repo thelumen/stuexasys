@@ -17,4 +17,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {
         return null;
     }
+
+    @Override
+    public List<Role> selectByManagerInfo(Map<String, Object> managerInfo) {
+        return null;
+    }
 }
