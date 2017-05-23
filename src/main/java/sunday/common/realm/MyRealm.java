@@ -79,6 +79,29 @@ public class MyRealm extends AuthorizingRealm {
     }
 
     /**
+     * 设置角色和权限
+     *
+     * @param roles          角色集合
+     * @param rolesSet       角色
+     * @param permissionsSet 权限
+     */
+    private void setRolesAndPermissions(List<Role> roles, Set<String> rolesSet, Set<String> permissionsSet) {
+        for (Role role : roles) {
+            rolesSet.add(role.getName());
+
+            Map<String, Object> roleInfo = new HashMap<String, Object>() {{
+                put("roleId", role.getId());
+            }};
+            List<Resource> resources = resourceService.selectByRoleInfo(roleInfo);
+            if (null != resources) {
+                for (Resource resource : resources) {
+                    permissionsSet.add(resource.getPermission());
+                }
+            }
+        }
+    }
+
+    /**
      * 管理员信息
      *
      * @param realAccount
@@ -108,19 +131,7 @@ public class MyRealm extends AuthorizingRealm {
             }};
             List<Role> roles = roleService.selectByManagerInfo(managerInfo);
             if (null != roles) {
-                for (Role role : roles) {
-                    rolesSet.add(role.getName());
-
-                    Map<String, Object> roleInfo = new HashMap<String, Object>() {{
-                        put("roleId", role.getId());
-                    }};
-                    List<Resource> resources = resourceService.selectByRoleInfo(roleInfo);
-                    if (null != resources) {
-                        for (Resource resource : resources) {
-                            permissionsSet.add(resource.getPermission());
-                        }
-                    }
-                }
+                setRolesAndPermissions(roles, rolesSet, permissionsSet);
             }
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
@@ -159,19 +170,7 @@ public class MyRealm extends AuthorizingRealm {
             }};
             List<Role> roles = roleService.selectByTeacherInfo(teacherInfo);
             if (null != roles) {
-                for (Role role : roles) {
-                    rolesSet.add(role.getName());
-
-                    Map<String, Object> roleInfo = new HashMap<String, Object>() {{
-                        put("roleId", role.getId());
-                    }};
-                    List<Resource> resources = resourceService.selectByRoleInfo(roleInfo);
-                    if (null != resources) {
-                        for (Resource resource : resources) {
-                            permissionsSet.add(resource.getPermission());
-                        }
-                    }
-                }
+                setRolesAndPermissions(roles, rolesSet, permissionsSet);
             }
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
