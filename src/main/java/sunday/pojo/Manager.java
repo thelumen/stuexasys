@@ -8,16 +8,11 @@ import java.util.Date;
  */
 public final class Manager {
     private short id;
-    private final String managerId;
-    private final String password;
+    private String managerId;
+    private String password;
     private String name;
     private Date logintime;
     private String ip;
-
-    public Manager(String managerId, String password) {
-        this.managerId = managerId;
-        this.password = password;
-    }
 
     public String getManagerId() {
         return managerId;
@@ -25,6 +20,14 @@ public final class Manager {
 
     public short getId() {
         return id;
+    }
+
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setId(short id) {

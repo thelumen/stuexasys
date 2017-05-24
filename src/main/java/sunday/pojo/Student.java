@@ -7,21 +7,27 @@ package sunday.pojo;
 public final class Student {
     //自增
     private long id;
-    private final String studentId;
-    private final String password;
+    private String studentId;
+    private String password;
     private String name;
-    private final String specialtyId;
+    private String specialtyId;
     private String gender;
     private String cellphone;
 
-    public Student(String studentId, String password, String specialtyId) {
-        this.studentId = studentId;
-        this.password = password;
-        this.specialtyId = specialtyId;
-    }
-
     public String getStudentId() {
         return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setSpecialtyId(String specialtyId) {
+        this.specialtyId = specialtyId;
     }
 
     public String getPassword() {

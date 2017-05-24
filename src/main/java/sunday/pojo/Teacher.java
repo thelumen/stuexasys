@@ -9,8 +9,8 @@ import java.util.Date;
 public final class Teacher {
     //自增
     private short id;
-    private final String teacherId;
-    private final String password;
+    private String teacherId;
+    private String password;
     private String name;
     private String gender;
     private String position;
@@ -18,13 +18,20 @@ public final class Teacher {
     private Date logintime;
     private String ip;
 
-    public Teacher(String teacherId, String password) {
-        this.teacherId = teacherId;
-        this.password = password;
-    }
-
     public String getTeacherId() {
         return teacherId;
+    }
+
+    public void setId(short id) {
+        this.id = id;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {
@@ -33,10 +40,6 @@ public final class Teacher {
 
     public short getId() {
         return id;
-    }
-
-    public void setId(short id) {
-        this.id = id;
     }
 
     public String getName() {
