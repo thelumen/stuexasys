@@ -11,6 +11,14 @@ import java.util.Map;
  */
 public interface RoleService {
     /**
+     * 新增角色
+     *
+     * @param role
+     * @return
+     */
+    int insert(Role role);
+
+    /**
      * 查询教师角色
      *
      * @param teacherInfo

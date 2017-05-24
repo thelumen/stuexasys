@@ -1,6 +1,7 @@
 package sunday.service.lmp;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.RoleMapper;
 import sunday.pojo.Role;
 import sunday.service.RoleService;
@@ -16,6 +17,12 @@ import java.util.Map;
 public class RoleServiceImpl implements RoleService {
     @javax.annotation.Resource(name = "roleMapper")
     private RoleMapper roleMapper;
+
+    @Override
+    @Transactional
+    public int insert(Role role) {
+        return roleMapper.insert(role);
+    }
 
     @Override
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {

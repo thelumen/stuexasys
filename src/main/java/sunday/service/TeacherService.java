@@ -12,6 +12,14 @@ import java.util.Map;
  */
 public interface TeacherService {
     /**
+     * 新增教师
+     *
+     * @param teacher
+     * @return
+     */
+    int insert(Teacher teacher);
+
+    /**
      * 查询教师
      *
      * @param page

@@ -3,6 +3,7 @@ package sunday.service.lmp;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.ManagerMapper;
 import sunday.pojo.Manager;
 import sunday.service.ManagerService;
@@ -19,6 +20,12 @@ public class ManagerServiceImpl implements ManagerService {
 
     @javax.annotation.Resource(name = "managerMapper")
     private ManagerMapper managerMapper;
+
+    @Override
+    @Transactional
+    public int insert(Manager manager) {
+        return managerMapper.insert(manager);
+    }
 
     @Override
     public List<Manager> select(Page page, Map<String, Object> params) {

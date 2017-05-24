@@ -13,10 +13,19 @@ import java.util.Map;
 @Repository
 public interface TeacherMapper {
     /**
+     * 新增教师
+     *
+     * @param teacher
+     * @return
+     */
+    int insert(Teacher teacher);
+
+    /**
      * 查询教师
      *
      * @param params
      * @return
      */
     List<Teacher> select(Map<String, Object> params);
+
 }

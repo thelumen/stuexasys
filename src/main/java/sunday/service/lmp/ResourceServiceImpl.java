@@ -1,6 +1,7 @@
 package sunday.service.lmp;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.ResourceMapper;
 import sunday.pojo.Resource;
 import sunday.service.ResourceService;
@@ -17,6 +18,12 @@ public class ResourceServiceImpl implements ResourceService {
 
     @javax.annotation.Resource(name = "resourceMapper")
     private ResourceMapper resourceMapper;
+
+    @Override
+    @Transactional
+    public int insert(Resource resource) {
+        return resourceMapper.insert(resource);
+    }
 
     @Override
     public List<Resource> selectByRoleInfo(Map<String, Object> roleInfo) {

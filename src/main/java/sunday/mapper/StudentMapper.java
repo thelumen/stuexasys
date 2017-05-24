@@ -13,10 +13,20 @@ import java.util.Map;
 @Repository
 public interface StudentMapper {
     /**
+     * 新增学生
+     *
+     * @param student
+     * @return
+     */
+    int insert(Student student);
+
+    /**
      * 查询学生
      *
      * @param params
      * @return
      */
     List<Student> select(Map<String, Object> params);
+
+
 }

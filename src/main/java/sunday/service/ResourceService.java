@@ -11,6 +11,14 @@ import java.util.Map;
  */
 public interface ResourceService {
     /**
+     * 新增资源
+     *
+     * @param resource
+     * @return
+     */
+    int insert(Resource resource);
+
+    /**
      * 以角色信息查询权限
      *
      * @param roleInfo

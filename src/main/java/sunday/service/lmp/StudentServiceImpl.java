@@ -3,6 +3,7 @@ package sunday.service.lmp;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.StudentMapper;
 import sunday.pojo.Student;
 import sunday.service.StudentService;
@@ -19,6 +20,12 @@ public class StudentServiceImpl implements StudentService {
 
     @javax.annotation.Resource(name = "studentMapper")
     private StudentMapper studentMapper;
+
+    @Override
+    @Transactional
+    public int insert(Student student) {
+        return studentMapper.insert(student);
+    }
 
     @Override
     public List<Student> select(Page page, Map<String, Object> params) {

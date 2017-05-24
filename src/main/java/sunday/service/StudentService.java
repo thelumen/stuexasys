@@ -12,6 +12,14 @@ import java.util.Map;
  */
 public interface StudentService {
     /**
+     * 新增学生
+     *
+     * @param student
+     * @return
+     */
+    int insert(Student student);
+
+    /**
      * 查询学生
      *
      * @param page

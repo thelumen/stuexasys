@@ -12,6 +12,14 @@ import java.util.Map;
  */
 public interface ManagerService {
     /**
+     * 新增管理员
+     *
+     * @param manager
+     * @return
+     */
+    int insert(Manager manager);
+
+    /**
      * 查询管理员
      *
      * @param page

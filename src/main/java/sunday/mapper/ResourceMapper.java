@@ -13,10 +13,20 @@ import java.util.Map;
 @Repository
 public interface ResourceMapper {
     /**
+     * 新增资源
+     *
+     * @param resource
+     * @return
+     */
+    int insert(Resource resource);
+
+    /**
      * 查询角色对应资源
      *
      * @param roleInfo
      * @return
      */
     List<Resource> selectByRoleInfo(Map<String, Object> roleInfo);
+
+
 }
