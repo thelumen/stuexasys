@@ -13,6 +13,14 @@ import java.util.Map;
 @Repository
 public interface RoleMapper {
     /**
+     * 查询角色
+     *
+     * @param params
+     * @return
+     */
+    List<Role> select(Map<String, Object> params);
+
+    /**
      * 新增角色
      *
      * @param role
@@ -36,5 +44,12 @@ public interface RoleMapper {
      */
     List<Role> selectByManagerInfo(Map<String, Object> managerInfo);
 
-
+    /**
+     * 教师与角色相关联
+     *
+     * @param teacherId
+     * @param roleId
+     * @return
+     */
+    int teacherLink2Role(short teacherId, short roleId);
 }

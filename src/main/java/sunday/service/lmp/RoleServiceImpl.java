@@ -25,6 +25,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> select(Map<String, Object> params) {
+        List<Role> roles = roleMapper.select(params);
+        if (null != roles && roles.size() > 0) {
+            return roles;
+        }
+        return null;
+    }
+
+    @Override
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {
         List<Role> roles = roleMapper.selectByTeacherInfo(teacherInfo);
         if (null != roles && roles.size() > 0) {
@@ -40,5 +49,11 @@ public class RoleServiceImpl implements RoleService {
             return roles;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public int teacherLink2Role(short teacherId, short roleId) {
+        return roleMapper.teacherLink2Role(teacherId, roleId);
     }
 }

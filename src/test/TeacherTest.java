@@ -1,11 +1,17 @@
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sunday.common.kit.EncryptKit;
 import sunday.pojo.Teacher;
 import sunday.service.TeacherService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.System.out;
 
@@ -18,6 +24,43 @@ import static java.lang.System.out;
 public class TeacherTest {
     @javax.annotation.Resource(name = "teacherService")
     private TeacherService teacherService;
+
+    //条件查询
+    @Test
+    public void t4() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("name", "辽工教师");
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        for (Teacher teacher : teachers) {
+            System.out.print(" " + teacher.getTeacherId());
+        }
+    }
+
+    //测试map数据查询
+    @Test
+    public void t3() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", "140400");
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (teachers != null) {
+            out.print(teachers.get(0).getId());
+        }
+    }
+
+    //添加教师数据
+    @Test
+    public void t2() {
+        for (int i = 0; i < 3; i++) {
+            Teacher teacher = new Teacher();
+            teacher.setTeacherId("14040" + i);
+            teacher.setPassword(EncryptKit.md5("12345"));
+            if (teacherService.insert(teacher) > 0) {
+                out.print(i + " 成功！ ");
+            }
+        }
+    }
 
     //测试新增和查询功能
     @Test

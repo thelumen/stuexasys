@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group help">
                         <input type="password" class="form-control"
-                               minlength="6" maxlength="18"
+                               minlength="3" maxlength="18"
                                name="password" required
                                placeholder="请填写您的密码">
                     </div>

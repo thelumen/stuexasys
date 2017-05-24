@@ -12,6 +12,7 @@ import sunday.service.*;
 import java.util.*;
 
 /**
+ * 不做多realm的形式了
  * Created by yang on 2017/2/8.
  * At 13:36
  */
