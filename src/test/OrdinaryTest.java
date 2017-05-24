@@ -1,4 +1,5 @@
 import org.junit.Test;
+import sunday.common.kit.ClassKit;
 
 /**
  * Created by yang on 2017/5/22.

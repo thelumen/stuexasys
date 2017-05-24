@@ -1,6 +1,7 @@
 package sunday.service.lmp;
 
 import org.springframework.stereotype.Service;
+import sunday.mapper.RoleMapper;
 import sunday.pojo.Role;
 import sunday.service.RoleService;
 
@@ -13,13 +14,24 @@ import java.util.Map;
  */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
+    @javax.annotation.Resource(name = "roleMapper")
+    private RoleMapper roleMapper;
+
     @Override
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {
+        List<Role> roles = roleMapper.selectByTeacherInfo(teacherInfo);
+        if (null != roles && roles.size() > 0) {
+            return roles;
+        }
         return null;
     }
 
     @Override
     public List<Role> selectByManagerInfo(Map<String, Object> managerInfo) {
+        List<Role> roles = roleMapper.selectByManagerInfo(managerInfo);
+        if (null != roles && roles.size() > 0) {
+            return roles;
+        }
         return null;
     }
 }

@@ -1,7 +1,9 @@
 package sunday.service.lmp;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import sunday.mapper.ManagerMapper;
 import sunday.pojo.Manager;
 import sunday.service.ManagerService;
 
@@ -14,8 +16,19 @@ import java.util.Map;
  */
 @Service("managerService")
 public class ManagerServiceImpl implements ManagerService {
+
+    @javax.annotation.Resource(name = "managerMapper")
+    private ManagerMapper managerMapper;
+
     @Override
     public List<Manager> select(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<Manager> managers = managerMapper.select(params);
+        if (null != managers && managers.size() > 0) {
+            return managers;
+        }
         return null;
     }
 }

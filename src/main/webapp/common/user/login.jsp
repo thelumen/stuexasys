@@ -10,9 +10,6 @@
 <head>
     <title>登录</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
-    <script>
-
-    </script>
 </head>
 <body>
 <div class="container">
@@ -38,7 +35,6 @@
                     <div class="form-group help">
                         <input type="password" class="form-control"
                                minlength="6" maxlength="18"
-                               id="element_modal_login_form_password"
                                name="password" required
                                placeholder="请填写您的密码">
                     </div>
