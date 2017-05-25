@@ -19,7 +19,7 @@
                     id="teacher_course_select_course"
                     style="width: 200px"></select></label>
             <label style="margin-left: 20px">请选择您的 <strong
-                    style="color: #985f0d">职教班级</strong>：</strong>
+                    style="color: #985f0d">教课班级</strong>：</strong>
                 <select id="teacher_course_select_specialty" name="specialtyId"
                         style="width: 200px"></select></label><br>
             <label>开课时间：<input name="starttime" type="date" required></label>
@@ -56,15 +56,13 @@
         >
             <thead>
             <tr>
-                <th data-field="id" data-visible="false">教师ID</th>
-                <th data-field="section" data-sortable="true" data-width="50">
-                    章节
-                </th>
-                <th data-field="name" data-width="400">教师</th>
-                <th data-field="que1" data-width="200">课程</th>
-                <th data-field="que2" data-width="200">专业</th>
-                <th data-field="que3" data-width="200">开课时间</th>
-                <th data-field="que4" data-width="200">结课时间</th>
+                <th data-field="teacherId" data-visible="false">教师ID</th>
+                <th data-field="teacherName" data-width="400">教师</th>
+                <th data-field="courseName" data-width="200">课程</th>
+                <th data-field="specialtyName" data-width="200">专业</th>
+                <th data-field="starttime" data-width="200">开课时间</th>
+                <th data-field="endtime" data-width="200">结课时间</th>
+                <th data-field="on" data-width="200">教课中？</th>
                 <th data-formatter="operateSingle" data-width="150">操作
                 </th>
             </tr>
@@ -97,8 +95,19 @@
     function takeTheCourse() {
         var data = $('#teacher_course_form').serializeObject();
         if ($("[name='endtime']").val() !== '' && $("[name='starttime']").val() !== '') {
+//            alert(JSON.stringify(data))
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/takeCourse',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (d) {
 
-            alert(JSON.stringify(data))
+                }
+            });
+        } else {
+            swal("注意..", "不要忘记填写开课和结课时间哦 :)", "error");
         }
     }
     //操作按钮

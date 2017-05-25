@@ -1,7 +1,9 @@
 package sunday.service;
 
+import com.github.pagehelper.Page;
 import sunday.pojo.Course;
 import sunday.pojo.Specialty;
+import sunday.pojo.dto.TakenInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -42,4 +44,13 @@ public interface SpeCouService {
      * @return
      */
     List<Course> selectCourse(Map<String, Object> params);
+
+    /**
+     * 查询选课表
+     *
+     * @param page
+     * @param params
+     * @return
+     */
+    List<TakenInfo> selectTakenInfo(Page page, Map<String, Object> params);
 }

@@ -1,10 +1,12 @@
 package sunday.service.lmp;
 
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.SpeCouMapper;
 import sunday.pojo.Course;
 import sunday.pojo.Specialty;
+import sunday.pojo.dto.TakenInfo;
 import sunday.service.SpeCouService;
 
 import java.util.List;
@@ -46,6 +48,15 @@ public class SpeCouServiceImp implements SpeCouService {
         List<Course> courses = speCouMapper.selectCourse(params);
         if (null != courses && courses.size() > 0) {
             return courses;
+        }
+        return null;
+    }
+
+    @Override
+    public List<TakenInfo> selectTakenInfo(Page page, Map<String, Object> params) {
+        List<TakenInfo> infoList = speCouMapper.selectTakenInfo(params);
+        if (null != infoList && infoList.size() > 0) {
+            return infoList;
         }
         return null;
     }

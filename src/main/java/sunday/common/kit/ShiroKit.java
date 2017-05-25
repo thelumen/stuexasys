@@ -3,7 +3,9 @@ package sunday.common.kit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ThreadContext;
 import org.slf4j.Logger;
 
 /**
@@ -18,12 +20,26 @@ public final class ShiroKit {
     }
 
     /**
-     * 获取subje
+     * 获取subject
      *
      * @return
      */
     public static Subject getSubject() {
-        return SecurityUtils.getSubject();
+        Subject subject = ThreadContext.getSubject();
+        if (null == subject) {
+            subject = (new Subject.Builder()).buildSubject();
+            ThreadContext.bind(subject);
+        }
+        return subject;
+    }
+
+    /**
+     * 获取session
+     *
+     * @return
+     */
+    public static Session getSession() {
+        return getSubject().getSession();
     }
 
     /**

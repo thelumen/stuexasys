@@ -2,6 +2,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sunday.common.kit.EncryptKit;
+import sunday.common.kit.ShiroKit;
 import sunday.pojo.Role;
 import sunday.service.RoleService;
 
@@ -18,6 +20,11 @@ import static java.lang.System.out;
 public class ShiroTest {
     @javax.annotation.Resource(name = "roleService")
     private RoleService roleService;
+
+    //模拟登陆
+    @Test
+    public void t2() {
+    }
 
     //新增+查询角色
     @Test

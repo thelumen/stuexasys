@@ -6,6 +6,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
+import sunday.common.kit.ShiroKit;
 import sunday.pojo.*;
 import sunday.service.*;
 
@@ -73,6 +74,7 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo = getManagerInfo(realAccount, password);
         }
         if (null != shiroInfo) {
+            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
             return new SimpleAuthenticationInfo(shiroInfo, shiroInfo.getUserLoginPassword(), getName());
         } else {
             throw new UnknownAccountException();
