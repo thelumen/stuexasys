@@ -12,7 +12,6 @@
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <link rel="stylesheet" href="/teacher/${category}/${name}.css">
-    <script src="/teacher/${category}/${name}.js" charset="UTF-8"></script>
     <script>
         function logout() {
             swal({
@@ -57,7 +56,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/system/insertQues">选课</a>
+                                <a href="${pageContext.request.contextPath}/teacher/cources">课程管理</a>
                             </li>
                             <li class="divider"></li>
                             <li>
