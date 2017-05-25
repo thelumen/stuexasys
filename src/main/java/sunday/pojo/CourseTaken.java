@@ -53,4 +53,15 @@ public final class CourseTaken {
     public void setEndtime(Date endtime) {
         this.endtime = endtime;
     }
+
+    @Override
+    public String toString() {
+        return "CourseTaken{" +
+                "teacherId='" + teacherId + '\'' +
+                ", courseId='" + courseId + '\'' +
+                ", specialtyId='" + specialtyId + '\'' +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                '}';
+    }
 }

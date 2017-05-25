@@ -50,11 +50,23 @@
         </where>
     </select>
 
+    <!--新增选课信息-->
+    <insert id="insertCourseTaken" parameterType="sunday.pojo.CourseTaken">
+        INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
+        VALUES (#{teacherId,jdbcType=CHAR},#{courseId,jdbcType=CHAR},#{specialtyId,jdbcType=CHAR},#{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
+    </insert>
+
     <!--查询选课信息-->
     <select id="selectTakenInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.dto.TakenInfo">
-        SELECT t.name AS teacherName ,c.name AS courseName,s.name AS specialtyName,l.starttime AS starttime,l.endtime AS endtime
+        SELECT t.name AS teacherName ,c.name AS courseName,s.name AS
+        specialtyName,l.starttime AS starttime,l.endtime AS endtime
         FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
-        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND l.specialtyId=s.specialtyId AND l.teacherId=#{teacherId,jdbcType=CHAR}
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
+        l.specialtyId=s.specialtyId
+        <if test="teacherId != null">
+            AND l.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
     </select>
+
 </mapper>

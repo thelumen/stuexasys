@@ -1,5 +1,7 @@
 package sunday.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -9,20 +11,22 @@ import java.util.Date;
  * At 14:56
  */
 public final class TakenInfo {
-    private short teacherId;
+    private String teacherId;
     private String teacherName;
     private String courseName;
     private String specialtyName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date starttime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endtime;
     //课程结束与否，false：结束了，true：没有
     private boolean on;
 
-    public short getTeacherId() {
+    public String getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(short teacherId) {
+    public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
 

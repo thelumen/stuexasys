@@ -6,6 +6,7 @@ import sunday.common.kit.EncryptKit;
 import sunday.pojo.Course;
 import sunday.pojo.Specialty;
 import sunday.pojo.Teacher;
+import sunday.pojo.dto.TakenInfo;
 import sunday.service.SpeCouService;
 import sunday.service.TeacherService;
 
@@ -28,10 +29,17 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
-
+    //查询教师-课程-班级信息
     @Test
     public void t7() {
-        out.print(new Byte("4"));
+        List<TakenInfo> infoList = speCouService.selectTakenInfo(null, null);
+        if (infoList != null) {
+            for (TakenInfo info : infoList) {
+                out.print(" " + info.getTeacherName() + " " + info.getCourseName() + " " + info.getSpecialtyName());
+            }
+        } else {
+            out.print("无内容");
+        }
     }
 
     //测试新增和查询课程功能

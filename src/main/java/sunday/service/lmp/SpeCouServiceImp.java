@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.SpeCouMapper;
 import sunday.pojo.Course;
+import sunday.pojo.CourseTaken;
 import sunday.pojo.Specialty;
 import sunday.pojo.dto.TakenInfo;
 import sunday.service.SpeCouService;
@@ -59,5 +60,11 @@ public class SpeCouServiceImp implements SpeCouService {
             return infoList;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public int insertCourseTaken(CourseTaken courseTaken) {
+        return speCouMapper.insertCourseTaken(courseTaken);
     }
 }

@@ -36,7 +36,7 @@
     <hr class="divider"/>
     <br><br>
     <div class="table-responsive">
-        <table id="shiro_resource_singleTable"
+        <table id="teacher_course_table"
                data-toggle="table"
                data-search="true"
                data-show-refresh="true"
@@ -103,7 +103,13 @@
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (d) {
-
+                    if (d.isSuccess) {
+                        swal("恭喜..", "添加新课程成功！ :)", "success");
+                        $('#teacher_course_table').bootstrapTable("refresh");
+                    }
+                },
+                error: function () {
+                    swal("Failed..", "不能重复添加相同的课程和班级...", "error");
                 }
             });
         } else {
