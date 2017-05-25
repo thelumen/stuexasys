@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-05-25 14:39:41
+Date: 2017-05-25 18:50:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -306,7 +306,7 @@ CREATE TABLE `com_teacher_l_course` (
   `courseId` char(8) NOT NULL COMMENT '课程id',
   `specialtyId` char(6) NOT NULL COMMENT '专业id',
   `starttime` date NOT NULL COMMENT '课程开始时间',
-  `endtime` date NOT NULL,
+  `endtime` date NOT NULL COMMENT '课程结束时间',
   PRIMARY KEY (`teacherId`,`courseId`,`specialtyId`),
   KEY `courseId` (`courseId`),
   KEY `teacherId` (`teacherId`),
@@ -319,6 +319,18 @@ CREATE TABLE `com_teacher_l_course` (
 -- ----------------------------
 -- Records of com_teacher_l_course
 -- ----------------------------
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140400', '2017-05-17', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2017-05-17', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140403', '2017-05-09', '2017-05-31');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140404', '2017-05-23', '2017-05-30');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140403', '2017-05-23', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140403', '2017-05-23', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000004', '140405', '2017-05-23', '2017-05-31');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140400', '2017-05-23', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140401', '2017-05-23', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140402', '2017-05-23', '2017-05-31');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140403', '2017-05-23', '2017-05-31');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140405', '2017-05-23', '2017-05-23');
 
 -- ----------------------------
 -- Table structure for com_teacher_l_role
