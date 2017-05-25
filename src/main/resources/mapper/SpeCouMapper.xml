@@ -67,6 +67,12 @@
         <if test="teacherId != null">
             AND l.teacherId=#{teacherId,jdbcType=CHAR}
         </if>
+        <if test="courseName != null">
+            AND c.name=#{courseName,jdbcType=CHAR}
+        </if>
+        <if test="specialtyName != null">
+            AND s.name=#{specialtyName,jdbcType=CHAR}
+        </if>
     </select>
 
 </mapper>

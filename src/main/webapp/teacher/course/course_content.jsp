@@ -118,7 +118,7 @@
     }
     function operateSingle(value, row) {
         var html = [];
-        html.push('<button class="btn btn-warning pull-left" onclick="location.href=\'${pageContext.request.contextPath}/teacher/course/{0}\'">编辑</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-warning pull-left" onclick="location.href=\'${pageContext.request.contextPath}/teacher/course/{0}\'">编辑</button>'.replace('{0}', row.teacherId + "&" + row.courseName + "&" + row.specialtyName));
         html.push('<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.id));
         return html.join('');
     }

@@ -77,4 +77,17 @@ public final class TakenInfo {
     public void setOn(boolean on) {
         this.on = on;
     }
+
+    @Override
+    public String toString() {
+        return "TakenInfo{" +
+                "teacherId='" + teacherId + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", specialtyName='" + specialtyName + '\'' +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", on=" + on +
+                '}';
+    }
 }

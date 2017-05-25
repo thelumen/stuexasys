@@ -13,6 +13,7 @@ import sunday.pojo.dto.TakenInfo;
 import sunday.service.SpeCouService;
 import sunday.service.TeacherService;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -122,21 +123,29 @@ public class TeacherController {
     /**
      * 跳转至选课编辑页面
      *
-     * @param id
+     * @param content
      * @param model
      * @return
      */
-    @RequestMapping(value = "/course/{id}", method = RequestMethod.GET)
-    public String editCourseTaken(@PathVariable("id") String id, Model model) {
+    @RequestMapping(value = "/course/{content}", method = RequestMethod.GET)
+    public String editCourseTaken(@PathVariable("content") String content, Model model) throws UnsupportedEncodingException {
+        //此数组有三个数值，teacherId+courseName+specialtyName
+        String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
         Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", id);
+            put("teacherId", target[0]);
+            put("courseName", target[1]);
+            put("specialtyName", target[2]);
         }};
-        //有问题！！！一个信息无法精确到一条记录!!!
         List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
         model.addAttribute("courseTaken", infoList.get(0));
         return "/teacher/editCourseTaken/editCourseTakenProxy";
     }
 
+    /**
+     * 修改选课信息
+     *
+     * @param courseTaken
+     */
     @RequestMapping(value = "/editCourse", method = RequestMethod.POST)
     @ResponseBody
     public void editCourseTaken(@RequestBody CourseTaken courseTaken) {

@@ -33,6 +33,8 @@ public class TeacherTest {
     public void t8() {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", "140400");
+            put("courseName", "数据结构0");
+            put("specialtyName", "计算机1班");
         }};
         List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
         if (infoList != null) {
