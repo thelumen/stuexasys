@@ -3,6 +3,7 @@ package sunday.service.lmp;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.SpeCouMapper;
+import sunday.pojo.Course;
 import sunday.pojo.Specialty;
 import sunday.service.SpeCouService;
 
@@ -30,6 +31,21 @@ public class SpeCouServiceImp implements SpeCouService {
         List<Specialty> specialties = speCouMapper.selectSpecialty(params);
         if (null != specialties && specialties.size() > 0) {
             return specialties;
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public int insertCourse(Course course) {
+        return speCouMapper.insertCourse(course);
+    }
+
+    @Override
+    public List<Course> selectCourse(Map<String, Object> params) {
+        List<Course> courses = speCouMapper.selectCourse(params);
+        if (null != courses && courses.size() > 0) {
+            return courses;
         }
         return null;
     }

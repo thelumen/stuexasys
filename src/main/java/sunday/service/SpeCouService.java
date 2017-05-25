@@ -1,5 +1,6 @@
 package sunday.service;
 
+import sunday.pojo.Course;
 import sunday.pojo.Specialty;
 
 import java.util.List;
@@ -25,4 +26,20 @@ public interface SpeCouService {
      * @return
      */
     List<Specialty> selectSpecialty(Map<String, Object> params);
+
+    /**
+     * 新增课程
+     *
+     * @param course
+     * @return
+     */
+    int insertCourse(Course course);
+
+    /**
+     * 查询课程
+     *
+     * @param params
+     * @return
+     */
+    List<Course> selectCourse(Map<String, Object> params);
 }

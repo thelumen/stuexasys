@@ -3,6 +3,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.common.kit.EncryptKit;
+import sunday.pojo.Course;
 import sunday.pojo.Specialty;
 import sunday.pojo.Teacher;
 import sunday.service.SpeCouService;
@@ -26,6 +27,36 @@ public class TeacherTest {
 
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
+
+
+    @Test
+    public void t7() {
+        out.print(new Byte("4"));
+    }
+
+    //测试新增和查询课程功能
+    @Test
+    public void t6() {
+        for (int i = 0; i < 8; i++) {
+            Course course = new Course();
+            course.setCourseId("1000000" + i);
+            course.setName("数据结构" + i);
+            course.setCredit(new Byte("2"));
+            course.setPeriod(new Byte("12"));
+            if (speCouService.insertCourse(course) > 0) {
+                out.print(i + "：成功 ");
+            }
+        }
+//        Map<String, Object> params = new HashMap<String, Object>() {{
+//            put("period", new Byte("12"));
+//        }};
+        List<Course> courses = speCouService.selectCourse(null);
+        if (courses != null) {
+            for (Course course : courses) {
+                out.print(" " + course.getName());
+            }
+        }
+    }
 
     //测试新增和查询班级功能
     @Test

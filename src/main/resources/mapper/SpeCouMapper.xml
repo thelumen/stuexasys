@@ -22,4 +22,31 @@
             </if>
         </where>
     </select>
+
+    <!--新增课程-->
+    <insert id="insertCourse" parameterType="sunday.pojo.Course">
+        INSERT INTO com_course(courseId,name,period,credit)
+        VALUES (#{courseId,jdbcType=CHAR},#{name,jdbcType=CHAR},#{period,jdbcType=TINYINT},#{credit,jdbcType=TINYINT})
+    </insert>
+
+    <!--查询课程-->
+    <select id="selectCourse" parameterType="java.util.Map"
+            resultType="sunday.pojo.Course">
+        SELECT *
+        FROM com_course
+        <where>
+            <if test="courseId != null">
+                courseId=#{courseId,jdbcType=CHAR}
+            </if>
+            <if test="name != null">
+                AND name=#{name,jdbcType=CHAR}
+            </if>
+            <if test="period != null">
+                AND period=#{period,jdbcType=TINYINT}
+            </if>
+            <if test="credit != null">
+                AND credit=#{credit,jdbcType=TINYINT}
+            </if>
+        </where>
+    </select>
 </mapper>
