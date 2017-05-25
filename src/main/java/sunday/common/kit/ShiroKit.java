@@ -18,6 +18,15 @@ public final class ShiroKit {
     }
 
     /**
+     * 获取subje
+     *
+     * @return
+     */
+    public static Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
+
+    /**
      * 登录
      *
      * @param account  账号+用户类型

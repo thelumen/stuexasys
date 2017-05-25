@@ -27,6 +27,17 @@ public class ShiroController {
     }
 
     /**
+     * 退出
+     *
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String logout() {
+        ShiroKit.getSubject().logout();
+        return "/student/main/main";
+    }
+
+    /**
      * 登录
      *
      * @param account  账号
