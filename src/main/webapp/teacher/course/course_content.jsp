@@ -116,15 +116,13 @@
             swal("注意..", "不要忘记填写开课和结课时间哦 :)", "error");
         }
     }
-    //操作按钮
     function operateSingle(value, row) {
         var html = [];
-        html.push('<button class="btn btn-warning pull-left" onclick="location.href=\'${pageContext.request.contextPath}/system/updateSingle/{0}\'">编辑</button>'.replace('{0}', row.id));
-        html.push('<button class="btn btn-danger pull-right" onclick="delSingle(\'{0}\');">删除</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-warning pull-left" onclick="location.href=\'${pageContext.request.contextPath}/teacher/course/{0}\'">编辑</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.id));
         return html.join('');
     }
-    //删除选择题
-    function delSingle(id) {
+    function deleteCourseTaken(id) {
         swal({
                 title: "Are you sure?",
                 text: "Your will be able to recover this Question!",
@@ -156,7 +154,6 @@
                 }
             });
     }
-    //查看信息详情
     function detailFormatter(index, row) {
         var html = [];
         $.each(row, function (key, value) {
