@@ -131,6 +131,7 @@ public class TeacherController {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", id);
         }};
+        //有问题！！！一个信息无法精确到一条记录!!!
         List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
         model.addAttribute("courseTaken", infoList.get(0));
         return "/teacher/editCourseTaken/editCourseTakenProxy";

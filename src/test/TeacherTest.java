@@ -29,6 +29,21 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
+    @Test
+    public void t8() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", "140400");
+        }};
+        List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
+        if (infoList != null) {
+            for (TakenInfo info : infoList) {
+                out.print(" " + info.getTeacherName() + " " + info.getCourseName() + " " + info.getSpecialtyName());
+            }
+        } else {
+            out.print("无内容");
+        }
+    }
+
     //查询教师-课程-班级信息
     @Test
     public void t7() {
