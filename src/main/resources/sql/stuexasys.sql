@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-05-24 21:33:16
+Date: 2017-05-25 14:39:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,11 +45,19 @@ CREATE TABLE `com_course` (
   `credit` tinyint(6) DEFAULT NULL COMMENT '学分',
   PRIMARY KEY (`id`),
   UNIQUE KEY `com_course` (`courseId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='课程表';
 
 -- ----------------------------
 -- Records of com_course
 -- ----------------------------
+INSERT INTO `com_course` VALUES ('1', '10000000', '数据结构0', '12', '2');
+INSERT INTO `com_course` VALUES ('2', '10000001', '数据结构1', '12', '2');
+INSERT INTO `com_course` VALUES ('3', '10000002', '数据结构2', '12', '2');
+INSERT INTO `com_course` VALUES ('4', '10000003', '数据结构3', '12', '2');
+INSERT INTO `com_course` VALUES ('5', '10000004', '数据结构4', '12', '2');
+INSERT INTO `com_course` VALUES ('6', '10000005', '数据结构5', '12', '2');
+INSERT INTO `com_course` VALUES ('7', '10000006', '数据结构6', '12', '2');
+INSERT INTO `com_course` VALUES ('8', '10000007', '数据结构7', '12', '2');
 
 -- ----------------------------
 -- Table structure for com_examinfo
@@ -113,8 +121,8 @@ CREATE TABLE `com_manager` (
   `managerId` char(6) NOT NULL COMMENT '管理员id',
   `password` char(50) NOT NULL COMMENT '登录密码',
   `name` char(50) DEFAULT '管理员' COMMENT '姓名',
-  `logintime` datetime NOT NULL COMMENT '登录时间',
-  `ip` char(15) NOT NULL COMMENT '登录ip',
+  `logintime` datetime DEFAULT NULL COMMENT '登录时间',
+  `ip` char(15) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`),
   UNIQUE KEY `managerId` (`managerId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='管理员表';
@@ -171,7 +179,7 @@ CREATE TABLE `com_role` (
   `remark` varchar(250) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of com_role
@@ -231,11 +239,17 @@ CREATE TABLE `com_specialty` (
   `name` char(50) NOT NULL COMMENT '专业名称',
   PRIMARY KEY (`id`),
   UNIQUE KEY `com_specialty` (`specialtyId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='专业表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='专业表';
 
 -- ----------------------------
 -- Records of com_specialty
 -- ----------------------------
+INSERT INTO `com_specialty` VALUES ('1', '140400', '计算机0班');
+INSERT INTO `com_specialty` VALUES ('2', '140401', '计算机1班');
+INSERT INTO `com_specialty` VALUES ('3', '140402', '计算机2班');
+INSERT INTO `com_specialty` VALUES ('4', '140403', '计算机3班');
+INSERT INTO `com_specialty` VALUES ('5', '140404', '计算机4班');
+INSERT INTO `com_specialty` VALUES ('6', '140405', '计算机5班');
 
 -- ----------------------------
 -- Table structure for com_student
@@ -291,6 +305,8 @@ CREATE TABLE `com_teacher_l_course` (
   `teacherId` char(6) NOT NULL COMMENT '教师id',
   `courseId` char(8) NOT NULL COMMENT '课程id',
   `specialtyId` char(6) NOT NULL COMMENT '专业id',
+  `starttime` date NOT NULL COMMENT '课程开始时间',
+  `endtime` date NOT NULL,
   PRIMARY KEY (`teacherId`,`courseId`,`specialtyId`),
   KEY `courseId` (`courseId`),
   KEY `teacherId` (`teacherId`),
