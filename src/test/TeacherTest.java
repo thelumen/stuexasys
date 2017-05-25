@@ -1,12 +1,11 @@
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.common.kit.EncryptKit;
+import sunday.pojo.Specialty;
 import sunday.pojo.Teacher;
+import sunday.service.SpeCouService;
 import sunday.service.TeacherService;
 
 import java.util.HashMap;
@@ -24,6 +23,32 @@ import static java.lang.System.out;
 public class TeacherTest {
     @javax.annotation.Resource(name = "teacherService")
     private TeacherService teacherService;
+
+    @javax.annotation.Resource(name = "speCouService")
+    private SpeCouService speCouService;
+
+    //测试新增和查询班级功能
+    @Test
+    public void t5() {
+        for (int i = 0; i < 6; i++) {
+            Specialty specialty = new Specialty();
+            specialty.setSpecialtyId("14040" + i);
+            specialty.setName("计算机" + i + "班");
+            if (speCouService.insertSpecialty(specialty) > 0) {
+                out.print(i + "：成功 ");
+            }
+        }
+//        Map<String, Object> params = new HashMap<String, Object>() {{
+//            put("name", "计算机0班");
+//        }};
+        List<Specialty> specialties = speCouService.selectSpecialty(null);
+        if (specialties != null) {
+            for (Specialty specialty : specialties) {
+                out.print(" " + specialty.getName());
+            }
+        }
+
+    }
 
     //条件查询
     @Test
