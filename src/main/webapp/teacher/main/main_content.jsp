@@ -11,7 +11,6 @@
 <head>
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
-    <link rel="stylesheet" href="/teacher/${category}/${name}.css">
     <script>
         function logout() {
             swal({

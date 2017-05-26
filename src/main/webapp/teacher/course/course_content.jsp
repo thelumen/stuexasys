@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="/teacher/course/course.css"
+      charset="utf-8">
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
@@ -29,7 +31,7 @@
             <button style="margin-left: 30px" class="btn btn-warning"
                     type="button"
                     onclick="takeTheCourse()">
-                确认选择
+                确认选课
             </button>
         </form>
     </div>
@@ -63,7 +65,7 @@
                 <th data-field="starttime" data-width="200">开课时间</th>
                 <th data-field="endtime" data-width="200">结课时间</th>
                 <th data-field="on" data-width="200">教课中？</th>
-                <th data-formatter="operateSingle" data-width="150">操作
+                <th data-formatter="operateCourseTaken" data-width="150">操作
                 </th>
             </tr>
             </thead>
@@ -116,13 +118,12 @@
             swal("注意..", "不要忘记填写开课和结课时间哦 :)", "error");
         }
     }
-    function operateSingle(value, row) {
-        var html = [];
-        html.push('<button class="btn btn-warning pull-left" onclick="location.href=\'${pageContext.request.contextPath}/teacher/course/{0}\'">编辑</button>'.replace('{0}', row.teacherId + "&" + row.courseName + "&" + row.specialtyName));
-        html.push('<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.id));
-        return html.join('');
+    function operateCourseTaken(value, row) {
+        var html = '';
+        html += '<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseName + "&" + row.specialtyName);
+        return html;
     }
-    function deleteCourseTaken(id) {
+    function deleteCourseTaken(content) {
         swal({
                 title: "Are you sure?",
                 text: "Your will be able to recover this Question!",
@@ -137,20 +138,22 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        type: 'post',
-                        url: '${pageContext.request.contextPath}/manage/deleteSingle/' + id,
+                        type: 'delete',
+                        url: '${pageContext.request.contextPath}/teacher/course/delete/' + content,
                         dataType: 'json',
                         success: function (data) {
                             if (data.isSuccess) {
-                                swal("Deleted!", "This Question has been deleted.", "success");
-                                $('#shiro_resource_singleTable').bootstrapTable("refresh");
-                            } else {
-                                swal("NO!", "Already be deleted!", "error");
+                                swal("Deleted!", "此课程成功删除！", "success");
+                                $('#teacher_course_table').bootstrapTable("refresh");
                             }
+                        },
+                        error: function () {
+                            swal("Sorry!", "系统出错了！.", "error");
+                            $('#teacher_course_table').bootstrapTable("refresh");
                         }
                     });
                 } else {
-                    swal("Cancelled", "This Question is safe :)", "error");
+                    swal("Cancelled", "This Course Information is safe :)", "error");
                 }
             });
     }

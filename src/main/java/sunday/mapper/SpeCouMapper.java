@@ -63,4 +63,12 @@ public interface SpeCouMapper {
      * @return
      */
     int insertCourseTaken(CourseTaken courseTaken);
+
+    /**
+     * 删除选课信息
+     *
+     * @param params
+     * @return
+     */
+    int deleteTakenInfo(Map<String, Object> params);
 }

@@ -59,8 +59,9 @@
     <!--查询选课信息-->
     <select id="selectTakenInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.dto.TakenInfo">
-        SELECT t.name AS teacherName ,c.name AS courseName,s.name AS
-        specialtyName,l.starttime AS starttime,l.endtime AS endtime
+        SELECT t.teacherId AS teacherId ,t.name AS teacherName ,c.name AS
+        courseName,s.name AS specialtyName,l.starttime AS starttime,l.endtime AS
+        endtime
         FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
         l.specialtyId=s.specialtyId
@@ -75,4 +76,10 @@
         </if>
     </select>
 
+    <!--删除选课信息-->
+    <delete id="deleteTakenInfo" parameterType="java.util.Map">
+        DELETE l FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND l.specialtyId=s.specialtyId
+        AND t.teacherId=#{teacherId,jdbcType=CHAR} AND c.name=#{courseName,jdbcType=CHAR} AND s.name=#{specialtyName,jdbcType=CHAR}
+    </delete>
 </mapper>

@@ -29,14 +29,15 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
+    //测试选课查询
     @Test
     public void t8() {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", "140400");
-            put("courseName", "数据结构0");
-            put("specialtyName", "计算机1班");
-        }};
-        List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
+//        Map<String, Object> params = new HashMap<String, Object>() {{
+//            put("teacherId", "140400");
+//            put("courseName", "数据结构0");
+//            put("specialtyName", "计算机1班");
+//        }};
+        List<TakenInfo> infoList = speCouService.selectTakenInfo(null, null);
         if (infoList != null) {
             for (TakenInfo info : infoList) {
                 out.print(" " + info.getTeacherName() + " " + info.getCourseName() + " " + info.getSpecialtyName());

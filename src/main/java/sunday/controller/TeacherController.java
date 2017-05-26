@@ -3,7 +3,6 @@ package sunday.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.Course;
@@ -60,7 +59,6 @@ public class TeacherController {
     @ResponseBody
     public Map<String, Object> takeCourse(@RequestBody CourseTaken courseTaken) {
         Map<String, Object> info = new HashMap<>();
-
         courseTaken.setTeacherId(ShiroKit.getSession().getAttribute("currentTeacherId").toString());
         if (speCouService.insertCourseTaken(courseTaken) > 0) {
             info.put("isSuccess", true);
@@ -79,7 +77,6 @@ public class TeacherController {
     public Map<String, Object> getTakenInfo(@RequestBody Map<String, Object> params) {
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
         Map<String, Object> takenInfo = new HashMap<>();
-
         Page page = new Page();
         if (null != params.get("pageNum")) {
             page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
@@ -95,7 +92,6 @@ public class TeacherController {
             put("teacherId", teacherId);
         }};
         List<TakenInfo> infoList = speCouService.selectTakenInfo(page, params);
-
         //按开课时间升序
         Collections.sort(infoList, new Comparator<TakenInfo>() {
             @Override
@@ -103,16 +99,13 @@ public class TeacherController {
                 return o1.getStarttime().compareTo(o2.getStarttime());
             }
         });
-
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
         for (TakenInfo info : infoList) {
-            info.setTeacherId(teacherId);
             if (info.getEndtime().compareTo(currentTime) >= 0) {
                 info.setOn(true);
             }
         }
-
         PageInfo<TakenInfo> pageInfo = new PageInfo<>(infoList);
         takenInfo.put("total", pageInfo.getTotal());
         takenInfo.put("rows", pageInfo.getList());
@@ -120,15 +113,17 @@ public class TeacherController {
         return takenInfo;
     }
 
+
     /**
-     * 跳转至选课编辑页面
+     * 删除选课信息
      *
      * @param content
-     * @param model
      * @return
      */
-    @RequestMapping(value = "/course/{content}", method = RequestMethod.GET)
-    public String editCourseTaken(@PathVariable("content") String content, Model model) throws UnsupportedEncodingException {
+    @RequestMapping(value = "/course/delete/{content}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Map<String, Object> editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
+        Map<String, Object> info = new HashMap<>();
         //此数组有三个数值，teacherId+courseName+specialtyName
         String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
         Map<String, Object> params = new HashMap<String, Object>() {{
@@ -136,20 +131,10 @@ public class TeacherController {
             put("courseName", target[1]);
             put("specialtyName", target[2]);
         }};
-        List<TakenInfo> infoList = speCouService.selectTakenInfo(null, params);
-        model.addAttribute("courseTaken", infoList.get(0));
-        return "/teacher/editCourseTaken/editCourseTakenProxy";
-    }
-
-    /**
-     * 修改选课信息
-     *
-     * @param courseTaken
-     */
-    @RequestMapping(value = "/editCourse", method = RequestMethod.POST)
-    @ResponseBody
-    public void editCourseTaken(@RequestBody CourseTaken courseTaken) {
-
+        if (speCouService.deleteTakenInfo(params)) {
+            info.put("isSuccess", true);
+        }
+        return info;
     }
 
     /**

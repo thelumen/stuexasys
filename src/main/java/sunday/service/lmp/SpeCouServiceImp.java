@@ -67,4 +67,14 @@ public class SpeCouServiceImp implements SpeCouService {
     public int insertCourseTaken(CourseTaken courseTaken) {
         return speCouMapper.insertCourseTaken(courseTaken);
     }
+
+    @Override
+    @Transactional
+    public boolean deleteTakenInfo(Map<String, Object> params) {
+        boolean result = false;
+        if (speCouMapper.deleteTakenInfo(params) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }
