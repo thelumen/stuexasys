@@ -74,7 +74,6 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo = getManagerInfo(realAccount, password);
         }
         if (null != shiroInfo) {
-            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
             return new SimpleAuthenticationInfo(shiroInfo, shiroInfo.getUserLoginPassword(), getName());
         } else {
             throw new UnknownAccountException();
@@ -138,6 +137,9 @@ public class MyRealm extends AuthorizingRealm {
             }
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
+
+            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
+
             return shiroInfo;
         }
         return null;

@@ -8,4 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="/teacher/personalPage/personalPage.css"
       charset="UTF-8">
-235325
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
+        </li>
+        <li class="active">个人中心</li>
+    </ol>
+</div>
