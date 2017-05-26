@@ -40,6 +40,16 @@ public class TeacherController {
     }
 
     /**
+     * 转到个人页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/person", method = RequestMethod.GET)
+    public String personPage() {
+        return "/teacher/personalPage/personalPageProxy";
+    }
+
+    /**
      * 转到选课页
      *
      * @return
@@ -87,7 +97,6 @@ public class TeacherController {
         if (null != params.get("sort")) {
             page.setOrderBy(params.get("sort") + " " + params.get("order"));
         }
-
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
@@ -109,10 +118,8 @@ public class TeacherController {
         PageInfo<TakenInfo> pageInfo = new PageInfo<>(infoList);
         takenInfo.put("total", pageInfo.getTotal());
         takenInfo.put("rows", pageInfo.getList());
-
         return takenInfo;
     }
-
 
     /**
      * 删除选课信息

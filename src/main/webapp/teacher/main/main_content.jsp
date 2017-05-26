@@ -59,7 +59,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/system/resource">修改资料</a>
+                                <a href="${pageContext.request.contextPath}/teacher/person">修改资料</a>
                             </li>
                         </ul>
                     </li>
