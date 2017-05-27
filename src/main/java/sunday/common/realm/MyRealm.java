@@ -138,8 +138,6 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
 
-            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
-
             return shiroInfo;
         }
         return null;
@@ -179,6 +177,9 @@ public class MyRealm extends AuthorizingRealm {
             }
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
+
+            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
+
             return shiroInfo;
         }
         return null;

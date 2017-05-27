@@ -3,6 +3,7 @@ package sunday.service;
 import com.github.pagehelper.Page;
 import sunday.pojo.Course;
 import sunday.pojo.CourseTaken;
+import sunday.pojo.GradeTaken;
 import sunday.pojo.Specialty;
 import sunday.pojo.dto.TakenInfo;
 
@@ -70,4 +71,6 @@ public interface SpeCouService {
      * @return
      */
     boolean deleteTakenInfo(Map<String, Object> params);
+
+
 }

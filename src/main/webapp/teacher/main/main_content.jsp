@@ -65,11 +65,15 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown">学生管理<span
+                           data-toggle="dropdown">考核管理<span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/system/userlist">学生信息</a>
+                                <a href="${pageContext.request.contextPath}/teacher/students">学生信息</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/teacher/exams">发布考试信息</a>
                             </li>
                             <li class="divider"></li>
                             <li>

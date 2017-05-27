@@ -44,7 +44,6 @@
                data-show-refresh="true"
                data-show-columns="true"
                data-detail-view="true"
-               data-detail-formatter="detailFormatter"
                data-minimum-count-columns="2"
                data-show-pagination-switch="true"
                data-pagination="true"
@@ -64,7 +63,8 @@
                 <th data-field="specialtyName" data-width="200">专业</th>
                 <th data-field="starttime" data-width="200">开课时间</th>
                 <th data-field="endtime" data-width="200">结课时间</th>
-                <th data-field="on" data-width="200">教课中？</th>
+                <th data-field="on" data-width="200" data-sortable="true">教课中？
+                </th>
                 <th data-formatter="operateCourseTaken" data-width="150">操作
                 </th>
             </tr>
@@ -156,12 +156,5 @@
                     swal("Cancelled", "This Course Information is safe :)", "error");
                 }
             });
-    }
-    function detailFormatter(index, row) {
-        var html = [];
-        $.each(row, function (key, value) {
-            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
-        });
-        return html.join('');
     }
 </script>

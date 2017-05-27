@@ -3,13 +3,16 @@ package sunday.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.Course;
 import sunday.pojo.CourseTaken;
+import sunday.pojo.GradeTaken;
 import sunday.pojo.Specialty;
 import sunday.pojo.dto.TakenInfo;
 import sunday.service.SpeCouService;
+import sunday.service.StuGraService;
 import sunday.service.TeacherService;
 
 import java.io.UnsupportedEncodingException;
@@ -29,6 +32,9 @@ public class TeacherController {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
+    @javax.annotation.Resource(name = "stuGraService")
+    private StuGraService stuGraService;
+
     /**
      * 转到教师主页
      *
@@ -40,7 +46,27 @@ public class TeacherController {
     }
 
     /**
-     * 转到个人页
+     * 转到学生管理页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public String studentPage(Model model) {
+        getAllStudentGrade(model);
+        return "/teacher/student/studentProxy";
+    }
+
+    private void getAllStudentGrade(Model model) {
+        model.addAttribute("action", "all");
+        String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", teacherId);
+        }};
+        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(params);
+    }
+
+    /**
+     * 转到个人信息页
      *
      * @return
      */
