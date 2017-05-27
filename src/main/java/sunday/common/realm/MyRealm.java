@@ -8,7 +8,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.*;
-import sunday.service.*;
+import sunday.service.manager.ManagerService;
+import sunday.service.shiro.ResourceService;
+import sunday.service.shiro.RoleService;
+import sunday.service.student.StudentService;
+import sunday.service.teacher.TeacherService;
 
 import java.util.*;
 

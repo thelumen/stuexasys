@@ -11,9 +11,9 @@ import sunday.pojo.CourseTaken;
 import sunday.pojo.GradeTaken;
 import sunday.pojo.Specialty;
 import sunday.pojo.dto.TakenInfo;
-import sunday.service.SpeCouService;
-import sunday.service.StuGraService;
-import sunday.service.TeacherService;
+import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.StuGraService;
+import sunday.service.teacher.TeacherService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;

@@ -46,7 +46,7 @@
         <property name="configLocation"
                   value="classpath:config/mybatis/SqlMapConfig.xml"/>
         <property name="mapperLocations"
-                  value="classpath:mapper/*Mapper.xml"/>
+                  value="classpath:mapper/*/*Mapper.xml"/>
     </bean>
 
     <!--自动扫描mapper接口，并注入sqlsession-->

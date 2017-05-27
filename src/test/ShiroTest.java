@@ -2,10 +2,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sunday.common.kit.EncryptKit;
-import sunday.common.kit.ShiroKit;
 import sunday.pojo.Role;
-import sunday.service.RoleService;
+import sunday.service.shiro.RoleService;
 
 import java.util.List;
 

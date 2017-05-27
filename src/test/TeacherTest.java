@@ -7,8 +7,8 @@ import sunday.pojo.Course;
 import sunday.pojo.Specialty;
 import sunday.pojo.Teacher;
 import sunday.pojo.dto.TakenInfo;
-import sunday.service.SpeCouService;
-import sunday.service.TeacherService;
+import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.TeacherService;
 
 import java.util.HashMap;
 import java.util.List;

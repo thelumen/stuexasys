@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sunday.mapper.teacher.TeacherMapper">
+
+    <!--新增教师-->
+    <insert id="insert" parameterType="sunday.pojo.Teacher">
+        INSERT INTO com_teacher(teacherId,password)
+        VALUES (#{teacherId,jdbcType=SMALLINT},#{password,jdbcType=CHAR})
+    </insert>
+
+    <!--查询教师-->
+    <select id="select" parameterType="java.util.Map"
+            resultType="sunday.pojo.Teacher">
+        SELECT *
+        FROM com_teacher
+        <where>
+            <if test="teacherId != null">
+                teacherId=#{teacherId,jdbcType=SMALLINT}
+            </if>
+            <if test="name != null">
+                AND name = #{name,jdbcType=CHAR}
+            </if>
+            <if test="gender != null">
+                AND gender = #{gender,jdbcType=CHAR}
+            </if>
+            <if test="position != null">
+                AND position = #{position,jdbcType=CHAR}
+            </if>
+            <if test="office != null">
+                AND office = #{office,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+</mapper>
