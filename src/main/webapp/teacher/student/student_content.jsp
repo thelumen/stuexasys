@@ -15,23 +15,23 @@
     </ol>
     <div class="container-fluid" style="text-align: center">
         <form id="teacher_course_form">
-            <label>请选择 <strong style="color: #985f0d">您的课程</strong>：<select
-                    name="courseId"
-                    id="teacher_course_select_course"
-                    style="width: 200px"></select></label>
-            <label style="margin-left: 20px">请选择您的 <strong
-                    style="color: #985f0d">教课班级</strong>：</strong>
-                <select id="teacher_course_select_specialty" name="specialtyId"
-                        style="width: 200px"></select></label><br>
-            <label>开课时间：<input name="starttime" type="date" required></label>
-            <label style="margin-left: 20px">结课时间：<input name="endtime"
-                                                         type="date"
-                                                         required></label>
-            <button style="margin-left: 30px" class="btn btn-warning"
-                    type="button"
-                    onclick="outOfGrade()">
-                确认分配
-            </button>
+            <%--<label>请选择 <strong style="color: #985f0d">您的课程</strong>：<select--%>
+                    <%--name="courseId"--%>
+                    <%--id="teacher_course_select_course"--%>
+                    <%--style="width: 200px"></select></label>--%>
+            <%--<label style="margin-left: 20px">请选择您的 <strong--%>
+                    <%--style="color: #985f0d">教课班级</strong>：</strong>--%>
+                <%--<select id="teacher_course_select_specialty" name="specialtyId"--%>
+                        <%--style="width: 200px"></select></label><br>--%>
+            <%--<label>开课时间：<input name="starttime" type="date" required></label>--%>
+            <%--<label style="margin-left: 20px">结课时间：<input name="endtime"--%>
+                                                         <%--type="date"--%>
+                                                         <%--required></label>--%>
+            <%--<button style="margin-left: 30px" class="btn btn-warning"--%>
+                    <%--type="button"--%>
+                    <%--onclick="outOfGrade()">--%>
+                <%--确认分配--%>
+            <%--</button>--%>
         </form>
     </div>
     <hr class="divider"/>
@@ -51,18 +51,19 @@
                data-page-list="[10, 25, 50, 100, ALL]"
                data-show-footer="false"
                data-side-pagination="server"
-               data-url="${pageContext.request.contextPath}/teacher/tlcls"
+               data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
                data-method="post"
                data-query-params="$.fn.bootstrapTable.queryParams"
         >
             <thead>
             <tr>
-                <th data-field="teacherId" data-visible="false">学生ID</th>
-                <th data-field="teacherName" data-width="400">成绩一</th>
-                <th data-field="courseName" data-width="200">成绩二</th>
-                <th data-field="specialtyName" data-width="200">成绩三</th>
-                <th data-field="starttime" data-width="200">附加题成绩</th>
-                <th data-field="endtime" data-width="200">总成绩</th>
+                <th data-field="studentId" data-visible="false">学生ID</th>
+                <th data-field="studentName" data-visible="false">学生姓名</th>
+                <th data-field="courseName" data-width="400">成绩一</th>
+                <th data-field="grade1" data-width="200">成绩二</th>
+                <th data-field="grade2" data-width="200">成绩三</th>
+                <th data-field="grade3" data-width="200">附加题成绩</th>
+                <th data-field="grade4" data-width="200">总成绩</th>
             </tr>
             </thead>
         </table>

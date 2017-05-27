@@ -52,17 +52,45 @@ public class TeacherController {
      */
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String studentPage(Model model) {
-        getAllStudentGrade(model);
+        model.addAttribute("action", "all");
         return "/teacher/student/studentProxy";
     }
 
-    private void getAllStudentGrade(Model model) {
-        model.addAttribute("action", "all");
+    /**
+     * 获取所教班级所有学生的成绩信息
+     *
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
+        Map<String, Object> takenInfo = new HashMap<>();
+
+        Page page = new Page();
+        if (null != params.get("pageNum")) {
+            page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
+        }
+        if (null != params.get("pageSize")) {
+            page.setPageSize(Integer.parseInt(params.get("pageSize").toString()));
+        }
+        if (null != params.get("sort")) {
+            page.setOrderBy(params.get("sort") + " " + params.get("order"));
+        }
+
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
-        Map<String, Object> params = new HashMap<String, Object>() {{
+
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
-        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(params);
+        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(teacherInfo);
+
+        PageInfo<GradeTaken> pageInfo = new PageInfo<>(gradeTakens);
+
+        takenInfo.put("total", pageInfo.getTotal());
+        takenInfo.put("rows", pageInfo.getList());
+
+        return takenInfo;
     }
 
     /**
@@ -113,7 +141,9 @@ public class TeacherController {
     public Map<String, Object> getTakenInfo(@RequestBody Map<String, Object> params) {
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
         Map<String, Object> takenInfo = new HashMap<>();
+
         Page page = new Page();
+
         if (null != params.get("pageNum")) {
             page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
         }
@@ -123,10 +153,12 @@ public class TeacherController {
         if (null != params.get("sort")) {
             page.setOrderBy(params.get("sort") + " " + params.get("order"));
         }
+
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
         List<TakenInfo> infoList = speCouService.selectTakenInfo(page, params);
+
         //按开课时间升序
         Collections.sort(infoList, new Comparator<TakenInfo>() {
             @Override
@@ -134,6 +166,7 @@ public class TeacherController {
                 return o1.getStarttime().compareTo(o2.getStarttime());
             }
         });
+
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
         for (TakenInfo info : infoList) {
@@ -141,9 +174,12 @@ public class TeacherController {
                 info.setOn(true);
             }
         }
+
         PageInfo<TakenInfo> pageInfo = new PageInfo<>(infoList);
+
         takenInfo.put("total", pageInfo.getTotal());
         takenInfo.put("rows", pageInfo.getList());
+
         return takenInfo;
     }
 
@@ -159,11 +195,13 @@ public class TeacherController {
         Map<String, Object> info = new HashMap<>();
         //此数组有三个数值，teacherId+courseName+specialtyName
         String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", target[0]);
             put("courseName", target[1]);
             put("specialtyName", target[2]);
         }};
+
         if (speCouService.deleteTakenInfo(params)) {
             info.put("isSuccess", true);
         }

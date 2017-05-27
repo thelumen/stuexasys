@@ -5,18 +5,13 @@
     <!--查询学生-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="sunday.pojo.GradeTaken">
-        <!--SELECT *-->
-        <!--FROM com_teacher_lcourse l,com_teacher t,com_course c,com_grade g-->
-        <!--<where>-->
-            <!--<if test="studentId != null">-->
-                <!--AND studentId=#{studentId,jdbcType=CHAR}-->
-            <!--</if>-->
-            <!--<if test="name != null">-->
-                <!--AND name = #{name,jdbcType=CHAR}-->
-            <!--</if>-->
-            <!--<if test="password != null">-->
-                <!--AND password=#{password,jdbcType=CHAR}-->
-            <!--</if>-->
-        <!--</where>-->
+        SELECT g.studentId AS studentId,s.name AS studentName,c.name AS courseName,
+        g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS grade3,g.grade4 AS grade4
+        FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade g,com_student s
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
+        c.courseId=g.courseId AND g.studentId=s.studentId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
     </select>
 </mapper>
