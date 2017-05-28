@@ -42,7 +42,7 @@
                         <label><input name="type" type="radio"
                                       value="管理员"/>管理员</label>
                         <label><input name="type" type="radio"
-                                      value="教师"/>教师</label>
+                                      value="教师" checked/>教师</label>
                         <label><input name="type" type="radio"
                                       value="学生"/>学生</label>
                     </div>

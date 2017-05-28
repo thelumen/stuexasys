@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.SpeCouMapper">
+
     <!--新增专业-->
     <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
@@ -19,6 +20,12 @@
         </if>
     </select>
 
+    <!--查询全部专业-->
+    <select id="selectAllSpecialties" resultType="sunday.pojo.school.Specialty">
+        SELECT *
+        FROM com_specialty
+    </select>
+
     <!--新增课程-->
     <insert id="insertCourse" parameterType="sunday.pojo.school.Course">
         INSERT INTO com_course(courseId,name,period,credit)
@@ -28,22 +35,18 @@
     <!--查询课程-->
     <select id="selectCourse" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Course">
+        SELECT DISTINCT c.*
+        FROM com_teacher_l_course l,com_course c,com_teacher t
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
+    </select>
+
+    <!--查询全部课程-->
+    <select id="selectAllCourses" resultType="sunday.pojo.school.Course">
         SELECT *
         FROM com_course
-        <where>
-            <if test="courseId != null">
-                courseId=#{courseId,jdbcType=CHAR}
-            </if>
-            <if test="name != null">
-                AND name=#{name,jdbcType=CHAR}
-            </if>
-            <if test="period != null">
-                AND period=#{period,jdbcType=TINYINT}
-            </if>
-            <if test="credit != null">
-                AND credit=#{credit,jdbcType=TINYINT}
-            </if>
-        </where>
     </select>
 
     <!--新增选课信息-->

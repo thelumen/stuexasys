@@ -233,14 +233,43 @@ public class TeacherController {
     }
 
     /**
-     * 获取课程select
+     * 获取教师-课程select
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getCourse", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getCoursesFromTeacher() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        return getCourses(params);
+    }
+
+    /**
+     * 获取全部课程select
      *
      * @return
      */
     @RequestMapping(value = "/getCourses", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getCourses() {
-        List<Course> courses = speCouService.selectCourse(null);
+    public List<Map<String, Object>> getAllCourses() {
+        return getCourses(null);
+    }
+
+    /**
+     * 自定义查询课程select
+     *
+     * @param params
+     * @return
+     */
+    private List<Map<String, Object>> getCourses(Map<String, Object> params) {
+        List<Course> courses;
+        if (null != params) {
+            courses = speCouService.selectCourse(params);
+        } else {
+            courses = speCouService.selectAllCourses();
+        }
         if (null != courses) {
             List<Map<String, Object>> father = new ArrayList<>();
             for (Course course : courses) {
@@ -291,7 +320,8 @@ public class TeacherController {
         if (null != params) {
             specialties = speCouService.selectSpecialty(params);
         } else {
-            specialties = speCouService.selectSpecialty(null);
+            //查询全部专业
+            specialties = speCouService.selectAllSpecialties();
         }
         if (null != specialties) {
             List<Map<String, Object>> father = new ArrayList<>();

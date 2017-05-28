@@ -4,10 +4,10 @@ import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.SpeCouMapper;
-import sunday.pojo.school.Course;
-import sunday.pojo.teacher.CourseTaken;
-import sunday.pojo.school.Specialty;
 import sunday.pojo.dto.TakenInfo;
+import sunday.pojo.school.Course;
+import sunday.pojo.school.Specialty;
+import sunday.pojo.teacher.CourseTaken;
 import sunday.service.teacher.SpeCouService;
 
 import java.util.List;
@@ -54,6 +54,15 @@ public class SpeCouServiceImp implements SpeCouService {
     }
 
     @Override
+    public List<Course> selectAllCourses() {
+        List<Course> courses = speCouMapper.selectAllCourses();
+        if (null != courses && courses.size() > 0) {
+            return courses;
+        }
+        return null;
+    }
+
+    @Override
     public List<TakenInfo> selectTakenInfo(Page page, Map<String, Object> params) {
         List<TakenInfo> infoList = speCouMapper.selectTakenInfo(params);
         if (null != infoList && infoList.size() > 0) {
@@ -76,5 +85,14 @@ public class SpeCouServiceImp implements SpeCouService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<Specialty> selectAllSpecialties() {
+        List<Specialty> specialties = speCouMapper.selectAllSpecialties();
+        if (null != specialties && specialties.size() > 0) {
+            return specialties;
+        }
+        return null;
     }
 }

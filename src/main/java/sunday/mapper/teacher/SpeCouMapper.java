@@ -1,10 +1,10 @@
 package sunday.mapper.teacher;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.school.Course;
-import sunday.pojo.teacher.CourseTaken;
-import sunday.pojo.school.Specialty;
 import sunday.pojo.dto.TakenInfo;
+import sunday.pojo.school.Course;
+import sunday.pojo.school.Specialty;
+import sunday.pojo.teacher.CourseTaken;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 public interface SpeCouMapper {
     /**
-     * 新增班级
+     * 新增专业
      *
      * @param specialty
      * @return
@@ -25,12 +25,19 @@ public interface SpeCouMapper {
     int insertSpecialty(Specialty specialty);
 
     /**
-     * 查询班级
+     * 查询专业
      *
      * @param params
      * @return
      */
     List<Specialty> selectSpecialty(Map<String, Object> params);
+
+    /**
+     * 查询全部专业
+     *
+     * @return
+     */
+    List<Specialty> selectAllSpecialties();
 
     /**
      * 新增课程
@@ -47,6 +54,13 @@ public interface SpeCouMapper {
      * @return
      */
     List<Course> selectCourse(Map<String, Object> params);
+
+    /**
+     * 查询全部课程
+     *
+     * @return
+     */
+    List<Course> selectAllCourses();
 
     /**
      * 查询选课信息
@@ -71,4 +85,6 @@ public interface SpeCouMapper {
      * @return
      */
     int deleteTakenInfo(Map<String, Object> params);
+
+
 }

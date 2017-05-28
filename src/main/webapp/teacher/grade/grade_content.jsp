@@ -77,7 +77,7 @@
 <script>
     $(function () {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourses',
+            url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
             success: function (data) {
                 $('#teacher_grade_select_course').select2({
