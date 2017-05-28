@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.manager;
 
 import java.util.Date;
 

@@ -2,7 +2,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sunday.pojo.Student;
+import sunday.pojo.school.Student;
 import sunday.service.student.StudentService;
 
 import java.util.HashMap;

@@ -4,9 +4,9 @@ import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.SpeCouMapper;
-import sunday.pojo.Course;
-import sunday.pojo.CourseTaken;
-import sunday.pojo.Specialty;
+import sunday.pojo.school.Course;
+import sunday.pojo.teacher.CourseTaken;
+import sunday.pojo.school.Specialty;
 import sunday.pojo.dto.TakenInfo;
 import sunday.service.teacher.SpeCouService;
 

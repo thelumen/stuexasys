@@ -1,7 +1,7 @@
 package sunday.service.teacher;
 
 import com.github.pagehelper.Page;
-import sunday.pojo.Teacher;
+import sunday.pojo.teacher.Teacher;
 
 import java.util.List;
 import java.util.Map;

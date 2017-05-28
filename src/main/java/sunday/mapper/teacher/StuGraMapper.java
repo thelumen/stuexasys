@@ -1,7 +1,7 @@
 package sunday.mapper.teacher;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.GradeTaken;
+import sunday.pojo.teacher.GradeTaken;
 
 import java.util.List;
 import java.util.Map;

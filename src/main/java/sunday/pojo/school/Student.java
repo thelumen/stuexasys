@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.school;
 
 /**
  * Created by yang on 2017/5/22.

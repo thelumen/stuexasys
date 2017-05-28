@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.teacher;
 
 import java.util.Date;
 

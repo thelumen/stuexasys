@@ -2,7 +2,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sunday.pojo.Role;
+import sunday.pojo.shiro.Role;
 import sunday.service.shiro.RoleService;
 
 import java.util.List;

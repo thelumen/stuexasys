@@ -1,6 +1,6 @@
 package sunday.service.shiro;
 
-import sunday.pojo.Role;
+import sunday.pojo.shiro.Role;
 
 import java.util.List;
 import java.util.Map;

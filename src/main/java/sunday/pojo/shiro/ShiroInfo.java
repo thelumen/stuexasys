@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.shiro;
 
 import java.io.Serializable;
 import java.util.Set;

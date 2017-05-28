@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
-import sunday.pojo.Course;
-import sunday.pojo.CourseTaken;
-import sunday.pojo.GradeTaken;
-import sunday.pojo.Specialty;
+import sunday.pojo.school.Course;
+import sunday.pojo.teacher.CourseTaken;
+import sunday.pojo.teacher.GradeTaken;
+import sunday.pojo.school.Specialty;
 import sunday.pojo.dto.TakenInfo;
 import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.StuGraService;
@@ -66,24 +66,12 @@ public class TeacherController {
     @ResponseBody
     private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
         Map<String, Object> takenInfo = new HashMap<>();
-
-        Page page = new Page();
-        if (null != params.get("pageNum")) {
-            page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
-        }
-        if (null != params.get("pageSize")) {
-            page.setPageSize(Integer.parseInt(params.get("pageSize").toString()));
-        }
-        if (null != params.get("sort")) {
-            page.setOrderBy(params.get("sort") + " " + params.get("order"));
-        }
-
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
-        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(teacherInfo);
+        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(getMapInfo2Page(params), teacherInfo);
 
         PageInfo<GradeTaken> pageInfo = new PageInfo<>(gradeTakens);
 
@@ -142,23 +130,10 @@ public class TeacherController {
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
         Map<String, Object> takenInfo = new HashMap<>();
 
-        Page page = new Page();
-
-        if (null != params.get("pageNum")) {
-            page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
-        }
-        if (null != params.get("pageSize")) {
-            page.setPageSize(Integer.parseInt(params.get("pageSize").toString()));
-        }
-        if (null != params.get("sort")) {
-            page.setOrderBy(params.get("sort") + " " + params.get("order"));
-        }
-
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
-        List<TakenInfo> infoList = speCouService.selectTakenInfo(page, params);
-
+        List<TakenInfo> infoList = speCouService.selectTakenInfo(getMapInfo2Page(params), teacherInfo);
         //按开课时间升序
         Collections.sort(infoList, new Comparator<TakenInfo>() {
             @Override
@@ -166,7 +141,6 @@ public class TeacherController {
                 return o1.getStarttime().compareTo(o2.getStarttime());
             }
         });
-
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
         for (TakenInfo info : infoList) {
@@ -206,6 +180,27 @@ public class TeacherController {
             info.put("isSuccess", true);
         }
         return info;
+    }
+
+    /**
+     * 从map中获取page信息
+     *
+     * @param params
+     * @return
+     */
+    private Page getMapInfo2Page(Map<String, Object> params) {
+        Page page = new Page();
+
+        if (null != params.get("pageNum")) {
+            page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
+        }
+        if (null != params.get("pageSize")) {
+            page.setPageSize(Integer.parseInt(params.get("pageSize").toString()));
+        }
+        if (null != params.get("sort")) {
+            page.setOrderBy(params.get("sort") + " " + params.get("order"));
+        }
+        return page;
     }
 
     /**

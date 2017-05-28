@@ -1,6 +1,7 @@
 package sunday.service.teacher;
 
-import sunday.pojo.GradeTaken;
+import com.github.pagehelper.Page;
+import sunday.pojo.teacher.GradeTaken;
 
 import java.util.List;
 import java.util.Map;
@@ -14,8 +15,9 @@ public interface StuGraService {
     /**
      * 查询学生成绩信息
      *
+     * @param page
      * @param params
      * @return
      */
-    List<GradeTaken> selectGradeTaken(Map<String, Object> params);
+    List<GradeTaken> selectGradeTaken(Page page, Map<String, Object> params);
 }

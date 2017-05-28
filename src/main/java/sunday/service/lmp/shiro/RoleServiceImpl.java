@@ -3,7 +3,7 @@ package sunday.service.lmp.shiro;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.shiro.RoleMapper;
-import sunday.pojo.Role;
+import sunday.pojo.shiro.Role;
 import sunday.service.shiro.RoleService;
 
 import java.util.List;

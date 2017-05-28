@@ -69,7 +69,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/students">学生信息</a>
+                                <a href="#">学生信息</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -81,7 +81,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#">成绩统计</a>
+                                <a href="${pageContext.request.contextPath}/teacher/students">成绩统计</a>
                             </li>
                         </ul>
                     </li>

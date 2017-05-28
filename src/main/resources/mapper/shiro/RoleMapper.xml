@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.shiro.RoleMapper">
     <!--新增角色-->
-    <insert id="insert" parameterType="sunday.pojo.Role">
+    <insert id="insert" parameterType="sunday.pojo.shiro.Role">
         INSERT INTO com_role(name,remark)
         VALUES (#{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
     </insert>
 
     <!--查询角色-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.Role">
+            resultType="sunday.pojo.shiro.Role">
         SELECT *
         FROM com_role
         <where>
@@ -25,7 +25,7 @@
 
     <!--查询教师角色-->
     <select id="selectByTeacherInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.Role">
+            resultType="sunday.pojo.shiro.Role">
         SELECT r.*
         FROM com_teacher_l_role l,com_role r
         WHERE l.roleId=r.id AND teacherId=#{teacherId,jdbcType=SMALLINT}
@@ -33,7 +33,7 @@
 
     <!--查询教师角色-->
     <select id="selectByManagerInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.Role">
+            resultType="sunday.pojo.shiro.Role">
         SELECT r.*
         FROM com_manager_l_role l,com_role r
         WHERE l.roleId=r.id AND managerId=#{managerId,jdbcType=SMALLINT}

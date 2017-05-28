@@ -4,14 +4,14 @@
 <mapper namespace="sunday.mapper.teacher.TeacherMapper">
 
     <!--新增教师-->
-    <insert id="insert" parameterType="sunday.pojo.Teacher">
+    <insert id="insert" parameterType="sunday.pojo.teacher.Teacher">
         INSERT INTO com_teacher(teacherId,password)
         VALUES (#{teacherId,jdbcType=SMALLINT},#{password,jdbcType=CHAR})
     </insert>
 
     <!--查询教师-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.Teacher">
+            resultType="sunday.pojo.teacher.Teacher">
         SELECT *
         FROM com_teacher
         <where>

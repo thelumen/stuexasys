@@ -1,7 +1,7 @@
 package sunday.mapper.shiro;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.Resource;
+import sunday.pojo.shiro.Resource;
 
 import java.util.List;
 import java.util.Map;

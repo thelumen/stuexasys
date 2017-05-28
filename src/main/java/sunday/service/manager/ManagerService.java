@@ -1,7 +1,7 @@
 package sunday.service.manager;
 
 import com.github.pagehelper.Page;
-import sunday.pojo.Manager;
+import sunday.pojo.manager.Manager;
 
 import java.util.List;
 import java.util.Map;

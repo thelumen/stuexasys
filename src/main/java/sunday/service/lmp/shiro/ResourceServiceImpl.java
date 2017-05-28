@@ -3,7 +3,7 @@ package sunday.service.lmp.shiro;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.shiro.ResourceMapper;
-import sunday.pojo.Resource;
+import sunday.pojo.shiro.Resource;
 import sunday.service.shiro.ResourceService;
 
 import java.util.List;

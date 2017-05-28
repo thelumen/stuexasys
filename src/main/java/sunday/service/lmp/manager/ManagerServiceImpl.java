@@ -5,7 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.manager.ManagerMapper;
-import sunday.pojo.Manager;
+import sunday.pojo.manager.Manager;
 import sunday.service.manager.ManagerService;
 
 import java.util.List;

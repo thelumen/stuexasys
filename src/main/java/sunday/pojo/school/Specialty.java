@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.school;
 
 /**
  * 专业表

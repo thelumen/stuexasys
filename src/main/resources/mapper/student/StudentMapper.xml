@@ -4,7 +4,7 @@
 <mapper namespace="sunday.mapper.student.StudentMapper">
     <!--查询学生-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.Student">
+            resultType="sunday.pojo.school.Student">
         SELECT *
         FROM com_student
         <where>

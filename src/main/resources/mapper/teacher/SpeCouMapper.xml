@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.SpeCouMapper">
     <!--新增班级-->
-    <insert id="insertSpecialty" parameterType="sunday.pojo.Specialty">
+    <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
         VALUES (#{specialtyId,jdbcType=CHAR},#{name,jdbcType=CHAR})
     </insert>
 
     <!--查询班级-->
     <select id="selectSpecialty" parameterType="java.util.Map"
-            resultType="sunday.pojo.Specialty">
+            resultType="sunday.pojo.school.Specialty">
         SELECT *
         FROM com_specialty
         <where>
@@ -24,14 +24,14 @@
     </select>
 
     <!--新增课程-->
-    <insert id="insertCourse" parameterType="sunday.pojo.Course">
+    <insert id="insertCourse" parameterType="sunday.pojo.school.Course">
         INSERT INTO com_course(courseId,name,period,credit)
         VALUES (#{courseId,jdbcType=CHAR},#{name,jdbcType=CHAR},#{period,jdbcType=TINYINT},#{credit,jdbcType=TINYINT})
     </insert>
 
     <!--查询课程-->
     <select id="selectCourse" parameterType="java.util.Map"
-            resultType="sunday.pojo.Course">
+            resultType="sunday.pojo.school.Course">
         SELECT *
         FROM com_course
         <where>
@@ -51,7 +51,7 @@
     </select>
 
     <!--新增选课信息-->
-    <insert id="insertCourseTaken" parameterType="sunday.pojo.CourseTaken">
+    <insert id="insertCourseTaken" parameterType="sunday.pojo.teacher.CourseTaken">
         INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
         VALUES (#{teacherId,jdbcType=CHAR},#{courseId,jdbcType=CHAR},#{specialtyId,jdbcType=CHAR},#{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
     </insert>

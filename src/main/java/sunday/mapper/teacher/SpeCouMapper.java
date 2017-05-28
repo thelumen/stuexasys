@@ -1,9 +1,9 @@
 package sunday.mapper.teacher;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.Course;
-import sunday.pojo.CourseTaken;
-import sunday.pojo.Specialty;
+import sunday.pojo.school.Course;
+import sunday.pojo.teacher.CourseTaken;
+import sunday.pojo.school.Specialty;
 import sunday.pojo.dto.TakenInfo;
 
 import java.util.List;

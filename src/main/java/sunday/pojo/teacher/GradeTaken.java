@@ -1,4 +1,4 @@
-package sunday.pojo;
+package sunday.pojo.teacher;
 
 /**
  * Created by yang on 2017/5/27.
@@ -12,6 +12,7 @@ public final class GradeTaken {
     private byte grade2;
     private byte grade3;
     private byte grade4;
+    private byte total;
 
     public String getStudentId() {
         return studentId;
@@ -67,5 +68,13 @@ public final class GradeTaken {
 
     public void setGrade4(byte grade4) {
         this.grade4 = grade4;
+    }
+
+    public byte getTotal() {
+        return total;
+    }
+
+    public void setTotal(byte total) {
+        this.total = total;
     }
 }

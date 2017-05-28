@@ -1,6 +1,6 @@
 package sunday.service.shiro;
 
-import sunday.pojo.Resource;
+import sunday.pojo.shiro.Resource;
 
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,7 @@
 package sunday.mapper.manager;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.Manager;
+import sunday.pojo.manager.Manager;
 
 import java.util.List;
 import java.util.Map;

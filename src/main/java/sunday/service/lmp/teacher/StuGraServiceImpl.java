@@ -1,8 +1,10 @@
 package sunday.service.lmp.teacher;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import sunday.mapper.teacher.StuGraMapper;
-import sunday.pojo.GradeTaken;
+import sunday.pojo.teacher.GradeTaken;
 import sunday.service.teacher.StuGraService;
 
 import java.util.List;
@@ -20,7 +22,10 @@ public class StuGraServiceImpl implements StuGraService {
     private StuGraMapper stuGraMapper;
 
     @Override
-    public List<GradeTaken> selectGradeTaken(Map<String, Object> params) {
+    public List<GradeTaken> selectGradeTaken(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
         List<GradeTaken> gradeTakens = stuGraMapper.selectGradeTaken(params);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;

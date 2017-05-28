@@ -1,7 +1,7 @@
 package sunday.mapper.student;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.Student;
+import sunday.pojo.school.Student;
 
 import java.util.List;
 import java.util.Map;
