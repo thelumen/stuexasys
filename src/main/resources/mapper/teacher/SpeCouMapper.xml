@@ -2,25 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.SpeCouMapper">
-    <!--新增班级-->
+    <!--新增专业-->
     <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
         VALUES (#{specialtyId,jdbcType=CHAR},#{name,jdbcType=CHAR})
     </insert>
 
-    <!--查询班级-->
+    <!--查询专业-->
     <select id="selectSpecialty" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Specialty">
-        SELECT *
-        FROM com_specialty
-        <where>
-            <if test="specialtyId != null">
-                specialtyId=#{specialtyId,jdbcType=CHAR}
-            </if>
-            <if test="name != null">
-                AND name=#{name,jdbcType=CHAR}
-            </if>
-        </where>
+        SELECT DISTINCT s.*
+        FROM com_teacher_l_course l,com_teacher t,com_specialty s
+        WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
     </select>
 
     <!--新增课程-->
@@ -51,7 +47,8 @@
     </select>
 
     <!--新增选课信息-->
-    <insert id="insertCourseTaken" parameterType="sunday.pojo.teacher.CourseTaken">
+    <insert id="insertCourseTaken"
+            parameterType="sunday.pojo.teacher.CourseTaken">
         INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
         VALUES (#{teacherId,jdbcType=CHAR},#{courseId,jdbcType=CHAR},#{specialtyId,jdbcType=CHAR},#{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
     </insert>
@@ -59,7 +56,8 @@
     <!--查询选课信息-->
     <select id="selectTakenInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.dto.TakenInfo">
-        SELECT t.teacherId AS teacherId ,t.name AS teacherName ,c.name AS
+        SELECT DISTINCT t.teacherId AS teacherId ,t.name AS teacherName ,c.name
+        AS
         courseName,s.name AS specialtyName,l.starttime AS starttime,l.endtime AS
         endtime
         FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s

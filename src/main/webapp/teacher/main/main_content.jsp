@@ -81,7 +81,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/students">成绩统计</a>
+                                <a href="${pageContext.request.contextPath}/teacher/student/grades">成绩统计</a>
                             </li>
                         </ul>
                     </li>

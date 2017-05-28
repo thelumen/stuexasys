@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="/teacher/student/student.css" charset="UTF-8">
+<link rel="stylesheet" href="/teacher/grade/grade.css" charset="UTF-8">
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
@@ -17,19 +17,19 @@
         <form id="teacher_course_form">
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
-                    id="teacher_student_select_course"
+                    id="teacher_grade_select_course"
                     style="width: 200px"></select></label>
             <label style="margin-left: 20px">请选择 <strong
                     style="color: #985f0d">教课班级</strong>：</strong>
-                <select id="teacher_student_select_specialty" name="specialtyId"
+                <select id="teacher_grade_select_specialty" name="specialtyId"
                         style="width: 200px"></select></label><br>
-            <label><strong>测试一</strong>所占比重：<input id="teacher_student_grade1"
+            <label><strong>测试一</strong>所占比重：<input id="teacher_grade_grade1"
                                                    name="percent1"></label>
-            <label><strong>测试二</strong>所占比重：<input id="teacher_student_grade2"
+            <label><strong>测试二</strong>所占比重：<input id="teacher_grade_grade2"
                                                    name="percent2"></label>
-            <label><strong>测试三</strong>所占比重：<input id="teacher_student_grade3"
+            <label><strong>测试三</strong>所占比重：<input id="teacher_grade_grade3"
                                                    name="percent3"></label>
-            <label><strong>测试四</strong>所占比重：<input id="teacher_student_grade4"
+            <label><strong>测试四</strong>所占比重：<input id="teacher_grade_grade4"
                                                    name="percent4"></label><br>
             <button style="margin-left: 30px" class="btn btn-warning"
                     type="button"
@@ -80,16 +80,16 @@
             url: '${pageContext.request.contextPath}/teacher/getCourses',
             dataType: 'json',
             success: function (data) {
-                $('#teacher_student_select_course').select2({
+                $('#teacher_grade_select_course').select2({
                     data: data
                 });
             }
         });
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getSpecialties',
+            url: '${pageContext.request.contextPath}/teacher/getSpecialty',
             dataType: 'json',
             success: function (data) {
-                $('#teacher_student_select_specialty').select2({
+                $('#teacher_grade_select_specialty').select2({
                     data: data
                 });
             }

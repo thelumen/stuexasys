@@ -55,13 +55,14 @@
         >
             <thead>
             <tr>
-                <th data-field="teacherId" data-visible="false">教师ID</th>
-                <th data-field="teacherName" data-width="400">教师</th>
-                <th data-field="courseName" data-width="200">课程</th>
-                <th data-field="specialtyName" data-width="200">专业</th>
+                <th data-field="teacherId">教师ID</th>
+                <th data-field="teacherName" data-width="400">教师姓名</th>
+                <th data-field="courseName" data-width="200">所教课程</th>
+                <th data-field="specialtyName" data-width="200">所教专业
+                </th>
                 <th data-field="starttime" data-width="200">开课时间</th>
                 <th data-field="endtime" data-width="200">结课时间</th>
-                <th data-field="on" data-width="200" data-sortable="true">教课中？
+                <th data-field="on" data-width="200">教课中？
                 </th>
                 <th data-formatter="operateCourseTaken" data-width="150">操作
                 </th>

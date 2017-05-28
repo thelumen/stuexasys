@@ -36,6 +36,15 @@ public class TeacherController {
     private StuGraService stuGraService;
 
     /**
+     * 获取当前登录教师id
+     *
+     * @return
+     */
+    private String getCurrentTeacherId() {
+        return (String) ShiroKit.getSession().getAttribute("currentTeacherId");
+    }
+
+    /**
      * 转到教师主页
      *
      * @return
@@ -46,14 +55,14 @@ public class TeacherController {
     }
 
     /**
-     * 转到学生管理页面
+     * 转到成绩统计页面
      *
      * @return
      */
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/grades", method = RequestMethod.GET)
     public String studentPage(Model model) {
         model.addAttribute("action", "all");
-        return "/teacher/student/studentProxy";
+        return "/teacher/grade/gradeProxy";
     }
 
     /**
@@ -66,17 +75,22 @@ public class TeacherController {
     @ResponseBody
     private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
         Map<String, Object> takenInfo = new HashMap<>();
-        String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
+        //封装list
         List<GradeTaken> target = new ArrayList<>();
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
-            put("teacherId", teacherId);
+            put("teacherId", getCurrentTeacherId());
         }};
         List<TakenInfo> takenInfos = speCouService.selectTakenInfo(null, takenInfo);
+        //出现重复数据！！！
         for (TakenInfo info : takenInfos) {
+//            Map<String, Object> parameters = new HashMap<String, Object>() {{
+//                put("teacherId", getCurrentTeacherId());
+//                put("specialtyName", info.getSpecialtyName());
+//            }};
             teacherInfo.put("specialtyName", info.getSpecialtyName());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
-            //本可不用，但是学生-专业表数据未填导致出现java.lang.NullPointerException
+            //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
                 continue;
             }
@@ -84,6 +98,10 @@ public class TeacherController {
                 target.add(taken);
             }
         }
+        //过滤
+        Set<GradeTaken> func = new HashSet<>(target);
+        target.clear();
+        target.addAll(func);
 
         PageInfo<GradeTaken> pageInfo = new PageInfo<>(target);
 
@@ -123,7 +141,7 @@ public class TeacherController {
     @ResponseBody
     public Map<String, Object> takeCourse(@RequestBody CourseTaken courseTaken) {
         Map<String, Object> info = new HashMap<>();
-        courseTaken.setTeacherId(ShiroKit.getSession().getAttribute("currentTeacherId").toString());
+        courseTaken.setTeacherId(getCurrentTeacherId());
         if (speCouService.insertCourseTaken(courseTaken) > 0) {
             info.put("isSuccess", true);
         }
@@ -139,11 +157,10 @@ public class TeacherController {
     @RequestMapping(value = "/tlcls", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getTakenInfo(@RequestBody Map<String, Object> params) {
-        String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
         Map<String, Object> takenInfo = new HashMap<>();
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
-            put("teacherId", teacherId);
+            put("teacherId", getCurrentTeacherId());
         }};
         List<TakenInfo> infoList = speCouService.selectTakenInfo(getMapInfo2Page(params), teacherInfo);
         //按开课时间升序
@@ -239,14 +256,43 @@ public class TeacherController {
     }
 
     /**
-     * 获取专业select
+     * 获取教师-专业select
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getSpecialty", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getSpecialtiesFromTeacher() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        return getSpecialties(params);
+    }
+
+    /**
+     * 获取全部专业select
      *
      * @return
      */
     @RequestMapping(value = "/getSpecialties", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getSpecialties() {
-        List<Specialty> specialties = speCouService.selectSpecialty(null);
+    public List<Map<String, Object>> getAllSpecialties() {
+        return getSpecialties(null);
+    }
+
+    /**
+     * 自定义查询专业select
+     *
+     * @param params
+     * @return
+     */
+    private List<Map<String, Object>> getSpecialties(Map<String, Object> params) {
+        List<Specialty> specialties;
+        if (null != params) {
+            specialties = speCouService.selectSpecialty(params);
+        } else {
+            specialties = speCouService.selectSpecialty(null);
+        }
         if (null != specialties) {
             List<Map<String, Object>> father = new ArrayList<>();
             for (Specialty specialty : specialties) {
