@@ -66,7 +66,9 @@
                 <th data-field="grade2" data-width="200">成绩二</th>
                 <th data-field="grade3" data-width="200">成绩三</th>
                 <th data-field="grade4" data-width="200">附加题成绩</th>
-                <th data-field="result" data-width="200">总成绩</th>
+                <th data-field="total" data-width="200" data-sortable="true">
+                    总成绩
+                </th>
             </tr>
             </thead>
         </table>

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
+import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
+import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.GradeTaken;
-import sunday.pojo.school.Specialty;
-import sunday.pojo.dto.TakenInfo;
 import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
@@ -67,13 +67,25 @@ public class TeacherController {
     private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
         Map<String, Object> takenInfo = new HashMap<>();
         String teacherId = (String) ShiroKit.getSession().getAttribute("currentTeacherId");
+        List<GradeTaken> target = new ArrayList<>();
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", teacherId);
         }};
-        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(getMapInfo2Page(params), teacherInfo);
+        List<TakenInfo> takenInfos = speCouService.selectTakenInfo(null, takenInfo);
+        for (TakenInfo info : takenInfos) {
+            teacherInfo.put("specialtyName", info.getSpecialtyName());
+            List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
+            //本可不用，但是学生-专业表数据未填导致出现java.lang.NullPointerException
+            if (null == gradeTakens) {
+                continue;
+            }
+            for (GradeTaken taken : gradeTakens) {
+                target.add(taken);
+            }
+        }
 
-        PageInfo<GradeTaken> pageInfo = new PageInfo<>(gradeTakens);
+        PageInfo<GradeTaken> pageInfo = new PageInfo<>(target);
 
         takenInfo.put("total", pageInfo.getTotal());
         takenInfo.put("rows", pageInfo.getList());

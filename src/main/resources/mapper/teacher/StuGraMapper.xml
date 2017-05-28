@@ -2,16 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.StuGraMapper">
-    <!--查询学生-->
+    <!--查询学生成绩-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.GradeTaken">
-        SELECT g.studentId AS studentId,s.name AS studentName,c.name AS courseName,
-        g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS grade3,g.grade4 AS grade4
-        FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade g,com_student s
+        SELECT DISTINCT g.studentId AS studentId,s.name AS studentName,c.name AS
+        courseName, g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS
+        grade3,g.grade4 AS grade4,g.total AS total
+        FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade
+        g,com_student s,com_specialty p,com_clazz_l_student cl
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
-        c.courseId=g.courseId AND g.studentId=s.studentId
+        c.courseId=g.courseId AND g.studentId=s.studentId AND
+        cl.studentId=s.studentId AND cl.specialtyId=p.specialtyId
         <if test="teacherId != null">
             AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
+        <if test="specialtyName != null">
+            AND p.name=#{specialtyName,jdbcType=CHAR}
         </if>
     </select>
 </mapper>
