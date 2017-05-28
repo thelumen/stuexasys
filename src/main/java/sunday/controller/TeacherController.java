@@ -197,6 +197,7 @@ public class TeacherController {
     public Map<String, Object> editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
         Map<String, Object> info = new HashMap<>();
         //此数组有三个数值，teacherId+courseName+specialtyName
+        //这种写法并不好
         String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
 
         Map<String, Object> params = new HashMap<String, Object>() {{
