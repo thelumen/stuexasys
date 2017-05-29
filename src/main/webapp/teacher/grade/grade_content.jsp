@@ -44,21 +44,9 @@
     </div>
     <hr class="divider"/>
     <br><br>
-    <div id="teacher_grande_toolbar">
-        <label style="margin-left: 20px">请选择 <strong
-                style="color: #985f0d">需要查看的指定专业</strong>：</strong>
-            <select id="teacher_grade_choose_specialty" name="courseName"
-                    style="width: 200px"></select></label>
-        <button id="teacher_grade_btn" class="btn btn-warning"
-                style="margin-left: 20px"
-                onclick="takeThePart()">
-            <i class="glyphicon glyphicon-search"></i>查询
-        </button>
-    </div>
     <div class="table-responsive">
         <table id="teacher_grade_table"
                data-toggle="table"
-               data-toolbar="#teacher_grade_toolbar"
                data-search="true"
                data-show-refresh="true"
                data-show-columns="true"
@@ -75,10 +63,20 @@
         >
             <thead>
             <tr>
-                <th data-field="studentId" data-sortable="true">学生ID</th>
-                <th data-field="studentName">学生姓名</th>
-                <th data-field="courseName" data-width="400">课程名称</th>
-                <th data-field="grade1" data-width="400">成绩一</th>
+                <th data-field="specialtyName" data-width="300" rowspan="2">
+                    专业名称
+                </th>
+                <th data-field="studentId" data-width="200" data-sortable="true"
+                    rowspan="2">学生ID
+                </th>
+                <th data-field="studentName" data-width="250" rowspan="2">学生姓名
+                </th>
+                <th data-field="courseName" data-width="400" rowspan="2">课程名称
+                </th>
+                <th colspan="5">成绩详情</th>
+            </tr>
+            <tr>
+                <th data-field="grade1" data-width="200">成绩一</th>
                 <th data-field="grade2" data-width="200">成绩二</th>
                 <th data-field="grade3" data-width="200">成绩三</th>
                 <th data-field="grade4" data-width="200">附加题成绩</th>
@@ -94,19 +92,6 @@
     //    成绩分配
     function outOfGrade() {
 //        $("[name='percent1']").val()
-    }
-
-    //    获取指定专业学生的成绩
-    function takeThePart() {
-//        alert($('#teacher_grade_choose_specialty').val());
-        $.ajax({
-            url:'${pageContext.request.contextPath}/teacher/course/'+$('#teacher_grade_choose_specialty').val(),
-            dataType:'json',
-            success:function (data) {
-
-            }
-            
-        });
     }
 
     $(function () {

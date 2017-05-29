@@ -7,6 +7,7 @@ package sunday.pojo.teacher;
 public final class GradeTaken {
     private String studentId;
     private String studentName;
+    private String specialtyName;
     private String courseName;
     private byte grade1;
     private byte grade2;
@@ -36,6 +37,14 @@ public final class GradeTaken {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getSpecialtyName() {
+        return specialtyName;
+    }
+
+    public void setSpecialtyName(String specialtyName) {
+        this.specialtyName = specialtyName;
     }
 
     public byte getGrade1() {

@@ -67,6 +67,7 @@ public class TeacherController {
 
     /**
      * 获取所教班级所有学生的成绩信息
+     * 查询信息未完成分页!!
      *
      * @param params
      * @return
@@ -92,12 +93,7 @@ public class TeacherController {
             target.addAll(gradeTakens);
         }
 
-        PageInfo<GradeTaken> pageInfo = new PageInfo<>(target);
-
-        takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
-
-        return takenInfo;
+        return getTakenInfo(target);
     }
 
     /**
@@ -167,12 +163,7 @@ public class TeacherController {
             }
         }
 
-        PageInfo<TakenInfo> pageInfo = new PageInfo<>(infoList);
-
-        takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
-
-        return takenInfo;
+        return getTakenInfo(infoList);
     }
 
     /**
@@ -199,6 +190,23 @@ public class TeacherController {
             info.put("isSuccess", true);
         }
         return info;
+    }
+
+    /**
+     * 获取table所需格式
+     *
+     * @param target
+     * @return
+     */
+    private Map<String, Object> getTakenInfo(List<?> target) {
+        Map<String, Object> takenInfo = new HashMap<>();
+
+        PageInfo<?> pageInfo = new PageInfo<>(target);
+
+        takenInfo.put("total", pageInfo.getTotal());
+        takenInfo.put("rows", pageInfo.getList());
+
+        return takenInfo;
     }
 
     /**
