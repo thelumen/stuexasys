@@ -56,7 +56,7 @@
     <div class="table-responsive">
         <table id="teacher_grade_table"
                data-toggle="table"
-               <%--data-toolbar="#teacher_grade_toolbar"--%>
+        <%--data-toolbar="#teacher_grade_toolbar"--%>
                data-method="post"
                data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
                data-height="1500"
@@ -64,6 +64,7 @@
                data-search="true"
                data-show-refresh="true"
                data-id-field="specialtyId"
+               data-row-style="rowStyle"
         >
             <thead>
             <tr>
@@ -101,17 +102,33 @@
 //        $("[name='percent1']").val()
     }
 
-//    function queryParams() {
-//        var params = {};
-//        $('#teacher_grade_toolbar').find('select[name]').each(function () {
-//            params[$(this).attr('specialtyId')] = $(this).val();
-//        });
-//        return params;
-//    }
-//
-//    function responseHandler(res) {
-//        return res.rows;
-//    }
+    //    function queryParams() {
+    //        var params = {};
+    //        $('#teacher_grade_toolbar').find('select[name]').each(function () {
+    //            params[$(this).attr('specialtyId')] = $(this).val();
+    //        });
+    //        return params;
+    //    }
+    //
+    //    function responseHandler(res) {
+    //        return res.rows;
+    //    }
+
+    function rowStyle(row, index) {
+        var classes = ['active', 'info', 'warning'];
+
+        if (index % 2 === 0 && index / 2 < classes.length) {
+            return {
+                classes: classes[index / 2]
+            };
+        }
+        if (index / 2 >= classes.length) {
+            return {
+                classes: classes[index / 2 % 3]
+            };
+        }
+        return {};
+    }
 
     $(function () {
 
