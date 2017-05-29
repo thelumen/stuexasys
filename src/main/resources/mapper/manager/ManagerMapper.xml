@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.manager.ManagerMapper">
+
+    <!--查询管理员-->
+    <select id="select" parameterType="java.util.Map"
+            resultType="sunday.pojo.manager.Manager">
+        SELECT *
+        FROM com_manager
+        <where>
+            <if test="managerId != null">
+                AND managerId=#{studentId,jdbcType=CHAR}
+            </if>
+            <if test="name != null">
+                AND name = #{name,jdbcType=CHAR}
+            </if>
+            <if test="password != null">
+                AND password=#{password,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--插入管理员-->
+    <insert id="insert" parameterType="sunday.pojo.manager.Manager">
+        INSERT INTO com_manager (managerId, password)
+        VALUES (#{managerId,jdbcType=CHAR}, #{password,jdbcType=CHAR})
+    </insert>
 </mapper>
 
 

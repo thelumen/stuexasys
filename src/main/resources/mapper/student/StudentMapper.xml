@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.student.StudentMapper">
+
     <!--查询学生-->
     <select id="select" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Student">
@@ -18,5 +19,64 @@
                 AND password=#{password,jdbcType=CHAR}
             </if>
         </where>
+    </select>
+
+    <!--更新学生信息-->
+    <update id="update" parameterType="java.util.Map">
+        UPDATE com_student
+        <set>
+            <if test="password !=null">
+                password=#{password,jdbcType=CHAR}
+            </if>
+            <if test="password !=null">
+                name=#{name,jdbcType=CHAR}
+            </if>
+            <if test="gender !=null">
+                gender=#{gender,jdbcType=CHAR}
+            </if>
+            <if test="email !=null">
+                email=#{email,jdbcType=CHAR}
+            </if>
+        </set>
+        where studentId=#{studentId,jdbcType=LONG}
+    </update>
+
+    <!--插入学生-->
+    <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
+        INSERT INTO com_student (studentId, password, specialtyId)
+        VALUES (#{studentId,jdbcType=CHAR}, #{password,jdbcType=CHAR},
+                #{specialtyId,jdbcType=CHAR})
+    </insert>
+
+    <!--插入学生班级-->
+    <insert id="insertStudentSpecialty" parameterType="sunday.pojo.school.Student">
+        INSERT INTO com_clazz_l_student (studentId, specialtyId)
+        VALUES (#{studentId,jdbcType=CHAR}, #{specialtyId,jdbcType=CHAR})
+    </insert>
+
+    <!--插入学生成绩(待议)-->
+    <insert id="insertGrade" parameterType="java.util.Map">
+        INSERT INTO com_grade (studentId, courseId, grade1, grade2, grade3, grade4)
+        VALUES (
+            #{studentId,jdbcType=CHAR}, #{courseId,jdbcType=CHAR},
+            #{grade1,jdbcType=TINYINT}, #{grade2,jdbcType=TINYINT},
+            #{grade3,jdbcType=TINYINT}, #{grade4,jdbcType=TINYINT})
+    </insert>
+
+    <!--查询学生信息-->
+    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.teacher.GradeTaken">
+        SELECT DISTINCT
+            g.studentId AS studentId,
+            s.name      AS studentName,
+            c.name      AS courseName,
+            g.grade1    AS grade1,
+            g.grade2    AS grade2,
+            g.grade3    AS grade3,
+            g.grade4    AS grade4,
+            g.total     AS total
+        FROM com_course c, com_grade g, com_student s
+        WHERE
+            g.studentId = s.studentId AND g.courseId = c.courseId
+            AND g.studentId = #{studentId,jdbcType=CHAR}
     </select>
 </mapper>

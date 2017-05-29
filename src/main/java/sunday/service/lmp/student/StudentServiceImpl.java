@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
+import sunday.pojo.teacher.GradeTaken;
 import sunday.service.student.StudentService;
 
 import java.util.List;
@@ -22,12 +23,6 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     @Override
-    @Transactional
-    public int insert(Student student) {
-        return studentMapper.insert(student);
-    }
-
-    @Override
     public List<Student> select(Page page, Map<String, Object> params) {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
@@ -37,5 +32,38 @@ public class StudentServiceImpl implements StudentService {
             return students;
         }
         return null;
+    }
+
+    @Override
+    public List<GradeTaken> selectGrade(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<GradeTaken> gradeTakens = studentMapper.selectGrade(params);
+        if (null != gradeTakens && gradeTakens.size() > 0) {
+            return gradeTakens;
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public int insertStudent(Student student) {
+        return studentMapper.insertStudent(student);
+    }
+
+    @Override
+    public int insertGrade(Map<String, Object> params) {
+        return studentMapper.insertGrade(params);
+    }
+
+    @Override
+    public int insertStudentSpecialty(Student student) {
+        return studentMapper.insertStudentSpecialty(student);
+    }
+
+    @Override
+    public int update(Student student) {
+        return studentMapper.update(student);
     }
 }

@@ -77,4 +77,18 @@ public final class GradeTaken {
     public void setTotal(byte total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return "GradeTaken{" +
+                "studentId='" + studentId + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", grade1=" + grade1 +
+                ", grade2=" + grade2 +
+                ", grade3=" + grade3 +
+                ", grade4=" + grade4 +
+                ", total=" + total +
+                '}';
+    }
 }
