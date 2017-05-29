@@ -82,26 +82,15 @@ public class TeacherController {
             put("teacherId", getCurrentTeacherId());
         }};
         List<TakenInfo> takenInfos = speCouService.selectTakenInfo(null, takenInfo);
-        //出现重复数据！！！
         for (TakenInfo info : takenInfos) {
-//            Map<String, Object> parameters = new HashMap<String, Object>() {{
-//                put("teacherId", getCurrentTeacherId());
-//                put("specialtyName", info.getSpecialtyName());
-//            }};
             teacherInfo.put("specialtyName", info.getSpecialtyName());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
             //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
                 continue;
             }
-            for (GradeTaken taken : gradeTakens) {
-                target.add(taken);
-            }
+            target.addAll(gradeTakens);
         }
-        //过滤
-        Set<GradeTaken> func = new HashSet<>(target);
-        target.clear();
-        target.addAll(func);
 
         PageInfo<GradeTaken> pageInfo = new PageInfo<>(target);
 

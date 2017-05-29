@@ -11,7 +11,7 @@
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
         </li>
-        <li class="active">学生信息</li>
+        <li class="active">成绩统计</li>
     </ol>
     <div class="container-fluid" style="text-align: center">
         <form id="teacher_course_form">
@@ -24,13 +24,17 @@
                 <select id="teacher_grade_select_specialty" name="specialtyId"
                         style="width: 200px"></select></label><br>
             <label><strong>测试一</strong>所占比重：<input id="teacher_grade_grade1"
-                                                   name="percent1"></label>
+                                                   name="percent1"
+                                                   placeholder="请填写0-100的数字"></label>
             <label><strong>测试二</strong>所占比重：<input id="teacher_grade_grade2"
-                                                   name="percent2"></label>
+                                                   name="percent2"
+                                                   placeholder="请填写0-100的数字"></label>
             <label><strong>测试三</strong>所占比重：<input id="teacher_grade_grade3"
-                                                   name="percent3"></label>
+                                                   name="percent3"
+                                                   placeholder="请填写0-100的数字"></label>
             <label><strong>测试四</strong>所占比重：<input id="teacher_grade_grade4"
-                                                   name="percent4"></label><br>
+                                                   name="percent4"
+                                                   placeholder="请填写0-100的数字"></label><br>
             <button style="margin-left: 30px" class="btn btn-warning"
                     type="button"
                     onclick="outOfGrade()">
@@ -40,9 +44,21 @@
     </div>
     <hr class="divider"/>
     <br><br>
+    <div id="teacher_grande_toolbar">
+        <label style="margin-left: 20px">请选择 <strong
+                style="color: #985f0d">需要查看的指定专业</strong>：</strong>
+            <select id="teacher_grade_choose_specialty" name="courseName"
+                    style="width: 200px"></select></label>
+        <button id="teacher_grade_btn" class="btn btn-warning"
+                style="margin-left: 20px"
+                onclick="takeThePart()">
+            <i class="glyphicon glyphicon-search"></i>查询
+        </button>
+    </div>
     <div class="table-responsive">
-        <table id="teacher_student_table"
+        <table id="teacher_grade_table"
                data-toggle="table"
+               data-toolbar="#teacher_grade_toolbar"
                data-search="true"
                data-show-refresh="true"
                data-show-columns="true"
@@ -66,7 +82,7 @@
                 <th data-field="grade2" data-width="200">成绩二</th>
                 <th data-field="grade3" data-width="200">成绩三</th>
                 <th data-field="grade4" data-width="200">附加题成绩</th>
-                <th data-field="total" data-width="200" data-sortable="true">
+                <th data-field="total" data-width="200">
                     总成绩
                 </th>
             </tr>
@@ -75,6 +91,24 @@
     </div>
 </div>
 <script>
+    //    成绩分配
+    function outOfGrade() {
+//        $("[name='percent1']").val()
+    }
+
+    //    获取指定专业学生的成绩
+    function takeThePart() {
+//        alert($('#teacher_grade_choose_specialty').val());
+        $.ajax({
+            url:'${pageContext.request.contextPath}/teacher/course/'+$('#teacher_grade_choose_specialty').val(),
+            dataType:'json',
+            success:function (data) {
+
+            }
+            
+        });
+    }
+
     $(function () {
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
@@ -92,10 +126,10 @@
                 $('#teacher_grade_select_specialty').select2({
                     data: data
                 });
+                $('#teacher_grade_choose_specialty').select2({
+                    data: data
+                });
             }
         });
     });
-    function outOfGrade() {
-
-    }
 </script>
