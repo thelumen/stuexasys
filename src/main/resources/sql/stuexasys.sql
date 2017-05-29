@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-05-28 21:41:39
+Date: 2017-05-29 21:21:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -919,34 +919,9 @@ CREATE TABLE `com_teacher_l_course` (
 -- ----------------------------
 -- Records of com_teacher_l_course
 -- ----------------------------
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140402', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140403', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140404', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140405', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140401', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140402', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140403', '2017-05-23', '2017-05-23');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140405', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140400', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140401', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140402', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140403', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140404', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000002', '140405', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140400', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140401', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140403', '2017-05-23', '2017-05-23');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140404', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000003', '140405', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000004', '140400', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000004', '140403', '2017-05-16', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000004', '140405', '2017-05-23', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140400', '2017-05-23', '2017-05-23');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140401', '2017-05-23', '2017-05-23');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140402', '2017-05-23', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140403', '2017-05-23', '2017-05-31');
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000005', '140405', '2017-05-23', '2017-05-23');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140400', '2017-05-01', '2017-05-31');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2016-05-01', '2017-05-09');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140402', '2017-01-02', '2017-10-18');
 
 -- ----------------------------
 -- Table structure for com_teacher_l_role

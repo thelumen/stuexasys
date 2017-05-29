@@ -44,30 +44,37 @@
     </div>
     <hr class="divider"/>
     <br><br>
+    <div id="teacher_grade_toolbar">
+        <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：<select
+                name="specialtyId"
+                id="teacher_grade_choose_specialty"
+                style="width: 200px"></select>
+            <button id="teacher_grade_select_btn" class="btn btn-primary">
+                <i class="glyphicon glyphicon-search"></i> 查询
+            </button>
+    </div>
     <div class="table-responsive">
         <table id="teacher_grade_table"
                data-toggle="table"
+               <%--data-toolbar="#teacher_grade_toolbar"--%>
+               data-method="post"
+               data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
+               data-height="1500"
+               data-side-pagination="server"
                data-search="true"
                data-show-refresh="true"
-               data-show-columns="true"
-               data-minimum-count-columns="2"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-id-field="studentId"
-               data-page-list="[15, 25, 50, 100, ALL]"
-               data-show-footer="false"
-               data-side-pagination="server"
-               data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
-               data-method="post"
-               data-query-params="$.fn.bootstrapTable.queryParams"
+               data-id-field="specialtyId"
         >
             <thead>
             <tr>
+                <th data-field="specialtyId" data-width="300" rowspan="2"
+                    data-sortable="true">
+                    专业ID
+                </th>
                 <th data-field="specialtyName" data-width="300" rowspan="2">
                     专业名称
                 </th>
-                <th data-field="studentId" data-width="200" data-sortable="true"
-                    rowspan="2">学生ID
+                <th data-field="studentId" data-width="200" rowspan="2">学生ID
                 </th>
                 <th data-field="studentName" data-width="250" rowspan="2">学生姓名
                 </th>
@@ -94,7 +101,24 @@
 //        $("[name='percent1']").val()
     }
 
+//    function queryParams() {
+//        var params = {};
+//        $('#teacher_grade_toolbar').find('select[name]').each(function () {
+//            params[$(this).attr('specialtyId')] = $(this).val();
+//        });
+//        return params;
+//    }
+//
+//    function responseHandler(res) {
+//        return res.rows;
+//    }
+
     $(function () {
+
+//        $('#teacher_grade_select_btn').click(function () {
+//            $('#teacher_grade_table').bootstrapTable('refresh');
+//        });
+
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
