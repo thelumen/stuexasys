@@ -148,17 +148,11 @@ public class TeacherController {
             put("teacherId", getCurrentTeacherId());
         }};
         List<TakenInfo> infoList = speCouService.selectTakenInfo(getMapInfo2Page(params), teacherInfo);
-        //按开课时间升序
-        Collections.sort(infoList, new Comparator<TakenInfo>() {
-            @Override
-            public int compare(TakenInfo o1, TakenInfo o2) {
-                return o1.getStarttime().compareTo(o2.getStarttime());
-            }
-        });
+
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
         for (TakenInfo info : infoList) {
-            if (info.getEndtime().compareTo(currentTime) >= 0) {
+            if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
                 info.setOn(true);
             }
         }

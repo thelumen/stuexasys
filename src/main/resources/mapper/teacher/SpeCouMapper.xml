@@ -75,6 +75,7 @@
         <if test="specialtyName != null">
             AND s.name=#{specialtyName,jdbcType=CHAR}
         </if>
+        ORDER BY l.starttime ASC ,l.endtime ASC
     </select>
 
     <!--删除选课信息-->
