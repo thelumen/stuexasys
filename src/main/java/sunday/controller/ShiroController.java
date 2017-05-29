@@ -34,7 +34,7 @@ public class ShiroController {
     @RequestMapping("/logout")
     public String logout() {
         ShiroKit.getSubject().logout();
-        return "/student/main/main";
+        return "/student/main/mainProxy";
     }
 
     /**
