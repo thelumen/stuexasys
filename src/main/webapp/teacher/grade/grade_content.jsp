@@ -103,18 +103,6 @@
 //        $("[name='percent1']").val()
     }
 
-    //    function queryParams() {
-    //        var params = {};
-    //        $('#teacher_grade_toolbar').find('select[name]').each(function () {
-    //            params[$(this).attr('specialtyId')] = $(this).val();
-    //        });
-    //        return params;
-    //    }
-    //
-    //    function responseHandler(res) {
-    //        return res.rows;
-    //    }
-
     function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
 
@@ -132,19 +120,9 @@
     }
 
     $(function () {
-
         $('#teacher_grade_select_btn').click(function () {
-//            alert($('#teacher_grade_choose_specialty').val());
-//            $('#teacher_grade_table').bootstrapTable('refresh');
             var specialtyId = $('#teacher_grade_choose_specialty').val();
-            $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/grade/' + specialtyId,
-                dataType: 'json',
-                success: function (data) {
-//                    alert(data.rows[0].specialtyId);
-                    $('#teacher_grade_table').bootstrapTable('refresh', data);
-                }
-            });
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId});
         });
 
         $.ajax({

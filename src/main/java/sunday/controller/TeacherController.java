@@ -70,14 +70,14 @@ public class TeacherController {
      * @param specialtyId
      * @return
      */
-    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, params);
-        return getTakenInfo(courseTakens);
+        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
+        return getTakenInfo(gradeTakens);
     }
 
     /**
