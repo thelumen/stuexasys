@@ -1,7 +1,6 @@
 package sunday.mapper.teacher;
 
 import org.springframework.stereotype.Repository;
-import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -63,14 +62,6 @@ public interface SpeCouMapper {
     List<Course> selectAllCourses();
 
     /**
-     * 查询选课信息
-     *
-     * @param params
-     * @return
-     */
-    List<TakenInfo> selectTakenInfo(Map<String, Object> params);
-
-    /**
      * 新增选课信息
      *
      * @param courseTaken
@@ -87,4 +78,11 @@ public interface SpeCouMapper {
     int deleteTakenInfo(Map<String, Object> params);
 
 
+    /**
+     * 查询选课信息
+     *
+     * @param params
+     * @return
+     */
+    List<CourseTaken> selectCourseTaken(Map<String, Object> params);
 }

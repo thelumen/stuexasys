@@ -1,12 +1,15 @@
 package sunday.pojo.teacher;
 
 /**
+ * 成绩类
  * Created by yang on 2017/5/27.
  * At 18:47
  */
 public final class GradeTaken {
     private String studentId;
     private String studentName;
+    private String specialtyId;
+    private String specialtyName;
     private String courseName;
     private byte grade1;
     private byte grade2;
@@ -36,6 +39,22 @@ public final class GradeTaken {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(String specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
+    public String getSpecialtyName() {
+        return specialtyName;
+    }
+
+    public void setSpecialtyName(String specialtyName) {
+        this.specialtyName = specialtyName;
     }
 
     public byte getGrade1() {

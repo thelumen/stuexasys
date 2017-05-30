@@ -44,10 +44,6 @@
       charset="utf-8">
 <script src="/common/jslib/bootstrap-table/bootstrap-table.min.js"
         charset="utf-8"></script>
-<link href="/common/jslib/bootstrap-table/bootstrap-editable.css" rel="stylesheet"
-      charset="utf-8">
-<script src="/common/jslib/bootstrap-table/bootstrap-editable.js"
-        charset="utf-8"></script>
 <script src="/common/jslib/bootstrap-table/bootstrap-table-zh-CN.js"
         charset="utf-8"></script>
 <script charset="UTF-8">

@@ -1,10 +1,10 @@
 package sunday.service.lmp.teacher;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.SpeCouMapper;
-import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -63,15 +63,6 @@ public class SpeCouServiceImp implements SpeCouService {
     }
 
     @Override
-    public List<TakenInfo> selectTakenInfo(Page page, Map<String, Object> params) {
-        List<TakenInfo> infoList = speCouMapper.selectTakenInfo(params);
-        if (null != infoList && infoList.size() > 0) {
-            return infoList;
-        }
-        return null;
-    }
-
-    @Override
     @Transactional
     public int insertCourseTaken(CourseTaken courseTaken) {
         return speCouMapper.insertCourseTaken(courseTaken);
@@ -85,6 +76,18 @@ public class SpeCouServiceImp implements SpeCouService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<CourseTaken> selectCourseTaken(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<CourseTaken> courses = speCouMapper.selectCourseTaken(params);
+        if (null != courses && courses.size() > 0) {
+            return courses;
+        }
+        return null;
     }
 
     @Override

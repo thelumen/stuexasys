@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
-import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -67,6 +66,7 @@ public class TeacherController {
 
     /**
      * 获取所教班级所有学生的成绩信息
+     * 查询信息未完成分页!!
      *
      * @param params
      * @return
@@ -81,34 +81,18 @@ public class TeacherController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<TakenInfo> takenInfos = speCouService.selectTakenInfo(null, takenInfo);
-        //出现重复数据！！！
-        for (TakenInfo info : takenInfos) {
-//            Map<String, Object> parameters = new HashMap<String, Object>() {{
-//                put("teacherId", getCurrentTeacherId());
-//                put("specialtyName", info.getSpecialtyName());
-//            }};
-            teacherInfo.put("specialtyName", info.getSpecialtyName());
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, takenInfo);
+        for (CourseTaken course : courseTakens) {
+            teacherInfo.put("specialtyName", course.getSpecialtyName());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
             //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
                 continue;
             }
-            for (GradeTaken taken : gradeTakens) {
-                target.add(taken);
-            }
+            target.addAll(gradeTakens);
         }
-        //过滤
-        Set<GradeTaken> func = new HashSet<>(target);
-        target.clear();
-        target.addAll(func);
 
-        PageInfo<GradeTaken> pageInfo = new PageInfo<>(target);
-
-        takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
-
-        return takenInfo;
+        return getTakenInfo(target);
     }
 
     /**
@@ -162,28 +146,17 @@ public class TeacherController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<TakenInfo> infoList = speCouService.selectTakenInfo(getMapInfo2Page(params), teacherInfo);
-        //按开课时间升序
-        Collections.sort(infoList, new Comparator<TakenInfo>() {
-            @Override
-            public int compare(TakenInfo o1, TakenInfo o2) {
-                return o1.getStarttime().compareTo(o2.getStarttime());
-            }
-        });
+        List<CourseTaken> courses = speCouService.selectCourseTaken(getMapInfo2Page(params), teacherInfo);
+
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
-        for (TakenInfo info : infoList) {
-            if (info.getEndtime().compareTo(currentTime) >= 0) {
+        for (CourseTaken info : courses) {
+            if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
                 info.setOn(true);
             }
         }
 
-        PageInfo<TakenInfo> pageInfo = new PageInfo<>(infoList);
-
-        takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
-
-        return takenInfo;
+        return getTakenInfo(courses);
     }
 
     /**
@@ -210,6 +183,23 @@ public class TeacherController {
             info.put("isSuccess", true);
         }
         return info;
+    }
+
+    /**
+     * 获取table所需格式
+     *
+     * @param target
+     * @return
+     */
+    private Map<String, Object> getTakenInfo(List<?> target) {
+        Map<String, Object> takenInfo = new HashMap<>();
+
+        PageInfo<?> pageInfo = new PageInfo<>(target);
+
+        takenInfo.put("total", pageInfo.getTotal());
+        takenInfo.put("rows", pageInfo.getList());
+
+        return takenInfo;
     }
 
     /**
