@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -6,7 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="/teacher/grade/grade.css" charset="UTF-8">
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
@@ -48,15 +48,19 @@
         <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：<select
                 name="specialtyId"
                 id="teacher_grade_choose_specialty"
-                style="width: 200px"></select>
-            <button id="teacher_grade_select_btn" class="btn btn-primary">
-                <i class="glyphicon glyphicon-search"></i> 查询
-            </button>
+                style="width: 200px"></select></label>
+        <button id="teacher_grade_select_btn" class="btn btn-primary">
+            <i class="glyphicon glyphicon-search"></i> 查询
+        </button>
+        <button id="teacher_grade_reset_btn" class="btn btn-primary">
+            <i class="glyphicon glyphicon-repeat"></i> 全部数据
+        </button>
     </div>
+
     <div class="table-responsive">
         <table id="teacher_grade_table"
                data-toggle="table"
-        <%--data-toolbar="#teacher_grade_toolbar"--%>
+               data-toolbar="#teacher_grade_toolbar"
                data-method="post"
                data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
                data-height="1500"
@@ -103,18 +107,6 @@
 //        $("[name='percent1']").val()
     }
 
-    //    function queryParams() {
-    //        var params = {};
-    //        $('#teacher_grade_toolbar').find('select[name]').each(function () {
-    //            params[$(this).attr('specialtyId')] = $(this).val();
-    //        });
-    //        return params;
-    //    }
-    //
-    //    function responseHandler(res) {
-    //        return res.rows;
-    //    }
-
     function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
 
@@ -132,10 +124,14 @@
     }
 
     $(function () {
+        $('#teacher_grade_reset_btn').click(function () {
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/student/grade/all"});
+        });
 
-//        $('#teacher_grade_select_btn').click(function () {
-//            $('#teacher_grade_table').bootstrapTable('refresh');
-//        });
+        $('#teacher_grade_select_btn').click(function () {
+            var specialtyId = $('#teacher_grade_choose_specialty').val();
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId});
+        });
 
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
@@ -160,3 +156,9 @@
         });
     });
 </script>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>

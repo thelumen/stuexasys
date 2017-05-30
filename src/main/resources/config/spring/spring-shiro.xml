@@ -36,7 +36,7 @@
     <!--会话管理器-->
     <bean id="webSessionManager"
           class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="3600000"/>
+        <property name="globalSessionTimeout" value="7200000"/>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionDAO" ref="shiroSessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>

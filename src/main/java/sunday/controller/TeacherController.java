@@ -65,15 +65,29 @@ public class TeacherController {
     }
 
     /**
-     * 获取所教班级所有学生的成绩信息
-     * 查询信息未完成分页!!
+     * 获取指定专业学生的成绩
      *
-     * @param params
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("specialtyId", specialtyId);
+        }};
+        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
+        return getTakenInfo(gradeTakens);
+    }
+
+    /**
+     * 获取所教专业所有学生的成绩信息
+     *
      * @return
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
+    private Map<String, Object> getAllStudentGrade() {
         Map<String, Object> takenInfo = new HashMap<>();
         //封装list
         List<GradeTaken> target = new ArrayList<>();
@@ -152,7 +166,13 @@ public class TeacherController {
         Date currentTime = new Date();
         for (CourseTaken info : courses) {
             if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
-                info.setOn(true);
+                info.setOn("教学中");
+            }
+            if (currentTime.compareTo(info.getStarttime()) < 0) {
+                info.setOn("课程未开始");
+            }
+            if (info.getEndtime().compareTo(currentTime) < 0) {
+                info.setOn("已结课");
             }
         }
 
