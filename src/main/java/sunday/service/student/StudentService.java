@@ -2,7 +2,7 @@ package sunday.service.student;
 
 import com.github.pagehelper.Page;
 import sunday.pojo.school.Student;
-import sunday.pojo.teacher.GradeTaken;
+import sunday.pojo.student.GradeTaken;
 
 import java.util.List;
 import java.util.Map;

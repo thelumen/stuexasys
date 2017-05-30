@@ -64,19 +64,33 @@
     </insert>
 
     <!--查询学生信息-->
-    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.teacher.GradeTaken">
+    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
         SELECT DISTINCT
-            g.studentId AS studentId,
-            s.name      AS studentName,
-            c.name      AS courseName,
-            g.grade1    AS grade1,
-            g.grade2    AS grade2,
-            g.grade3    AS grade3,
-            g.grade4    AS grade4,
-            g.total     AS total
-        FROM com_course c, com_grade g, com_student s
+            g.studentId  AS studentId,
+            s.name       AS studentName,
+            c.name       AS courseName,
+            g.grade1     AS grade1,
+            g.grade2     AS grade2,
+            g.grade3     AS grade3,
+            g.grade4     AS grade4,
+            g.total      AS total,
+            tc.starttime AS startTime,
+            tc.endtime   AS endtime
+        FROM com_course c, com_grade g, com_student s, com_teacher_l_course tc
         WHERE
-            g.studentId = s.studentId AND g.courseId = c.courseId
-            AND g.studentId = #{studentId,jdbcType=CHAR}
+            g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
+            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=CHAR}
+    </select>
+
+    <!--查询学生课程-->
+    <select id="selectCourse" parameterType="java.util.Map" resultType="sunday.pojo.student.CourseTaken">
+        SELECT DISTINCT
+            c.name       AS courseName,
+            c.credit     AS credit,
+            c.period     AS period,
+            tc.starttime AS startTime,
+            tc.endtime   AS endtime
+        FROM com_course c, com_teacher_l_course tc, com_student s
+        WHERE c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=CHAR}
     </select>
 </mapper>

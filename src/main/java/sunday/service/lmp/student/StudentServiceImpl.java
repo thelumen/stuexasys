@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
-import sunday.pojo.teacher.GradeTaken;
+import sunday.pojo.student.GradeTaken;
 import sunday.service.student.StudentService;
 
 import java.util.List;
