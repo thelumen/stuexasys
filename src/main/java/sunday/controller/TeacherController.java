@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
-import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -82,9 +81,9 @@ public class TeacherController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<TakenInfo> takenInfos = speCouService.selectTakenInfo(null, takenInfo);
-        for (TakenInfo info : takenInfos) {
-            teacherInfo.put("specialtyName", info.getSpecialtyName());
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, takenInfo);
+        for (CourseTaken course : courseTakens) {
+            teacherInfo.put("specialtyName", course.getSpecialtyName());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
             //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
@@ -147,17 +146,17 @@ public class TeacherController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<TakenInfo> infoList = speCouService.selectTakenInfo(getMapInfo2Page(params), teacherInfo);
+        List<CourseTaken> courses = speCouService.selectCourseTaken(getMapInfo2Page(params), teacherInfo);
 
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
-        for (TakenInfo info : infoList) {
+        for (CourseTaken info : courses) {
             if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
                 info.setOn(true);
             }
         }
 
-        return getTakenInfo(infoList);
+        return getTakenInfo(courses);
     }
 
     /**

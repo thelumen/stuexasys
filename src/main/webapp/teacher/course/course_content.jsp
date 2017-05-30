@@ -57,7 +57,10 @@
             <tr>
                 <th data-field="teacherId">教师ID</th>
                 <th data-field="teacherName" data-width="400">教师姓名</th>
+                <th data-field="courseId" data-width="200">课程ID</th>
                 <th data-field="courseName" data-width="200">所教课程</th>
+                <th data-field="specialtyId" data-width="200">专业ID
+                </th>
                 <th data-field="specialtyName" data-width="200">所教专业
                 </th>
                 <th data-field="starttime" data-width="200">开课时间</th>

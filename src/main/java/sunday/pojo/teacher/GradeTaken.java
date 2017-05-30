@@ -1,6 +1,7 @@
 package sunday.pojo.teacher;
 
 /**
+ * 成绩类
  * Created by yang on 2017/5/27.
  * At 18:47
  */

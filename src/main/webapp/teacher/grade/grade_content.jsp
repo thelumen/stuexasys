@@ -68,22 +68,23 @@
         >
             <thead>
             <tr>
-                <th data-field="specialtyId" data-width="300" rowspan="2"
-                    data-sortable="true">
-                    专业ID
-                </th>
-                <th data-field="specialtyName" data-width="300" rowspan="2">
-                    专业名称
-                </th>
-                <th data-field="studentId" data-width="200" rowspan="2">学生ID
-                </th>
-                <th data-field="studentName" data-width="250" rowspan="2">学生姓名
-                </th>
+                <th colspan="4">学生信息</th>
                 <th data-field="courseName" data-width="400" rowspan="2">课程名称
                 </th>
                 <th colspan="5">成绩详情</th>
             </tr>
             <tr>
+                <th data-field="specialtyId" data-width="300"
+                    data-sortable="true">
+                    专业ID
+                </th>
+                <th data-field="specialtyName" data-width="300">
+                    专业名称
+                </th>
+                <th data-field="studentId" data-width="200">学生ID
+                </th>
+                <th data-field="studentName" data-width="250">学生姓名
+                </th>
                 <th data-field="grade1" data-width="200">成绩一</th>
                 <th data-field="grade2" data-width="200">成绩二</th>
                 <th data-field="grade3" data-width="200">成绩三</th>

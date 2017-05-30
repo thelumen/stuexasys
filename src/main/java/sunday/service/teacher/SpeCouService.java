@@ -1,7 +1,6 @@
 package sunday.service.teacher;
 
 import com.github.pagehelper.Page;
-import sunday.pojo.dto.TakenInfo;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -61,15 +60,6 @@ public interface SpeCouService {
     List<Course> selectAllCourses();
 
     /**
-     * 查询选课表
-     *
-     * @param page
-     * @param params
-     * @return
-     */
-    List<TakenInfo> selectTakenInfo(Page page, Map<String, Object> params);
-
-    /**
      * 新增选课信息
      *
      * @param courseTaken
@@ -85,5 +75,12 @@ public interface SpeCouService {
      */
     boolean deleteTakenInfo(Map<String, Object> params);
 
-
+    /**
+     * 查询选课信息
+     *
+     * @param page
+     * @param params
+     * @return
+     */
+    List<CourseTaken> selectCourseTaken(Page page, Map<String, Object> params);
 }
