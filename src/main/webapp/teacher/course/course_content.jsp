@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -6,8 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" href="/teacher/course/course.css"
-      charset="utf-8">
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
@@ -51,13 +50,22 @@
                data-side-pagination="server"
                data-url="${pageContext.request.contextPath}/teacher/tlcls"
                data-method="post"
+               data-row-style="rowStyle"
                data-query-params="$.fn.bootstrapTable.queryParams"
         >
             <thead>
             <tr>
+                <th colspan="2">教师信息</th>
+                <th colspan="3">课程和班级</th>
+                <th colspan="2">时间信息</th>
+                <th data-field="on" data-width="200" rowspan="2">教课中？</th>
+                <th data-formatter="operateCourseTaken" data-width="150"
+                    rowspan="2">操作
+                </th>
+            </tr>
+            <tr>
                 <th data-field="teacherId">教师ID</th>
                 <th data-field="teacherName" data-width="400">教师姓名</th>
-                <th data-field="courseId" data-width="200">课程ID</th>
                 <th data-field="courseName" data-width="200">所教课程</th>
                 <th data-field="specialtyId" data-width="200">专业ID
                 </th>
@@ -65,10 +73,6 @@
                 </th>
                 <th data-field="starttime" data-width="200">开课时间</th>
                 <th data-field="endtime" data-width="200">结课时间</th>
-                <th data-field="on" data-width="200">教课中？
-                </th>
-                <th data-formatter="operateCourseTaken" data-width="150">操作
-                </th>
             </tr>
             </thead>
         </table>
@@ -76,6 +80,23 @@
     </div>
 </div>
 <script>
+
+    function rowStyle(row, index) {
+        var classes = ['active', 'info', 'warning'];
+
+        if (index % 2 === 0 && index / 2 < classes.length) {
+            return {
+                classes: classes[index / 2]
+            };
+        }
+        if (index / 2 >= classes.length) {
+            return {
+                classes: classes[index / 2 % 3]
+            };
+        }
+        return {};
+    }
+
     $(function () {
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourses',
@@ -160,3 +181,9 @@
             });
     }
 </script>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>

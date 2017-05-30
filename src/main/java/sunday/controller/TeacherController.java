@@ -83,7 +83,6 @@ public class TeacherController {
     /**
      * 获取所教专业所有学生的成绩信息
      *
-     * @param params
      * @return
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
@@ -167,7 +166,13 @@ public class TeacherController {
         Date currentTime = new Date();
         for (CourseTaken info : courses) {
             if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
-                info.setOn(true);
+                info.setOn("教学中");
+            }
+            if (currentTime.compareTo(info.getStarttime()) < 0) {
+                info.setOn("课程未开始");
+            }
+            if (info.getEndtime().compareTo(currentTime) < 0) {
+                info.setOn("已结课");
             }
         }
 

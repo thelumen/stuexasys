@@ -21,7 +21,7 @@ public final class CourseTaken {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endtime;
     //课程结束与否，false：结束了，true：没有
-    private boolean on;
+    private String on;
 
     public String getTeacherId() {
         return teacherId;
@@ -87,11 +87,11 @@ public final class CourseTaken {
         this.specialtyName = specialtyName;
     }
 
-    public boolean isOn() {
+    public String getOn() {
         return on;
     }
 
-    public void setOn(boolean on) {
+    public void setOn(String on) {
         this.on = on;
     }
 
