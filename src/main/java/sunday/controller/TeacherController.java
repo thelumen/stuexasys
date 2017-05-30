@@ -65,15 +65,30 @@ public class TeacherController {
     }
 
     /**
-     * 获取所教班级所有学生的成绩信息
-     * 查询信息未完成分页!!
+     * 获取指定专业学生的成绩
+     *
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("specialtyId", specialtyId);
+        }};
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, params);
+        return getTakenInfo(courseTakens);
+    }
+
+    /**
+     * 获取所教专业所有学生的成绩信息
      *
      * @param params
      * @return
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
+    private Map<String, Object> getAllStudentGrade() {
         Map<String, Object> takenInfo = new HashMap<>();
         //封装list
         List<GradeTaken> target = new ArrayList<>();

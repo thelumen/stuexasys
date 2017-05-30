@@ -56,7 +56,7 @@
     <div class="table-responsive">
         <table id="teacher_grade_table"
                data-toggle="table"
-        <%--data-toolbar="#teacher_grade_toolbar"--%>
+               data-toolbar="#teacher_grade_toolbar"
                data-method="post"
                data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
                data-height="1500"
@@ -133,9 +133,19 @@
 
     $(function () {
 
-//        $('#teacher_grade_select_btn').click(function () {
+        $('#teacher_grade_select_btn').click(function () {
+//            alert($('#teacher_grade_choose_specialty').val());
 //            $('#teacher_grade_table').bootstrapTable('refresh');
-//        });
+            var specialtyId = $('#teacher_grade_choose_specialty').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/grade/' + specialtyId,
+                dataType: 'json',
+                success: function (data) {
+//                    alert(data.rows[0].specialtyId);
+                    $('#teacher_grade_table').bootstrapTable('refresh', data);
+                }
+            });
+        });
 
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
