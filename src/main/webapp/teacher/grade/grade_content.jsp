@@ -14,7 +14,8 @@
         <li class="active">成绩统计</li>
     </ol>
     <div class="container-fluid" style="text-align: center">
-        <form id="teacher_course_form">
+        <form id="teacher_course_form" method="post"
+              action="${pageContext.request.contextPath}/teacher/student/assignGrades">
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
                     id="teacher_grade_select_course"
@@ -25,15 +26,23 @@
                         style="width: 200px"></select></label><br>
             <label><strong>测试一</strong>所占比重：<input id="teacher_grade_grade1"
                                                    name="percent1"
+                                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                   onafterpaste="this.value=this.value.replace(/\D/g,'')"
                                                    placeholder="请填写0-100的数字"></label>
             <label><strong>测试二</strong>所占比重：<input id="teacher_grade_grade2"
                                                    name="percent2"
+                                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                   onafterpaste="this.value=this.value.replace(/\D/g,'')"
                                                    placeholder="请填写0-100的数字"></label>
             <label><strong>测试三</strong>所占比重：<input id="teacher_grade_grade3"
                                                    name="percent3"
+                                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                   onafterpaste="this.value=this.value.replace(/\D/g,'')"
                                                    placeholder="请填写0-100的数字"></label>
             <label><strong>测试四</strong>所占比重：<input id="teacher_grade_grade4"
                                                    name="percent4"
+                                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                                   onafterpaste="this.value=this.value.replace(/\D/g,'')"
                                                    placeholder="请填写0-100的数字"></label><br>
             <button style="margin-left: 30px" class="btn btn-warning"
                     type="button"
@@ -104,7 +113,17 @@
 <script>
     //    成绩分配
     function outOfGrade() {
-//        $("[name='percent1']").val()
+//        alert(Number($("[name='percent1']").val()));
+        var value1 = Number($("[name='percent1']").val());
+        var value2 = Number($("[name='percent2']").val());
+        var value3 = Number($("[name='percent3']").val());
+        var value4 = Number($("[name='percent4']").val());
+//        alert(value1);
+        if (value1 + value2 + value3 + value4 === 100) {
+            $('#teacher_course_form').submit();
+        } else {
+            alert("分配数额为100,请重新分配!");
+        }
     }
 
     function rowStyle(row, index) {

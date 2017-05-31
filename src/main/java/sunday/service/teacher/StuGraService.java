@@ -20,4 +20,12 @@ public interface StuGraService {
      * @return
      */
     List<GradeTaken> selectGradeTaken(Page page, Map<String, Object> params);
+
+    /**
+     * 更新成绩
+     *
+     * @param studentGrade
+     * @return
+     */
+    boolean updateGrade(GradeTaken studentGrade);
 }
