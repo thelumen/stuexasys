@@ -64,12 +64,7 @@
       charset="utf-8">
 <script src="/common/jslib/select2/zh-CN.js" charset="utf-8"></script>
 <%--bootstrap-data-export--%>
-<script src="/common/jslib/bootstrap-table/bootstrap-table-export.js"
+<script src="/common/jslib/table-export/bootstrap-table-export.js"
         charset="utf-8"></script>
-<%--jquery-data-export--%>
-<script src="/common/jslib/table-export/tableExport.js"
-        charset="utf-8"></script>
-<script src="/common/jslib/table-export/FileSaver.min.js"
-        charset="utf-8"></script>
-<script src="/common/jslib/table-export/xlsx.core.min.js"
+<script src="/common/jslib/table-export/tableExport.min.js"
         charset="utf-8"></script>
