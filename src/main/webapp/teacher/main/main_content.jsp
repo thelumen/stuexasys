@@ -87,9 +87,9 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <shiro:authenticated>
-                        <li>用户[<shiro:principal/>]已身份验证通过</li>
-                    </shiro:authenticated>>
+                    <%--<shiro:authenticated>--%>
+                        <%--<li>用户[<shiro:principal/>]已身份验证通过</li>--%>
+                    <%--</shiro:authenticated>>--%>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>
                 </ul>
