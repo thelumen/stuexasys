@@ -59,34 +59,46 @@
 <br>
 <div class="container" id="contentContainer">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <p class="h3">个人信息</p>
             <p>学号：${studentInfo.studentId}</p>
             <p>班级：${studentInfo.specialtyName}</p>
             <p>姓名：${studentInfo.name}</p>
             <c:if test="${studentInfo.gender=='0'}">
-                <p>性别：男</p>
+                <p>性别：<label>
+                    <input class="form-control" type="text" value="男">
+                </label></p>
             </c:if>
             <c:if test="${!(studentInfo.gender=='0')}">
-                <p>性别：女</p>
+                <p>性别：<label>
+                    <input class="form-control" type="text" value="女">
+                </label></p>
             </c:if>
-            <p>邮箱：${studentInfo.email}</p>
-            <p>号码：${studentInfo.cellphone}</p>
+            <p>邮箱：<label>
+                <input class="form-control" type="text" value="${studentInfo.email}">
+            </label></p>
+            <p>号码：<label>
+                <input class="form-control" type="text" value="${studentInfo.cellphone}">
+            </label></p>
             <hr>
             <button class="btn btn-primary" type="button" id="changePasswordButton">
                 修改密码
             </button>
             <div id="changePasswordContent">
                 <hr>
-                <p>旧密码：<input type="password"></p>
-                <p>新密码：<input type="password"></p>
+                <p>旧密码：<label>
+                    <input class="form-control" type="password">
+                </label></p>
+                <p>新密码：<label>
+                    <input class="form-control" type="password" >
+                </label></p>
             </div>
             <hr>
             <button class="btn btn-info" type="button" id="submitChanged">
                 提交修改
             </button>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="tabbable" id="tabs-537556">
                 <ul class="nav nav-tabs">
                     <li>
