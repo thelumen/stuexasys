@@ -13,10 +13,14 @@
     <select id="selectSpecialty" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Specialty">
         SELECT DISTINCT s.*
-        FROM com_teacher_l_course l,com_teacher t,com_specialty s
-        WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId
+        FROM com_teacher_l_course l,com_teacher t,com_specialty s,com_course c
+        WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId AND
+        l.courseId=c.courseId
         <if test="teacherId != null">
             AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        </if>
+        <if test="courseId != null">
+            AND c.courseId=#{courseId,jdbcType=CHAR}
         </if>
     </select>
 

@@ -55,7 +55,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/cources">课程管理</a>
+                                <a href="${pageContext.request.contextPath}/teacher/cource">课程管理</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -73,7 +73,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/exams">发布考试信息</a>
+                                <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
                             </li>
                             <li class="divider"></li>
                             <li>
@@ -81,7 +81,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/student/grades">成绩统计</a>
+                                <a href="${pageContext.request.contextPath}/teacher/student/grade">成绩统计</a>
                             </li>
                         </ul>
                     </li>

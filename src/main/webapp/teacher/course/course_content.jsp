@@ -80,7 +80,7 @@
     </div>
 </div>
 <script>
-
+    //    样式
     function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
 
@@ -96,8 +96,9 @@
         }
         return {};
     }
-
+    //    预加载
     $(function () {
+//        全部课程
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourses',
             dataType: 'json',
@@ -107,6 +108,7 @@
                 });
             }
         });
+//        全部专业
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getSpecialties',
             dataType: 'json',
@@ -117,6 +119,7 @@
             }
         });
     });
+    //    选课
     function takeTheCourse() {
         var data = $('#teacher_course_form').serializeObject();
         if ($("[name='endtime']").val() !== '' && $("[name='starttime']").val() !== '') {
@@ -141,11 +144,13 @@
             swal("注意..", "不要忘记填写开课和结课时间哦 :)", "error");
         }
     }
+    //    添加操作按钮
     function operateCourseTaken(value, row) {
         var html = '';
         html += '<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseName + "&" + row.specialtyName);
         return html;
     }
+    //    删除选课信息
     function deleteCourseTaken(content) {
         swal({
                 title: "Are you sure?",

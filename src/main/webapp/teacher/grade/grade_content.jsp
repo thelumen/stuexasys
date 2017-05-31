@@ -19,9 +19,11 @@
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
                     id="teacher_grade_select_course"
-                    style="width: 200px"></select></label>
+                    style="width: 200px">
+                <option selected></option>
+            </select></label>
             <label style="margin-left: 20px">请选择 <strong
-                    style="color: #985f0d">教课班级</strong>：</strong>
+                    style="color: #985f0d">教课专业</strong>：
                 <select id="teacher_grade_select_specialty" name="specialtyId"
                         style="width: 200px"></select></label><br>
             <label><strong style="color: #2b669a">测试一 </strong>所占比重：<input
@@ -159,6 +161,11 @@
             $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId});
         });
 //        预加载数据
+//        专业select添加样式
+        $('#teacher_grade_select_specialty').select2({
+            placeholder: "Select One Course First"
+        });
+//        课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
@@ -168,18 +175,36 @@
                 });
             }
         });
+//        专业select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getSpecialty',
             dataType: 'json',
             success: function (data) {
-                $('#teacher_grade_select_specialty').select2({
-                    data: data
-                });
+//                $('#teacher_grade_select_specialty').select2({
+//                    data: data
+//                });
                 $('#teacher_grade_choose_specialty').select2({
                     data: data
                 });
             }
         });
+//        联级：选择课程后筛选出修这门课的专业
+        $('#teacher_grade_select_course').on("select2:select", function (e) {
+//            alert($('#teacher_grade_select_course').val());
+            var courseId = $('#teacher_grade_select_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    $('#teacher_grade_select_specialty').select2({
+                        data: null
+                    });
+                    $('#teacher_grade_select_specialty').select2({
+                        data: data
+                    });
+                }
+            });
+        })
     });
 </script>
 <style>
