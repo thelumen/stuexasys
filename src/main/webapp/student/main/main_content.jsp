@@ -10,7 +10,17 @@
 <head>
     <title>学生考试系统</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
-
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: '${pageContext.request.contextPath}/student/main',
+                success:function () {
+                    $("#navDropdown").text(${studentInfo.name});
+                }
+            });
+        })
+    </script>
     <script>
         function logout() {
             swal({
@@ -32,7 +42,7 @@
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid"><%--响应式布局设计 --%>
+    <div class="container-fluid">
         <div class="navber-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -47,7 +57,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <%--导航栏右侧 通过类选择器动态展示用户状态--%>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown">遗留问题<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li><a href=''>个人信息</a></li>
                         <li><a href=''>修改密码</a></li>
@@ -59,6 +69,18 @@
         </div>
     </div>
 </nav>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="${pageContext.request.contextPath}/student/personPage/personPageProxy.jsp">个人信息</a>
+        </div>
+        <div class="col-md-4">
+            <a href="${pageContext.request.contextPath}/student/exam/examProxy.jsp">测试</a>
+        </div>
+        <div class="col-md-4">
+            <a href="${pageContext.request.contextPath}/student/resourcesDownload/resourcesDownloadProxy.jsp">资源下载</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
