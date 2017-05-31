@@ -10,6 +10,7 @@ public final class GradeTaken {
     private String studentName;
     private String specialtyId;
     private String specialtyName;
+    private String courseId;
     private String courseName;
     private byte grade1;
     private byte grade2;
@@ -39,6 +40,14 @@ public final class GradeTaken {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     public String getSpecialtyId() {

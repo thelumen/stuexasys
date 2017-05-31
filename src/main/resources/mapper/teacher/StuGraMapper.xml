@@ -23,7 +23,8 @@
                 total = #{total,jdbcType=TINYINT},
             </if>
         </set>
-        WHERE studentId = #{studentId,jdbcType=CHAR}
+        WHERE studentId = #{studentId,jdbcType=CHAR} AND courseId =
+        #{courseId,jdbcType=CHAR}
     </update>
 
     <!--查询学生成绩-->
@@ -32,7 +33,7 @@
         SELECT DISTINCT g.studentId AS studentId,s.name AS studentName,c.name AS
         courseName, g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS
         grade3,g.grade4 AS grade4,g.total AS total,p.name AS
-        specialtyName,p.specialtyId AS specialtyId
+        specialtyName,p.specialtyId AS specialtyId ,c.courseId AS courseId
         FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade
         g,com_student s,com_specialty p,com_clazz_l_student cl
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND

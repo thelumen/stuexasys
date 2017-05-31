@@ -3,7 +3,6 @@ package sunday.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
@@ -60,8 +59,7 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/grades", method = RequestMethod.GET)
-    public String studentPage(Model model) {
-        model.addAttribute("action", "all");
+    public String studentPage() {
         return "/teacher/grade/gradeProxy";
     }
 
@@ -69,10 +67,10 @@ public class TeacherController {
      * 统计学生总成绩
      *
      * @param percentInfo
+     * @return
      */
     @RequestMapping(value = "/student/assignGrades", method = RequestMethod.POST)
-    @ResponseBody
-    public void assignGrades(GradePercent percentInfo) {
+    public String assignGrades(GradePercent percentInfo) {
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
         if (!percentInfo.getPercent1().equals("")) {
             p1 = Float.parseFloat(percentInfo.getPercent1()) / 100.0f;
@@ -104,6 +102,8 @@ public class TeacherController {
 
             stuGraService.updateGrade(studentGrade);
         }
+
+        return "/teacher/grade/gradeProxy";
     }
 
     /**

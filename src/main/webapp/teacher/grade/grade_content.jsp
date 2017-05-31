@@ -71,7 +71,7 @@
                data-toggle="table"
                data-toolbar="#teacher_grade_toolbar"
                data-method="post"
-               data-url="${pageContext.request.contextPath}/teacher/student/grade/${action}"
+               data-url="${pageContext.request.contextPath}/teacher/student/grade/all"
                data-height="1500"
                data-side-pagination="server"
                data-search="true"
