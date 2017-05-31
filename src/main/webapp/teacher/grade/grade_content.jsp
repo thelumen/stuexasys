@@ -60,6 +60,12 @@
     <hr class="divider"/>
     <br><br>
     <div id="teacher_grade_toolbar">
+        <label>请选择需要查看的 <strong style="color: #985f0d">课程</strong>：<select
+                name="courseId"
+                id="teacher_grade_choose_course"
+                style="width: 200px">
+            <option selected></option>
+        </select></label>
         <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：<select
                 name="specialtyId"
                 id="teacher_grade_choose_specialty"
@@ -158,32 +164,25 @@
 //        查询
         $('#teacher_grade_select_btn').click(function () {
             var specialtyId = $('#teacher_grade_choose_specialty').val();
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId});
+            var courseId = $('#teacher_grade_choose_course').val();
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId + "/" + courseId});
         });
 //        预加载数据
 //        专业select添加样式
-        $('#teacher_grade_select_specialty').select2({
-            placeholder: "Select One Course First"
-        });
+        $('#teacher_grade_select_specialty').select2();
+        $('#teacher_grade_choose_specialty').select2();
+
 //        课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
             success: function (data) {
+//                上
                 $('#teacher_grade_select_course').select2({
                     data: data
                 });
-            }
-        });
-//        专业select查询数据
-        $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getSpecialty',
-            dataType: 'json',
-            success: function (data) {
-//                $('#teacher_grade_select_specialty').select2({
-//                    data: data
-//                });
-                $('#teacher_grade_choose_specialty').select2({
+//                下
+                $('#teacher_grade_choose_course').select2({
                     data: data
                 });
             }
@@ -196,15 +195,30 @@
                 url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
                 dataType: 'json',
                 success: function (data) {
-                    $('#teacher_grade_select_specialty').select2({
-                        data: null
+                    var selS = $('#teacher_grade_select_specialty');
+                    selS.empty();
+                    selS.select2({
+                        data: data
                     });
-                    $('#teacher_grade_select_specialty').select2({
+                }
+            });
+        });
+        $('#teacher_grade_choose_course').on("select2:select", function (e) {
+//            alert($('#teacher_grade_select_course').val());
+            var courseId = $('#teacher_grade_choose_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    var choS = $('#teacher_grade_choose_specialty');
+                    choS.empty();
+                    choS.select2({
                         data: data
                     });
                 }
             });
         })
+
     });
 </script>
 <style>

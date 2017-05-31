@@ -120,13 +120,16 @@ public class TeacherController {
      * 获取指定专业学生的成绩
      *
      * @param specialtyId
+     * @param courseId
      * @return
      */
-    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/grade/{specialtyId}/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
+    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId,
+                                                     @PathVariable("courseId") String courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
+            put("courseId", courseId);
         }};
         List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
         return getTakenInfo(gradeTakens);

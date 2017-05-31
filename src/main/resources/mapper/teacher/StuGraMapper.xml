@@ -48,6 +48,9 @@
         <if test="specialtyId != null">
             AND p.specialtyId=#{specialtyId,jdbcType=CHAR}
         </if>
+        <if test="courseId != null">
+            AND c.courseId=#{courseId,jdbcType=CHAR}
+        </if>
         ORDER BY p.specialtyId ASC
     </select>
 </mapper>
