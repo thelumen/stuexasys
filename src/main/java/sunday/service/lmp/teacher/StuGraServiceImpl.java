@@ -3,6 +3,7 @@ package sunday.service.lmp.teacher;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.StuGraMapper;
 import sunday.pojo.teacher.GradeTaken;
 import sunday.service.teacher.StuGraService;
@@ -31,5 +32,15 @@ public class StuGraServiceImpl implements StuGraService {
             return gradeTakens;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean updateGrade(GradeTaken studentGrade) {
+        boolean result = false;
+        if (stuGraMapper.insertGrade(studentGrade) > 0) {
+            result = true;
+        }
+        return result;
     }
 }

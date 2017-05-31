@@ -12,13 +12,6 @@
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
         $(document).ready(function () {
-            $.ajax({
-                type: "POST",
-                url: '${pageContext.request.contextPath}/student/main',
-                success:function () {
-                    $("#navDropdown").text(${studentInfo.name});
-                }
-            });
         })
     </script>
     <script>
@@ -57,7 +50,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <%--导航栏右侧 通过类选择器动态展示用户状态--%>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown">遗留问题<strong class="caret"></strong></a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown">遗留问题<strong
+                            class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li><a href=''>个人信息</a></li>
                         <li><a href=''>修改密码</a></li>
@@ -72,13 +66,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/student/personPage/personPageProxy.jsp">个人信息</a>
+            <a href="${pageContext.request.contextPath}/student/personPage">个人信息</a>
         </div>
         <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/student/exam/examProxy.jsp">测试</a>
+            <a href="${pageContext.request.contextPath}/student/exam">测试</a>
         </div>
         <div class="col-md-4">
-            <a href="${pageContext.request.contextPath}/student/resourcesDownload/resourcesDownloadProxy.jsp">资源下载</a>
+            <a href="${pageContext.request.contextPath}/student/resourcesDownload">资源下载</a>
         </div>
     </div>
 </div>

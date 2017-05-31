@@ -3,9 +3,9 @@ package sunday.controller;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
+import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
@@ -59,8 +59,50 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/grades", method = RequestMethod.GET)
-    public String studentPage(Model model) {
-        model.addAttribute("action", "all");
+    public String studentPage() {
+        return "/teacher/grade/gradeProxy";
+    }
+
+    /**
+     * 统计学生总成绩
+     *
+     * @param percentInfo
+     * @return
+     */
+    @RequestMapping(value = "/student/assignGrades", method = RequestMethod.POST)
+    public String assignGrades(GradePercent percentInfo) {
+        float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
+        if (!percentInfo.getPercent1().equals("")) {
+            p1 = Float.parseFloat(percentInfo.getPercent1()) / 100.0f;
+        }
+        if (!percentInfo.getPercent2().equals("")) {
+            p2 = Float.parseFloat(percentInfo.getPercent2()) / 100.0f;
+        }
+        if (!percentInfo.getPercent3().equals("")) {
+            p3 = Float.parseFloat(percentInfo.getPercent3()) / 100.0f;
+        }
+        if (!percentInfo.getPercent4().equals("")) {
+            p4 = Float.parseFloat(percentInfo.getPercent4()) / 100.0f;
+        }
+
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("specialtyId", percentInfo.getSpecialtyId());
+        }};
+        List<GradeTaken> studentGrades = stuGraService.selectGradeTaken(null, params);
+        for (GradeTaken studentGrade : studentGrades) {
+            float total;
+            total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
+            //采用四舍五入方式计算总成绩
+            studentGrade.setTotal(new Byte(String.valueOf(Math.round(total))));
+            //不更新
+            studentGrade.setGrade1((byte) 0);
+            studentGrade.setGrade2((byte) 0);
+            studentGrade.setGrade3((byte) 0);
+            studentGrade.setGrade4((byte) 0);
+
+            stuGraService.updateGrade(studentGrade);
+        }
+
         return "/teacher/grade/gradeProxy";
     }
 

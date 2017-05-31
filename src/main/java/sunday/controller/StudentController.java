@@ -32,6 +32,18 @@ public class StudentController {
     }
 
     /**
+     * 查询并返回当前登录学生的基本信息
+     *
+     * @return List<Student>
+     */
+    private List<Student> getCurrentStudentInfo() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", getCurrentStudentId());
+        }};
+        return studentService.select(null, params);
+    }
+
+    /**
      * 转到学生主页
      *
      * @return 主页url
@@ -43,8 +55,8 @@ public class StudentController {
 
     /**
      * 显示学生主页
+     * （遗留问题 待解决）
      *
-     * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public void homepage(Model model) {
@@ -58,5 +70,39 @@ public class StudentController {
         //return "/student/main/mainProxy";
     }
 
+    /**
+     * 转到学生 个人信息 页
+     * 向 model 中添加学生的人信息 studentInfo
+     *
+     * @return 个人信息 url
+     */
+    @RequestMapping(value = "/personPage", method = RequestMethod.GET)
+    public String personPage(Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        return "/student/personPage/personPageProxy";
+    }
 
+    /**
+     * 转到学生 测试 页
+     * 向 model 中添加学生的人信息 studentInfo
+     *
+     * @return 测试 url
+     */
+    @RequestMapping(value = "/exam", method = RequestMethod.GET)
+    public String exam(Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        return "/student/exam/examProxy";
+    }
+
+    /**
+     * 转到学生 资源下载 页
+     * 向 model 中添加学生的人信息 studentInfo
+     *
+     * @return 资源下载 url
+     */
+    @RequestMapping(value = "/resourcesDownload", method = RequestMethod.GET)
+    public String resourceDownload(Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        return "/student/resourcesDownload/resourcesDownloadProxy";
+    }
 }

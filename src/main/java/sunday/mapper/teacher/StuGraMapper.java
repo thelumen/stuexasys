@@ -20,4 +20,12 @@ public interface StuGraMapper {
      * @return
      */
     List<GradeTaken> selectGradeTaken(Map<String, Object> params);
+
+    /**
+     * 更新学生成绩
+     *
+     * @param studentGrade
+     * @return
+     */
+    int insertGrade(GradeTaken studentGrade);
 }
