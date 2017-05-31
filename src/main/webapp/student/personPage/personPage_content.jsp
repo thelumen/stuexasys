@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 花间一壶酒
@@ -11,7 +12,7 @@
     <title>个人主页</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <style>
-        #contentContainer.col-md-6 {
+        #contentContainer .col-md-6 {
             margin-bottom: 60px;
         }
     </style>
@@ -24,7 +25,7 @@
         })
     </script>
 </head>
-<body style="padding-top: 50px; padding-bottom: 50px;">
+<body >
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
@@ -44,8 +45,9 @@
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown"
                        id="navDropdown">${studentInfo.name}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
-                        <li><a href=''>个人信息</a></li>
-                        <li><a href=''>修改密码</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/resourcesDownload'>资源下载</a></li>
                         <li role='separator' class='divider'></li>
                         <li><a href="javascript:void(0);" onclick="logout();">登出</a></li>
                     </ul>
@@ -54,25 +56,35 @@
         </div>
     </div>
 </nav>
+<br>
 <div class="container" id="contentContainer">
     <div class="row">
         <div class="col-md-6">
+            <p class="h3">个人信息</p>
             <p>学号：${studentInfo.studentId}</p>
-            <p>班级：${studentInfo.specialtyId}</p>
+            <p>班级：${studentInfo.specialtyName}</p>
             <p>姓名：${studentInfo.name}</p>
-            <p>性别：${studentInfo.gender}</p>
-            <p>邮箱：${studentInfo.cellphone}</p>
+            <c:if test="${studentInfo.gender=='0'}">
+                <p>性别：男</p>
+            </c:if>
+            <c:if test="${!(studentInfo.gender=='0')}">
+                <p>性别：女</p>
+            </c:if>
+            <p>邮箱：${studentInfo.email}</p>
+            <p>号码：${studentInfo.cellphone}</p>
             <hr>
             <button class="btn btn-primary" type="button" id="changePasswordButton">
                 修改密码
             </button>
             <div id="changePasswordContent">
+                <hr>
                 <p>旧密码：<input type="password"></p>
                 <p>新密码：<input type="password"></p>
-                <button class="btn btn-info" type="button" id="submitChanged">
-                    提交修改
-                </button>
             </div>
+            <hr>
+            <button class="btn btn-info" type="button" id="submitChanged">
+                提交修改
+            </button>
         </div>
         <div class="col-md-6">
             <div class="tabbable" id="tabs-537556">
@@ -87,12 +99,12 @@
                 <div class="tab-content">
                     <div class="tab-pane" id="panel-463107">
                         <p>
-                            I'm in 课程表.
+                            假装这里有课程表.
                         </p>
                     </div>
                     <div class="tab-pane active" id="panel-282388">
                         <p>
-                            I'm in 成绩表.
+                            假装这里有成绩表.
                         </p>
                     </div>
                 </div>

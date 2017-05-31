@@ -5,16 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sunday.common.kit.ShiroKit;
-import sunday.pojo.school.Student;
+import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by 花间一壶酒 on 2017/5/29.
- */
 @Controller
 @RequestMapping(value = "/student")
 public class StudentController {
@@ -36,11 +33,11 @@ public class StudentController {
      *
      * @return List<Student>
      */
-    private List<Student> getCurrentStudentInfo() {
+    private List<StudentTaken> getCurrentStudentInfo() {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", getCurrentStudentId());
         }};
-        return studentService.select(null, params);
+        return studentService.selectStudentInfo(null, params);
     }
 
     /**
@@ -60,13 +57,7 @@ public class StudentController {
      */
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public void homepage(Model model) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudentId());
-        }};
-        //查询学生信息
-        List<Student> studentList = studentService.select(null, params);
-        //返回相关内容
-        model.addAttribute("studentInfo", studentList.get(0));
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         //return "/student/main/mainProxy";
     }
 

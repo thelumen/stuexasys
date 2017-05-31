@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.GradeTaken;
+import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
 import java.util.List;
@@ -28,6 +29,18 @@ public class StudentServiceImpl implements StudentService {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
         List<Student> students = studentMapper.select(params);
+        if (null != students && students.size() > 0) {
+            return students;
+        }
+        return null;
+    }
+
+    @Override
+    public List<StudentTaken> selectStudentInfo(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<StudentTaken> students = studentMapper.selectStudentInfo(params);
         if (null != students && students.size() > 0) {
             return students;
         }

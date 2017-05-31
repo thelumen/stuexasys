@@ -53,8 +53,9 @@
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown">遗留问题<strong
                             class="caret"></strong></a>
                     <ul class="dropdown-menu">
-                        <li><a href=''>个人信息</a></li>
-                        <li><a href=''>修改密码</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
+                        <li><a href='${pageContext.request.contextPath}/student/resourcesDownload'>资源下载</a></li>
                         <li role='separator' class='divider'></li>
                         <li><a href="javascript:void(0);" onclick="logout();">登出</a></li>
                     </ul>
@@ -63,6 +64,7 @@
         </div>
     </div>
 </nav>
+<hr>
 <div class="container">
     <div class="row">
         <div class="col-md-4">

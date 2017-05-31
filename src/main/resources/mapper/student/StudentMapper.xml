@@ -21,6 +21,19 @@
         </where>
     </select>
 
+    <!--查询学生详细信息-->
+    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
+        SELECT DISTINCT
+            s.studentId AS studentId,
+            s.name      AS name,
+            s.email     AS email,
+            s.cellphone AS cellphone,
+            s.gender    AS gender,
+            p.name      AS specialtyName
+        FROM com_student s, com_specialty p
+        WHERE s.specialtyId = p.specialtyId AND
+              s.studentId = #{studentId,jdbcType=CHAR}
+    </select>
     <!--更新学生信息-->
     <update id="update" parameterType="java.util.Map">
         UPDATE com_student

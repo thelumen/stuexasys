@@ -1,27 +1,16 @@
-package sunday.pojo.school;
+package sunday.pojo.student;
 
 /**
- * Created by yang on 2017/5/22.
- * At 19:06
+ * Created by 花间一壶酒 on 2017/5/31.
  */
-public final class Student {
-    //自增
-    private long id;
+public class StudentTaken {
     private String studentId;
     private String password;
     private String name;
-    private String specialtyId;
+    private String specialtyName;
     private String gender;
     private String cellphone;
     private String email;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getStudentId() {
         return studentId;
@@ -31,28 +20,12 @@ public final class Student {
         this.studentId = studentId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setSpecialtyId(String specialtyId) {
-        this.specialtyId = specialtyId;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public String getSpecialtyId() {
-        return specialtyId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -61,6 +34,14 @@ public final class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSpecialtyName() {
+        return specialtyName;
+    }
+
+    public void setSpecialtyName(String specialtyName) {
+        this.specialtyName = specialtyName;
     }
 
     public String getGender() {
@@ -79,14 +60,21 @@ public final class Student {
         this.cellphone = cellphone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", studentId='" + studentId + '\'' +
+        return "StudentTaken{" +
+                "studentId='" + studentId + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", specialtyId='" + specialtyId + '\'' +
+                ", specialtyName='" + specialtyName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", cellphone='" + cellphone + '\'' +
                 ", email='" + email + '\'' +
