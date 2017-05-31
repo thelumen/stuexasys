@@ -9,7 +9,8 @@
 <script src="/common/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
 <!--Bootstrap-->
 <!-- Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css"
+<link rel="stylesheet"
+      href="/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous">
 <!-- 可选的 Bootstrap 主题文件 -->
@@ -22,7 +23,8 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <!--bootstrap-file-upload-->
-<link href="/common/jslib/bootstrap-fileupload/fileinput.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-fileupload/fileinput.min.css"
+      rel="stylesheet"
       charset="utf-8">
 <script src="/common/jslib/bootstrap-fileupload/fileinput.min.js"
         charset="utf-8"></script>
@@ -37,10 +39,13 @@
 <%--样式--%>
 <link href="/common/jslib/kit/myStyle.css" rel="stylesheet" charset="utf-8">
 <!-- sweetalert插件 -->
-<link href="/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet" charset="utf-8">
-<script src="/common/jslib/sweetAlert/sweetalert.min.js" charset="utf-8"></script>
+<link href="/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet"
+      charset="utf-8">
+<script src="/common/jslib/sweetAlert/sweetalert.min.js"
+        charset="utf-8"></script>
 <!-- bootstrap-table插件 -->
-<link href="/common/jslib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-table/bootstrap-table.min.css"
+      rel="stylesheet"
       charset="utf-8">
 <script src="/common/jslib/bootstrap-table/bootstrap-table.min.js"
         charset="utf-8"></script>
@@ -55,5 +60,16 @@
 </script>
 <%--select2--%>
 <script src="/common/jslib/select2/select2.min.js" charset="utf-8"></script>
-<link href="/common/jslib/select2/select2.min.css" rel="stylesheet" charset="utf-8">
+<link href="/common/jslib/select2/select2.min.css" rel="stylesheet"
+      charset="utf-8">
 <script src="/common/jslib/select2/zh-CN.js" charset="utf-8"></script>
+<%--bootstrap-data-export--%>
+<script src="/common/jslib/bootstrap-table/bootstrap-table-export.js"
+        charset="utf-8"></script>
+<%--jquery-data-export--%>
+<script src="/common/jslib/table-export/tableExport.js"
+        charset="utf-8"></script>
+<script src="/common/jslib/table-export/FileSaver.min.js"
+        charset="utf-8"></script>
+<script src="/common/jslib/table-export/xlsx.core.min.js"
+        charset="utf-8"></script>

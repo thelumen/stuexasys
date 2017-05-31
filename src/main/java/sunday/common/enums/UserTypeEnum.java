@@ -10,7 +10,7 @@ package sunday.common.enums;
  */
 public enum UserTypeEnum {
 
-    MANAGER("管理员", "2", "/manager/main/main"), TEACHER("教师", "1", "/teacher/main/mainProxy"), STUDENT("学生", "0", "/student/main/main");
+    MANAGER("管理员", "2", "/manager/main/main"), TEACHER("教师", "1", "/teacher/main/mainProxy"), STUDENT("学生", "0", "/student/main/mainProxy");
 
     private final String name;
     private final String num;
