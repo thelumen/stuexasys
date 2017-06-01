@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-01 21:02:07
+Date: 2017-06-02 07:59:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -138,6 +138,7 @@ CREATE TABLE `com_examinfo` (
   `content4` char(50) DEFAULT NULL COMMENT '附加题考察',
   `date4` date DEFAULT NULL COMMENT '附加题考察时间',
   `sign4` tinyint(4) DEFAULT '0' COMMENT '考察4，0为关闭，1为开启',
+  `on` tinyint(4) DEFAULT '0' COMMENT '是否可以测试，0不可，1可以',
   `started` tinyint(6) NOT NULL DEFAULT '0' COMMENT '考试是否开启，0未开启，1开启',
   PRIMARY KEY (`specialtyId`,`courseId`),
   KEY `courseId` (`courseId`),
