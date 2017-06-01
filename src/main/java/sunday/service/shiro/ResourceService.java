@@ -25,4 +25,5 @@ public interface ResourceService {
      * @return
      */
     List<Resource> selectByRoleInfo(Map<String, Object> roleInfo);
+
 }

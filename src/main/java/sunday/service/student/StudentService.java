@@ -2,6 +2,7 @@ package sunday.service.student;
 
 import com.github.pagehelper.Page;
 import sunday.pojo.school.Student;
+import sunday.pojo.student.CourseTaken;
 import sunday.pojo.student.GradeTaken;
 import sunday.pojo.student.StudentTaken;
 
@@ -39,6 +40,15 @@ public interface StudentService {
      * @return List<GradeTaken>
      */
     List<GradeTaken> selectGrade(Page page, Map<String, Object> params);
+
+    /**
+     * 查询学生成绩信息
+     *
+     * @param page   .
+     * @param params .
+     * @return List<GradeTaken>
+     */
+    List<CourseTaken> selectCourse(Page page, Map<String, Object> params);
 
     /**
      * 新增学生

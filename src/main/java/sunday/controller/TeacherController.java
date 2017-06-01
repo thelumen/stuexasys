@@ -54,11 +54,21 @@ public class TeacherController {
     }
 
     /**
+     * 转到考试信息页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/exam", method = RequestMethod.GET)
+    public String examPage() {
+        return "/teacher/exam/examProxy";
+    }
+
+    /**
      * 转到成绩统计页面
      *
      * @return
      */
-    @RequestMapping(value = "/student/grades", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/grade", method = RequestMethod.GET)
     public String studentPage() {
         return "/teacher/grade/gradeProxy";
     }
@@ -110,13 +120,16 @@ public class TeacherController {
      * 获取指定专业学生的成绩
      *
      * @param specialtyId
+     * @param courseId
      * @return
      */
-    @RequestMapping(value = "/grade/{specialtyId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/grade/{specialtyId}/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
+    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId,
+                                                     @PathVariable("courseId") String courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
+            put("courseId", courseId);
         }};
         List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
         return getTakenInfo(gradeTakens);
@@ -166,7 +179,7 @@ public class TeacherController {
      *
      * @return
      */
-    @RequestMapping(value = "/cources", method = RequestMethod.GET)
+    @RequestMapping(value = "/cource", method = RequestMethod.GET)
     public String coursePage() {
         return "/teacher/course/courseProxy";
     }
@@ -286,7 +299,7 @@ public class TeacherController {
     }
 
     /**
-     * 获取教师-课程select
+     * 获取某一教师所教全部课程select
      *
      * @return
      */
@@ -338,7 +351,23 @@ public class TeacherController {
     }
 
     /**
-     * 获取教师-专业select
+     * 获取某一教师所教的一门课的全部专业
+     *
+     * @param courseId
+     * @return
+     */
+    @RequestMapping(value = "/getSpecialties/{courseId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") String courseId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+            put("courseId", courseId);
+        }};
+        return getSpecialties(params);
+    }
+
+    /**
+     * 获取某一教师所教全部专业select
      *
      * @return
      */

@@ -44,11 +44,21 @@ public interface RoleService {
     List<Role> selectByManagerInfo(Map<String, Object> managerInfo);
 
     /**
-     * 教师与角色相关联
+     * 绑定教师-角色
      *
      * @param teacherId
      * @param roleId
      * @return
      */
-    int teacherLink2Role(short teacherId, short roleId);
+    boolean link2Teacher(short teacherId, short roleId);
+
+    /**
+     * 绑定普通管理员-角色
+     *
+     * @param managerId
+     * @param roleId
+     * @return
+     */
+    boolean link2Manager(short managerId, short roleId);
+
 }

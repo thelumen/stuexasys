@@ -19,9 +19,11 @@
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
                     id="teacher_grade_select_course"
-                    style="width: 200px"></select></label>
+                    style="width: 200px">
+                <option selected></option>
+            </select></label>
             <label style="margin-left: 20px">请选择 <strong
-                    style="color: #985f0d">教课班级</strong>：</strong>
+                    style="color: #985f0d">教课专业</strong>：
                 <select id="teacher_grade_select_specialty" name="specialtyId"
                         style="width: 200px"></select></label><br>
             <label><strong style="color: #2b669a">测试一 </strong>所占比重：<input
@@ -58,6 +60,12 @@
     <hr class="divider"/>
     <br><br>
     <div id="teacher_grade_toolbar">
+        <label>请选择需要查看的 <strong style="color: #985f0d">课程</strong>：<select
+                name="courseId"
+                id="teacher_grade_choose_course"
+                style="width: 200px">
+            <option selected></option>
+        </select></label>
         <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：<select
                 name="specialtyId"
                 id="teacher_grade_choose_specialty"
@@ -70,10 +78,6 @@
                 type="button">
             <i class="glyphicon glyphicon-repeat"></i> 全部数据
         </button>
-        <%--<button id="teacher_grade_data_export_btn" class="btn btn-default"--%>
-                <%--type="button">--%>
-            <%--<i class="glyphicon glyphicon-download-alt"></i> 导出Excel--%>
-        <%--</button>--%>
     </div>
     <div class="table-responsive">
         <table id="teacher_grade_table"
@@ -81,21 +85,15 @@
                data-toolbar="#teacher_grade_toolbar"
                data-method="post"
                data-show-export="true"
-               data-click-to-select="true"
-               data-show-columns="true"
                data-url="${pageContext.request.contextPath}/teacher/student/grade/all"
                data-height="1500"
                data-side-pagination="server"
                data-show-refresh="true"
                data-id-field="specialtyId"
                data-row-style="rowStyle"
-               data-export-types="['excel']"
-               data-exportDataType="all"
-               data-export-options="{'fileName': 'Liao-Student-Grade','worksheetName': 'Grade'}"
         >
             <thead>
             <tr>
-                <th data-field="state" data-checkbox="true"rowspan="2"></th>
                 <th colspan="4">学生信息</th>
                 <th data-field="courseName" data-width="400" rowspan="2">课程名称
                 </th>
@@ -137,11 +135,12 @@
         if (value1 + value2 + value3 + value4 === 100) {
             $('#teacher_course_form').submit();
         } else {
-            alert("分配数额为100,请重新分配!");
+            swal("Warnning!", "分配数额为100,请重新分配!", "error");
         }
     }
 
     function rowStyle(row, index) {
+
         var classes = ['active', 'info', 'warning'];
 
         if (index % 2 === 0 && index / 2 < classes.length) {
@@ -165,30 +164,61 @@
 //        查询
         $('#teacher_grade_select_btn').click(function () {
             var specialtyId = $('#teacher_grade_choose_specialty').val();
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId});
+            var courseId = $('#teacher_grade_choose_course').val();
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId + "/" + courseId});
         });
 //        预加载数据
+//        专业select添加样式
+        $('#teacher_grade_select_specialty').select2();
+        $('#teacher_grade_choose_specialty').select2();
+
+//        课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
             success: function (data) {
+//                上
                 $('#teacher_grade_select_course').select2({
                     data: data
                 });
-            }
-        });
-        $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getSpecialty',
-            dataType: 'json',
-            success: function (data) {
-                $('#teacher_grade_select_specialty').select2({
-                    data: data
-                });
-                $('#teacher_grade_choose_specialty').select2({
+//                下
+                $('#teacher_grade_choose_course').select2({
                     data: data
                 });
             }
         });
+//        联级：选择课程后筛选出修这门课的专业
+        $('#teacher_grade_select_course').on("select2:select", function (e) {
+//            alert($('#teacher_grade_select_course').val());
+            var courseId = $('#teacher_grade_select_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    var selS = $('#teacher_grade_select_specialty');
+                    selS.empty();
+                    selS.select2({
+                        data: data
+                    });
+                }
+            });
+        });
+        $('#teacher_grade_choose_course').on("select2:select", function (e) {
+//            alert($('#teacher_grade_select_course').val());
+            var courseId = $('#teacher_grade_choose_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    var choS = $('#teacher_grade_choose_specialty');
+                    choS.empty();
+                    choS.select2({
+                        data: data
+                    });
+                }
+            });
+        })
+
     });
 </script>
 <style>

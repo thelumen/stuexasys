@@ -12,7 +12,7 @@
     <title>个人主页</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <style>
-        #contentContainer .col-md-6 {
+        #contentContainer .col-md-4 {
             margin-bottom: 60px;
         }
     </style>
@@ -20,12 +20,26 @@
         $(document).ready(function () {
             $("#changePasswordContent").hide();
             $("#changePasswordButton").click(function () {
-                $("#changePasswordContent").toggle();
+                $("#changePasswordContent").slideToggle("slow");
             });
+            $("#submitChanged").click(function () {
+                var str=$("#submitForm").serializeObject();
+                var jsonDate = JSON.stringify(str);
+                $.ajax({
+                    type: 'post',
+                    url: '${pageContext.request.contextPath}/student/updateStudentInfo',
+                    dataType: "json",
+                    data: jsonDate,
+                    contentType:'application/json',
+                    success:function(data){
+                        alert(data);
+                    }
+                })
+            })
         })
     </script>
 </head>
-<body >
+<body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
@@ -64,41 +78,43 @@
             <p>学号：${studentInfo.studentId}</p>
             <p>班级：${studentInfo.specialtyName}</p>
             <p>姓名：${studentInfo.name}</p>
-            <c:if test="${studentInfo.gender=='0'}">
-                <p>性别：<label>
-                    <input class="form-control" type="text" value="男">
+            <form action="" id="submitForm">
+                <c:if test="${studentInfo.gender=='0'}">
+                    <p>性别：<label>
+                        <input class="form-control" type="text" name="gender" value="男">
+                    </label></p>
+                </c:if>
+                <c:if test="${!(studentInfo.gender=='0')}">
+                    <p>性别：<label>
+                        <input class="form-control" type="text" value="女">
+                    </label></p>
+                </c:if>
+                <p>邮箱：<label>
+                    <input class="form-control" type="text" id="email" name="email" value="${studentInfo.email}">
                 </label></p>
-            </c:if>
-            <c:if test="${!(studentInfo.gender=='0')}">
-                <p>性别：<label>
-                    <input class="form-control" type="text" value="女">
+                <p>号码：<label>
+                    <input class="form-control" type="text" id="cellphone" name="cellphone" value="${studentInfo.cellphone}">
                 </label></p>
-            </c:if>
-            <p>邮箱：<label>
-                <input class="form-control" type="text" value="${studentInfo.email}">
-            </label></p>
-            <p>号码：<label>
-                <input class="form-control" type="text" value="${studentInfo.cellphone}">
-            </label></p>
-            <hr>
-            <button class="btn btn-primary" type="button" id="changePasswordButton">
-                修改密码
-            </button>
-            <div id="changePasswordContent">
                 <hr>
-                <p>旧密码：<label>
-                    <input class="form-control" type="password">
-                </label></p>
-                <p>新密码：<label>
-                    <input class="form-control" type="password" >
-                </label></p>
-            </div>
-            <hr>
-            <button class="btn btn-info" type="button" id="submitChanged">
-                提交修改
-            </button>
+                <button class="btn btn-primary" type="button" id="changePasswordButton">
+                    修改密码
+                </button>
+                <div id="changePasswordContent">
+                    <hr>
+                    <p>旧密码：<label>
+                        <input class="form-control" type="password" name="oldPassword" id="oldPassword">
+                    </label></p>
+                    <p>新密码：<label>
+                        <input class="form-control" type="password" name="newPassword" id="newPassword">
+                    </label></p>
+                </div>
+                <hr>
+                <button class="btn btn-info" type="button" id="submitChanged">
+                    提交修改
+                </button>
+            </form>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-bottom: 50px">
             <div class="tabbable" id="tabs-537556">
                 <ul class="nav nav-tabs">
                     <li>
@@ -110,14 +126,54 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="panel-463107">
-                        <p>
-                            假装这里有课程表.
-                        </p>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>课程名称</th>
+                                <th>开课时间</th>
+                                <th>结课时间</th>
+                                <th>学时</th>
+                                <th>学分</th>
+                            </tr>
+                            </thead>
+                            <c:if test="${!empty studentCourse}">
+                                <c:forEach items="${studentCourse}" var="Info">
+                                    <tr>
+                                        <td>${Info.courseName}</td>
+                                        <td>${Info.startTime}</td>
+                                        <td>${Info.endTime}</td>
+                                        <td>${Info.period}</td>
+                                        <td>${Info.credit}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </table>
                     </div>
                     <div class="tab-pane active" id="panel-282388">
-                        <p>
-                            假装这里有成绩表.
-                        </p>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>课程名称</th>
+                                <th>测试一</th>
+                                <th>测试二</th>
+                                <th>测试三</th>
+                                <th>测试四</th>
+                                <th>总分（折合后）</th>
+                            </tr>
+                            </thead>
+                            <c:if test="${!empty studentGrade}">
+                                <c:forEach items="${studentGrade}" var="Info">
+                                    <tr>
+                                        <td>${Info.courseName}</td>
+                                        <td>${Info.grade1}</td>
+                                        <td>${Info.grade2}</td>
+                                        <td>${Info.grade3}</td>
+                                        <td>${Info.grade4}</td>
+                                        <td>${Info.total}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </table>
                     </div>
                 </div>
             </div>

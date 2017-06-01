@@ -1,5 +1,7 @@
 package sunday.pojo.student;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -13,7 +15,9 @@ public final class GradeTaken {
     private String specialtyId;
     private String specialtyName;
     private String courseName;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
     private byte grade1;
     private byte grade2;

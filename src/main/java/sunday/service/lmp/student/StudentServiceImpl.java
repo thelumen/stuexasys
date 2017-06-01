@@ -4,8 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sunday.common.kit.EncryptKit;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
+import sunday.pojo.student.CourseTaken;
 import sunday.pojo.student.GradeTaken;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
@@ -55,6 +57,18 @@ public class StudentServiceImpl implements StudentService {
         List<GradeTaken> gradeTakens = studentMapper.selectGrade(params);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;
+        }
+        return null;
+    }
+
+    @Override
+    public List<CourseTaken> selectCourse(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<CourseTaken> courseTakens = studentMapper.selectCourse(params);
+        if (null != courseTakens && courseTakens.size() > 0) {
+            return courseTakens;
         }
         return null;
     }

@@ -2,9 +2,12 @@ package sunday.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import sunday.common.kit.ShiroKit;
+import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
@@ -53,7 +56,6 @@ public class StudentController {
     /**
      * 显示学生主页
      * （遗留问题 待解决）
-     *
      */
     @RequestMapping(value = "/main", method = RequestMethod.POST)
     public void homepage(Model model) {
@@ -69,6 +71,11 @@ public class StudentController {
      */
     @RequestMapping(value = "/personPage", method = RequestMethod.GET)
     public String personPage(Model model) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", getCurrentStudentId());
+        }};
+        model.addAttribute("studentCourse",studentService.selectCourse(null,params));
+        model.addAttribute("studentGrade", studentService.selectGrade(null, params));
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         return "/student/personPage/personPageProxy";
     }
@@ -95,5 +102,24 @@ public class StudentController {
     public String resourceDownload(Model model) {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         return "/student/resourcesDownload/resourcesDownloadProxy";
+    }
+
+    /**
+     * 更新学会个人信息
+     *
+     * @return 成功信号
+     */
+    @RequestMapping(value = "/updateStudentInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateStudentInfo(@RequestBody StudentInfo studentInfo) {
+        boolean isSuccess = false;
+        System.out.println(studentInfo.toString());
+        //if (studentService.update(student)>0){
+        //    isSuccess = true;
+        //}
+        if (isSuccess){
+            return "isSuccess";
+            }
+        return null;
     }
 }
