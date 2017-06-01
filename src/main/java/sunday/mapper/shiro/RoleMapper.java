@@ -1,5 +1,6 @@
 package sunday.mapper.shiro;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import sunday.pojo.shiro.Role;
 
@@ -45,11 +46,20 @@ public interface RoleMapper {
     List<Role> selectByManagerInfo(Map<String, Object> managerInfo);
 
     /**
-     * 教师与角色相关联
+     * 绑定教师-角色
      *
      * @param teacherId
      * @param roleId
      * @return
      */
-    int teacherLink2Role(short teacherId, short roleId);
+    int link2Teacher(@Param("teacherId") short teacherId, @Param("roleId") short roleId);
+
+    /**
+     * 绑定普通管理员-角色
+     *
+     * @param managerId
+     * @param roleId
+     * @return
+     */
+    int link2Manager(@Param("managerId") short managerId, @Param("roleId") short roleId);
 }

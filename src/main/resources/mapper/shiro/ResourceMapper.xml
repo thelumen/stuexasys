@@ -11,16 +11,11 @@
     <!--以角色信息查询资源-->
     <select id="selectByRoleInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.shiro.Resource">
-        SELECT o.*
-        FROM com_role_l_resource l,com_resource r,com_role o,com_teacher
-        t,com_teacher_l_role tr,com_manager m,com_manager_l_role mr
-        WHERE l.resourceId=r.id AND r.id=l.roleId AND tr.roleId=o.id AND
-        tr.teacherId=t.id AND mr.roleId=o.id AND mr.managerId=m.id
-        <if test="teacherId != null">
-            AND t.id=#{teacherId,jdbcType=SHORT}
-        </if>
-        <if test="managerId != null">
-            AND m.id=#{managerId,jdbcType=SHORT}
+        SELECT r.*
+        FROM com_role_l_resource l,com_resource r,com_role o
+        WHERE l.roleId=o.id AND l.resourceId=r.id
+        <if test="roleId != null">
+            AND o.id=#{roleId,jdbcType=SMALLINT}
         </if>
     </select>
 </mapper>

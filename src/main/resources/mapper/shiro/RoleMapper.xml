@@ -40,4 +40,14 @@
     </select>
 
     <!--教师与角色相关联-->
+    <insert id="link2Teacher">
+        INSERT INTO com_teacher_l_role(teacherId,roleId)
+        VALUES (#{teacherId,jdbcType=SMALLINT},#{roleId,jdbcType=SMALLINT})
+    </insert>
+
+    <!--普通管理员与角色相关联-->
+    <insert id="link2Manager">
+        INSERT INTO com_manager_l_role(managerId,roleId)
+        VALUES (#{managerId,jdbcType=SMALLINT},#{roleId,jdbcType=SMALLINT})
+    </insert>
 </mapper>

@@ -4,8 +4,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.pojo.shiro.Resource;
 import sunday.pojo.shiro.Role;
+import sunday.pojo.teacher.Teacher;
 import sunday.service.shiro.ResourceService;
 import sunday.service.shiro.RoleService;
+import sunday.service.teacher.TeacherService;
 
 import java.util.List;
 
@@ -25,9 +27,15 @@ public class ShiroTest {
     @javax.annotation.Resource(name = "resourceService")
     private ResourceService resourceService;
 
-    //查询资源
+    @javax.annotation.Resource(name = "teacherService")
+    private TeacherService teacherService;
+
+    //查询资源+条件查询
     @Test
     public void t5() {
+//        Map<String, Object> roleInfo = new HashMap<String, Object>() {{
+//            put("roleId", (short) 1);
+//        }};
         List<Resource> resources = resourceService.selectByRoleInfo(null);
         if (resources != null) {
             for (Resource r : resources) {
@@ -41,12 +49,22 @@ public class ShiroTest {
     //管理员-角色关联(只针对普通管理员)
     @Test
     public void t4() {
+
     }
 
     //教师-角色关联
     @Test
     public void t3() {
-
+        short roleId = (short) 3;
+        List<Teacher> teachers = teacherService.select(null, null);
+        for (Teacher teacher : teachers) {
+            short teacherId = teacher.getId();
+            if (roleService.link2Teacher(teacherId, roleId)) {
+                out.print(" " + teacher.getId() + "绑定角色成功！");
+            } else {
+                out.print(" " + teacher.getId() + "绑定角色失败！");
+            }
+        }
     }
 
     //新增+查询资源
