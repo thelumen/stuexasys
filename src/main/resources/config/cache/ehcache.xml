@@ -16,13 +16,15 @@
 
     <!--shiro缓存-->
     <cache name="yang-shiro"
-           maxElementsInMemory="10000"
-           overflowToDisk="true"
+           maxElementsInMemory="2000"
+           maxEntriesLocalHeap="2000"
            eternal="false"
-           timeToLiveSeconds="0"
            timeToIdleSeconds="0"
-           diskPersistent="true"
-           diskExpiryThreadIntervalSeconds="600">
+           timeToLiveSeconds="0"
+           maxElementsOnDisk="100"
+           overflowToDisk="true"
+           memoryStoreEvictionPolicy="FIFO"
+           statistics="true">
     </cache>
 
 

@@ -51,8 +51,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String main() {
         return "/teacher/main/mainProxy";
     }
@@ -63,8 +63,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String examPage() {
         return "/teacher/exam/examProxy";
     }
@@ -75,8 +75,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/grade", method = RequestMethod.GET)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String studentPage() {
         return "/teacher/grade/gradeProxy";
     }
@@ -88,8 +88,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/assignGrades", method = RequestMethod.POST)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String assignGrades(GradePercent percentInfo) {
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
         if (!percentInfo.getPercent1().equals("")) {
@@ -152,7 +152,7 @@ public class TeacherController {
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getAllStudentGrade() {
+    public Map<String, Object> getAllStudentGrade() {
         //封装list
         List<GradeTaken> target = new ArrayList<>();
 
@@ -182,8 +182,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/person", method = RequestMethod.GET)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String personPage() {
         return "/teacher/personalPage/personalPageProxy";
     }
@@ -194,8 +194,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/cource", method = RequestMethod.GET)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String coursePage() {
         return "/teacher/course/courseProxy";
     }
@@ -207,8 +207,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/takeCourse", method = RequestMethod.POST)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Map<String, Object> takeCourse(@RequestBody CourseTaken courseTaken) {
         Map<String, Object> info = new HashMap<>();
@@ -240,7 +240,7 @@ public class TeacherController {
                 info.setOn("教学中");
             }
             if (currentTime.compareTo(info.getStarttime()) < 0) {
-                info.setOn("课程未开始");
+                info.setOn("未开始");
             }
             if (info.getEndtime().compareTo(currentTime) < 0) {
                 info.setOn("已结课");
@@ -257,8 +257,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/course/delete/{content}", method = RequestMethod.DELETE)
-//    @RequiresAuthentication
-//    @RequiresPermissions(value = "shiro:sys:teacher")
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Map<String, Object> editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
         Map<String, Object> info = new HashMap<>();
