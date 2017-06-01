@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-05-31 21:36:46
+Date: 2017-06-01 10:54:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -671,7 +671,7 @@ CREATE TABLE `com_manager` (
 -- ----------------------------
 -- Records of com_manager
 -- ----------------------------
-INSERT INTO `com_manager` VALUES ('1', 'root', '12345', '杨徐越', '2017-05-24 19:29:51', '127.0.0.1');
+INSERT INTO `com_manager` VALUES ('1', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'yang', '2017-05-24 19:29:51', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for com_manager_l_role
@@ -698,17 +698,20 @@ INSERT INTO `com_manager_l_role` VALUES ('1', '1');
 DROP TABLE IF EXISTS `com_resource`;
 CREATE TABLE `com_resource` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(255) NOT NULL COMMENT '资源名称',
-  `remark` varchar(250) DEFAULT NULL COMMENT '备注',
-  `permission` varchar(250) NOT NULL COMMENT 'permission许可编码',
-  `url` varchar(250) DEFAULT NULL COMMENT '资源地址',
+  `name` char(50) NOT NULL COMMENT '资源名称',
+  `remark` char(50) DEFAULT NULL COMMENT '备注',
+  `permission` char(50) NOT NULL COMMENT 'permission许可编码',
+  `url` char(50) DEFAULT NULL COMMENT '资源地址',
   PRIMARY KEY (`id`),
   UNIQUE KEY `permission` (`permission`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 -- ----------------------------
 -- Records of com_resource
 -- ----------------------------
+INSERT INTO `com_resource` VALUES ('1', 'admin', '超级管理员', 'shiro:sys:admin', '');
+INSERT INTO `com_resource` VALUES ('2', 'manager', '普通管理员', 'shiro:sys:manager', '/manager/main/main');
+INSERT INTO `com_resource` VALUES ('3', 'teacher', '教师', 'shiro:sys:teacher', '/teacher/main/mainProxy');
 
 -- ----------------------------
 -- Table structure for com_role
@@ -720,13 +723,14 @@ CREATE TABLE `com_role` (
   `remark` varchar(250) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of com_role
 -- ----------------------------
 INSERT INTO `com_role` VALUES ('1', 'admin', '超级管理员');
-INSERT INTO `com_role` VALUES ('2', '教师', '管理员');
+INSERT INTO `com_role` VALUES ('2', 'manager', '普通管理员');
+INSERT INTO `com_role` VALUES ('3', 'teacher', '教师');
 
 -- ----------------------------
 -- Table structure for com_role_l_resource
@@ -745,6 +749,9 @@ CREATE TABLE `com_role_l_resource` (
 -- ----------------------------
 -- Records of com_role_l_resource
 -- ----------------------------
+INSERT INTO `com_role_l_resource` VALUES ('1', '1');
+INSERT INTO `com_role_l_resource` VALUES ('2', '2');
+INSERT INTO `com_role_l_resource` VALUES ('3', '3');
 
 -- ----------------------------
 -- Table structure for com_single_question
