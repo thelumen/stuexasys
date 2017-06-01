@@ -5,11 +5,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.pojo.shiro.Resource;
 import sunday.pojo.shiro.Role;
 import sunday.pojo.teacher.Teacher;
+import sunday.service.manager.ManagerService;
 import sunday.service.shiro.ResourceService;
 import sunday.service.shiro.RoleService;
 import sunday.service.teacher.TeacherService;
 
-import java.util.List;
+import java.util.*;
 
 import static java.lang.System.out;
 
@@ -30,6 +31,39 @@ public class ShiroTest {
     @javax.annotation.Resource(name = "teacherService")
     private TeacherService teacherService;
 
+    @javax.annotation.Resource(name = "managerService")
+    private ManagerService managerService;
+
+    //测试教师-角色-资源查询
+    @Test
+    public void t6() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", "140401");
+            put("password", "827ccb0eea8a706c4c34a16891f84e7b");
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            Teacher teacher = teachers.get(0);
+
+            Set<String> rolesSet = new HashSet<>();
+            Set<String> permissionsSet = new HashSet<>();
+
+            Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+                put("teacherId", teacher.getId());
+            }};
+            List<Role> roles = roleService.selectByTeacherInfo(teacherInfo);
+            if (null != roles) {
+//                setRolesAndPermissions(roles, rolesSet, permissionsSet);
+            }
+            for (String s : rolesSet) {
+                out.print(" " + s);
+            }
+            for (String s : permissionsSet) {
+                out.print(" " + s);
+            }
+        }
+    }
+
     //查询资源+条件查询
     @Test
     public void t5() {
@@ -49,7 +83,6 @@ public class ShiroTest {
     //管理员-角色关联(只针对普通管理员)
     @Test
     public void t4() {
-
     }
 
     //教师-角色关联

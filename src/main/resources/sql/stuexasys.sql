@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-01 11:31:12
+Date: 2017-06-01 10:54:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -948,9 +948,6 @@ CREATE TABLE `com_teacher_l_role` (
 -- ----------------------------
 -- Records of com_teacher_l_role
 -- ----------------------------
-INSERT INTO `com_teacher_l_role` VALUES ('18', '3');
-INSERT INTO `com_teacher_l_role` VALUES ('19', '3');
-INSERT INTO `com_teacher_l_role` VALUES ('20', '3');
 
 -- ----------------------------
 -- Table structure for com_tf_question

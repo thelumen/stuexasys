@@ -71,7 +71,7 @@
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
         l.specialtyId=s.specialtyId
         <if test="teacherId != null">
-            AND l.teacherId=#{teacherId,jdbcType=CHAR}
+            AND t.teacherId=#{teacherId,jdbcType=CHAR}
         </if>
         <if test="courseName != null">
             AND c.name=#{courseName,jdbcType=CHAR}

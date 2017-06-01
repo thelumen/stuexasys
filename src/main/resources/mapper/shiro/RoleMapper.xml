@@ -28,7 +28,7 @@
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
         FROM com_teacher_l_role l,com_role r
-        WHERE l.roleId=r.id AND teacherId=#{teacherId,jdbcType=SMALLINT}
+        WHERE l.roleId=r.id AND l.teacherId=#{teacherId,jdbcType=SMALLINT}
     </select>
 
     <!--查询教师角色-->
@@ -36,7 +36,7 @@
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
         FROM com_manager_l_role l,com_role r
-        WHERE l.roleId=r.id AND managerId=#{managerId,jdbcType=SMALLINT}
+        WHERE l.roleId=r.id AND l.managerId=#{managerId,jdbcType=SMALLINT}
     </select>
 
     <!--教师与角色相关联-->
