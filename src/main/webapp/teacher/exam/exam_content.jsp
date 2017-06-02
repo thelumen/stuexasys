@@ -12,112 +12,291 @@
         </li>
         <li class="active">考试信息</li>
     </ol>
-    <div class="container-fluid" style="text-align: center">
-        <form id="teacher_exam_form">
-            <label>请选择 <strong
-                    style="color: #985f0d">课程</strong>：<select
-                    name="courseId"
-                    id="teacher_exam_select_course"
-                    style="width: 200px"></select></label><br>
-            <label>请选择 <strong
-                    style="color: #985f0d">专业</strong>：
-                <select id="teacher_exam_select_specialty"
-                        name="specialtyId"
-                        style="width: 200px"></select></label><br>
-            <label><strong
-                    style="color: #2b669a">测试一 </strong>考察章节：
-                <select id="teacher_exam_chapter1" multiple="multiple"
-                        style="width: 100px;">
-                    <option value="1">第一章</option>
-                    <option value="2">第二章</option>
-                    <option value="3">第三章</option>
-                    <option value="4">第四章</option>
-                    <option value="5">第五章</option>
-                    <option value="6">第六章</option>
-                    <option value="7">第七章</option>
-                    <option value="8">第八章</option>
-                </select>
-            </label>
-            <label>是否开启？<select id="teacher_exam_open1"
-                                style="width: 70px">
-                <option value="start">开启</option>
-                <option value="close" selected>关闭</option>
-            </select></label>
-            <label><strong
-                    style="color: #2b669a">测试二 </strong>考察章节：<input
-                    id="teacher_grade_grade2"
-                    name="percent2"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-            ></label>
-            <label>是否开启？<select id="teacher_exam_open2"
-                                style="width: 70px">
-                <option value="start">开启</option>
-                <option value="close" selected>关闭</option>
-            </select></label>
-            <br>
-            <label><strong
-                    style="color: #2b669a">测试三 </strong>考察章节：<input
-                    id="teacher_grade_grade3"
-                    name="percent3"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-            ></label>
-            <label>是否开启？<select id="teacher_exam_open3"
-                                style="width: 70px">
-                <option value="start">开启</option>
-                <option value="close" selected>关闭</option>
-            </select></label>
-            <label><strong
-                    style="color: #2b669a"></strong>附加题测试：<input
-                    id="teacher_grade_grade4"
-                    name="percent4"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-            ></label>
-            <label>是否开启？<select id="teacher_exam_open4"
-                                style="width: 70px">
-                <option value="start">开启</option>
-                <option value="close" selected>关闭</option>
-            </select></label>
-            <br>
-            <button style="margin-left: 30px"
-                    class="btn btn-warning"
-                    type="button"
-                    onclick="outOfGrade()">
-                确认分配
-            </button>
-        </form>
+    <div id="teacher_exam_toolbar">
+        <label>添加 <strong style="color: #985f0d">考试课程</strong>：<select
+                name="courseId"
+                id="teacher_exam_choose_course"
+                style="width: 200px">
+            <option selected></option>
+        </select></label>
+        <label>添加 <strong style="color: #985f0d">测验专业</strong>：<select
+                name="specialtyId"
+                id="teacher_exam_choose_specialty"
+                style="width: 200px"></select></label>
+        <button id="teacher_exam_add_btn" class="btn btn-primary"
+                type="button">
+            <i class="glyphicon glyphicon-plus"></i> 添加
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table id="teacher_exam_table"/>
     </div>
 </div>
 
 <script>
+    function operateExamTaken() {
+
+    }
+
     $(function () {
-//        预加载数据
-        $('#teacher_exam_chapter1').select2({
-            maximumSelectionLength: 3
+        $('#teacher_exam_table').bootstrapTable({
+            url: '${pageContext.request.contextPath}/teacher/examInfos',
+            method: 'post',
+            sidePagination: 'server',
+            height: 600,
+            showRefresh: true,
+            toolbar: '#teacher_exam_toolbar',
+            columns: [
+                [{
+                    title: '课程和专业',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '测验一',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '测验二',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '测验三',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '附加题',
+                    colspan: 2,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '操作',
+                    rowspan: 2,
+                    align: 'center',
+                    valign: 'middle'
+                }],
+                [{
+                    field: 'courseName',
+                    title: '课程名称',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'specialtyId',
+                    title: '专业Id',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'specialtyName',
+                    title: '专业名称',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'content1',
+                    title: '考察章节',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '选择章节',
+                        select2:{
+                            placeholder: 'Select Country',
+                            allowClear: true,
+                            minimumInputLength: 3,
+                        }
+                    }
+                }, {
+                    field: 'date1',
+                    title: '考察时间',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
+                }, {
+                    field: 'sign1',
+                    title: '是否开启',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
+                }, {
+                    field: 'content2',
+                    title: '考察章节',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date2',
+                    title: '考察时间',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
+                }, {
+                    field: 'sign2',
+                    title: '是否开启',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
+                }, {
+                    field: 'content3',
+                    title: '考察章节',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date3',
+                    title: '考察时间',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
+                }, {
+                    field: 'sign3',
+                    title: '是否开启',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
+                }, {
+                    field: 'date4',
+                    title: '考察时间',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
+                }, {
+                    field: 'sign4',
+                    title: '是否开启',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
+                }]
+            ]
         });
-        $('#teacher_exam_open1').select2();
-        $('#teacher_exam_open2').select2();
-        $('#teacher_exam_open3').select2();
-        $('#teacher_exam_open4').select2();
+//        添加考试信息
+        $('#teacher_exam_add_btn').click(function () {
+            var courseId = $('#teacher_exam_choose_course').val();
+            var specialtyId = $('#teacher_exam_choose_specialty').val();
+            if (courseId !== '') {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/teacher/takeExamInfo/' + courseId + "/" + specialtyId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        swal("Success", "添加考试信息成功！", "success");
+                        $('#teacher_exam_table').bootstrapTable("refresh");
+                    },
+                    error: function () {
+                        swal("Error", "不可重复添加相同的考试信息！", "error");
+                    }
+                });
+            } else {
+                swal("Look", "请选择测验课程和班级！", "error");
+            }
+        });
+//        预加载数据
+//        专业select添加样式
+        $('#teacher_exam_choose_specialty').select2();
+
+//        课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/getCourse',
             dataType: 'json',
             success: function (data) {
-                $('#teacher_exam_select_course').select2({
+                $('#teacher_exam_choose_course').select2({
                     data: data
                 });
             }
         });
-        $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getSpecialty',
-            dataType: 'json',
-            success: function (data) {
-                $('#teacher_exam_select_specialty').select2({
-                    data: data
-                });
-            }
+//        联级：选择课程后筛选出修这门课的专业
+        $('#teacher_exam_choose_course').on("select2:select", function (e) {
+            var courseId = $('#teacher_exam_choose_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    var choS = $('#teacher_exam_choose_specialty');
+                    choS.empty();
+                    choS.select2({
+                        data: data
+                    });
+                }
+            });
         });
     });
 </script>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>

@@ -2,6 +2,8 @@ package sunday.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ShiroKit;
@@ -9,8 +11,10 @@ import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
+import sunday.pojo.teacher.ExamTaken;
 import sunday.pojo.teacher.GradeTaken;
 import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.StuExaService;
 import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
 
@@ -34,6 +38,10 @@ public class TeacherController {
     @javax.annotation.Resource(name = "stuGraService")
     private StuGraService stuGraService;
 
+    @javax.annotation.Resource(name = "stuExaService")
+    private StuExaService stuExaService;
+
+
     /**
      * 获取当前登录教师id
      *
@@ -49,6 +57,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String main() {
         return "/teacher/main/mainProxy";
     }
@@ -59,8 +69,50 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String examPage() {
         return "/teacher/exam/examProxy";
+    }
+
+    /**
+     * 添加考试信息
+     *
+     * @param courseId
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/takeExamInfo/{courseId}/{specialtyId}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> takeExamInfo(@PathVariable("courseId") String courseId,
+                                            @PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> info = new HashMap<>();
+        ExamTaken exam = new ExamTaken();
+        exam.setCourseId(courseId);
+        exam.setSpecialtyId(specialtyId);
+        stuExaService.insertExamInfo(exam);
+        return info;
+    }
+
+    /**
+     * 获取考试信息
+     *
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/examInfos", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getExamInfo(@RequestBody Map<String, Object> params) {
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        List<ExamTaken> examTakens = stuExaService.selectExamTaken(getMapInfo2Page(params), teacherInfo);
+        if (null != examTakens) {
+            return getTakenInfo(examTakens);
+        }
+        return null;
     }
 
     /**
@@ -69,6 +121,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/grade", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String studentPage() {
         return "/teacher/grade/gradeProxy";
     }
@@ -80,6 +134,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/student/assignGrades", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String assignGrades(GradePercent percentInfo) {
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
         if (!percentInfo.getPercent1().equals("")) {
@@ -142,15 +198,17 @@ public class TeacherController {
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
     @ResponseBody
-    private Map<String, Object> getAllStudentGrade() {
-        Map<String, Object> takenInfo = new HashMap<>();
+    public Map<String, Object> getAllStudentGrade() {
         //封装list
         List<GradeTaken> target = new ArrayList<>();
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, takenInfo);
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, teacherInfo);
+        if (null == courseTakens) {
+            return null;
+        }
         for (CourseTaken course : courseTakens) {
             teacherInfo.put("specialtyName", course.getSpecialtyName());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
@@ -170,6 +228,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/person", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String personPage() {
         return "/teacher/personalPage/personalPageProxy";
     }
@@ -180,6 +240,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/cource", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     public String coursePage() {
         return "/teacher/course/courseProxy";
     }
@@ -191,6 +253,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/takeCourse", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Map<String, Object> takeCourse(@RequestBody CourseTaken courseTaken) {
         Map<String, Object> info = new HashMap<>();
@@ -210,8 +274,6 @@ public class TeacherController {
     @RequestMapping(value = "/tlcls", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getTakenInfo(@RequestBody Map<String, Object> params) {
-        Map<String, Object> takenInfo = new HashMap<>();
-
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
@@ -224,7 +286,7 @@ public class TeacherController {
                 info.setOn("教学中");
             }
             if (currentTime.compareTo(info.getStarttime()) < 0) {
-                info.setOn("课程未开始");
+                info.setOn("未开始");
             }
             if (info.getEndtime().compareTo(currentTime) < 0) {
                 info.setOn("已结课");
@@ -241,6 +303,8 @@ public class TeacherController {
      * @return
      */
     @RequestMapping(value = "/course/delete/{content}", method = RequestMethod.DELETE)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Map<String, Object> editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
         Map<String, Object> info = new HashMap<>();

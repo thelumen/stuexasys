@@ -5,6 +5,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.common.kit.EncryptKit;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
+import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
 import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeacherService;
@@ -28,6 +29,21 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
+
+    @Test
+    public void t7() {
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+            put("teacherId", "140400");
+        }};
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, teacherInfo);
+        if (courseTakens != null) {
+            for (CourseTaken courseTaken : courseTakens) {
+                out.print(" " + courseTaken.getCourseName());
+            }
+        } else {
+            out.print("无数据");
+        }
+    }
 
     //测试新增和查询课程功能
     @Test

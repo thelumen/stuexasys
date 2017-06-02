@@ -54,7 +54,7 @@
                         data: jsonDate,
                         contentType: 'application/json',
                         success: function (data) {
-                            alert(data);
+                            alert(data.msg);
                         }
                     })
                 }

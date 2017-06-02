@@ -74,7 +74,7 @@ public class StudentController {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", getCurrentStudentId());
         }};
-        model.addAttribute("studentCourse",studentService.selectCourse(null,params));
+        model.addAttribute("studentCourse", studentService.selectCourse(null, params));
         model.addAttribute("studentGrade", studentService.selectGrade(null, params));
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         return "/student/personPage/personPageProxy";
@@ -111,15 +111,19 @@ public class StudentController {
      */
     @RequestMapping(value = "/updateStudentInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String updateStudentInfo(@RequestBody StudentInfo studentInfo) {
+    public Map<String, Object> updateStudentInfo(@RequestBody StudentInfo studentInfo) {
         boolean isSuccess = false;
+        Map<String, Object> msg = new HashMap<String, Object>() {{
+            put("msg", "isFail");
+            }};
         studentInfo.setStudentId(getCurrentStudentId());
-        if (studentService.update(studentInfo)){
+        if (studentService.update(studentInfo)) {
             isSuccess = true;
         }
-        if (isSuccess){
-            return "isSuccess";
-            }
+        if (isSuccess) {
+            msg.put("msg", "isSuccess");
+            return msg;
+        }
         return null;
     }
 }
