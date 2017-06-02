@@ -74,3 +74,7 @@
 <%--editable--%>
 <script src="/common/jslib/editable/bootstrap-table-editable.js"
         charset="utf-8"></script>
+<script src="/common/jslib/editable/bootstrap-editable.min.js"
+        charset="utf-8"></script>
+<link href="/common/jslib/editable/bootstrap-editable.css"
+      rel="stylesheet" charset="utf-8">

@@ -45,31 +45,34 @@
             <tr>
                 <th colspan="3">课程和专业</th>
                 <th colspan="11">考察详情</th>
-                <th data-formatter="operateExamTaken" data-width="150"
-                    rowspan="2">操作
+                <th data-formatter="operateExamTaken" rowspan="2">操作
                 </th>
             </tr>
             <tr>
-                <th data-field="courseName" data-width="300">
+                <th data-field="courseName">
                     课程名称
                 </th>
-                <th data-field="specialtyId" data-width="300">
+                <th data-field="specialtyId">
                     专业ID
                 </th>
-                <th data-field="specialtyName" data-width="300">
+                <th data-field="specialtyName">
                     专业名称
                 </th>
-                <th data-field="content1" data-width="200">测验一考察内容</th>
-                <th data-field="date1" data-width="200">考察时间</th>
-                <th data-field="sign1" data-width="200">是否开启</th>
-                <th data-field="content2" data-width="200">测验二考察内容</th>
-                <th data-field="date2" data-width="200">考察时间</th>
-                <th data-field="sign2" data-width="200">是否开启</th>
-                <th data-field="content3" data-width="200">测验三考察内容</th>
-                <th data-field="date3" data-width="200">考察时间</th>
-                <th data-field="sign3" data-width="200">是否开启</th>
-                <th data-field="date4" data-width="200">附加题考察时间</th>
-                <th data-field="sign4" data-width="200">是否开启</th>
+                <th id="content1" data-field="content1" data-editable="true">测验一<br>考察内容
+                </th>
+                <th id="date1" data-field="date1" data-editable="true">考察时间</th>
+                <th id="sign1" data-field="sign1" data-editable="true">是否开启</th>
+                <th id="content2" data-field="content2" data-editable="true">测验二<br>考察内容
+                </th>
+                <th id="date2" data-field="date2" data-editable="true">考察时间</th>
+                <th id="sign2" data-field="sign2" data-editable="true">是否开启</th>
+                <th id="content3" data-field="content3" data-editable="true">测验三<br>考察内容
+                </th>
+                <th id="date3" data-field="date3" data-editable="true">考察时间</th>
+                <th id="sign3" data-field="sign3" data-editable="true">是否开启</th>
+                <th id="date4" data-field="date4" data-editable="true">附加题<br>考察时间
+                </th>
+                <th id="sign4" data-field="sign4" data-editable="true">是否开启</th>
             </tr>
             </thead>
         </table>
@@ -132,6 +135,22 @@
                 }
             });
         });
+
+//        editable
+//        content
+        $('#content1').editable();
+        $('#content2').editable();
+        $('#content3').editable();
+//        date
+        $('#date1').editable();
+        $('#date2').editable();
+        $('#date3').editable();
+        $('#date4').editable();
+//        sign
+        $('#sign1').editable();
+        $('#sign2').editable();
+        $('#sign3').editable();
+        $('#sign4').editable();
     });
 </script>
 <style>
