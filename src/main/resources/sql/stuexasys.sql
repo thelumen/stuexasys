@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-02 07:59:01
+Date: 2017-06-02 17:16:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -128,18 +128,17 @@ CREATE TABLE `com_examinfo` (
   `courseId` char(8) NOT NULL COMMENT '课程id',
   `content1` char(50) DEFAULT NULL COMMENT '考察章节一',
   `date1` date DEFAULT NULL COMMENT '考察时间一',
-  `sign1` tinyint(4) DEFAULT '0' COMMENT '考察1，0为关闭，1为开启',
+  `sign1` tinyint(4) DEFAULT NULL COMMENT '考察1，0为关闭，1为开启',
   `content2` char(50) DEFAULT NULL COMMENT '考察章节二',
   `date2` date DEFAULT NULL COMMENT '考察时间二',
-  `sign2` tinyint(4) DEFAULT '0' COMMENT '考察2，0为关闭，1为开启',
+  `sign2` tinyint(4) DEFAULT NULL COMMENT '考察2，0为关闭，1为开启',
   `content3` char(50) DEFAULT NULL COMMENT '考察章节三',
   `date3` date DEFAULT NULL COMMENT '考察时间三',
-  `sign3` tinyint(4) DEFAULT '0' COMMENT '考察3，0为关闭，1为开启',
-  `content4` char(50) DEFAULT NULL COMMENT '附加题考察',
+  `sign3` tinyint(4) DEFAULT NULL COMMENT '考察3，0为关闭，1为开启',
   `date4` date DEFAULT NULL COMMENT '附加题考察时间',
-  `sign4` tinyint(4) DEFAULT '0' COMMENT '考察4，0为关闭，1为开启',
-  `on` tinyint(4) DEFAULT '0' COMMENT '是否可以测试，0不可，1可以',
-  `started` tinyint(6) NOT NULL DEFAULT '0' COMMENT '考试是否开启，0未开启，1开启',
+  `sign4` tinyint(4) DEFAULT NULL COMMENT '考察4，0为关闭，1为开启',
+  `on` tinyint(4) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
+  `started` tinyint(6) NOT NULL COMMENT '考试是否开启，0未开启，1开启',
   PRIMARY KEY (`specialtyId`,`courseId`),
   KEY `courseId` (`courseId`),
   KEY `specialtyId` (`specialtyId`),
@@ -150,6 +149,9 @@ CREATE TABLE `com_examinfo` (
 -- ----------------------------
 -- Records of com_examinfo
 -- ----------------------------
+INSERT INTO `com_examinfo` VALUES ('140400', '10000000', null, null, '0', null, null, '1', null, null, '1', null, null, null, '0');
+INSERT INTO `com_examinfo` VALUES ('140401', '10000000', null, null, null, null, null, '1', null, null, null, null, null, null, '0');
+INSERT INTO `com_examinfo` VALUES ('140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '0');
 
 -- ----------------------------
 -- Table structure for com_grade
@@ -772,11 +774,25 @@ CREATE TABLE `com_single_question` (
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `com_single_question_fk` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单选题表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='单选题表';
 
 -- ----------------------------
 -- Records of com_single_question
 -- ----------------------------
+INSERT INTO `com_single_question` VALUES ('1', '10000000', '第一章', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `com_single_question` VALUES ('2', '10000000', '第二章', '2', '2', '2', '2', '2', '2', '2');
+INSERT INTO `com_single_question` VALUES ('3', '10000000', '第三章', '3', '3', '3', '3', '3', '3', '3');
+INSERT INTO `com_single_question` VALUES ('4', '10000000', '第四章', '4', '4', '4', '4', '4', '4', '4');
+INSERT INTO `com_single_question` VALUES ('5', '10000000', '第五章', '5', '5', '5', '5', '5', '5', '5');
+INSERT INTO `com_single_question` VALUES ('6', '10000000', '第六章', '6', '6', '6', '6', '6', '6', '6');
+INSERT INTO `com_single_question` VALUES ('7', '10000000', '第七章', '7', '7', '7', '7', '7', '7', '7');
+INSERT INTO `com_single_question` VALUES ('8', '10000001', '第一章', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `com_single_question` VALUES ('9', '10000001', '第二章', '2', '2', '2', '2', '2', '2', '2');
+INSERT INTO `com_single_question` VALUES ('10', '10000001', '第三章', '3', '3', '3', '3', '3', '3', '3');
+INSERT INTO `com_single_question` VALUES ('11', '10000001', '第四章', '4', '4', '4', '4', '4', '4', '4');
+INSERT INTO `com_single_question` VALUES ('12', '10000001', '第五章', '5', '5', '5', '5', '5', '5', '5');
+INSERT INTO `com_single_question` VALUES ('13', '10000001', '第六章', '6', '6', '6', '6', '6', '6', '6');
+INSERT INTO `com_single_question` VALUES ('14', '10000001', '第七章', '7', '7', '7', '7', '7', '7', '7');
 
 -- ----------------------------
 -- Table structure for com_specialty
@@ -930,6 +946,7 @@ CREATE TABLE `com_teacher_l_course` (
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140400', '2017-05-01', '2017-05-31');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2016-05-01', '2017-05-09');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140402', '2017-01-02', '2017-10-18');
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140405', '2017-06-12', '2017-06-20');
 
 -- ----------------------------
 -- Table structure for com_teacher_l_role
