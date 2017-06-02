@@ -11,8 +11,10 @@ import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
+import sunday.pojo.teacher.ExamTaken;
 import sunday.pojo.teacher.GradeTaken;
 import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.StuExaService;
 import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
 
@@ -35,6 +37,10 @@ public class TeacherController {
 
     @javax.annotation.Resource(name = "stuGraService")
     private StuGraService stuGraService;
+
+    @javax.annotation.Resource(name = "stuExaService")
+    private StuExaService stuExaService;
+
 
     /**
      * 获取当前登录教师id
@@ -67,6 +73,46 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String examPage() {
         return "/teacher/exam/examProxy";
+    }
+
+    /**
+     * 添加考试信息
+     *
+     * @param courseId
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/takeExamInfo/{courseId}/{specialtyId}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> takeExamInfo(@PathVariable("courseId") String courseId,
+                                            @PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> info = new HashMap<>();
+        ExamTaken exam = new ExamTaken();
+        exam.setCourseId(courseId);
+        exam.setSpecialtyId(specialtyId);
+        stuExaService.insertExamInfo(exam);
+        return info;
+    }
+
+    /**
+     * 获取考试信息
+     *
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/examInfos", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getExamInfo(@RequestBody Map<String, Object> params) {
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        List<ExamTaken> examTakens = stuExaService.selectExamTaken(getMapInfo2Page(params), teacherInfo);
+        if (null != examTakens) {
+            return getTakenInfo(examTakens);
+        }
+        return null;
     }
 
     /**

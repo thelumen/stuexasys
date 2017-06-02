@@ -71,3 +71,6 @@
 <%--2版bootstrap样式--%>
 <link href="/common/jslib/bootstrap-2.3.2/bootstrap-responsive.min.css"
       rel="stylesheet" charset="utf-8">
+<%--editable--%>
+<script src="/common/jslib/editable/bootstrap-table-editable.js"
+        charset="utf-8"></script>
