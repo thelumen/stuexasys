@@ -53,8 +53,23 @@
                     align: 'center',
                     valign: 'middle'
                 }, {
-                    title: '考察详情',
-                    colspan: 11,
+                    title: '测验一',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '测验二',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '测验三',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '附加题',
+                    colspan: 2,
                     align: 'center',
                     valign: 'middle'
                 }, {
@@ -80,75 +95,161 @@
                     valign: 'middle'
                 }, {
                     field: 'content1',
-                    title: '测验一考察章节',
-                    editable: true,
+                    title: '考察章节',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '选择章节',
+                        validate: function (value) {
+                            value = $.trim(value);
+                            if (!value) {
+                                return 'This field is required';
+                            }
+                            if (!/^\$/.test(value)) {
+                                return 'This field needs to start width $.'
+                            }
+                            var data = $table.bootstrapTable('getData'),
+                                index = $(this).parents('tr').data('index');
+                            console.log(data[index]);
+                            return '';
+                        }
+                    }
                 }, {
                     field: 'date1',
                     title: '考察时间',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
                 }, {
                     field: 'sign1',
                     title: '是否开启',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
                 }, {
                     field: 'content2',
-                    title: '测验二考察章节',
+                    title: '考察章节',
                     editable: true,
                     align: 'center',
                     valign: 'middle'
                 }, {
                     field: 'date2',
                     title: '考察时间',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
                 }, {
                     field: 'sign2',
                     title: '是否开启',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
                 }, {
                     field: 'content3',
-                    title: '测验三考察章节',
+                    title: '考察章节',
                     editable: true,
                     align: 'center',
                     valign: 'middle'
                 }, {
                     field: 'date3',
                     title: '考察时间',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
                 }, {
                     field: 'sign3',
                     title: '是否开启',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
                 }, {
                     field: 'date4',
-                    title: '附加题考察时间',
-                    editable: true,
+                    title: '考察时间',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'combodate',
+                        title: '考察时间',
+                        format: 'YYYY-MM-DD',
+                        viewformat: 'YYYY.MM.DD',
+                        template: 'YYYY / MMM / D',
+                        combodate: {
+                            minYear: 2017,
+                            maxYear: 2049,
+                            minuteStep: 1
+                        }
+                    }
                 }, {
                     field: 'sign4',
                     title: '是否开启',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0",
+                            text: "关闭"
+                        }]
+                    }
                 }]
             ]
         });
-
-
 //        添加考试信息
         $('#teacher_exam_add_btn').click(function () {
             var courseId = $('#teacher_exam_choose_course').val();
@@ -199,31 +300,6 @@
                 }
             });
         });
-
-//        editable
-//        content
-        $('#content1').editable({
-            type: "select",
-            title: "选择章节",
-            emptytext: "无内容",
-            validate: function (value) {
-                if (!$.trim(value)) {
-                    return '不能为空';
-                }
-            }
-        });
-        $('#content2').editable();
-        $('#content3').editable();
-//        date
-        $('#date1').editable();
-        $('#date2').editable();
-        $('#date3').editable();
-        $('#date4').editable();
-//        sign
-        $('#sign1').editable();
-        $('#sign2').editable();
-        $('#sign3').editable();
-        $('#sign4').editable();
     });
 </script>
 <style>

@@ -78,3 +78,6 @@
       rel="stylesheet" charset="utf-8">
 <script src="/common/jslib/editable/bootstrap-editable.min.js"
         charset="utf-8"></script>
+<%--combodate--%>
+<script src="/common/jslib/combodate/combodate.js" charset="utf-8"></script>
+<script src="/common/jslib/combodate/moment.min.js" charset="utf-8"></script>
