@@ -29,53 +29,7 @@
         </button>
     </div>
     <div class="table-responsive">
-        <table id="teacher_exam_table"
-               data-toggle="table"
-               data-toolbar="#teacher_exam_toolbar"
-               data-method="post"
-               data-show-export="true"
-               data-url="${pageContext.request.contextPath}/teacher/examInfos"
-               data-height="1500"
-               data-side-pagination="server"
-               data-show-refresh="true"
-               data-id-field="specialtyId"
-               data-row-style="rowStyle"
-        >
-            <thead>
-            <tr>
-                <th colspan="3">课程和专业</th>
-                <th colspan="11">考察详情</th>
-                <th data-formatter="operateExamTaken" rowspan="2">操作
-                </th>
-            </tr>
-            <tr>
-                <th data-field="courseName">
-                    课程名称
-                </th>
-                <th data-field="specialtyId">
-                    专业ID
-                </th>
-                <th data-field="specialtyName">
-                    专业名称
-                </th>
-                <th id="content1" data-field="content1" data-editable="true">测验一<br>考察内容
-                </th>
-                <th id="date1" data-field="date1" data-editable="true">考察时间</th>
-                <th id="sign1" data-field="sign1" data-editable="true">是否开启</th>
-                <th id="content2" data-field="content2" data-editable="true">测验二<br>考察内容
-                </th>
-                <th id="date2" data-field="date2" data-editable="true">考察时间</th>
-                <th id="sign2" data-field="sign2" data-editable="true">是否开启</th>
-                <th id="content3" data-field="content3" data-editable="true">测验三<br>考察内容
-                </th>
-                <th id="date3" data-field="date3" data-editable="true">考察时间</th>
-                <th id="sign3" data-field="sign3" data-editable="true">是否开启</th>
-                <th id="date4" data-field="date4" data-editable="true">附加题<br>考察时间
-                </th>
-                <th id="sign4" data-field="sign4" data-editable="true">是否开启</th>
-            </tr>
-            </thead>
-        </table>
+        <table id="teacher_exam_table"/>
     </div>
 </div>
 
@@ -85,6 +39,116 @@
     }
 
     $(function () {
+        $('#teacher_exam_table').bootstrapTable({
+            url: '${pageContext.request.contextPath}/teacher/examInfos',
+            method: 'post',
+            sidePagination: 'server',
+            height: 600,
+            showRefresh: true,
+            toolbar: '#teacher_exam_toolbar',
+            columns: [
+                [{
+                    title: '课程和专业',
+                    colspan: 3,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '考察详情',
+                    colspan: 11,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    title: '操作',
+                    rowspan: 2,
+                    align: 'center',
+                    valign: 'middle'
+                }],
+                [{
+                    field: 'courseName',
+                    title: '课程名称',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'specialtyId',
+                    title: '专业Id',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'specialtyName',
+                    title: '专业名称',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'content1',
+                    title: '测验一考察章节',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date1',
+                    title: '考察时间',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'sign1',
+                    title: '是否开启',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'content2',
+                    title: '测验二考察章节',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date2',
+                    title: '考察时间',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'sign2',
+                    title: '是否开启',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'content3',
+                    title: '测验三考察章节',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date3',
+                    title: '考察时间',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'sign3',
+                    title: '是否开启',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'date4',
+                    title: '附加题考察时间',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }, {
+                    field: 'sign4',
+                    title: '是否开启',
+                    editable: true,
+                    align: 'center',
+                    valign: 'middle'
+                }]
+            ]
+        });
+
+
 //        添加考试信息
         $('#teacher_exam_add_btn').click(function () {
             var courseId = $('#teacher_exam_choose_course').val();
@@ -138,7 +202,16 @@
 
 //        editable
 //        content
-        $('#content1').editable();
+        $('#content1').editable({
+            type: "select",
+            title: "选择章节",
+            emptytext: "无内容",
+            validate: function (value) {
+                if (!$.trim(value)) {
+                    return '不能为空';
+                }
+            }
+        });
         $('#content2').editable();
         $('#content3').editable();
 //        date
