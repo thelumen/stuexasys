@@ -9,9 +9,11 @@ import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.CourseTaken;
 import sunday.pojo.student.GradeTaken;
+import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -90,7 +92,46 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int update(Student student) {
-        return studentMapper.update(student);
+    public Boolean update(StudentInfo studentInfo) {
+        int count = 0;
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", studentInfo.getStudentId());
+        }};
+        List<StudentTaken> studentTakens = studentMapper.selectStudentInfo(params);
+        if (null != studentInfo.getOldPassword()) {//判断旧密码是否填写
+            if (!studentInfo.getOldPassword().equals(studentInfo.getNewPassword())) {//判断填写的新旧密码是否不同
+                if (EncryptKit.md5(studentInfo.getOldPassword()).equals
+                        (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据相同
+                    params.put("password", EncryptKit.md5(studentInfo.getNewPassword()));
+                    count++;
+                }
+            }
+        }
+        //判断号码是否更改
+        if (null != studentInfo.getCellphone()) {
+            if (!studentInfo.getCellphone().equals(studentTakens.get(0).getCellphone())) {
+                params.put("cellphone", studentInfo.getCellphone());
+                count++;
+            }
+        }
+        //判断性别是否更改
+        if (null != studentInfo.getGender()) {
+            if (!studentInfo.getGender().equals(studentTakens.get(0).getGender())) {
+                params.put("gender", studentInfo.getGender());
+                count++;
+            }
+        }
+        //判断邮箱是否更改
+        if (null != studentInfo.getEmail()) {
+            if (!studentInfo.getEmail().equals(studentTakens.get(0).getEmail())) {
+                params.put("email", studentInfo.getEmail());
+                count++;
+            }
+        }
+        //判断是否有更改
+        if (count>0){
+            Integer returnRow=studentMapper.update(params);
+            return returnRow>0;
+        }else return count==0;
     }
 }

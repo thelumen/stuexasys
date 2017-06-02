@@ -4,11 +4,20 @@ package sunday.pojo.student;
  * Created by 花间一壶酒 on 2017/6/1.
  */
 public class StudentInfo{
+    private String studentId;
     private String oldPassword;
     private String newPassword;
     private String gender;
     private String cellphone;
     private String email;
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -53,7 +62,8 @@ public class StudentInfo{
     @Override
     public String toString() {
         return "StudentInfo{" +
-                "oldPassword='" + oldPassword + '\'' +
+                "studentId='" + studentId + '\'' +
+                ", oldPassword='" + oldPassword + '\'' +
                 ", newPassword='" + newPassword + '\'' +
                 ", gender='" + gender + '\'' +
                 ", cellphone='" + cellphone + '\'' +

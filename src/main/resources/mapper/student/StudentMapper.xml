@@ -53,7 +53,7 @@
                 email=#{email,jdbcType=CHAR}
             </if>
         </set>
-        where studentId=#{studentId,jdbcType=LONG}
+        where studentId=#{studentId,jdbcType=CHAR}
     </update>
 
     <!--插入学生-->

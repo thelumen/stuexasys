@@ -4,6 +4,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.GradeTaken;
+import sunday.pojo.student.StudentInfo;
 import sunday.service.student.StudentService;
 
 import java.util.HashMap;
@@ -39,9 +40,11 @@ public class StudentTest {
     public void t5() {
         List<Student> studentList = studentService.select(null, null);
         for (Student student : studentList) {
-            student.setGender("0");
-            studentService.update(student);
-            System.out.println(student.toString());
+            StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setStudentId(student.getStudentId());
+            studentInfo.setGender("男");
+            studentService.update(studentInfo);
+            System.out.println(studentInfo.toString());
         }
     }
 

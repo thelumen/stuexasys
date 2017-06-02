@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.CourseTaken;
 import sunday.pojo.student.GradeTaken;
+import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 
 import java.util.List;
@@ -77,8 +78,8 @@ public interface StudentService {
     /**
      * 更新学生信息
      *
-     * @param student .
+     * @param studentInfo .
      * @return int
      */
-    int update(Student student);
+    Boolean update(StudentInfo studentInfo);
 }

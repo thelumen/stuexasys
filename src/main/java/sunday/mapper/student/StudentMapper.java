@@ -75,8 +75,8 @@ public interface StudentMapper {
     /**
      * 更新学生信息
      *
-     * @param student .
+     * @param params .
      * @return int
      */
-    int update(Student student);
+    int update(Map<String, Object> params);
 }

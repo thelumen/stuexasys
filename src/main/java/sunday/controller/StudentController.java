@@ -113,10 +113,10 @@ public class StudentController {
     @ResponseBody
     public String updateStudentInfo(@RequestBody StudentInfo studentInfo) {
         boolean isSuccess = false;
-        System.out.println(studentInfo.toString());
-        //if (studentService.update(student)>0){
-        //    isSuccess = true;
-        //}
+        studentInfo.setStudentId(getCurrentStudentId());
+        if (studentService.update(studentInfo)){
+            isSuccess = true;
+        }
         if (isSuccess){
             return "isSuccess";
             }

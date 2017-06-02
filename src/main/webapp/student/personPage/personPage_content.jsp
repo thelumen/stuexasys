@@ -17,25 +17,53 @@
         }
     </style>
     <script>
+        function validate_email(email) {
+            var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+            if (!myreg.test(email)) {
+                alert('提示\n\n请输入有效的E_mail！\n\n'+email);
+                return false;
+            } else return true;
+        }
+        function validate_cellphone(cellphone) {
+            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            if (!myreg.test(cellphone)) {
+                alert('请输入有效的手机号码！');
+                return false;
+            } else return true;
+        }
+    </script>
+    <script>
         $(document).ready(function () {
+
+//          修改密码 按键
             $("#changePasswordContent").hide();
             $("#changePasswordButton").click(function () {
                 $("#changePasswordContent").slideToggle("slow");
             });
+
+//          提交修改 按键
             $("#submitChanged").click(function () {
-                var str=$("#submitForm").serializeObject();
-                var jsonDate = JSON.stringify(str);
-                $.ajax({
-                    type: 'post',
-                    url: '${pageContext.request.contextPath}/student/updateStudentInfo',
-                    dataType: "json",
-                    data: jsonDate,
-                    contentType:'application/json',
-                    success:function(data){
-                        alert(data);
-                    }
-                })
-            })
+                if (validate_email($("#email").val()) && validate_cellphone($("#cellphone").val())) {
+                    alert("正在修改");
+                    var str = $("#submitForm").serializeObject();
+                    var jsonDate = JSON.stringify(str);
+                    $.ajax({
+                        type: 'post',
+                        url: '${pageContext.request.contextPath}/student/updateStudentInfo',
+                        dataType: "json",
+                        data: jsonDate,
+                        contentType: 'application/json',
+                        success: function (data) {
+                            alert(data);
+                        }
+                    })
+                }
+            });
+
+//          判断性别显示
+            if ("女" === "${studentInfo.gender}") {
+                $("#gender2").attr("selected", "selected");
+            }
         })
     </script>
 </head>
@@ -79,21 +107,20 @@
             <p>班级：${studentInfo.specialtyName}</p>
             <p>姓名：${studentInfo.name}</p>
             <form action="" id="submitForm">
-                <c:if test="${studentInfo.gender=='0'}">
-                    <p>性别：<label>
-                        <input class="form-control" type="text" name="gender" value="男">
-                    </label></p>
-                </c:if>
-                <c:if test="${!(studentInfo.gender=='0')}">
-                    <p>性别：<label>
-                        <input class="form-control" type="text" value="女">
-                    </label></p>
-                </c:if>
+                <p>性别：
+                    <label>
+                        <select class="form-control" name="gender">
+                            <option id="gender1" value="男">男</option>
+                            <option id="gender2" value="女">女</option>
+                        </select>
+                    </label>
+                </p>
                 <p>邮箱：<label>
                     <input class="form-control" type="text" id="email" name="email" value="${studentInfo.email}">
                 </label></p>
                 <p>号码：<label>
-                    <input class="form-control" type="text" id="cellphone" name="cellphone" value="${studentInfo.cellphone}">
+                    <input class="form-control" type="text" id="cellphone" name="cellphone"
+                           value="${studentInfo.cellphone}">
                 </label></p>
                 <hr>
                 <button class="btn btn-primary" type="button" id="changePasswordButton">
