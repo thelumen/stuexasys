@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-02 17:16:12
+Date: 2017-06-02 18:33:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -138,7 +138,7 @@ CREATE TABLE `com_examinfo` (
   `date4` date DEFAULT NULL COMMENT '附加题考察时间',
   `sign4` tinyint(4) DEFAULT NULL COMMENT '考察4，0为关闭，1为开启',
   `on` tinyint(4) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
-  `started` tinyint(6) NOT NULL COMMENT '考试是否开启，0未开启，1开启',
+  `started` tinyint(6) DEFAULT NULL COMMENT '考试是否开启，0未开启，1开启',
   PRIMARY KEY (`specialtyId`,`courseId`),
   KEY `courseId` (`courseId`),
   KEY `specialtyId` (`specialtyId`),
@@ -827,6 +827,7 @@ CREATE TABLE `com_student` (
   `name` char(50) DEFAULT '辽工学子' COMMENT '姓名',
   `specialtyId` char(6) NOT NULL COMMENT '班级id',
   `gender` char(2) DEFAULT NULL COMMENT '性别',
+  `phone` char(11) DEFAULT NULL COMMENT '手机号',
   `email` char(20) DEFAULT NULL COMMENT '手机号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `com_student` (`studentId`)
@@ -835,66 +836,66 @@ CREATE TABLE `com_student` (
 -- ----------------------------
 -- Records of com_student
 -- ----------------------------
-INSERT INTO `com_student` VALUES ('67', '140400000', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('68', '140400001', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('69', '140400002', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('70', '140400003', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('71', '140400004', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('72', '140400005', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('73', '140400006', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('74', '140400007', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('75', '140400008', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('76', '140400009', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null);
-INSERT INTO `com_student` VALUES ('77', '140401010', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('78', '140401011', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('79', '140401012', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('80', '140401013', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('81', '140401014', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('82', '140401015', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('83', '140401016', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('84', '140401017', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('85', '140401018', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('86', '140401019', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null);
-INSERT INTO `com_student` VALUES ('87', '140402020', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('88', '140402021', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('89', '140402022', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('90', '140402023', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('91', '140402024', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('92', '140402025', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('93', '140402026', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('94', '140402027', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('95', '140402028', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('96', '140402029', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null);
-INSERT INTO `com_student` VALUES ('97', '140403030', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('98', '140403031', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('99', '140403032', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('100', '140403033', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('101', '140403034', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('102', '140403035', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('103', '140403036', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('104', '140403037', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('105', '140403038', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('106', '140403039', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null);
-INSERT INTO `com_student` VALUES ('107', '140404040', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('108', '140404041', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('109', '140404042', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('110', '140404043', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('111', '140404044', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('112', '140404045', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('113', '140404046', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('114', '140404047', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('115', '140404048', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('116', '140404049', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null);
-INSERT INTO `com_student` VALUES ('117', '140405050', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('118', '140405051', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('119', '140405052', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('120', '140405053', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('121', '140405054', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('122', '140405055', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('123', '140405056', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('124', '140405057', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('125', '140405058', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
-INSERT INTO `com_student` VALUES ('126', '140405059', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null);
+INSERT INTO `com_student` VALUES ('67', '140400000', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('68', '140400001', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('69', '140400002', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('70', '140400003', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('71', '140400004', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('72', '140400005', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('73', '140400006', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('74', '140400007', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('75', '140400008', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('76', '140400009', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('77', '140401010', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('78', '140401011', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('79', '140401012', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('80', '140401013', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('81', '140401014', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('82', '140401015', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('83', '140401016', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('84', '140401017', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('85', '140401018', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('86', '140401019', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140401', '0', null, null);
+INSERT INTO `com_student` VALUES ('87', '140402020', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('88', '140402021', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('89', '140402022', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('90', '140402023', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('91', '140402024', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('92', '140402025', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('93', '140402026', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('94', '140402027', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('95', '140402028', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('96', '140402029', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140402', '0', null, null);
+INSERT INTO `com_student` VALUES ('97', '140403030', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('98', '140403031', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('99', '140403032', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('100', '140403033', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('101', '140403034', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('102', '140403035', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('103', '140403036', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('104', '140403037', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('105', '140403038', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('106', '140403039', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140403', '0', null, null);
+INSERT INTO `com_student` VALUES ('107', '140404040', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('108', '140404041', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('109', '140404042', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('110', '140404043', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('111', '140404044', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('112', '140404045', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('113', '140404046', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('114', '140404047', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('115', '140404048', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('116', '140404049', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140404', '0', null, null);
+INSERT INTO `com_student` VALUES ('117', '140405050', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('118', '140405051', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('119', '140405052', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('120', '140405053', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('121', '140405054', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('122', '140405055', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('123', '140405056', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('124', '140405057', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('125', '140405058', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('126', '140405059', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
 
 -- ----------------------------
 -- Table structure for com_teacher

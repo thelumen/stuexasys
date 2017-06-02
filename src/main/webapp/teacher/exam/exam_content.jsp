@@ -102,9 +102,19 @@
                         type: 'select',
                         title: '选择章节',
                         select2:{
-                            placeholder: 'Select Country',
+                            placeholder: 'Select Chapter',
                             allowClear: true,
-                            minimumInputLength: 3,
+                            minimumInputLength: 1,
+                            ajax: {
+                                url: '${pageContext.request.contextPath}/',
+                                dataType: 'json',
+                                data: function (term, page) {
+                                    return { query: term };
+                                },
+                                results: function (data, page) {
+                                    return { results: data };
+                                }
+                            }
                         }
                     }
                 }, {
