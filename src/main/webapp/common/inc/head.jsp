@@ -81,3 +81,5 @@
 <%--combodate--%>
 <script src="/common/jslib/combodate/combodate.js" charset="utf-8"></script>
 <script src="/common/jslib/combodate/moment.min.js" charset="utf-8"></script>
+<link href="/common/jslib/select2/select2-bootstrap.css" rel="stylesheet"
+      charset="utf-8">

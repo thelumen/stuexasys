@@ -101,18 +101,10 @@
                     editable: {
                         type: 'select',
                         title: '选择章节',
-                        validate: function (value) {
-                            value = $.trim(value);
-                            if (!value) {
-                                return 'This field is required';
-                            }
-                            if (!/^\$/.test(value)) {
-                                return 'This field needs to start width $.'
-                            }
-                            var data = $table.bootstrapTable('getData'),
-                                index = $(this).parents('tr').data('index');
-                            console.log(data[index]);
-                            return '';
+                        select2:{
+                            placeholder: 'Select Country',
+                            allowClear: true,
+                            minimumInputLength: 3,
                         }
                     }
                 }, {
