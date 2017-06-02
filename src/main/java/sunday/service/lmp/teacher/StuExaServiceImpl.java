@@ -38,4 +38,10 @@ public class StuExaServiceImpl implements StuExaService {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public int updateExamInfo(ExamTaken examInfo) {
+        return stuExaMapper.updateExamInfo(examInfo);
+    }
 }

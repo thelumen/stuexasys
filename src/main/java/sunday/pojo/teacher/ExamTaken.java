@@ -10,6 +10,7 @@ import java.util.Date;
  * At 8:32
  */
 public final class ExamTaken {
+    private byte id;
     private String courseId;
     private String courseName;
     private String specialtyId;
@@ -33,6 +34,18 @@ public final class ExamTaken {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date4;
     private byte sign4;
+    //是否可以开始考试
+    private byte on;
+    //是否有考试信息
+    private byte started;
+
+    public byte getId() {
+        return id;
+    }
+
+    public void setId(byte id) {
+        this.id = id;
+    }
 
     public String getCourseId() {
         return courseId;
@@ -154,10 +167,27 @@ public final class ExamTaken {
         this.sign4 = sign4;
     }
 
+    public byte getOn() {
+        return on;
+    }
+
+    public void setOn(byte on) {
+        this.on = on;
+    }
+
+    public byte getStarted() {
+        return started;
+    }
+
+    public void setStarted(byte started) {
+        this.started = started;
+    }
+
     @Override
     public String toString() {
         return "ExamTaken{" +
-                "courseId='" + courseId + '\'' +
+                "id=" + id +
+                ", courseId='" + courseId + '\'' +
                 ", courseName='" + courseName + '\'' +
                 ", specialtyId='" + specialtyId + '\'' +
                 ", specialtyName='" + specialtyName + '\'' +
@@ -172,6 +202,8 @@ public final class ExamTaken {
                 ", sign3=" + sign3 +
                 ", date4=" + date4 +
                 ", sign4=" + sign4 +
+                ", on=" + on +
+                ", started=" + started +
                 '}';
     }
 }

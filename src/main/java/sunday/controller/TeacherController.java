@@ -41,7 +41,6 @@ public class TeacherController {
     @javax.annotation.Resource(name = "stuExaService")
     private StuExaService stuExaService;
 
-
     /**
      * 获取当前登录教师id
      *
@@ -89,10 +88,25 @@ public class TeacherController {
     public Map<String, Object> takeExamInfo(@PathVariable("courseId") String courseId,
                                             @PathVariable("specialtyId") String specialtyId) {
         Map<String, Object> info = new HashMap<>();
+
+        Map<String, Object> specouInfo = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+            put("specialtyId", specialtyId);
+        }};
+        List<ExamTaken> examTakens = stuExaService.selectExamTaken(null, specouInfo);
+        if (null != examTakens) {
+            info.put("isSuccess", false);
+            return info;
+        }
+
         ExamTaken exam = new ExamTaken();
         exam.setCourseId(courseId);
         exam.setSpecialtyId(specialtyId);
+        exam.setStarted(new Byte("1"));
+
         stuExaService.insertExamInfo(exam);
+
+        info.put("isSuccess", true);
         return info;
     }
 
@@ -113,6 +127,20 @@ public class TeacherController {
             return getTakenInfo(examTakens);
         }
         return null;
+    }
+
+    /**
+     * 更新考试信息
+     *
+     * @param examInfo
+     * @return
+     */
+    @RequestMapping(value = "/updateExamInfo", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
+        stuExaService.updateExamInfo(examInfo);
+        return "/teacher/exam/examProxy";
     }
 
     /**
