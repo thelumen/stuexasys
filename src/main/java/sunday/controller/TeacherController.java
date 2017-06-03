@@ -226,19 +226,20 @@ public class TeacherController {
      */
     @RequestMapping(value = "/student/grade/all", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getAllStudentGrade() {
+    public Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
         //封装list
         List<GradeTaken> target = new ArrayList<>();
 
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, teacherInfo);
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(getMapInfo2Page(params), teacherInfo);
         if (null == courseTakens) {
             return null;
         }
         for (CourseTaken course : courseTakens) {
             teacherInfo.put("specialtyName", course.getSpecialtyName());
+            teacherInfo.put("courseId", course.getCourseId());
             List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
             //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
