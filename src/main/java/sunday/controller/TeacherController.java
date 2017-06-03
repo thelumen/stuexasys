@@ -63,6 +63,18 @@ public class TeacherController {
     }
 
     /**
+     * 转到附加题评分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/another", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String otherQuestionPage() {
+        return "/teacher/another/anotherProxy";
+    }
+
+    /**
      * 转到考试信息页
      *
      * @return
