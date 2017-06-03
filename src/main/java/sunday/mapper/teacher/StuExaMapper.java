@@ -27,4 +27,12 @@ public interface StuExaMapper {
      * @return
      */
     List<ExamTaken> selectExamTaken(Map<String, Object> params);
+
+    /**
+     * 更新考试信息
+     *
+     * @param examInfo
+     * @return
+     */
+    int updateExamInfo(ExamTaken examInfo);
 }

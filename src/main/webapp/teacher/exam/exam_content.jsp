@@ -34,8 +34,32 @@
 </div>
 
 <script>
-    function operateExamTaken() {
-
+    //    更新考试信息
+    function updateExamInfo(id) {
+        var data = JSON.stringify($('#teacher_exam_table').bootstrapTable("getRowByUniqueId", id));
+        $.ajax({
+            url: '${pageContext.request.contextPath}/teacher/updateExamInfo',
+            data: data,
+            contentType: 'application/json',
+            type: 'post',
+            success: function (data) {
+                swal("year..", "考试信息已更新!", "success");
+            },
+            error: function () {
+                swal("Error", "系统出现问题，请联系管理员!", "error");
+            }
+        });
+    }
+    //    删除考试信息
+    function deleteExamInfo(id) {
+        alert(id);
+    }
+    //    操作
+    function operateExamTaken(value, row) {
+        var html = [];
+        html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
+        html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.id));
+        return html.join('');
     }
 
     $(function () {
@@ -44,12 +68,13 @@
             method: 'post',
             sidePagination: 'server',
             height: 600,
+            uniqueId: 'id',
             showRefresh: true,
             toolbar: '#teacher_exam_toolbar',
             columns: [
                 [{
                     title: '课程和专业',
-                    colspan: 3,
+                    colspan: 4,
                     align: 'center',
                     valign: 'middle'
                 }, {
@@ -72,13 +97,24 @@
                     colspan: 2,
                     align: 'center',
                     valign: 'middle'
+                },{
+                    title: '学生可见?',
+                    colspan: 1,
+                    align: 'center',
+                    valign: 'middle'
                 }, {
                     title: '操作',
                     rowspan: 2,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: operateExamTaken
                 }],
                 [{
+                    field: 'id',
+                    title: 'id',
+                    align: 'center',
+                    valign: 'middle'
+                }, {
                     field: 'courseName',
                     title: '课程名称',
                     align: 'center',
@@ -99,20 +135,14 @@
                     align: 'center',
                     valign: 'middle',
                     editable: {
-                        type: 'select',
-                        title: '选择章节',
-                        select2:{
-                            placeholder: 'Select Chapter',
-                            allowClear: true,
-                            minimumInputLength: 1,
-                            ajax: {
-                                url: '${pageContext.request.contextPath}/',
-                                dataType: 'json',
-                                data: function (term, page) {
-                                    return { query: term };
-                                },
-                                results: function (data, page) {
-                                    return { results: data };
+                        type: 'text',
+                        title: '填写章节(示例: 1,2,5 )',
+                        validate: function (value) {
+                            var num = [];
+                            num = value.split(",");
+                            for (x in num) {
+                                if (isNaN(num[x])) {
+                                    return '请正确填写考察章节信息!';
                                 }
                             }
                         }
@@ -150,9 +180,21 @@
                 }, {
                     field: 'content2',
                     title: '考察章节',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'text',
+                        title: '填写章节(示例: 1,2,5 )',
+                        validate: function (value) {
+                            var num = [];
+                            num = value.split(",");
+                            for (x in num) {
+                                if (isNaN(num[x])) {
+                                    return '请正确填写考察章节信息!';
+                                }
+                            }
+                        }
+                    }
                 }, {
                     field: 'date2',
                     title: '考察时间',
@@ -186,9 +228,21 @@
                 }, {
                     field: 'content3',
                     title: '考察章节',
-                    editable: true,
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    editable: {
+                        type: 'text',
+                        title: '填写章节(示例: 1,2,5 )',
+                        validate: function (value) {
+                            var num = [];
+                            num = value.split(",");
+                            for (x in num) {
+                                if (isNaN(num[x])) {
+                                    return '请正确填写考察章节信息!';
+                                }
+                            }
+                        }
+                    }
                 }, {
                     field: 'date3',
                     title: '考察时间',
@@ -249,6 +303,18 @@
                             text: "关闭"
                         }]
                     }
+                }, {
+                    field: 'started',
+                    title: '考试信号',
+                    align: 'center',
+                    valign: 'middle',
+                    editable: {
+                        type: 'select',
+                        title: '是否开启考试',
+                        source: [{value: "1", text: "开启"}, {
+                            value: "0", text: "关闭"
+                        }]
+                    }
                 }]
             ]
         });
@@ -262,11 +328,15 @@
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        swal("Success", "添加考试信息成功！", "success");
-                        $('#teacher_exam_table').bootstrapTable("refresh");
+                        if (data.isSuccess) {
+                            swal("Success", "添加考试信息成功！", "success");
+                            $('#teacher_exam_table').bootstrapTable("refresh");
+                        } else {
+                            swal("注意！", "不可添加重复数据！", "error");
+                        }
                     },
                     error: function () {
-                        swal("Error", "不可重复添加相同的考试信息！", "error");
+                        swal("Error", "出现系统错误，请稍后再试！", "error");
                     }
                 });
             } else {

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-02 18:33:16
+Date: 2017-06-02 22:17:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -124,6 +124,7 @@ INSERT INTO `com_course` VALUES ('8', '10000007', '数据结构7', '12', '2');
 -- ----------------------------
 DROP TABLE IF EXISTS `com_examinfo`;
 CREATE TABLE `com_examinfo` (
+  `id` tinyint(6) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `specialtyId` char(6) NOT NULL COMMENT '班级id',
   `courseId` char(8) NOT NULL COMMENT '课程id',
   `content1` char(50) DEFAULT NULL COMMENT '考察章节一',
@@ -139,19 +140,20 @@ CREATE TABLE `com_examinfo` (
   `sign4` tinyint(4) DEFAULT NULL COMMENT '考察4，0为关闭，1为开启',
   `on` tinyint(4) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
   `started` tinyint(6) DEFAULT NULL COMMENT '考试是否开启，0未开启，1开启',
-  PRIMARY KEY (`specialtyId`,`courseId`),
+  PRIMARY KEY (`id`,`specialtyId`,`courseId`),
   KEY `courseId` (`courseId`),
   KEY `specialtyId` (`specialtyId`),
   CONSTRAINT `com_examinfo_fk_1` FOREIGN KEY (`specialtyId`) REFERENCES `com_specialty` (`specialtyId`) ON DELETE CASCADE,
   CONSTRAINT `com_examinfo_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考试信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
 
 -- ----------------------------
 -- Records of com_examinfo
 -- ----------------------------
-INSERT INTO `com_examinfo` VALUES ('140400', '10000000', null, null, '0', null, null, '1', null, null, '1', null, null, null, '0');
-INSERT INTO `com_examinfo` VALUES ('140401', '10000000', null, null, null, null, null, '1', null, null, null, null, null, null, '0');
-INSERT INTO `com_examinfo` VALUES ('140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '0');
+INSERT INTO `com_examinfo` VALUES ('1', '140400', '10000000', '1,3', '2017-06-13', '1', '3,5', '2047-04-04', '0', '1,34', '2046-05-05', '0', '2046-06-06', '1', null, '1');
+INSERT INTO `com_examinfo` VALUES ('2', '140401', '10000000', null, null, null, '2,6', null, '1', null, null, null, null, null, null, '0');
+INSERT INTO `com_examinfo` VALUES ('3', '140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '0');
+INSERT INTO `com_examinfo` VALUES ('8', '140405', '10000001', null, null, null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for com_grade
