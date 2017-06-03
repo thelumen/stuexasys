@@ -50,6 +50,7 @@
     }
     //    更新考试信息
     function updateExamInfo(id) {
+        var table = $('#teacher_exam_table');
         var data = JSON.stringify($('#teacher_exam_table').bootstrapTable("getRowByUniqueId", id));
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/updateExamInfo',
@@ -60,10 +61,11 @@
             success: function (data) {
                 if (data.isSuccess) {
                     swal("year..", "考试信息已更新!", "success");
-                    $('#teacher_exam_table').bootstrapTable("refresh");
+                    table.bootstrapTable("refresh");
                 } else {
                     swal("Look", "signX信号有且必有一个开启！请重新设置", "error");
                 }
+                table.bootstrapTable("resetView");
             },
             error: function () {
                 swal("Error", "系统出现问题，请联系管理员!", "error");
@@ -110,7 +112,6 @@
         html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.id));
         return html.join('');
     }
-
     $(function () {
         $('#teacher_exam_table').bootstrapTable({
             url: '${pageContext.request.contextPath}/teacher/examInfos',

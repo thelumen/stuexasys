@@ -34,3 +34,34 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        //        预加载数据
+        $('#teacher_another_select_specialty').select2();
+        //        课程select查询数据
+        $.ajax({
+            url: '${pageContext.request.contextPath}/teacher/getCourse',
+            dataType: 'json',
+            success: function (data) {
+                $('#teacher_another_select_course').select2({
+                    data: data
+                });
+            }
+        });
+        //        联级：选择课程后筛选出修这门课的专业
+        $('#teacher_another_select_course').on("select2:select", function (e) {
+            var courseId = $('#teacher_another_select_course').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    var choS = $('#teacher_another_select_specialty');
+                    choS.empty();
+                    choS.select2({
+                        data: data
+                    });
+                }
+            });
+        });
+    })
+</script>

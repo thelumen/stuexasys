@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-03 17:22:06
+Date: 2017-06-03 18:48:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,12 @@ CREATE TABLE `com_another_question` (
 -- ----------------------------
 -- Records of com_another_question
 -- ----------------------------
+INSERT INTO `com_another_question` VALUES ('1', '10000000', '111', '111');
+INSERT INTO `com_another_question` VALUES ('2', '10000000', '222', '222');
+INSERT INTO `com_another_question` VALUES ('3', '10000000', '333', '333');
+INSERT INTO `com_another_question` VALUES ('4', '10000001', '1111', '1111');
+INSERT INTO `com_another_question` VALUES ('5', '10000001', '2222', '2222');
+INSERT INTO `com_another_question` VALUES ('6', '10000002', '3333', '3333');
 
 -- ----------------------------
 -- Table structure for com_clazz_l_student
@@ -163,14 +169,14 @@ CREATE TABLE `com_examinfo` (
   KEY `specialtyId` (`specialtyId`),
   CONSTRAINT `com_examinfo_fk_1` FOREIGN KEY (`specialtyId`) REFERENCES `com_specialty` (`specialtyId`) ON DELETE CASCADE,
   CONSTRAINT `com_examinfo_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
 
 -- ----------------------------
 -- Records of com_examinfo
 -- ----------------------------
-INSERT INTO `com_examinfo` VALUES ('2', '140401', '10000000', null, null, '0', '2,6', null, '1', null, null, '0', '2047-04-07', '0', null, '0');
-INSERT INTO `com_examinfo` VALUES ('10', '140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `com_examinfo` VALUES ('11', '140405', '10000001', null, null, null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `com_examinfo` VALUES ('10', '140402', '10000000', '1,4,6', '2047-06-08', '0', '3,5,6', '2017-08-06', '1', '4,5,6', '2044-07-08', '0', '2040-07-10', '0', null, '0');
+INSERT INTO `com_examinfo` VALUES ('11', '140405', '10000001', null, '2044-05-07', '1', null, null, '0', null, null, '0', null, '0', null, '1');
+INSERT INTO `com_examinfo` VALUES ('12', '140401', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for com_grade
@@ -937,6 +943,12 @@ CREATE TABLE `com_student_l_another_question` (
 -- ----------------------------
 -- Records of com_student_l_another_question
 -- ----------------------------
+INSERT INTO `com_student_l_another_question` VALUES ('1', '140400000', '10000000', '112423515');
+INSERT INTO `com_student_l_another_question` VALUES ('2', '140400001', '10000000', '14251353');
+INSERT INTO `com_student_l_another_question` VALUES ('3', '140400002', '10000000', '2352364316');
+INSERT INTO `com_student_l_another_question` VALUES ('4', '140400003', '10000000', '6265464');
+INSERT INTO `com_student_l_another_question` VALUES ('5', '140400004', '10000000', '24624624');
+INSERT INTO `com_student_l_another_question` VALUES ('6', '140401011', '10000001', '737437452');
 
 -- ----------------------------
 -- Table structure for com_teacher
