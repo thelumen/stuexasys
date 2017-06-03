@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-02 22:17:36
+Date: 2017-06-03 11:44:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for com_another_question
+-- ----------------------------
+DROP TABLE IF EXISTS `com_another_question`;
+CREATE TABLE `com_another_question` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `courseId` char(8) NOT NULL COMMENT '课程id',
+  `content` varchar(255) DEFAULT NULL COMMENT '内容',
+  `result` varchar(255) DEFAULT NULL COMMENT '标准答案',
+  PRIMARY KEY (`id`,`courseId`),
+  KEY `courseId` (`courseId`),
+  CONSTRAINT `com_another_question_fk1` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='附加题表';
+
+-- ----------------------------
+-- Records of com_another_question
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for com_clazz_l_student
@@ -145,15 +163,14 @@ CREATE TABLE `com_examinfo` (
   KEY `specialtyId` (`specialtyId`),
   CONSTRAINT `com_examinfo_fk_1` FOREIGN KEY (`specialtyId`) REFERENCES `com_specialty` (`specialtyId`) ON DELETE CASCADE,
   CONSTRAINT `com_examinfo_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
 
 -- ----------------------------
 -- Records of com_examinfo
 -- ----------------------------
-INSERT INTO `com_examinfo` VALUES ('1', '140400', '10000000', '1,3', '2017-06-13', '1', '3,5', '2047-04-04', '0', '1,34', '2046-05-05', '0', '2046-06-06', '1', null, '1');
-INSERT INTO `com_examinfo` VALUES ('2', '140401', '10000000', null, null, null, '2,6', null, '1', null, null, null, null, null, null, '0');
-INSERT INTO `com_examinfo` VALUES ('3', '140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '0');
-INSERT INTO `com_examinfo` VALUES ('8', '140405', '10000001', null, null, null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `com_examinfo` VALUES ('2', '140401', '10000000', null, null, '0', '2,6', null, '1', null, null, '0', '2047-04-07', '0', null, '0');
+INSERT INTO `com_examinfo` VALUES ('10', '140402', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `com_examinfo` VALUES ('11', '140405', '10000001', null, null, null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for com_grade
@@ -900,6 +917,28 @@ INSERT INTO `com_student` VALUES ('125', '140405058', '827ccb0eea8a706c4c34a1689
 INSERT INTO `com_student` VALUES ('126', '140405059', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
 
 -- ----------------------------
+-- Table structure for com_student_l_another_question
+-- ----------------------------
+DROP TABLE IF EXISTS `com_student_l_another_question`;
+CREATE TABLE `com_student_l_another_question` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `studentId` char(9) NOT NULL COMMENT '学生id',
+  `courseId` char(8) NOT NULL COMMENT '课程id',
+  `result` varchar(255) DEFAULT NULL COMMENT '学生答案',
+  PRIMARY KEY (`id`,`studentId`,`courseId`),
+  KEY `courseId` (`courseId`),
+  KEY `studentId` (`studentId`),
+  KEY `id` (`id`),
+  CONSTRAINT `com_student_l_another_question_fk_1` FOREIGN KEY (`studentId`) REFERENCES `com_student` (`studentId`) ON DELETE CASCADE,
+  CONSTRAINT `com_student_l_another_question_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE,
+  CONSTRAINT `com_student_l_another_question_fk_3` FOREIGN KEY (`id`) REFERENCES `com_another_question` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='学生附加题答题内容存储表';
+
+-- ----------------------------
+-- Records of com_student_l_another_question
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for com_teacher
 -- ----------------------------
 DROP TABLE IF EXISTS `com_teacher`;
@@ -946,7 +985,6 @@ CREATE TABLE `com_teacher_l_course` (
 -- ----------------------------
 -- Records of com_teacher_l_course
 -- ----------------------------
-INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140400', '2017-05-01', '2017-05-31');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2016-05-01', '2017-05-09');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140402', '2017-01-02', '2017-10-18');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140405', '2017-06-12', '2017-06-20');
