@@ -35,7 +35,7 @@ public final class ExamTaken {
     private Date date4;
     private byte sign4;
     //是否可以开始考试
-    private byte on;
+    private byte test;
     //是否有考试信息
     private byte started;
 
@@ -167,12 +167,12 @@ public final class ExamTaken {
         this.sign4 = sign4;
     }
 
-    public byte getOn() {
-        return on;
+    public byte getTest() {
+        return test;
     }
 
-    public void setOn(byte on) {
-        this.on = on;
+    public void setTest(byte test) {
+        this.test = test;
     }
 
     public byte getStarted() {
@@ -202,7 +202,7 @@ public final class ExamTaken {
                 ", sign3=" + sign3 +
                 ", date4=" + date4 +
                 ", sign4=" + sign4 +
-                ", on=" + on +
+                ", test=" + test +
                 ", started=" + started +
                 '}';
     }

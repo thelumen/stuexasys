@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-03 11:44:20
+Date: 2017-06-03 17:22:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -156,7 +156,7 @@ CREATE TABLE `com_examinfo` (
   `sign3` tinyint(4) DEFAULT NULL COMMENT '考察3，0为关闭，1为开启',
   `date4` date DEFAULT NULL COMMENT '附加题考察时间',
   `sign4` tinyint(4) DEFAULT NULL COMMENT '考察4，0为关闭，1为开启',
-  `on` tinyint(4) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
+  `test` tinyint(4) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
   `started` tinyint(6) DEFAULT NULL COMMENT '考试是否开启，0未开启，1开启',
   PRIMARY KEY (`id`,`specialtyId`,`courseId`),
   KEY `courseId` (`courseId`),
@@ -846,7 +846,7 @@ CREATE TABLE `com_student` (
   `name` char(50) DEFAULT '辽工学子' COMMENT '姓名',
   `specialtyId` char(6) NOT NULL COMMENT '班级id',
   `gender` char(2) DEFAULT NULL COMMENT '性别',
-  `phone` char(11) DEFAULT NULL COMMENT '手机号',
+  `cellphone` char(11) DEFAULT NULL COMMENT '手机号',
   `email` char(20) DEFAULT NULL COMMENT '手机号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `com_student` (`studentId`)
