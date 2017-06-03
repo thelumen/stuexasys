@@ -34,6 +34,8 @@
         </div>
     </div>
 </div>
+<%--modal--%>
+
 <script>
     $(function () {
         //        预加载数据

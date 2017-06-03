@@ -43,4 +43,11 @@ public interface StuExaMapper {
      * @return
      */
     int deleteExamInfo(String id);
+
+    /**
+     * 获取modal中table的考试信息
+     *
+     * @return
+     */
+    List<ExamTaken> selectTableExamInfo();
 }

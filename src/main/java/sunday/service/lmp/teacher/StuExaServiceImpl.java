@@ -54,4 +54,13 @@ public class StuExaServiceImpl implements StuExaService {
         }
         return result;
     }
+
+    @Override
+    public List<ExamTaken> selectTableExamInfo() {
+        List<ExamTaken> examTakens = stuExaMapper.selectTableExamInfo();
+        if (null != examTakens && examTakens.size() > 0) {
+            return examTakens;
+        }
+        return null;
+    }
 }

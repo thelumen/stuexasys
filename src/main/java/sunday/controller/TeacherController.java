@@ -142,6 +142,22 @@ public class TeacherController {
     }
 
     /**
+     * **
+     * 获取modal中table的考试信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getModalTableExamInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getTableExamInfo() {
+        List<ExamTaken> examTakens = stuExaService.selectTableExamInfo();
+        if (null != examTakens) {
+            return getTakenInfo(examTakens);
+        }
+        return null;
+    }
+
+    /**
      * 更新考试信息
      *
      * @param examInfo

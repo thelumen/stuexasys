@@ -29,12 +29,42 @@
         </button>
         <button type="button"
                 class="btn btn-danger" data-toggle="modal"
-                data-target="#modalTable">
+                data-target="#teacher_exam_modal">
             开启/关闭考试
         </button>
     </div>
     <div class="table-responsive">
         <table id="teacher_exam_table"></table>
+    </div>
+</div>
+<%--modal--%>
+<div class="modal fade" id="teacher_exam_modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">开启/关闭考试通道</h4>
+            </div>
+            <div class="modal-body">
+                <table id="teacher_exam_modal_table"
+                       data-toggle="table"
+                       data-height="299"
+                       data-method="post"
+                       data-url="${pageContext.request.contextPath}/teacher/getModalTableExamInfo">
+                    <thead>
+                    <tr>
+                        <th data-field="id">序列号</th>
+                        <th data-field="courseName">课程名称</th>
+                        <th data-field="specialtyName">专业名称</th>
+                        <%--<th data-field="price">操作</th>--%>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -51,7 +81,7 @@
     //    更新考试信息
     function updateExamInfo(id) {
         var table = $('#teacher_exam_table');
-        var data = JSON.stringify($('#teacher_exam_table').bootstrapTable("getRowByUniqueId", id));
+        var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/updateExamInfo',
             data: data,
@@ -422,6 +452,10 @@
                     });
                 }
             });
+        });
+
+        $('#teacher_exam_modal').on('shown.bs.modal', function () {
+            $('#teacher_exam_modal_table').bootstrapTable('resetView');
         });
     });
 </script>
