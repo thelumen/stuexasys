@@ -44,4 +44,14 @@ public class StuExaServiceImpl implements StuExaService {
     public int updateExamInfo(ExamTaken examInfo) {
         return stuExaMapper.updateExamInfo(examInfo);
     }
+
+    @Override
+    @Transactional
+    public boolean deleteExamInfo(String id) {
+        boolean result = false;
+        if (stuExaMapper.deleteExamInfo(id) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }

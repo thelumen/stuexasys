@@ -35,4 +35,12 @@ public interface StuExaMapper {
      * @return
      */
     int updateExamInfo(ExamTaken examInfo);
+
+    /**
+     * 删除考试信息
+     *
+     * @param id
+     * @return
+     */
+    int deleteExamInfo(String id);
 }

@@ -144,6 +144,26 @@ public class TeacherController {
     }
 
     /**
+     * 删除考试信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examInfo/delete/{id}", method = RequestMethod.DELETE)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> deleteExamInfo(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        if (stuExaService.deleteExamInfo(id)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
      * 转到成绩统计页面
      *
      * @return

@@ -34,6 +34,15 @@
 </div>
 
 <script>
+    //    考试信息对学生可见时，行颜色为红色
+    function rowStyle(row, index) {
+        if (row.started === 1) {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
     //    更新考试信息
     function updateExamInfo(id) {
         var data = JSON.stringify($('#teacher_exam_table').bootstrapTable("getRowByUniqueId", id));
@@ -52,7 +61,37 @@
     }
     //    删除考试信息
     function deleteExamInfo(id) {
-        alert(id);
+        swal({
+                title: "Are you sure?",
+                text: "Something will be delete ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes,it will be!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/teacher/examInfo/delete/' + id,
+                        type: 'delete',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.isSuccess) {
+                                swal("year..", "删除成功!", "success");
+                            } else {
+                                swal("Ha..", "信息已删除，请刷新页面!", "success");
+                            }
+                        },
+                        error: function () {
+                            swal("Error", "系统出现错误，请联系管理员!", "error");
+                        }
+                    });
+                }
+            }
+        )
     }
     //    操作
     function operateExamTaken(value, row) {
@@ -70,6 +109,7 @@
             height: 600,
             uniqueId: 'id',
             showRefresh: true,
+            rowStyle: rowStyle,
             toolbar: '#teacher_exam_toolbar',
             columns: [
                 [{
@@ -97,7 +137,7 @@
                     colspan: 2,
                     align: 'center',
                     valign: 'middle'
-                },{
+                }, {
                     title: '学生可见?',
                     colspan: 1,
                     align: 'center',

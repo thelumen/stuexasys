@@ -21,8 +21,8 @@
         e,com_course c
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
         l.specialtyId=s.specialtyId AND s.specialtyId=e.specialtyId
-        <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=CHAR}
+        <if test="specialtyId != null">
+            AND s.specialtyId=#{specialtyId,jdbcType=CHAR}
         </if>
         <if test="courseId != null">
             AND c.courseId=#{courseId,jdbcType=CHAR}
@@ -72,4 +72,10 @@
         </set>
         WHERE id = #{id,jdbcType=TINYINT}
     </update>
+
+    <!--删除考试信息-->
+    <delete id="deleteExamInfo" parameterType="java.lang.String">
+        DELETE FROM com_examinfo
+        WHERE id=#{id,jdbcType=TINYINT}
+    </delete>
 </mapper>

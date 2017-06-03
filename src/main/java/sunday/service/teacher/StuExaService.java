@@ -35,4 +35,12 @@ public interface StuExaService {
      * @return
      */
     int updateExamInfo(ExamTaken examInfo);
+
+    /**
+     * 删除考试信息
+     *
+     * @param id
+     * @return
+     */
+    boolean deleteExamInfo(String id);
 }
