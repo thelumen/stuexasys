@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%--
   Created by IntelliJ IDEA.
   User: 花间一壶酒
@@ -20,7 +21,7 @@
         function validate_email(email) {
             var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             if (!myreg.test(email)) {
-                alert('提示\n\n请输入有效的E_mail！\n\n'+email);
+                alert('提示\n\n请输入有效的E_mail！\n\n' + email);
                 return false;
             } else return true;
         }
@@ -152,8 +153,8 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane" id="panel-463107">
-                        <table class="table">
+                    <div class="tab-pane table-responsive" id="panel-463107">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>课程名称</th>
@@ -163,21 +164,23 @@
                                 <th>学分</th>
                             </tr>
                             </thead>
+                            <tbody>
                             <c:if test="${!empty studentCourse}">
                                 <c:forEach items="${studentCourse}" var="Info">
                                     <tr>
                                         <td>${Info.courseName}</td>
-                                        <td>${Info.startTime}</td>
-                                        <td>${Info.endTime}</td>
+                                        <td><fmt:formatDate value="${Info.startTime}" pattern="yyyy-MM-dd"/></td>
+                                        <td><fmt:formatDate value="${Info.endTime}" pattern="yyyy-MM-dd"/></td>
                                         <td>${Info.period}</td>
                                         <td>${Info.credit}</td>
                                     </tr>
                                 </c:forEach>
                             </c:if>
+                            </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane active" id="panel-282388">
-                        <table class="table">
+                    <div class="tab-pane active table-responsive" id="panel-282388">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th>课程名称</th>
@@ -185,7 +188,7 @@
                                 <th>测试二</th>
                                 <th>测试三</th>
                                 <th>测试四</th>
-                                <th>总分（折合后）</th>
+                                <th>总分</th>
                             </tr>
                             </thead>
                             <c:if test="${!empty studentGrade}">

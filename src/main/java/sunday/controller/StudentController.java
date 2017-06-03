@@ -88,6 +88,10 @@ public class StudentController {
      */
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     public String exam(Model model) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", getCurrentStudentId());
+        }};
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(null, params));
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         return "/student/exam/examProxy";
     }

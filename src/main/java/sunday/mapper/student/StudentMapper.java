@@ -3,6 +3,7 @@ package sunday.mapper.student;
 import org.springframework.stereotype.Repository;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.CourseTaken;
+import sunday.pojo.student.ExamTaken;
 import sunday.pojo.student.GradeTaken;
 import sunday.pojo.student.StudentTaken;
 
@@ -39,6 +40,14 @@ public interface StudentMapper {
      * @return List<GradeTaken>
      */
     List<GradeTaken> selectGrade(Map<String, Object> params);
+
+    /**
+     * 查询学生考试信息
+     *
+     * @param params .
+     * @return List<ExamTaken>
+     */
+    List<ExamTaken> selectExamInfo(Map<String, Object> params);
 
     /**
      * 查询学生课程信息

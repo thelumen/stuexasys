@@ -5,6 +5,9 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="fum" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,6 +16,16 @@
 
 </head>
 <body>
+<c:set var="btnStyle_primary">
+    <button type="button" class="btn btn-primary" id="startTest" disabled="disabled">
+        <label>等待开始</label>
+    </button>
+</c:set>
+<c:set var="btnStyle_success">
+    <button type="button" class="btn btn-success" id="startTest">
+        <label>开始考试</label>
+    </button>
+</c:set>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
@@ -29,7 +42,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <%--导航栏右侧 通过类选择器动态展示用户状态--%>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown">${studentInfo.name}<strong class="caret"></strong></a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"
+                       id="navDropdown">${studentInfo.name}<strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
                         <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
@@ -42,5 +56,43 @@
         </div>
     </div>
 </nav>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>课程名称</th>
+                    <th>测试编号</th>
+                    <th>测试章节</th>
+                    <th>测试时间</th>
+                    <th>考试信号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="${!empty studentExamInfo}">
+                    <c:forEach items="${studentExamInfo}" var="Info">
+                        <tr>
+                            <td>${Info.courseName}</td>
+                            <td>${Info.testNum}</td>
+                            <td>${Info.content}</td>
+                            <td><fum:formatDate value="${Info.date}" pattern="yyyy-MM-dd"/></td>
+                            <td>
+                                <c:if test="${Info.test=='1'}">
+                                    ${btnStyle_success}
+                                </c:if>
+                                <c:if test="${!(Info.test=='1')}">
+                                    ${btnStyle_primary}
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

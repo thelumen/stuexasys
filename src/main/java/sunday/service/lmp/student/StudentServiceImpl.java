@@ -7,15 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import sunday.common.kit.EncryptKit;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
-import sunday.pojo.student.CourseTaken;
-import sunday.pojo.student.GradeTaken;
-import sunday.pojo.student.StudentInfo;
-import sunday.pojo.student.StudentTaken;
+import sunday.pojo.student.*;
 import sunday.service.student.StudentService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by yang on 2017/5/22.
@@ -75,6 +70,55 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    public List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<ExamTaken> examTakens = studentMapper.selectExamInfo(params);
+        if (null != examTakens && examTakens.size() > 0) {
+            List<ExamInfo> examInfoList = new ArrayList<>();
+            /*每一条ExamTaken中有四次测试信息
+            从中抽取当前考试信息并写入ExamInfo中
+            （ 附加题章节数设为 0 ）
+            * */
+            for (ExamTaken examTaken : examTakens) {
+                ExamInfo examInfo = new ExamInfo();
+                examInfo.setCourseId(examTaken.getCourseId());
+                examInfo.setCourseName(examTaken.getCourseName());
+                examInfo.setTest(examTaken.getTest());
+                if (1 == examTaken.getSign4()) {
+                    examInfo.setContent("0");//附加题章节数设为0
+                    examInfo.setDate(examTaken.getDate4());
+                    examInfo.setTestNum("测试四");
+                } else if (1 == examTaken.getSign3()) {
+                    examInfo.setContent(examTaken.getContent3());
+                    examInfo.setDate(examTaken.getDate3());
+                    examInfo.setTestNum("测试三");
+                } else if (1 == examTaken.getSign2()) {
+                    examInfo.setContent(examTaken.getContent2());
+                    examInfo.setDate(examTaken.getDate2());
+                    examInfo.setTestNum("测试二");
+                } else if (1 == examTaken.getSign1()) {
+                    examInfo.setContent(examTaken.getContent1());
+                    examInfo.setDate(examTaken.getDate1());
+                    examInfo.setTestNum("测试一");
+                }
+                examInfoList.add(examInfo);
+            }
+            examInfoList.sort((o1, o2) -> {
+                if (o1.getTest() > o2.getTest()) {
+                    return 1;
+                }
+                if (o1.getTest() == o2.getTest()) {
+                    return 0;
+                }
+                return -1;
+            });
+            return examInfoList;
+        }
+        return null;
+    }
+
     @Override
     @Transactional
     public int insertStudent(Student student) {
@@ -129,9 +173,9 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         //判断是否有更改
-        if (count>0){
-            Integer returnRow=studentMapper.update(params);
-            return returnRow>0;
-        }else return count==0;
+        if (count > 0) {
+            Integer returnRow = studentMapper.update(params);
+            return returnRow > 0;
+        } else return count == 0;
     }
 }

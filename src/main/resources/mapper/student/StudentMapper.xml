@@ -36,6 +36,29 @@
               s.studentId = #{studentId,jdbcType=CHAR}
     </select>
 
+    <!--查询学生考试信息-->
+    <select id="selectExamInfo" resultType="sunday.pojo.student.ExamTaken" parameterType="java.util.Map">
+        SELECT DISTINCT
+            c.courseId AS courseId,
+            c.name     AS courseName,
+            e.content1 AS content1,
+            e.content2 AS content2,
+            e.content3 AS content3,
+            e.date1    AS date1,
+            e.date2    AS date2,
+            e.date3    AS date3,
+            e.date4    AS date4,
+            e.sign1    AS sign1,
+            e.sign2    AS sign2,
+            e.sign3    AS sign3,
+            e.sign4    AS sign4,
+            e.started  AS started,
+            e.`on`     AS `on`
+        FROM com_examinfo e, com_student s, com_course c
+        WHERE s.specialtyId = e.specialtyId AND c.courseId = e.courseId AND e.started = 1 AND
+              s.studentId = #{studentId,jdbcType=CHAR}
+    </select>
+
     <!--更新学生信息-->
     <update id="update" parameterType="java.util.Map">
         UPDATE com_student

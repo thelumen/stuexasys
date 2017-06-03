@@ -9,14 +9,16 @@
 <script src="/common/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
 <!--Bootstrap-->
 <!-- Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+      href="/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css">
 <!-- 可选的 Bootstrap 主题文件 -->
 <link rel="stylesheet"
       href="/common/jslib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
 <!-- Bootstrap 核心 JavaScript 文件 -->
 <script src="/common/jslib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <!--bootstrap-file-upload-->
-<link href="/common/jslib/bootstrap-fileupload/fileinput.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-fileupload/fileinput.min.css"
+      rel="stylesheet"
       charset="utf-8">
 <script src="/common/jslib/bootstrap-fileupload/fileinput.min.js"
         charset="utf-8"></script>
@@ -31,10 +33,13 @@
 <%--样式--%>
 <link href="/common/jslib/kit/myStyle.css" rel="stylesheet" charset="utf-8">
 <!-- sweetalert插件 -->
-<link href="/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet" charset="utf-8">
-<script src="/common/jslib/sweetAlert/sweetalert.min.js" charset="utf-8"></script>
+<link href="/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet"
+      charset="utf-8">
+<script src="/common/jslib/sweetAlert/sweetalert.min.js"
+        charset="utf-8"></script>
 <!-- bootstrap-table插件 -->
-<link href="/common/jslib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet"
+<link href="/common/jslib/bootstrap-table/bootstrap-table.min.css"
+      rel="stylesheet"
       charset="utf-8">
 <script src="/common/jslib/bootstrap-table/bootstrap-table.min.js"
         charset="utf-8"></script>
@@ -49,5 +54,26 @@
 </script>
 <%--select2--%>
 <script src="/common/jslib/select2/select2.min.js" charset="utf-8"></script>
-<link href="/common/jslib/select2/select2.min.css" rel="stylesheet" charset="utf-8">
+<link href="/common/jslib/select2/select2.min.css" rel="stylesheet"
+      charset="utf-8">
 <script src="/common/jslib/select2/zh-CN.js" charset="utf-8"></script>
+<%--bootstrap-data-export--%>
+<script src="/common/jslib/table-export/bootstrap-table-export.js"
+        charset="utf-8"></script>
+<script src="/common/jslib/table-export/tableExport.min.js"
+        charset="utf-8"></script>
+<%--2版bootstrap样式--%>
+<link href="/common/jslib/bootstrap-2.3.2/bootstrap-responsive.min.css"
+      rel="stylesheet" charset="utf-8">
+<%--editable--%>
+<script src="/common/jslib/editable/bootstrap-table-editable.js"
+        charset="utf-8"></script>
+<link href="/common/jslib/editable/bootstrap-editable.css"
+      rel="stylesheet" charset="utf-8">
+<script src="/common/jslib/editable/bootstrap-editable.min.js"
+        charset="utf-8"></script>
+<%--combodate--%>
+<script src="/common/jslib/combodate/combodate.js" charset="utf-8"></script>
+<script src="/common/jslib/combodate/moment.min.js" charset="utf-8"></script>
+<link href="/common/jslib/select2/select2-bootstrap.css" rel="stylesheet"
+      charset="utf-8">
