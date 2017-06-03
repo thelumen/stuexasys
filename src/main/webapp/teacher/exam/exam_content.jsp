@@ -27,9 +27,14 @@
                 type="button">
             <i class="glyphicon glyphicon-plus"></i> 添加
         </button>
+        <button type="button"
+                class="btn btn-danger" data-toggle="modal"
+                data-target="#modalTable">
+            开启/关闭考试
+        </button>
     </div>
     <div class="table-responsive">
-        <table id="teacher_exam_table"/>
+        <table id="teacher_exam_table"></table>
     </div>
 </div>
 
@@ -51,8 +56,14 @@
             data: data,
             contentType: 'application/json',
             type: 'post',
+            dataType: 'json',
             success: function (data) {
-                swal("year..", "考试信息已更新!", "success");
+                if (data.isSuccess) {
+                    swal("year..", "考试信息已更新!", "success");
+                    $('#teacher_exam_table').bootstrapTable("refresh");
+                } else {
+                    swal("Look", "signX信号有且必有一个开启！请重新设置", "error");
+                }
             },
             error: function () {
                 swal("Error", "系统出现问题，请联系管理员!", "error");
@@ -81,8 +92,7 @@
                         success: function (data) {
                             if (data.isSuccess) {
                                 swal("year..", "删除成功!", "success");
-                            } else {
-                                swal("Ha..", "信息已删除，请刷新页面!", "success");
+                                $('#teacher_exam_table').bootstrapTable("refresh");
                             }
                         },
                         error: function () {

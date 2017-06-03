@@ -150,9 +150,24 @@ public class TeacherController {
     @RequestMapping(value = "/updateExamInfo", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
-    public String getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
-        stuExaService.updateExamInfo(examInfo);
-        return "/teacher/exam/examProxy";
+    @ResponseBody
+    public Map<String, Object> getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
+        Map<String, Object> info = new HashMap<>();
+        //sign信号只有一个为1才能被保存
+        byte[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
+        int i = 0;
+        for (byte b : signs) {
+            if (b == (byte) 1) {
+                i++;
+            }
+        }
+        if (i == 1) {
+            stuExaService.updateExamInfo(examInfo);
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**
