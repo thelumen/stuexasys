@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
@@ -20,6 +21,7 @@ import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -109,6 +111,39 @@ public class TeacherController {
             return target;
         }
         return null;
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param directoryName HOME文件下某一文件夹名
+     * @param files         上传的文件
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/{directoryName}/upload", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> uploadFiles(@PathVariable("directoryName") String directoryName,
+                                           @RequestParam("files") List<MultipartFile> files) throws IOException {
+        Map<String, Object> info = new HashMap<>();
+        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+        //HOME主目录下的某一directory
+        String realPath = ResourceFileKit.getHome() + "/" + directory;
+        File child = new File(realPath);
+        if (!child.exists()) {
+            child.mkdir();
+        }
+        if (null != files && files.size() > 0) {
+            for (MultipartFile file : files) {
+                file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
+            }
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**
