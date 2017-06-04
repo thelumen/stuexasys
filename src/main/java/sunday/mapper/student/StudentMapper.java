@@ -2,10 +2,7 @@ package sunday.mapper.student;
 
 import org.springframework.stereotype.Repository;
 import sunday.pojo.school.Student;
-import sunday.pojo.student.CourseTaken;
-import sunday.pojo.student.ExamTaken;
-import sunday.pojo.student.GradeTaken;
-import sunday.pojo.student.StudentTaken;
+import sunday.pojo.student.*;
 
 import java.util.List;
 import java.util.Map;
@@ -48,6 +45,30 @@ public interface StudentMapper {
      * @return List<ExamTaken>
      */
     List<ExamTaken> selectExamInfo(Map<String, Object> params);
+
+    /**
+     * 查询题库（选择题）
+     *
+     * @param params .
+     * @return List<SingleTaken>
+     */
+    List<SingleTaken> selectQuestionBaseSingle(Map<String, Object> params);
+
+    /**
+     * 查询题库（判断题）
+     *
+     * @param params .
+     * @return List<TfTaken>
+     */
+    List<TfTaken> selectQuestionBaseTf(Map<String, Object> params);
+
+    /**
+     * 查询题库（附加题）
+     *
+     * @param params .
+     * @return List<AnotherQuestionTaken>
+     */
+    List<AnotherQuestionTaken> selectQuestionBaseAnother(Map<String, Object> params);
 
     /**
      * 查询学生课程信息

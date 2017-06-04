@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sunday.common.kit.ShiroKit;
+import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
@@ -65,7 +66,7 @@ public class StudentController {
 
     /**
      * 转到学生 个人信息 页
-     * 向 model 中添加学生的人信息 studentInfo
+     * 向 model 中添加学生的人信息 studentInfo,studentCourse,studentGrade
      *
      * @return 个人信息 url
      */
@@ -82,7 +83,7 @@ public class StudentController {
 
     /**
      * 转到学生 测试 页
-     * 向 model 中添加学生的人信息 studentInfo
+     * 向 model 中添加学生的人信息 studentInfo,studentExamInfo
      *
      * @return 测试 url
      */
@@ -119,7 +120,7 @@ public class StudentController {
         boolean isSuccess = false;
         Map<String, Object> msg = new HashMap<String, Object>() {{
             put("msg", "isFail");
-            }};
+        }};
         studentInfo.setStudentId(getCurrentStudentId());
         if (studentService.update(studentInfo)) {
             isSuccess = true;
@@ -129,5 +130,37 @@ public class StudentController {
             return msg;
         }
         return null;
+    }
+
+    /**
+     * 通过 ExamInfo 组题并返回 普通测试题 卷
+     *
+     * @param examInfo .
+     * @return 成功信号
+     */
+    @RequestMapping(value = "/startTest", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> startTest(@RequestBody ExamInfo examInfo, Model model) {
+        Map<String, Object> msg = new HashMap<String, Object>() {{
+            put("msg", "isSuccess");
+        }};
+        model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
+        return msg;
+    }
+
+    /**
+     * 通过 ExamInfo 组题并返回 附加题 卷
+     *
+     * @param examInfo .
+     * @return 成功信号
+     */
+    @RequestMapping(value = "/startTestAnother", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> startTestAnother(@RequestBody ExamInfo examInfo, Model model) {
+        Map<String, Object> msg = new HashMap<String, Object>() {{
+            put("msg", "isSuccess");
+        }};
+        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, examInfo));
+        return msg;
     }
 }

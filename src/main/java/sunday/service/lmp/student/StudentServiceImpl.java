@@ -70,6 +70,62 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    @Override
+    public TestPaper selectTestPaper(Page page, ExamInfo examInfo) {
+        Map<String, String> changed = new HashMap<String, String>() {{
+            put("1", "第一章");
+            put("2", "第二章");
+            put("3", "第三章");
+            put("4", "第四章");
+            put("5", "第五章");
+            put("6", "第六章");
+            put("7", "第七章");
+            put("8", "第八章");
+            put("9", "第九章");
+            put("10", "第十章");
+            put("11", "第十一章");
+            put("12", "第十二章");
+        }};
+        String[] strArray = examInfo.getContent().split(",");
+        StringBuilder sectionInfo = new StringBuilder();
+
+        for (int i = 0; i < strArray.length; ) {
+            strArray[i] = changed.get(strArray[i]);
+            sectionInfo.append(strArray[i]);
+            i++;
+            if (i != strArray.length) {
+                sectionInfo.append(",");
+            }
+        }
+
+        Map<String, Object> testInfo = new HashMap<String, Object>() {{
+            put("courseId", examInfo.getCourseId());
+            put("section", sectionInfo);
+        }};
+        List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
+        List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
+
+
+        TestPaper testPaper = new TestPaper();
+        testPaper.setSingleTakenList(singleTakenList);
+        testPaper.setTfTakenList(tfTakenList);
+        return testPaper;
+    }
+
+    @Override
+    public TestPaper selectTestPaperAnother(Page page, ExamInfo examInfo) {
+        Map<String, Object> testInfo = new HashMap<String, Object>() {{
+            put("courseId", examInfo.getCourseId());
+        }};
+        List<AnotherQuestionTaken> anotherQuestionTakenList = studentMapper.selectQuestionBaseAnother(testInfo);
+        TestPaper testPaper = new TestPaper();
+        testPaper.setAnotherQuestionTaken(anotherQuestionTakenList.get((int) (Math.random()) * anotherQuestionTakenList.size()));
+        if (testPaper.getAnotherQuestionTaken() != null) {
+            return testPaper;
+        }
+        return null;
+    }
+
     public List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params) {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
@@ -114,6 +170,11 @@ public class StudentServiceImpl implements StudentService {
                 }
                 return -1;
             });
+            long i=0;
+            for (ExamInfo examInfo:examInfoList){
+                i++;
+                examInfo.setId(i);
+            }
             return examInfoList;
         }
         return null;

@@ -56,6 +56,23 @@ public interface StudentService {
      * @return List<ExamInfo>
      */
     List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params);
+
+    /**
+     * 通过 courseId, content 组卷并返回集合对象( 普通 )
+     * @param page .
+     * @param examInfo .
+     * @return TestPaper
+     */
+    TestPaper selectTestPaper(Page page,ExamInfo examInfo);
+
+    /**
+     * 通过 courseId 组卷并返回集合对象( 附加 )
+     * @param page .
+     * @param examInfo .
+     * @return TestPaper
+     */
+    TestPaper selectTestPaperAnother(Page page,ExamInfo examInfo);
+
     /**
      * 新增学生
      *

@@ -14,10 +14,16 @@
     <title>学生测试</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
 
+    <script>
+    $(document).ready(function () {
+        $(".ID").hide();
+    })
+    </script>
+
 </head>
 <body>
 <c:set var="btnStyle_primary">
-    <button type="button" class="btn btn-primary" id="startTest" disabled="disabled">
+    <button type="button" class="btn btn-primary" disabled="disabled">
         <label>等待开始</label>
     </button>
 </c:set>
@@ -63,6 +69,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th class="ID">ID</th>
                     <th>课程名称</th>
                     <th>测试编号</th>
                     <th>测试章节</th>
@@ -72,8 +79,9 @@
                 </thead>
                 <tbody>
                 <c:if test="${!empty studentExamInfo}">
-                    <c:forEach items="${studentExamInfo}" var="Info">
+                    <c:forEach items="${studentExamInfo}" var="Info" varStatus="status">
                         <tr>
+                            <td class="ID">${status.count}</td>
                             <td>${Info.courseName}</td>
                             <td>${Info.testNum}</td>
                             <td>${Info.content}</td>

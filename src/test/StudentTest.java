@@ -3,6 +3,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.pojo.school.Student;
+import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.GradeTaken;
 import sunday.pojo.student.StudentInfo;
 import sunday.service.student.StudentService;
@@ -23,13 +24,41 @@ public class StudentTest {
     private StudentService studentService;
 
     @Test
+    public void t7() {
+        ExamInfo examInfo = new ExamInfo();
+        examInfo.setContent("1,2,4");
+        Map<String, String> changed = new HashMap<String, String>() {{
+            put("1", "第一章");
+            put("2", "第二章");
+            put("3", "第三章");
+            put("4", "第四章");
+            put("5", "第五章");
+            put("6", "第六章");
+            put("7", "第七章");
+            put("8", "第八章");
+            put("9", "第九章");
+        }};
+        String[] strArray = examInfo.getContent().split(",");
+        StringBuilder sectionInfo = new StringBuilder();
+        for (int i = 0; i < strArray.length; ) {
+            strArray[i] = changed.get(strArray[i]);
+            sectionInfo.append(strArray[i]);
+            i++;
+            if (i != strArray.length) {
+                sectionInfo.append(",");
+            }
+        }
+        System.out.print(sectionInfo);
+    }
+
+    @Test
     //查询学生成绩
     public void t6() {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", "140400000");
         }};
         List<GradeTaken> gradeTakens = studentService.selectGrade(null, params);
-        for (GradeTaken gradeTaken:gradeTakens){
+        for (GradeTaken gradeTaken : gradeTakens) {
             System.out.println(gradeTaken.toString());
         }
 

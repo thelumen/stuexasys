@@ -53,10 +53,41 @@
             e.sign3    AS sign3,
             e.sign4    AS sign4,
             e.started  AS started,
-            e.`on`     AS `on`
+            e.test     AS test
         FROM com_examinfo e, com_student s, com_course c
         WHERE s.specialtyId = e.specialtyId AND c.courseId = e.courseId AND e.started = 1 AND
               s.studentId = #{studentId,jdbcType=CHAR}
+    </select>
+
+    <!--查询题库（选择题）-->
+    <select id="selectQuestionBaseSingle" parameterType="java.util.Map" resultType="sunday.pojo.student.SingleTaken">
+        SELECT *
+        FROM com_single_question s
+        WHERE s.courseId=#{courseId,jdbcType=CHAR} AND
+        <if test="section!-null">
+            s.section IN (#{section,jdbcType=CHAR})
+        </if>
+    </select>
+
+    <!--查询题库（判断题）-->
+    <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
+        SELECT *
+        FROM com_tf_question t
+        WHERE t.courseId=#{courseId,jdbcType=CHAR} AND
+        <if test="section!-null">
+            t.section IN (#{section,jdbcType=CHAR})
+        </if>
+    </select>
+
+    <!--查询题库（附加题）-->
+    <select id="selectQuestionBaseAnother" parameterType="java.util.Map"
+            resultType="sunday.pojo.student.AnotherQuestionTaken">
+        SELECT DISTINCT
+            a.courseId AS courseId,
+            a.content  AS content,
+            a.id       AS Id
+        FROM com_another_question a
+        WHERE a.courseId = #{courseId,jdbcType=CHAR}
     </select>
 
     <!--更新学生信息-->

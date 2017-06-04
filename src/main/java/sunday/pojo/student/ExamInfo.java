@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by 花间一壶酒 on 2017/6/3.
  */
 public class ExamInfo {
+    private Long Id;
     private String courseId;
     private String courseName;
     private String content;
@@ -16,6 +17,14 @@ public class ExamInfo {
     private Date date;
     //是否有考试信息
     private byte test;
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getCourseId() {
         return courseId;
