@@ -272,12 +272,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }
@@ -320,12 +325,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }
@@ -368,12 +378,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }

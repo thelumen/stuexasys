@@ -69,10 +69,6 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="#">学生信息</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
                                 <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
                             </li>
                             <li class="divider"></li>
