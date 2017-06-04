@@ -177,6 +177,7 @@
                             if (data.isSuccess) {
                                 swal("year..", "删除成功!", "success");
                                 $('#teacher_exam_table').bootstrapTable("refresh");
+                                $('#teacher_exam_modal_table').bootstrapTable("refresh");
                             }
                         },
                         error: function () {
@@ -464,6 +465,7 @@
                         if (data.isSuccess) {
                             swal("Success", "添加考试信息成功！", "success");
                             $('#teacher_exam_table').bootstrapTable("refresh");
+                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
                         } else {
                             swal("注意！", "不可添加重复数据！", "error");
                         }
