@@ -6,6 +6,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.Course;
@@ -18,6 +19,7 @@ import sunday.service.teacher.StuExaService;
 import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -84,6 +86,63 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String resourcePage() {
         return "/teacher/resource/resourceProxy";
+    }
+
+    /**
+     * 获取学科目录文件名select
+     *
+     * @return
+     */
+    @RequestMapping(value = "/directory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getDirectories() {
+        List<String> directories = ResourceFileKit.getHomeDirectories();
+        if (null != directories) {
+            List<Map<String, Object>> target = new ArrayList<>();
+            for (String directoryFileName : directories) {
+                Map<String, Object> child = new HashMap<String, Object>() {{
+                    put("id", directoryFileName);
+                    put("text", directoryFileName);
+                }};
+                target.add(child);
+            }
+            return target;
+        }
+        return null;
+    }
+
+    /**
+     * 返回某一文件目录类所有普通文件信息
+     *
+     * @param directoryName
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
+        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+        String deepPath = ResourceFileKit.getHome() + "/" + directory;
+        File home = new File(deepPath);
+        if (home.exists()) {
+            if (home.isDirectory()) {
+                File[] children = home.listFiles();
+                if (null != children && children.length > 0) {
+                    List<Map<String, Object>> father = new ArrayList<>();
+                    for (File file : children) {
+                        if (file.isFile()) {
+                            Map<String, Object> child = new HashMap<String, Object>() {{
+                                put("name", file.getName());
+                                put("path", ResourceFileKit.getRelativePath(directory, file.getPath()));
+                            }};
+                            father.add(child);
+                        }
+                    }
+                    return father;
+                }
+            }
+        }
+        return null;
     }
 
     /**
