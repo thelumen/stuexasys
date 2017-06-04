@@ -63,4 +63,14 @@ public class StuExaServiceImpl implements StuExaService {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public boolean startOrCloseExam(Map<String, Object> params) {
+        boolean result = false;
+        if (stuExaMapper.startOrCloseExam(params) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }

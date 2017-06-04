@@ -50,4 +50,12 @@ public interface StuExaService {
      * @return
      */
     List<ExamTaken> selectTableExamInfo();
+
+    /**
+     * 开启考试
+     *
+     * @param params
+     * @return
+     */
+    boolean startOrCloseExam(Map<String, Object> params);
 }

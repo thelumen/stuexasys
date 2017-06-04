@@ -50,4 +50,12 @@ public interface StuExaMapper {
      * @return
      */
     List<ExamTaken> selectTableExamInfo();
+
+    /**
+     * 开启考试
+     *
+     * @param params
+     * @return
+     */
+    int startOrCloseExam(Map<String, Object> params);
 }

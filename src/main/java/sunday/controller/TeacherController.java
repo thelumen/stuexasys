@@ -207,6 +207,54 @@ public class TeacherController {
     }
 
     /**
+     * 开启考试
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examStart/{id}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> examStart(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", id);
+            put("test", (byte) 1);
+        }};
+        if (stuExaService.startOrCloseExam(params)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 关闭考试
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examClose/{id}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> examClose(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", id);
+            put("test", (byte) 0);
+        }};
+        if (stuExaService.startOrCloseExam(params)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
      * 转到成绩统计页面
      *
      * @return
