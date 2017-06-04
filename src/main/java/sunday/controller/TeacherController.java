@@ -63,6 +63,18 @@ public class TeacherController {
     }
 
     /**
+     * 转到附加题评分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/another", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String otherQuestionPage() {
+        return "/teacher/another/anotherProxy";
+    }
+
+    /**
      * 转到考试信息页
      *
      * @return
@@ -130,6 +142,22 @@ public class TeacherController {
     }
 
     /**
+     * **
+     * 获取modal中table的考试信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getModalTableExamInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getTableExamInfo() {
+        List<ExamTaken> examTakens = stuExaService.selectTableExamInfo();
+        if (null != examTakens) {
+            return getTakenInfo(examTakens);
+        }
+        return null;
+    }
+
+    /**
      * 更新考试信息
      *
      * @param examInfo
@@ -138,9 +166,44 @@ public class TeacherController {
     @RequestMapping(value = "/updateExamInfo", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
-    public String getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
-        stuExaService.updateExamInfo(examInfo);
-        return "/teacher/exam/examProxy";
+    @ResponseBody
+    public Map<String, Object> getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
+        Map<String, Object> info = new HashMap<>();
+        //sign信号只有一个为1才能被保存
+        byte[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
+        int i = 0;
+        for (byte b : signs) {
+            if (b == (byte) 1) {
+                i++;
+            }
+        }
+        if (i == 1) {
+            stuExaService.updateExamInfo(examInfo);
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 删除考试信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examInfo/delete/{id}", method = RequestMethod.DELETE)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> deleteExamInfo(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        if (stuExaService.deleteExamInfo(id)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**

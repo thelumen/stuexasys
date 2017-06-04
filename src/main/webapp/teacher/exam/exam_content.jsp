@@ -27,23 +27,75 @@
                 type="button">
             <i class="glyphicon glyphicon-plus"></i> 添加
         </button>
+        <button type="button"
+                class="btn btn-danger" data-toggle="modal"
+                data-target="#teacher_exam_modal">
+            开启/关闭考试
+        </button>
     </div>
     <div class="table-responsive">
-        <table id="teacher_exam_table"/>
+        <table id="teacher_exam_table"></table>
+    </div>
+</div>
+<%--modal--%>
+<div class="modal fade" id="teacher_exam_modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">开启/关闭考试通道</h4>
+            </div>
+            <div class="modal-body">
+                <table id="teacher_exam_modal_table"
+                       data-toggle="table"
+                       data-height="299"
+                       data-method="post"
+                       data-url="${pageContext.request.contextPath}/teacher/getModalTableExamInfo">
+                    <thead>
+                    <tr>
+                        <th data-field="id">序列号</th>
+                        <th data-field="courseName">课程名称</th>
+                        <th data-field="specialtyName">专业名称</th>
+                        <%--<th data-field="price">操作</th>--%>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
+    //    考试信息对学生可见时，行颜色为红色
+    function rowStyle(row, index) {
+        if (row.started === 1) {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
     //    更新考试信息
     function updateExamInfo(id) {
-        var data = JSON.stringify($('#teacher_exam_table').bootstrapTable("getRowByUniqueId", id));
+        var table = $('#teacher_exam_table');
+        var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
             url: '${pageContext.request.contextPath}/teacher/updateExamInfo',
             data: data,
             contentType: 'application/json',
             type: 'post',
+            dataType: 'json',
             success: function (data) {
-                swal("year..", "考试信息已更新!", "success");
+                if (data.isSuccess) {
+                    swal("year..", "考试信息已更新!", "success");
+                    table.bootstrapTable("refresh");
+                } else {
+                    swal("Look", "signX信号有且必有一个开启！请重新设置", "error");
+                }
+                table.bootstrapTable("resetView");
             },
             error: function () {
                 swal("Error", "系统出现问题，请联系管理员!", "error");
@@ -52,7 +104,36 @@
     }
     //    删除考试信息
     function deleteExamInfo(id) {
-        alert(id);
+        swal({
+                title: "Are you sure?",
+                text: "Something will be delete ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes,it will be!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/teacher/examInfo/delete/' + id,
+                        type: 'delete',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.isSuccess) {
+                                swal("year..", "删除成功!", "success");
+                                $('#teacher_exam_table').bootstrapTable("refresh");
+                            }
+                        },
+                        error: function () {
+                            swal("Error", "系统出现错误，请联系管理员!", "error");
+                        }
+                    });
+                }
+            }
+        )
     }
     //    操作
     function operateExamTaken(value, row) {
@@ -61,7 +142,6 @@
         html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.id));
         return html.join('');
     }
-
     $(function () {
         $('#teacher_exam_table').bootstrapTable({
             url: '${pageContext.request.contextPath}/teacher/examInfos',
@@ -70,6 +150,7 @@
             height: 600,
             uniqueId: 'id',
             showRefresh: true,
+            rowStyle: rowStyle,
             toolbar: '#teacher_exam_toolbar',
             columns: [
                 [{
@@ -97,7 +178,7 @@
                     colspan: 2,
                     align: 'center',
                     valign: 'middle'
-                },{
+                }, {
                     title: '学生可见?',
                     colspan: 1,
                     align: 'center',
@@ -371,6 +452,10 @@
                     });
                 }
             });
+        });
+
+        $('#teacher_exam_modal').on('shown.bs.modal', function () {
+            $('#teacher_exam_modal_table').bootstrapTable('resetView');
         });
     });
 </script>

@@ -77,7 +77,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#">附加题评分</a>
+                                <a href="${pageContext.request.contextPath}/teacher/another">附加题评分</a>
                             </li>
                             <li class="divider"></li>
                             <li>
