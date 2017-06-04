@@ -75,6 +75,18 @@ public class TeacherController {
     }
 
     /**
+     * 转到资源上传页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/resource", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String resourcePage() {
+        return "/teacher/resource/resourceProxy";
+    }
+
+    /**
      * 转到考试信息页
      *
      * @return
