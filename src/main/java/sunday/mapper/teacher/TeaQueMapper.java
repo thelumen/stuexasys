@@ -2,6 +2,7 @@ package sunday.mapper.teacher;
 
 import org.springframework.stereotype.Repository;
 import sunday.pojo.school.SingleQuestion;
+import sunday.pojo.school.TfQuestion;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,12 @@ public interface TeaQueMapper {
      * @return
      */
     int insertSingleQuestion(SingleQuestion question);
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    int insertTfQuestion(TfQuestion question);
 }

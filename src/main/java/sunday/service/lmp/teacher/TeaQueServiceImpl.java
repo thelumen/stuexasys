@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.TeaQueMapper;
 import sunday.pojo.school.SingleQuestion;
+import sunday.pojo.school.TfQuestion;
 import sunday.service.teacher.TeaQueService;
 
 import java.util.List;
@@ -32,5 +33,11 @@ public class TeaQueServiceImpl implements TeaQueService {
     @Transactional
     public int insertSingleQuestion(SingleQuestion question) {
         return teaQueMapper.insertSingleQuestion(question);
+    }
+
+    @Override
+    @Transactional
+    public int insertTfQuestion(TfQuestion question) {
+        return teaQueMapper.insertTfQuestion(question);
     }
 }

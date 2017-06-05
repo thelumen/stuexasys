@@ -31,14 +31,14 @@ public final class ChapterKit {
     }
 
     //冒泡排序——转换
-    public static void swap(SingleQuestion[] chapters, int i, int j) {
+    private static void swap(SingleQuestion[] chapters, int i, int j) {
         SingleQuestion chapter = chapters[i];
         chapters[i] = chapters[j];
         chapters[j] = chapter;
     }
 
     //字母一至八转换成数字
-    public static int string2int(char target) {
+    private static int string2int(char target) {
         int result = 0;
         switch (String.valueOf(target)) {
             case "一":
@@ -70,6 +70,24 @@ public final class ChapterKit {
                 break;
             case "十":
                 result = 10;
+                break;
+            case "十一":
+                result = 11;
+                break;
+            case "十二":
+                result = 12;
+                break;
+            case "十三":
+                result = 13;
+                break;
+            case "十四":
+                result = 14;
+                break;
+            case "十五":
+                result = 15;
+                break;
+            case "十六":
+                result = 16;
                 break;
         }
         return result;

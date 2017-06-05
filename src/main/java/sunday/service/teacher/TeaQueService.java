@@ -1,6 +1,7 @@
 package sunday.service.teacher;
 
 import sunday.pojo.school.SingleQuestion;
+import sunday.pojo.school.TfQuestion;
 
 import java.util.List;
 import java.util.Map;
@@ -25,4 +26,12 @@ public interface TeaQueService {
      * @return
      */
     int insertSingleQuestion(SingleQuestion question);
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    int insertTfQuestion(TfQuestion question);
 }
