@@ -83,6 +83,10 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/teacher/student/grade">成绩统计</a>
                             </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/teacher/question">题目录入</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
