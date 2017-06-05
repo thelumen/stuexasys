@@ -59,6 +59,10 @@
                             </li>
                             <li class="divider"></li>
                             <li>
+                                <a href="${pageContext.request.contextPath}/teacher/resource">上传资料</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
                                 <a href="${pageContext.request.contextPath}/teacher/person">修改资料</a>
                             </li>
                         </ul>
@@ -68,10 +72,6 @@
                            data-toggle="dropdown">考核管理<span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="#">学生信息</a>
-                            </li>
-                            <li class="divider"></li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
                             </li>
@@ -88,7 +88,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <%--<shiro:authenticated>--%>
-                        <%--<li>用户[<shiro:principal/>]已身份验证通过</li>--%>
+                    <%--<li>用户[<shiro:principal/>]已身份验证通过</li>--%>
                     <%--</shiro:authenticated>>--%>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>

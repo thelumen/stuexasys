@@ -6,6 +6,8 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.Course;
@@ -18,6 +20,8 @@ import sunday.service.teacher.StuExaService;
 import sunday.service.teacher.StuGraService;
 import sunday.service.teacher.TeacherService;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -72,6 +76,108 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String otherQuestionPage() {
         return "/teacher/another/anotherProxy";
+    }
+
+    /**
+     * 转到资源上传页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/resource", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String resourcePage() {
+        return "/teacher/resource/resourceProxy";
+    }
+
+    /**
+     * 获取学科目录文件名select
+     *
+     * @return
+     */
+    @RequestMapping(value = "/directory", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getDirectories() {
+        List<String> directories = ResourceFileKit.getHomeDirectories();
+        if (null != directories) {
+            List<Map<String, Object>> target = new ArrayList<>();
+            for (String directoryFileName : directories) {
+                Map<String, Object> child = new HashMap<String, Object>() {{
+                    put("id", directoryFileName);
+                    put("text", directoryFileName);
+                }};
+                target.add(child);
+            }
+            return target;
+        }
+        return null;
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param directoryName HOME文件下某一文件夹名
+     * @param files         上传的文件
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/{directoryName}/upload", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> uploadFiles(@PathVariable("directoryName") String directoryName,
+                                           @RequestParam("files") List<MultipartFile> files) throws IOException {
+        Map<String, Object> info = new HashMap<>();
+        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+        //HOME主目录下的某一directory
+        String realPath = ResourceFileKit.getHome() + "/" + directory;
+        File child = new File(realPath);
+        if (!child.exists()) {
+            child.mkdir();
+        }
+        if (null != files && files.size() > 0) {
+            for (MultipartFile file : files) {
+                file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
+            }
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 返回某一文件目录类所有普通文件信息
+     *
+     * @param directoryName
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
+        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+        String deepPath = ResourceFileKit.getHome() + "/" + directory;
+        File home = new File(deepPath);
+        if (home.exists()) {
+            if (home.isDirectory()) {
+                File[] children = home.listFiles();
+                if (null != children && children.length > 0) {
+                    List<Map<String, Object>> father = new ArrayList<>();
+                    for (File file : children) {
+                        if (file.isFile()) {
+                            Map<String, Object> child = new HashMap<String, Object>() {{
+                                put("name", file.getName());
+                                put("path", ResourceFileKit.getRelativePath(directory, file.getPath()));
+                            }};
+                            father.add(child);
+                        }
+                    }
+                    return father;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -199,6 +305,54 @@ public class TeacherController {
     public Map<String, Object> deleteExamInfo(@PathVariable("id") String id) {
         Map<String, Object> info = new HashMap<>();
         if (stuExaService.deleteExamInfo(id)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 开启考试
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examStart/{id}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> examStart(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", id);
+            put("test", (byte) 1);
+        }};
+        if (stuExaService.startOrCloseExam(params)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 关闭考试
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/examClose/{id}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> examClose(@PathVariable("id") String id) {
+        Map<String, Object> info = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", id);
+            put("test", (byte) 0);
+        }};
+        if (stuExaService.startOrCloseExam(params)) {
             info.put("isSuccess", true);
         } else {
             info.put("isSuccess", false);

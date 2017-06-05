@@ -53,13 +53,17 @@
                        data-toggle="table"
                        data-height="299"
                        data-method="post"
+                       data-side-pagination="server"
+                       data-row-style="modalRowStyle"
                        data-url="${pageContext.request.contextPath}/teacher/getModalTableExamInfo">
                     <thead>
                     <tr>
-                        <th data-field="id">序列号</th>
+                        <th data-field="id" data-visible="false">序列号</th>
                         <th data-field="courseName">课程名称</th>
                         <th data-field="specialtyName">专业名称</th>
-                        <%--<th data-field="price">操作</th>--%>
+                        <th data-field="test" data-visible="false">开启/关闭标志</th>
+                        <th data-formatter="operateModalExamInfo">操作
+                        </th>
                     </tr>
                     </thead>
                 </table>
@@ -69,6 +73,54 @@
 </div>
 
 <script>
+    //    modal操作
+    function operateModalExamInfo(value, row) {
+        var html = [];
+        html.push('<button class="btn btn-primary" type="button" onclick="examStart(\'{0}\')">开启</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-danger" type="button" onclick="examClose(\'{0}\')">关闭</button>'.replace('{0}', row.id));
+        return html.join('');
+    }
+    //    开启考试
+    function examStart(id) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/teacher/examStart/' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data.isSuccess) {
+                    $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                }
+            },
+            error: function () {
+                swal("Erroe", "系统错误，请联系管理员！", "error");
+            }
+        });
+    }
+    //    关闭考试
+    function examClose(id) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/teacher/examClose/' + id,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data.isSuccess) {
+                    $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                }
+            },
+            error: function () {
+                swal("Erroe", "系统错误，请联系管理员！", "error");
+            }
+        });
+    }
+    //    modalTable中，考试开启row为红色
+    function modalRowStyle(row, index) {
+        if (row.test === 1) {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
     //    考试信息对学生可见时，行颜色为红色
     function rowStyle(row, index) {
         if (row.started === 1) {
@@ -125,6 +177,7 @@
                             if (data.isSuccess) {
                                 swal("year..", "删除成功!", "success");
                                 $('#teacher_exam_table').bootstrapTable("refresh");
+                                $('#teacher_exam_modal_table').bootstrapTable("refresh");
                             }
                         },
                         error: function () {
@@ -219,12 +272,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }
@@ -267,12 +325,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }
@@ -315,12 +378,17 @@
                         type: 'text',
                         title: '填写章节(示例: 1,2,5 )',
                         validate: function (value) {
+                            var i = 0;
                             var num = [];
                             num = value.split(",");
                             for (x in num) {
                                 if (isNaN(num[x])) {
                                     return '请正确填写考察章节信息!';
                                 }
+                                i++;
+                            }
+                            if (i > 4) {
+                                return '章节数最多能设置4章!';
                             }
                         }
                     }
@@ -412,6 +480,7 @@
                         if (data.isSuccess) {
                             swal("Success", "添加考试信息成功！", "success");
                             $('#teacher_exam_table').bootstrapTable("refresh");
+                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
                         } else {
                             swal("注意！", "不可添加重复数据！", "error");
                         }
