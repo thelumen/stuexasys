@@ -199,7 +199,7 @@
                 success: function (data) {
                     if (data.isSuccess) {
                         swal("year..", "录入成功！", "success");
-                       //清空
+                        $('#tf_content').val('');
                     }
                 },
                 error: function () {
