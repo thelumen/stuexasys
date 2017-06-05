@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sunday.common.enums.NumberDifficultyEnum;
 import sunday.common.kit.EncryptKit;
+import sunday.common.kit.RandomKit;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.*;
@@ -88,23 +90,128 @@ public class StudentServiceImpl implements StudentService {
         }};
         String[] strArray = examInfo.getContent().split(",");
         StringBuilder sectionInfo = new StringBuilder();
-
+        /*
+        拼接 章节（sectionInfo） 字符串用于查询
+        */
         for (int i = 0; i < strArray.length; ) {
             strArray[i] = changed.get(strArray[i]);
+            sectionInfo.append("'");
             sectionInfo.append(strArray[i]);
             i++;
             if (i != strArray.length) {
-                sectionInfo.append(",");
-            }
+                sectionInfo.append("',");
+            } else sectionInfo.append("'");
         }
-
+        /*
+        将得到的 章节 字符串与其他 参数 发往数据库进行查询
+        返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
+        */
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
             put("courseId", examInfo.getCourseId());
             put("section", sectionInfo);
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
+        /*
+        用三个Map将不同难度的题的标号的 起始（start） 与 结束（end） 位置标出
+        */
+        Map<String, Integer> single_2 = new HashMap<>();
+        int count_s = 0;
+        Boolean startNotFind_s = true;//起始值 未找到（true）
+        for (SingleTaken singleTaken : singleTakenList) {
+            if (startNotFind_s && singleTaken.getLevels() == 2) {
+                single_2.put("start", count_s);
+                startNotFind_s = false;//起始值 已找到（false）
+            }
+            //查找结束值 找到后结束循环
+            if (singleTaken.getLevels() == 3) {
+                single_2.put("end", count_s - 1);
+                break;
+            }
+            count_s++;
+        }
+        //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
+        Map<String, Integer> single_1 = new HashMap<String, Integer>() {{
+            put("start", 0);
+            put("end", single_2.get("start") - 1);
+        }};
+        //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
+        Map<String, Integer> single_3 = new HashMap<String, Integer>() {{
+            put("start", (single_2.get("end") + 1));
+            put("end", singleTakenList.size()-1);
+        }};
+        /*
+        用三个Map将不同难度的题的标号的 起始（start） 与 结束（end） 位置标出
+        */
+        Map<String, Integer> tf_2 = new HashMap<>();
+        int count_t = 0;
+        Boolean startNotFind_t = true;//起始值 未找到（true）
+        for (TfTaken tfTaken : tfTakenList) {
+            if (startNotFind_t && tfTaken.getLevels() == 2) {
+                tf_2.put("start", count_t);
+                startNotFind_t = false;//起始值 已找到（false）
+            }
+            //查找结束值 找到后结束循环
+            if (tfTaken.getLevels() == 3) {
+                single_2.put("end", count_t - 1);
+                break;
+            }
+            count_t++;
+        }
+        //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
+        Map<String, Integer> tf_1 = new HashMap<String, Integer>() {{
+            put("start", 0);
+            put("end", tf_2.get("start") - 1);
+        }};
+        //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
+        Map<String, Integer> tf_3 = new HashMap<String, Integer>() {{
+            put("start", (tf_2.get("end") + 1));
+            put("end", tfTakenList.size()-1);
+        }};
 
+        HashSet<Integer> set = new HashSet<>();
+        HashSet<Integer> set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set);
+        HashSet<Integer> set_s_2 = RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set);
+        HashSet<Integer> set_s_3 = RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set);
+        HashSet<Integer> set_t_1 = RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set);
+        HashSet<Integer> set_t_2 = RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set);
+        HashSet<Integer> set_t_3 = RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set);
+
+        assert set_s_1 != null;
+        for(Integer aQuestion:set_s_1){
+            singleTakenList.add(singleTakenList.get(aQuestion));
+        }
+        assert set_s_2 != null;
+        for(Integer aQuestion:set_s_2){
+            singleTakenList.add(singleTakenList.get(aQuestion));
+        }
+        assert set_s_3 != null;
+        for(Integer aQuestion:set_s_3){
+            singleTakenList.add(singleTakenList.get(aQuestion));
+        }
+        assert set_t_1 != null;
+        for(Integer aQuestion:set_t_1){
+            tfTakenList.add(tfTakenList.get(aQuestion));
+        }
+        assert set_t_2 != null;
+        for(Integer aQuestion:set_t_2){
+            singleTakenList.add(singleTakenList.get(aQuestion));
+        }
+        assert set_t_3 != null;
+        for(Integer aQuestion:set_t_3){
+            singleTakenList.add(singleTakenList.get(aQuestion));
+        }
+
+        //List<SingleTaken> singleTakenList_1 = new ArrayList<>();
+        //List<SingleTaken> singleTakenList_2 = new ArrayList<>();
+        //List<SingleTaken> singleTakenList_3 = new ArrayList<>();
+        //for (SingleTaken singleTaken:singleTakenList){
+        //    if (singleTaken.getLevels()==2){
+        //        singleTakenList_1.add(singleTaken);
+        //    }else if (singleTaken.getLevels()==1){
+        //        singleTakenList_2.add(singleTaken);
+        //    } else singleTakenList_3.add(singleTaken);
+        //}
 
         TestPaper testPaper = new TestPaper();
         testPaper.setSingleTakenList(singleTakenList);
@@ -170,8 +277,8 @@ public class StudentServiceImpl implements StudentService {
                 }
                 return -1;
             });
-            long i=0;
-            for (ExamInfo examInfo:examInfoList){
+            long i = 0;
+            for (ExamInfo examInfo : examInfoList) {
                 i++;
                 examInfo.setId(i);
             }

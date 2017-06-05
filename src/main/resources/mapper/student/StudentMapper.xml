@@ -67,6 +67,7 @@
         <if test="section!-null">
             s.section IN (#{section,jdbcType=CHAR})
         </if>
+        ORDER BY s.levels
     </select>
 
     <!--查询题库（判断题）-->
@@ -77,6 +78,7 @@
         <if test="section!-null">
             t.section IN (#{section,jdbcType=CHAR})
         </if>
+        ORDER BY t.levels
     </select>
 
     <!--查询题库（附加题）-->

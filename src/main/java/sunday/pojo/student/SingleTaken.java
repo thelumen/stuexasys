@@ -94,4 +94,20 @@ public class SingleTaken {
     public void setResult(String result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return "SingleTaken{" +
+                "Id=" + Id +
+                ", courseId='" + courseId + '\'' +
+                ", section='" + section + '\'' +
+                ", levels=" + levels +
+                ", name='" + name + '\'' +
+                ", que1='" + que1 + '\'' +
+                ", que2='" + que2 + '\'' +
+                ", que3='" + que3 + '\'' +
+                ", que4='" + que4 + '\'' +
+                ", result='" + result + '\'' +
+                '}';
+    }
 }

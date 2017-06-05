@@ -5,7 +5,11 @@ import java.util.HashSet;
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */
-public class RandomKit {
+public final class RandomKit {
+
+    private RandomKit(){
+    }
+
     /**
      * 随机指定范围内N个不重复的数
      * 利用HashSet的特征，只能存放不同的值
@@ -13,10 +17,11 @@ public class RandomKit {
      * @param max 指定范围最大值
      * @param n 随机数个数
      * @param set 随机数结果集
+     * @return set 随机数结果集
      */
-    private static void randomSet(int min, int max, int n, HashSet<Integer> set) {
+    public static HashSet<Integer> randomSet(int min, int max, int n, HashSet<Integer> set) {
         if (n > (max - min + 1) || max < min) {
-            return;
+            return null;
         }
         for (int i = 0; i < n; i++) {
             // 调用Math.random()方法
@@ -28,5 +33,6 @@ public class RandomKit {
         if (setSize < n) {
             randomSet(min, max, n - setSize, set);// 递归
         }
+        return set;
     }
 }
