@@ -168,7 +168,9 @@ public class StudentServiceImpl implements StudentService {
             put("start", (tf_2.get("end") + 1));
             put("end", tfTakenList.size()-1);
         }};
-
+        /*
+        按难度分别通过对应的 方法（randomSet） 与 map（single_1） 产生 随机数组（set_s_1）
+        */
         HashSet<Integer> set = new HashSet<>();
         HashSet<Integer> set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set);
         HashSet<Integer> set_s_2 = RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set);
@@ -176,46 +178,41 @@ public class StudentServiceImpl implements StudentService {
         HashSet<Integer> set_t_1 = RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set);
         HashSet<Integer> set_t_2 = RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set);
         HashSet<Integer> set_t_3 = RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set);
-
+        /*
+        按上述得到的随机数组从全部列表中得到返回列表
+        */
+        List<SingleTaken> testSingleList = new ArrayList<>();
+        List<TfTaken> testTfList = new ArrayList<>();
         assert set_s_1 != null;
         for(Integer aQuestion:set_s_1){
-            singleTakenList.add(singleTakenList.get(aQuestion));
+            testSingleList.add(singleTakenList.get(aQuestion));
         }
         assert set_s_2 != null;
         for(Integer aQuestion:set_s_2){
-            singleTakenList.add(singleTakenList.get(aQuestion));
+            testSingleList.add(singleTakenList.get(aQuestion));
         }
         assert set_s_3 != null;
         for(Integer aQuestion:set_s_3){
-            singleTakenList.add(singleTakenList.get(aQuestion));
+            testSingleList.add(singleTakenList.get(aQuestion));
         }
         assert set_t_1 != null;
         for(Integer aQuestion:set_t_1){
-            tfTakenList.add(tfTakenList.get(aQuestion));
+            testTfList.add(tfTakenList.get(aQuestion));
         }
         assert set_t_2 != null;
         for(Integer aQuestion:set_t_2){
-            singleTakenList.add(singleTakenList.get(aQuestion));
+            testTfList.add(tfTakenList.get(aQuestion));
         }
         assert set_t_3 != null;
         for(Integer aQuestion:set_t_3){
-            singleTakenList.add(singleTakenList.get(aQuestion));
+            testTfList.add(tfTakenList.get(aQuestion));
         }
-
-        //List<SingleTaken> singleTakenList_1 = new ArrayList<>();
-        //List<SingleTaken> singleTakenList_2 = new ArrayList<>();
-        //List<SingleTaken> singleTakenList_3 = new ArrayList<>();
-        //for (SingleTaken singleTaken:singleTakenList){
-        //    if (singleTaken.getLevels()==2){
-        //        singleTakenList_1.add(singleTaken);
-        //    }else if (singleTaken.getLevels()==1){
-        //        singleTakenList_2.add(singleTaken);
-        //    } else singleTakenList_3.add(singleTaken);
-        //}
-
+        /*
+        将得到的 选择题（testSingleList） 和 判断题（testTfList） 整合到 一个对象（testPaper） 中返回
+        */
         TestPaper testPaper = new TestPaper();
-        testPaper.setSingleTakenList(singleTakenList);
-        testPaper.setTfTakenList(tfTakenList);
+        testPaper.setSingleTakenList(testSingleList);
+        testPaper.setTfTakenList(testTfList);
         return testPaper;
     }
 
