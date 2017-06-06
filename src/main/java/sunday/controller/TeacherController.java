@@ -7,18 +7,15 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sunday.common.kit.ChapterKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
-import sunday.pojo.school.Course;
-import sunday.pojo.school.Specialty;
+import sunday.pojo.school.*;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.ExamTaken;
 import sunday.pojo.teacher.GradeTaken;
-import sunday.service.teacher.SpeCouService;
-import sunday.service.teacher.StuExaService;
-import sunday.service.teacher.StuGraService;
-import sunday.service.teacher.TeacherService;
+import sunday.service.teacher.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +41,9 @@ public class TeacherController {
 
     @javax.annotation.Resource(name = "stuExaService")
     private StuExaService stuExaService;
+
+    @javax.annotation.Resource(name = "teaQueService")
+    private TeaQueService teaQueService;
 
     /**
      * 获取当前登录教师id
@@ -76,6 +76,107 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String otherQuestionPage() {
         return "/teacher/another/anotherProxy";
+    }
+
+    /**
+     * 转到题目录入页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String questionPage() {
+        return "/teacher/question/questionProxy";
+    }
+
+    /**
+     * 获取某一课程选择题的章节
+     *
+     * @param courseId
+     * @return
+     */
+    @RequestMapping(value = "/{courseId}/chapter", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getCourseChapter(@PathVariable("courseId") String courseId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+        }};
+        List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
+        if (null != questions) {
+            //按章节排序
+            List<SingleQuestion> target = ChapterKit.bubbleSort(questions);
+            List<Map<String, Object>> father = new ArrayList<>();
+            for (SingleQuestion question : target) {
+                Map<String, Object> child = new HashMap<String, Object>() {{
+                    put("id", question.getSection());
+                    put("text", question.getSection());
+                }};
+                father.add(child);
+            }
+            return father;
+        }
+        return null;
+    }
+
+    /**
+     * 新增选择题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/saveSingleQuestion", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> saveSingleQuestion(@RequestBody SingleQuestion question) {
+        Map<String, Object> info = new HashMap<>();
+        if (teaQueService.insertSingleQuestion(question) > 0) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/saveTfQuestion", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> saveTfQuestion(@RequestBody TfQuestion question) {
+        Map<String, Object> info = new HashMap<>();
+        if (teaQueService.insertTfQuestion(question) > 0) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/saveAnother", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> saveAnother(@RequestBody Another another) {
+        Map<String, Object> info = new HashMap<>();
+        if (teaQueService.insertAnother(another) > 0) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**

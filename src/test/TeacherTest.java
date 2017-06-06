@@ -2,12 +2,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sunday.common.kit.ChapterKit;
 import sunday.common.kit.EncryptKit;
 import sunday.pojo.school.Course;
+import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
 import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
 import java.util.HashMap;
@@ -29,6 +32,23 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "speCouService")
     private SpeCouService speCouService;
 
+    @javax.annotation.Resource(name = "teaQueService")
+    private TeaQueService teaQueService;
+
+    //选择题章节排序
+    @Test
+    public void t8() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", "10000001");
+        }};
+        List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
+        if (null != questions) {
+            List<SingleQuestion> target = ChapterKit.bubbleSort(questions);
+            for (SingleQuestion s : target) {
+                out.print(s.getSection() + " ");
+            }
+        }
+    }
 
     @Test
     public void t7() {

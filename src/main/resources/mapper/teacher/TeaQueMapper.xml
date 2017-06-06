@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sunday.mapper.teacher.TeaQueMapper">
+    <!--查询选择题-->
+    <select id="selectSingleQuestion" parameterType="java.util.Map"
+            resultType="sunday.pojo.school.SingleQuestion">
+        SELECT sq.*
+        FROM com_single_question sq
+        <where>
+            <if test="courseId != null">
+                AND sq.courseId=#{courseId,jdbcType=CHAR}
+            </if>
+        </where>
+    </select>
+
+    <!--新增选择题-->
+    <insert id="insertSingleQuestion"
+            parameterType="sunday.pojo.school.SingleQuestion">
+        INSERT INTO com_single_question(courseId, section, levels, que1, que2, que3, que4, result, content)
+        VALUES (#{courseId,jdbcType=CHAR},#{section,jdbcType=CHAR},#{levels,jdbcType=TINYINT},
+        #{que1,jdbcType=CHAR},#{que2,jdbcType=CHAR},#{que3,jdbcType=CHAR},#{que4,jdbcType=CHAR},#{result,jdbcType=CHAR},#{content,jdbcType=CHAR})
+    </insert>
+
+    <!--新增判断题-->
+    <insert id="insertTfQuestion" parameterType="sunday.pojo.school.TfQuestion">
+         INSERT INTO com_tf_question(courseId, section, levels, content, result)
+        VALUES (#{courseId,jdbcType=CHAR},#{section,jdbcType=CHAR},#{levels,jdbcType=TINYINT},#{content,jdbcType=CHAR},#{result,jdbcType=TINYINT})
+    </insert>
+
+    <!--新增附加题-->
+    <insert id="insertAnother" parameterType="sunday.pojo.school.Another">
+        INSERT INTO com_another_question(courseId, content, result)
+          VALUES (#{courseId,jdbcType=CHAR},#{content,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR})
+    </insert>
+</mapper>
