@@ -27,4 +27,10 @@
          INSERT INTO com_tf_question(courseId, section, levels, content, result)
         VALUES (#{courseId,jdbcType=CHAR},#{section,jdbcType=CHAR},#{levels,jdbcType=TINYINT},#{content,jdbcType=CHAR},#{result,jdbcType=TINYINT})
     </insert>
+
+    <!--新增附加题-->
+    <insert id="insertAnother" parameterType="sunday.pojo.school.Another">
+        INSERT INTO com_another_question(courseId, content, result)
+          VALUES (#{courseId,jdbcType=CHAR},#{content,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR})
+    </insert>
 </mapper>

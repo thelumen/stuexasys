@@ -12,7 +12,6 @@
         </li>
         <li class="active">题目录入</li>
     </ol>
-
     <div class="row-fluid">
         <div class="span4">
             <ul class="nav nav-tabs nav-stacked" data-spy="affix"
@@ -101,7 +100,7 @@
                     <label>请输入题目正文：</label><br>
                     <label><textarea id="tf_content" name="content" required
                                      style="resize:none;height: 100px;width: 800px"
-                                     placeholder="请输入选择题正文..."></textarea></label><br>
+                                     placeholder="请输入判断题正文..."></textarea></label><br>
                     <label>请选择正确选择：</label>
                     <label><strong style="color: #985f0d">正确：</strong><input
                             type="radio" name="result" checked
@@ -120,6 +119,25 @@
             <div id="teacher_question_ano_div"
                  style="display: none;text-align: center">
                 <h2 style="text-align: center">附加题</h2>
+                <form id="teacher_question_ano_form">
+                    <label>请选择<strong style="color: #985f0d">学科</strong>
+                        <select name="courseId" required style="width: 250px"
+                                id="teacher_question_ano_select_course"
+                                title="Please select a course ...">
+                            <option selected></option>
+                        </select></label><br>
+                    <label>请输入题目正文：</label><br>
+                    <label><textarea id="ano_content" name="content" required
+                                     style="resize:none;height: 100px;width: 800px"
+                                     placeholder="请输入附加题正文..."></textarea></label><br>
+                    <label><textarea id="ano_result" name="result" required
+                                     style="resize:none;height: 100px;width: 800px"
+                                     placeholder="请输入标准答案..."></textarea></label><br>
+                    <button type="button" class="btn btn-primary"
+                            onclick="saveAnother()">提交
+                    </button>
+                    </label>
+                </form>
             </div>
         </div>
     </div>
@@ -148,6 +166,7 @@
 
     var course = $('#teacher_question_single_select_course');
     var tfcourse = $('#teacher_question_tf_select_course');
+    var anocourse = $('#teacher_question_ano_select_course');
     var section = $('#teacher_question_single_select_chapter');
     var tfsection = $('#teacher_question_tf_select_chapter');
     //    保存选择题
@@ -210,7 +229,34 @@
             swal("look..", "请完整填写题目内容！", "error");
         }
     }
-
+    //    保存附加题
+    function saveAnother() {
+        var textarea_content = $('#ano_content').val();
+        var textarea_result = $('#ano_result').val();
+        if (anocourse.val() !== '' && textarea_content !== '' && textarea_result !== '') {
+            var formdata = $('#teacher_question_ano_form').serializeObject();
+            var data = JSON.stringify(formdata);
+            $.ajax({
+                url: '${pageContext.request.contextPath}/teacher/saveAnother',
+                data: data,
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.isSuccess) {
+                        swal("year..", "录入成功！", "success");
+                        $('#ano_content').val('');
+                        $('#ano_result').val('');
+                    }
+                },
+                error: function () {
+                    swal("ERROR", "系统出错！", "error");
+                }
+            });
+        } else {
+            swal("look..", "请完整填写题目内容！", "error");
+        }
+    }
     $(function () {
 //        预加载
         section.select2();
@@ -227,6 +273,9 @@
                     data: data
                 });
                 tfcourse.select2({
+                    data: data
+                });
+                anocourse.select2({
                     data: data
                 });
             }

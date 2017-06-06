@@ -11,10 +11,7 @@ import sunday.common.kit.ChapterKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
-import sunday.pojo.school.Course;
-import sunday.pojo.school.SingleQuestion;
-import sunday.pojo.school.Specialty;
-import sunday.pojo.school.TfQuestion;
+import sunday.pojo.school.*;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.ExamTaken;
 import sunday.pojo.teacher.GradeTaken;
@@ -155,6 +152,26 @@ public class TeacherController {
     public Map<String, Object> saveTfQuestion(@RequestBody TfQuestion question) {
         Map<String, Object> info = new HashMap<>();
         if (teaQueService.insertTfQuestion(question) > 0) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/saveAnother", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> saveAnother(@RequestBody Another another) {
+        Map<String, Object> info = new HashMap<>();
+        if (teaQueService.insertAnother(another) > 0) {
             info.put("isSuccess", true);
         } else {
             info.put("isSuccess", false);

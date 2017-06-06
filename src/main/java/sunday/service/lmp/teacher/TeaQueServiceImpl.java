@@ -3,6 +3,7 @@ package sunday.service.lmp.teacher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.TeaQueMapper;
+import sunday.pojo.school.Another;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
 import sunday.service.teacher.TeaQueService;
@@ -39,5 +40,11 @@ public class TeaQueServiceImpl implements TeaQueService {
     @Transactional
     public int insertTfQuestion(TfQuestion question) {
         return teaQueMapper.insertTfQuestion(question);
+    }
+
+    @Override
+    @Transactional
+    public int insertAnother(Another another) {
+        return teaQueMapper.insertAnother(another);
     }
 }
