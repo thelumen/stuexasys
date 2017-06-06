@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by 花间一壶酒 on 2017/5/30.
  */
-public class CourseTaken {
+public final class CourseTaken {
     private String courseName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startTime;

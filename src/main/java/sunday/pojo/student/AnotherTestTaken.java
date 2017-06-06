@@ -1,9 +1,9 @@
 package sunday.pojo.student;
 
 /**
- * Created by 花间一壶酒 on 2017/6/4.
+ * Created by 花间一壶酒 on 2017/6/6.
  */
-public class AnotherQuestionTaken {
+public final class AnotherTestTaken {
     private Long Id;
     private String courseId;
     private String content;

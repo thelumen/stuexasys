@@ -2,6 +2,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sunday.common.kit.MakeTestPaperKit;
 import sunday.common.kit.RandomKit;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.*;
@@ -98,30 +99,12 @@ public class StudentTest {
         }
 
         Map<String, Integer> single_2 = new HashMap<>();
-        int count_s = 0;
-        Boolean startNotFind_s = true;//起始值 未找到（true）
-        for (SingleTaken singleTaken : singleTakenList) {
-            if (startNotFind_s && singleTaken.getLevels() == 2) {
-                single_2.put("start", count_s);
-                startNotFind_s = false;//起始值 已找到（false）
-            }
-            //查找结束值 找到后结束循环
-            if (singleTaken.getLevels() == 3) {
-                single_2.put("end", count_s - 1);
-                break;
-            }
-            count_s++;
-        }
         //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
-        Map<String, Integer> single_1 = new HashMap<String, Integer>() {{
-            put("start", 0);
-            put("end", single_2.get("start") - 1);
-        }};
-        //困难难度的结束值为 列表长度, 起始值 等于 中等难度的结束值+1
-        Map<String, Integer> single_3 = new HashMap<String, Integer>() {{
-            put("start", (single_2.get("end") + 1));
-            put("end", singleTakenList.size() - 1);
-        }};
+        Map<String, Integer> single_1 = new HashMap<>();
+        //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
+        Map<String, Integer> single_3 = new HashMap<>();
+        MakeTestPaperKit.makeStartEndMap_s(singleTakenList,single_1,single_2,single_3);
+
         System.out.println(single_1);
         System.out.println(single_2);
         System.out.println(single_3);

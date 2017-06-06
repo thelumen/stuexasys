@@ -68,7 +68,7 @@ public interface StudentMapper {
      * @param params .
      * @return List<AnotherQuestionTaken>
      */
-    List<AnotherQuestionTaken> selectQuestionBaseAnother(Map<String, Object> params);
+    List<AnotherTestTaken> selectQuestionBaseAnother(Map<String, Object> params);
 
     /**
      * 查询学生课程信息

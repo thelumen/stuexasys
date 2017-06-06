@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.common.enums.NumberDifficultyEnum;
 import sunday.common.kit.EncryptKit;
+import sunday.common.kit.MakeTestPaperKit;
 import sunday.common.kit.RandomKit;
 import sunday.mapper.student.StudentMapper;
 import sunday.pojo.school.Student;
@@ -87,11 +88,15 @@ public class StudentServiceImpl implements StudentService {
             put("10", "第十章");
             put("11", "第十一章");
             put("12", "第十二章");
+            put("13", "第十三章");
+            put("14", "第十四章");
+            put("15", "第十五章");
+            put("16", "第十六章");
         }};
         String[] strArray = examInfo.getContent().split(",");
         StringBuilder sectionInfo = new StringBuilder();
         /*
-        拼接 章节（sectionInfo） 字符串用于查询
+        拼接 章节(sectionInfo) 字符串用于查询
         */
         for (int i = 0; i < strArray.length; ) {
             strArray[i] = changed.get(strArray[i]);
@@ -103,7 +108,7 @@ public class StudentServiceImpl implements StudentService {
             } else sectionInfo.append("'");
         }
         /*
-        将得到的 章节 字符串与其他 参数 发往数据库进行查询
+        将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
         返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
         */
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
@@ -112,108 +117,67 @@ public class StudentServiceImpl implements StudentService {
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
+        if (singleTakenList.size() > 0 && tfTakenList.size() > 0 && null != singleTakenList && null != tfTakenList) {
         /*
-        用三个Map将不同难度的题的标号的 起始（start） 与 结束（end） 位置标出
+        用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
+        传入选择题列表
         */
-        Map<String, Integer> single_2 = new HashMap<>();
-        int count_s = 0;
-        Boolean startNotFind_s = true;//起始值 未找到（true）
-        for (SingleTaken singleTaken : singleTakenList) {
-            if (startNotFind_s && singleTaken.getLevels() == 2) {
-                single_2.put("start", count_s);
-                startNotFind_s = false;//起始值 已找到（false）
-            }
-            //查找结束值 找到后结束循环
-            if (singleTaken.getLevels() == 3) {
-                single_2.put("end", count_s - 1);
-                break;
-            }
-            count_s++;
-        }
-        //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
-        Map<String, Integer> single_1 = new HashMap<String, Integer>() {{
-            put("start", 0);
-            put("end", single_2.get("start") - 1);
-        }};
-        //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
-        Map<String, Integer> single_3 = new HashMap<String, Integer>() {{
-            put("start", (single_2.get("end") + 1));
-            put("end", singleTakenList.size()-1);
-        }};
+            Map<String, Integer> single_1 = new HashMap<>();
+            Map<String, Integer> single_2 = new HashMap<>();
+            Map<String, Integer> single_3 = new HashMap<>();
+            MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3);
+            Map<String, Integer> tf_1 = new HashMap<>();
+            Map<String, Integer> tf_2 = new HashMap<>();
+            Map<String, Integer> tf_3 = new HashMap<>();
+            MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3);
         /*
-        用三个Map将不同难度的题的标号的 起始（start） 与 结束（end） 位置标出
+        按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
         */
-        Map<String, Integer> tf_2 = new HashMap<>();
-        int count_t = 0;
-        Boolean startNotFind_t = true;//起始值 未找到（true）
-        for (TfTaken tfTaken : tfTakenList) {
-            if (startNotFind_t && tfTaken.getLevels() == 2) {
-                tf_2.put("start", count_t);
-                startNotFind_t = false;//起始值 已找到（false）
-            }
-            //查找结束值 找到后结束循环
-            if (tfTaken.getLevels() == 3) {
-                single_2.put("end", count_t - 1);
-                break;
-            }
-            count_t++;
-        }
-        //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
-        Map<String, Integer> tf_1 = new HashMap<String, Integer>() {{
-            put("start", 0);
-            put("end", tf_2.get("start") - 1);
-        }};
-        //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
-        Map<String, Integer> tf_3 = new HashMap<String, Integer>() {{
-            put("start", (tf_2.get("end") + 1));
-            put("end", tfTakenList.size()-1);
-        }};
-        /*
-        按难度分别通过对应的 方法（randomSet） 与 map（single_1） 产生 随机数组（set_s_1）
-        */
-        HashSet<Integer> set = new HashSet<>();
-        HashSet<Integer> set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set);
-        HashSet<Integer> set_s_2 = RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set);
-        HashSet<Integer> set_s_3 = RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set);
-        HashSet<Integer> set_t_1 = RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set);
-        HashSet<Integer> set_t_2 = RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set);
-        HashSet<Integer> set_t_3 = RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set);
+            HashSet<Integer> set = new HashSet<>();
+            HashSet<Integer> set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set);
+            HashSet<Integer> set_s_2 = RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set);
+            HashSet<Integer> set_s_3 = RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set);
+            HashSet<Integer> set_t_1 = RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set);
+            HashSet<Integer> set_t_2 = RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set);
+            HashSet<Integer> set_t_3 = RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set);
         /*
         按上述得到的随机数组从全部列表中得到返回列表
         */
-        List<SingleTaken> testSingleList = new ArrayList<>();
-        List<TfTaken> testTfList = new ArrayList<>();
-        assert set_s_1 != null;
-        for(Integer aQuestion:set_s_1){
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        assert set_s_2 != null;
-        for(Integer aQuestion:set_s_2){
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        assert set_s_3 != null;
-        for(Integer aQuestion:set_s_3){
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        assert set_t_1 != null;
-        for(Integer aQuestion:set_t_1){
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
-        assert set_t_2 != null;
-        for(Integer aQuestion:set_t_2){
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
-        assert set_t_3 != null;
-        for(Integer aQuestion:set_t_3){
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
+            List<SingleTaken> testSingleList = new ArrayList<>();
+            List<TfTaken> testTfList = new ArrayList<>();
+            assert set_s_1 != null;
+            for (Integer aQuestion : set_s_1) {
+                testSingleList.add(singleTakenList.get(aQuestion));
+            }
+            assert set_s_2 != null;
+            for (Integer aQuestion : set_s_2) {
+                testSingleList.add(singleTakenList.get(aQuestion));
+            }
+            assert set_s_3 != null;
+            for (Integer aQuestion : set_s_3) {
+                testSingleList.add(singleTakenList.get(aQuestion));
+            }
+            assert set_t_1 != null;
+            for (Integer aQuestion : set_t_1) {
+                testTfList.add(tfTakenList.get(aQuestion));
+            }
+            assert set_t_2 != null;
+            for (Integer aQuestion : set_t_2) {
+                testTfList.add(tfTakenList.get(aQuestion));
+            }
+            assert set_t_3 != null;
+            for (Integer aQuestion : set_t_3) {
+                testTfList.add(tfTakenList.get(aQuestion));
+            }
         /*
-        将得到的 选择题（testSingleList） 和 判断题（testTfList） 整合到 一个对象（testPaper） 中返回
+        将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
         */
-        TestPaper testPaper = new TestPaper();
-        testPaper.setSingleTakenList(testSingleList);
-        testPaper.setTfTakenList(testTfList);
-        return testPaper;
+            TestPaper testPaper = new TestPaper();
+            testPaper.setSingleTakenList(testSingleList);
+            testPaper.setTfTakenList(testTfList);
+            return testPaper;
+        }
+        return null;
     }
 
     @Override
@@ -221,9 +185,9 @@ public class StudentServiceImpl implements StudentService {
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
             put("courseId", examInfo.getCourseId());
         }};
-        List<AnotherQuestionTaken> anotherQuestionTakenList = studentMapper.selectQuestionBaseAnother(testInfo);
+        List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
         TestPaper testPaper = new TestPaper();
-        testPaper.setAnotherQuestionTaken(anotherQuestionTakenList.get((int) (Math.random()) * anotherQuestionTakenList.size()));
+        testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random()) * anotherTestTakens.size()));
         if (testPaper.getAnotherQuestionTaken() != null) {
             return testPaper;
         }

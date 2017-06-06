@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by 花间一壶酒 on 2017/6/3.
  */
-public class ExamTaken {
+public final class ExamTaken {
     private String courseId;
     private String courseName;
     //测验一

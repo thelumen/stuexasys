@@ -3,7 +3,7 @@ package sunday.pojo.student;
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */
-public class SingleTaken {
+public final class SingleTaken {
     private Long Id;
     private String courseId;
     private String section;
@@ -95,19 +95,4 @@ public class SingleTaken {
         this.result = result;
     }
 
-    @Override
-    public String toString() {
-        return "SingleTaken{" +
-                "Id=" + Id +
-                ", courseId='" + courseId + '\'' +
-                ", section='" + section + '\'' +
-                ", levels=" + levels +
-                ", name='" + name + '\'' +
-                ", que1='" + que1 + '\'' +
-                ", que2='" + que2 + '\'' +
-                ", que3='" + que3 + '\'' +
-                ", que4='" + que4 + '\'' +
-                ", result='" + result + '\'' +
-                '}';
-    }
 }

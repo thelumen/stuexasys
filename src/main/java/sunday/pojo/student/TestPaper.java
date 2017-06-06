@@ -5,16 +5,16 @@ import java.util.List;
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */
-public class TestPaper {
+public final class TestPaper {
     private List<SingleTaken> singleTakenList;
     private List<TfTaken> tfTakenList;
-    private AnotherQuestionTaken anotherQuestionTaken;
+    private AnotherTestTaken anotherQuestionTaken;
 
-    public AnotherQuestionTaken getAnotherQuestionTaken() {
+    public AnotherTestTaken getAnotherQuestionTaken() {
         return anotherQuestionTaken;
     }
 
-    public void setAnotherQuestionTaken(AnotherQuestionTaken anotherQuestionTaken) {
+    public void setAnotherQuestionTaken(AnotherTestTaken anotherQuestionTaken) {
         this.anotherQuestionTaken = anotherQuestionTaken;
     }
 

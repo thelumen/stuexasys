@@ -3,7 +3,7 @@ package sunday.pojo.student;
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */
-public class TfTaken {
+public final class TfTaken {
     private Long Id;
     private String courseId;
     private String section;

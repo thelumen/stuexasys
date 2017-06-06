@@ -3,7 +3,7 @@ package sunday.pojo.student;
 /**
  * Created by 花间一壶酒 on 2017/6/1.
  */
-public class StudentInfo{
+public final class StudentInfo{
     private String studentId;
     private String oldPassword;
     private String newPassword;

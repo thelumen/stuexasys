@@ -83,7 +83,7 @@
 
     <!--查询题库（附加题）-->
     <select id="selectQuestionBaseAnother" parameterType="java.util.Map"
-            resultType="sunday.pojo.student.AnotherQuestionTaken">
+            resultType="sunday.pojo.student.AnotherTestTaken">
         SELECT DISTINCT
             a.courseId AS courseId,
             a.content  AS content,
