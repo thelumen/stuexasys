@@ -3,6 +3,7 @@ package sunday.service.teacher;
 import sunday.pojo.school.Another;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
+import sunday.pojo.teacher.AnotherTaken;
 
 import java.util.List;
 import java.util.Map;
@@ -43,4 +44,12 @@ public interface TeaQueService {
      * @return
      */
     int insertAnother(Another another);
+
+    /**
+     * 查询附加题
+     *
+     * @param params
+     * @return
+     */
+    List<AnotherTaken> selectAnother(Map<String, Object> params);
 }

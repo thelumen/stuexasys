@@ -6,6 +6,7 @@ import sunday.mapper.teacher.TeaQueMapper;
 import sunday.pojo.school.Another;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
+import sunday.pojo.teacher.AnotherTaken;
 import sunday.service.teacher.TeaQueService;
 
 import java.util.List;
@@ -46,5 +47,14 @@ public class TeaQueServiceImpl implements TeaQueService {
     @Transactional
     public int insertAnother(Another another) {
         return teaQueMapper.insertAnother(another);
+    }
+
+    @Override
+    public List<AnotherTaken> selectAnother(Map<String, Object> params) {
+        List<AnotherTaken> anotherTaken = teaQueMapper.selectAnother(params);
+        if (null != anotherTaken && anotherTaken.size() > 0) {
+            return anotherTaken;
+        }
+        return null;
     }
 }

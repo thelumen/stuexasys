@@ -14,10 +14,7 @@ import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.*;
-import sunday.pojo.teacher.CourseTaken;
-import sunday.pojo.teacher.ExamTaken;
-import sunday.pojo.teacher.GradeTaken;
-import sunday.pojo.teacher.Teacher;
+import sunday.pojo.teacher.*;
 import sunday.service.teacher.*;
 
 import java.io.File;
@@ -126,6 +123,50 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String otherQuestionPage() {
         return "/teacher/another/anotherProxy";
+    }
+
+    /**
+     * 获取某专业学生的附加题信息
+     *
+     * @param courseId
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/{courseId}/{specialtyId}/another", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AnotherTaken> getAnother(@PathVariable("courseId") String courseId,
+                                         @PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+            put("specialtyId", specialtyId);
+        }};
+        List<AnotherTaken> takens = teaQueService.selectAnother(params);
+        if (null != takens) {
+            return takens;
+        }
+        return null;
+    }
+
+    /**
+     * 查询单个学生附加题答题情况
+     *
+     * @param content
+     * @return
+     */
+    @RequestMapping(value = "/student/another/{content}", method = RequestMethod.POST)
+    @ResponseBody
+    public AnotherTaken getStudentResult(@PathVariable("content") String content) {
+        String[] ele = content.split("&");
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", Long.valueOf(ele[0]));
+            put("courseId", ele[1]);
+            put("studentId", ele[2]);
+        }};
+        List<AnotherTaken> takens = teaQueService.selectAnother(params);
+        if (null != takens) {
+            return takens.get(0);
+        }
+        return null;
     }
 
     /**

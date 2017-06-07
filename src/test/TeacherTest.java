@@ -7,13 +7,13 @@ import sunday.common.kit.EncryptKit;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.Specialty;
+import sunday.pojo.teacher.AnotherTaken;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
 import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +36,20 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "teaQueService")
     private TeaQueService teaQueService;
 
+    //查询附加题taken
     @Test
     public void t10() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", "2");
+            put("courseId", "10000000");
+            put("specialtyId", "140400");
+        }};
+        List<AnotherTaken> anotherTaken = teaQueService.selectAnother(params);
+        if (anotherTaken != null) {
+            for (AnotherTaken taken : anotherTaken) {
+                out.println(taken.toString());
+            }
+        }
     }
 
     //测试teacherService
