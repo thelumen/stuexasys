@@ -126,7 +126,7 @@ public class TeacherController {
     }
 
     /**
-     * 获取某专业学生的附加题信息
+     * 获取某专业学生信息anotherTaken
      *
      * @param courseId
      * @param specialtyId
@@ -167,6 +167,35 @@ public class TeacherController {
             return takens.get(0);
         }
         return null;
+    }
+
+    /**
+     * 更新附加题成绩
+     *
+     * @param studentId 学号
+     * @param courseId  课程号
+     * @param score     成绩
+     * @return
+     */
+    @RequestMapping(value = "/{studentId}/{courseId}/{score}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> recordGrade4(@PathVariable("studentId") String studentId,
+                                            @PathVariable("courseId") String courseId,
+                                            @PathVariable("score") String score) {
+        Map<String, Object> info = new HashMap<>();
+        //前台不做了，后台修改数据
+        byte s = new Byte(score);
+        if (s > (byte) 100) {
+            s = (byte) 100;
+        }
+        if (stuGraService.updateAnother(studentId, courseId, s)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**

@@ -43,8 +43,24 @@
 <script>
     var course = $('#teacher_another_select_course');
     var specialty = $('#teacher_another_select_specialty');
-    function submitStudentScore(content) {
-        alert(content);
+    function submitStudentScore() {
+        var courseId = $('#info_one').val();
+        var studentId = $('#info_second').val();
+        var score = $('#info_third').val();
+        $.ajax({
+            url: '${pageContext.request.contextPath}/teacher/' + studentId + "/" + courseId + "/" + score,
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data.isSuccess) {
+                    alert("成绩录入成功!");
+                }
+            },
+            error: function () {
+                alert("系统出错！");
+            }
+        });
+//        alert(courseId + "&" + studentId + "&" + score);
     }
     //显示并评估
     function assessStudent(content) {
@@ -57,7 +73,10 @@
                 studentResult.html('');
 
                 var html = '';
+
                 html = '<a>题号：</a>' + data.id + '<br><br>' + '<a>个人信息：</a>' + data.courseName + ' / ' + data.specialtyName + ' / ' + data.studentName + '<br><br>';
+                html += '<input id="info_one" name="courseId" value="' + data.courseId + '">';
+                html += '<input id="info_second" name="studentId" value="' + data.studentId + '">';
                 html += '<a>题目正文：</a><br><br>';
                 html += data.content + '<br><br>';
                 html += '<a>标准答案：</a><br><br>';
@@ -65,15 +84,21 @@
                 html += '<a>学生答案：</a><br><br>';
                 html += data.studentAnswer + '<br><br>';
                 html += '<a>学生附加题成绩：</a>' + data.score + '<br><br>';
-                html += '<a>打分：</a>' + '<input id="student_score" name="score" placeholder="请输入0-100的整数"><br><br>';
+                html += '<a>打分：</a>' + '<input onkeyup="checkScore()" id="info_third" name="score" placeholder="请输入0-100的整数"><br><br>';
                 html += '<a style="color: #985f0d">注：学生若有附加题成绩，则不必再评分！如若附加题成绩为0分，则未为其评分！</a><br><br>';
-                html += '<button type="button" onclick="submitStudentScore(\'{0}\')">上传成绩</button>'.replace('{0}', $('#student_score').val() + "&" + data.courseId + "&" + data.studentId);
+                html += '<button type="button" onclick="submitStudentScore()">上传成绩</button>';
 
                 studentResult.html(html);
             }
         });
     }
-    //    查询附加题考察信息
+        function checkScore() {
+            var score = $('#info_third').val();
+            if (isNaN(score)) {
+                $('#info_third').val('');
+            }
+        }
+    //查询附加题考察专业学生信息，左下
     function selectStudent() {
         if (course.val() !== '' && specialty.val() !== '') {
             $.ajax({

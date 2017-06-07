@@ -43,4 +43,14 @@ public class StuGraServiceImpl implements StuGraService {
         }
         return result;
     }
+
+    @Override
+    @Transactional
+    public boolean updateAnother(String studentId, String courseId, Byte score) {
+        boolean result = false;
+        if (stuGraMapper.updateAnother(studentId, courseId, score) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }
