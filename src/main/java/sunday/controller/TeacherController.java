@@ -73,6 +73,12 @@ public class TeacherController {
         }
     }
 
+    /**
+     * 修改教师信息
+     *
+     * @param teacher
+     * @return
+     */
     @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
@@ -84,23 +90,9 @@ public class TeacherController {
             put("teacherId", teacher.getTeacherId());
         }};
         List<Teacher> teachers = teacherService.select(null, params);
-        if (null != teacher) {
-            Teacher t = teachers.get(0);
-            if (t.getName().equals(teacher.getName())) {
-                teacher.setName(null);
-            }
-            if (t.getGender().equals(teacher.getGender())) {
-                teacher.setGender(null);
-            }
-            if (t.getOffice().equals(teacher.getOffice())) {
-                teacher.setOffice(null);
-            }
-            if (t.getPosition().equals(teacher.getPosition())) {
-                teacher.setPosition(null);
-            }
-            if (t.getPassword().equals(EncryptKit.md5(teacher.getPassword()))) {
-                teacher.setPassword(null);
-            }
+        if (null != teachers) {
+            String password = teacher.getPassword();
+            teacher.setPassword(EncryptKit.md5(password));
             if (teacherService.update(teacher)) {
                 info.put("isSuccess", true);
             } else {

@@ -30,10 +30,10 @@
         }
         function updateInfo() {
             var gender = $('[name="gender"]').val();
-            if (gender !== '男' || gender !== '女') {
-                swal("oh..", "请输入'男'或'女' :)", "error");
-                return;
-            }
+//            if (gender !== '男' || gender !== '女') {
+//                swal("oh..", "请输入'男'或'女' :)", "error");
+//                return;
+//            }
             var password = $('[name="password"]').val();
             var name = $('[name="name"]').val();
             if (password !== '' && name !== '') {

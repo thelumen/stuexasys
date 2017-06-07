@@ -13,6 +13,7 @@ import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class TeacherTest {
 
     @javax.annotation.Resource(name = "teaQueService")
     private TeaQueService teaQueService;
+
+    @Test
+    public void t10() {
+    }
 
     //测试teacherService
     @Test
