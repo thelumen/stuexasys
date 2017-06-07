@@ -18,6 +18,21 @@ public final class Teacher {
     private Date logintime;
     private String ip;
 
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", teacherId='" + teacherId + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", position='" + position + '\'' +
+                ", office='" + office + '\'' +
+                ", logintime=" + logintime +
+                ", ip='" + ip + '\'' +
+                '}';
+    }
+
     public String getTeacherId() {
         return teacherId;
     }

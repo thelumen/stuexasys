@@ -35,6 +35,18 @@ public class TeacherTest {
     @javax.annotation.Resource(name = "teaQueService")
     private TeaQueService teaQueService;
 
+    //测试teacherService
+    @Test
+    public void t9() {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", "140400");
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            out.print(teachers.size() + teachers.get(0).toString());
+        }
+    }
+
     //选择题章节排序
     @Test
     public void t8() {

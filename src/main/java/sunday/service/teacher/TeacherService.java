@@ -28,4 +28,12 @@ public interface TeacherService {
      * @return
      */
     List<Teacher> select(Page page, Map<String, Object> params);
+
+    /**
+     * 修改教师信息
+     *
+     * @param teacher
+     * @return
+     */
+    boolean update(Teacher teacher);
 }

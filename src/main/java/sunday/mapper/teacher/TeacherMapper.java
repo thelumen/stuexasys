@@ -28,4 +28,11 @@ public interface TeacherMapper {
      */
     List<Teacher> select(Map<String, Object> params);
 
+    /**
+     * 修改教师信息
+     *
+     * @param teacher
+     * @return
+     */
+    int update(Teacher teacher);
 }

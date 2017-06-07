@@ -5,9 +5,11 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ChapterKit;
+import sunday.common.kit.EncryptKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
@@ -15,6 +17,7 @@ import sunday.pojo.school.*;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.ExamTaken;
 import sunday.pojo.teacher.GradeTaken;
+import sunday.pojo.teacher.Teacher;
 import sunday.service.teacher.*;
 
 import java.io.File;
@@ -52,6 +55,61 @@ public class TeacherController {
      */
     private String getCurrentTeacherId() {
         return (String) ShiroKit.getSession().getAttribute("currentTeacherId");
+    }
+
+    /**
+     * 获取当前教师用户的信息
+     *
+     * @param model
+     */
+    @ModelAttribute
+    public void getTeacher(Model model) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            model.addAttribute("teacher", teachers.get(0));
+        }
+    }
+
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> updateInfo(@RequestBody Teacher teacher) {
+        Map<String, Object> info = new HashMap<>();
+
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", teacher.getTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teacher) {
+            Teacher t = teachers.get(0);
+            if (t.getName().equals(teacher.getName())) {
+                teacher.setName(null);
+            }
+            if (t.getGender().equals(teacher.getGender())) {
+                teacher.setGender(null);
+            }
+            if (t.getOffice().equals(teacher.getOffice())) {
+                teacher.setOffice(null);
+            }
+            if (t.getPosition().equals(teacher.getPosition())) {
+                teacher.setPosition(null);
+            }
+            if (t.getPassword().equals(EncryptKit.md5(teacher.getPassword()))) {
+                teacher.setPassword(null);
+            }
+            if (teacherService.update(teacher)) {
+                info.put("isSuccess", true);
+            } else {
+                info.put("isSuccess", false);
+            }
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**
@@ -162,7 +220,7 @@ public class TeacherController {
     /**
      * 新增判断题
      *
-     * @param question
+     * @param another
      * @return
      */
     @RequestMapping(value = "/saveAnother", method = RequestMethod.POST)
@@ -567,18 +625,6 @@ public class TeacherController {
         }
 
         return getTakenInfo(target);
-    }
-
-    /**
-     * 转到个人信息页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/person", method = RequestMethod.GET)
-    @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    public String personPage() {
-        return "/teacher/personalPage/personalPageProxy";
     }
 
     /**
