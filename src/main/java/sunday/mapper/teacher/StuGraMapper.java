@@ -1,5 +1,6 @@
 package sunday.mapper.teacher;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import sunday.pojo.teacher.GradeTaken;
 
@@ -28,4 +29,14 @@ public interface StuGraMapper {
      * @return
      */
     int insertGrade(GradeTaken studentGrade);
+
+    /**
+     * 更新附加题成绩
+     *
+     * @param studentId
+     * @param courseId
+     * @param score
+     * @return
+     */
+    int updateAnother(@Param("studentId") String studentId, @Param("courseId") String courseId, @Param("score") Byte score);
 }

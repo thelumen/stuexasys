@@ -5,16 +5,16 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ChapterKit;
+import sunday.common.kit.EncryptKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.*;
-import sunday.pojo.teacher.CourseTaken;
-import sunday.pojo.teacher.ExamTaken;
-import sunday.pojo.teacher.GradeTaken;
+import sunday.pojo.teacher.*;
 import sunday.service.teacher.*;
 
 import java.io.File;
@@ -55,6 +55,53 @@ public class TeacherController {
     }
 
     /**
+     * 获取当前教师用户的信息
+     *
+     * @param model
+     */
+    @ModelAttribute
+    public void getTeacher(Model model) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", getCurrentTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            model.addAttribute("teacher", teachers.get(0));
+        }
+    }
+
+    /**
+     * 修改教师信息
+     *
+     * @param teacher
+     * @return
+     */
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> updateInfo(@RequestBody Teacher teacher) {
+        Map<String, Object> info = new HashMap<>();
+
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", teacher.getTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, params);
+        if (null != teachers) {
+            String password = teacher.getPassword();
+            teacher.setPassword(EncryptKit.md5(password));
+            if (teacherService.update(teacher)) {
+                info.put("isSuccess", true);
+            } else {
+                info.put("isSuccess", false);
+            }
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
+    }
+
+    /**
      * 转到教师主页
      *
      * @return
@@ -76,6 +123,79 @@ public class TeacherController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String otherQuestionPage() {
         return "/teacher/another/anotherProxy";
+    }
+
+    /**
+     * 获取某专业学生信息anotherTaken
+     *
+     * @param courseId
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/{courseId}/{specialtyId}/another", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AnotherTaken> getAnother(@PathVariable("courseId") String courseId,
+                                         @PathVariable("specialtyId") String specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+            put("specialtyId", specialtyId);
+        }};
+        List<AnotherTaken> takens = teaQueService.selectAnother(params);
+        if (null != takens) {
+            return takens;
+        }
+        return null;
+    }
+
+    /**
+     * 查询单个学生附加题答题情况
+     *
+     * @param content
+     * @return
+     */
+    @RequestMapping(value = "/student/another/{content}", method = RequestMethod.POST)
+    @ResponseBody
+    public AnotherTaken getStudentResult(@PathVariable("content") String content) {
+        String[] ele = content.split("&");
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", Long.valueOf(ele[0]));
+            put("courseId", ele[1]);
+            put("studentId", ele[2]);
+        }};
+        List<AnotherTaken> takens = teaQueService.selectAnother(params);
+        if (null != takens) {
+            return takens.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 更新附加题成绩
+     *
+     * @param studentId 学号
+     * @param courseId  课程号
+     * @param score     成绩
+     * @return
+     */
+    @RequestMapping(value = "/{studentId}/{courseId}/{score}", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Map<String, Object> recordGrade4(@PathVariable("studentId") String studentId,
+                                            @PathVariable("courseId") String courseId,
+                                            @PathVariable("score") String score) {
+        Map<String, Object> info = new HashMap<>();
+        //前台不做了，后台修改数据
+        byte s = new Byte(score);
+        if (s > (byte) 100) {
+            s = (byte) 100;
+        }
+        if (stuGraService.updateAnother(studentId, courseId, s)) {
+            info.put("isSuccess", true);
+        } else {
+            info.put("isSuccess", false);
+        }
+        return info;
     }
 
     /**
@@ -162,7 +282,7 @@ public class TeacherController {
     /**
      * 新增判断题
      *
-     * @param question
+     * @param another
      * @return
      */
     @RequestMapping(value = "/saveAnother", method = RequestMethod.POST)
@@ -567,18 +687,6 @@ public class TeacherController {
         }
 
         return getTakenInfo(target);
-    }
-
-    /**
-     * 转到个人信息页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/person", method = RequestMethod.GET)
-    @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    public String personPage() {
-        return "/teacher/personalPage/personalPageProxy";
     }
 
     /**

@@ -28,7 +28,44 @@
                     location.href = '${pageContext.request.contextPath}/shiro/logout';
                 });
         }
+        function updateInfo() {
+            var gender = $('[name="gender"]').val();
+//            if (gender !== '男' || gender !== '女') {
+//                swal("oh..", "请输入'男'或'女' :)", "error");
+//                return;
+//            }
+            var password = $('[name="password"]').val();
+            var name = $('[name="name"]').val();
+            if (password !== '' && name !== '') {
+                var formdata = $('#teacher_main_form').serializeObject();
+                var data = JSON.stringify(formdata);
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/teacher/updateInfo',
+                    data: data,
+                    contentType: 'application/json',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.isSuccess) {
+                            swal("year", "修改成功！", "success");
+                        }
+                    },
+                    error: function () {
+                        swal("oh..", "系统智商不在线，发生错误了...", "error");
+                    }
+                });
+            } else {
+                swal("oh..", "请填写姓名和密码 :)", "error");
+                return;
+            }
+        }
     </script>
+    <style>
+        form input {
+            border-width: 0;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
 <div>
@@ -63,7 +100,8 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/person">修改资料</a>
+                                <a href="#" data-toggle="modal"
+                                   data-target="#teacher_main_modal">修改资料</a>
                             </li>
                         </ul>
                     </li>
@@ -91,9 +129,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <%--<shiro:authenticated>--%>
-                    <%--<li>用户[<shiro:principal/>]已身份验证通过</li>--%>
-                    <%--</shiro:authenticated>>--%>
+                    <li><a href="#">${teacher.name}</a>
+                    </li>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>
                 </ul>
@@ -102,5 +139,43 @@
     </nav>
 </div>
 <jsp:include page="/teacher/${category}/${name}_content.jsp"></jsp:include>
+<%--个人信息完善--%>
+<div id="teacher_main_modal" class="modal fade" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="main_main_modal_about_h4">
+                    个人信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="teacher_main_form">
+                    <label>教工号：<input name="teacherId" readonly type="text"
+                                      value="${teacher.teacherId}"></label>
+                    <label>姓名：<input name="name" type="text"
+                                     value="${teacher.name}"></label>
+                    <label>性别：<input name="gender" type="text"
+                                     value="${teacher.gender}"></label>
+                    <label>教研室：<input name="office" type="text"
+                                      value="${teacher.office}"></label>
+                    <label>职称：<input name="position" type="text"
+                                     value="${teacher.position}"></label>
+                    <label>密码：<input name="password" type="text"
+                                     onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"
+                                     value="${teacher.password}"></label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        onclick="updateInfo()">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

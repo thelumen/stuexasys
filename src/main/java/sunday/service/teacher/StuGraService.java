@@ -28,4 +28,14 @@ public interface StuGraService {
      * @return
      */
     boolean updateGrade(GradeTaken studentGrade);
+
+    /**
+     * 更新附加题成绩
+     *
+     * @param studentId
+     * @param courseId
+     * @param score
+     * @return
+     */
+    boolean updateAnother(String studentId, String courseId, Byte score);
 }

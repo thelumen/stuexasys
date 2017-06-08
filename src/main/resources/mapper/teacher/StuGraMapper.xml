@@ -53,4 +53,12 @@
         </if>
         ORDER BY p.specialtyId ASC
     </select>
+
+    <!--更新附加题成绩-->
+    <update id="updateAnother">
+        UPDATE com_grade
+        SET grade4=#{score,jdbcType=TINYINT}
+        WHERE studentId = #{studentId,jdbcType=CHAR} AND courseId =
+        #{courseId,jdbcType=CHAR}
+    </update>
 </mapper>

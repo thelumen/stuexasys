@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-06-03 18:48:12
+Date: 2017-06-07 20:00:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `com_another_question` (
   PRIMARY KEY (`id`,`courseId`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `com_another_question_fk1` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='附加题表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='附加题表';
 
 -- ----------------------------
 -- Records of com_another_question
@@ -38,6 +38,11 @@ INSERT INTO `com_another_question` VALUES ('3', '10000000', '333', '333');
 INSERT INTO `com_another_question` VALUES ('4', '10000001', '1111', '1111');
 INSERT INTO `com_another_question` VALUES ('5', '10000001', '2222', '2222');
 INSERT INTO `com_another_question` VALUES ('6', '10000002', '3333', '3333');
+INSERT INTO `com_another_question` VALUES ('8', '10000000', '325235', '5321451');
+INSERT INTO `com_another_question` VALUES ('9', '10000000', '325235', '5321451');
+INSERT INTO `com_another_question` VALUES ('10', '10000001', '325235', '5321451');
+INSERT INTO `com_another_question` VALUES ('11', '10000000', '325325342', '652436246');
+INSERT INTO `com_another_question` VALUES ('12', '10000000', '23月45', '32465423624');
 
 -- ----------------------------
 -- Table structure for com_clazz_l_student
@@ -169,14 +174,15 @@ CREATE TABLE `com_examinfo` (
   KEY `specialtyId` (`specialtyId`),
   CONSTRAINT `com_examinfo_fk_1` FOREIGN KEY (`specialtyId`) REFERENCES `com_specialty` (`specialtyId`) ON DELETE CASCADE,
   CONSTRAINT `com_examinfo_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
 
 -- ----------------------------
 -- Records of com_examinfo
 -- ----------------------------
-INSERT INTO `com_examinfo` VALUES ('10', '140402', '10000000', '1,4,6', '2047-06-08', '0', '3,5,6', '2017-08-06', '1', '4,5,6', '2044-07-08', '0', '2040-07-10', '0', null, '0');
-INSERT INTO `com_examinfo` VALUES ('11', '140405', '10000001', null, '2044-05-07', '1', null, null, '0', null, null, '0', null, '0', null, '1');
-INSERT INTO `com_examinfo` VALUES ('12', '140401', '10000000', null, null, null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `com_examinfo` VALUES ('10', '140402', '10000000', '1,4,6', '2047-06-03', '0', '3,5,6,7', '2017-08-01', '1', '4,5,6', '2044-07-03', '0', '2040-07-05', '0', '0', '0');
+INSERT INTO `com_examinfo` VALUES ('12', '140401', '10000000', '1,5,6,7', null, '1', null, null, '0', null, null, '0', null, '0', '0', '0');
+INSERT INTO `com_examinfo` VALUES ('13', '140400', '10000000', null, null, '0', null, null, '1', null, null, '0', null, '0', null, '0');
+INSERT INTO `com_examinfo` VALUES ('14', '140405', '10000001', null, null, null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for com_grade
@@ -200,48 +206,48 @@ CREATE TABLE `com_grade` (
 -- ----------------------------
 -- Records of com_grade
 -- ----------------------------
-INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '97', '81');
-INSERT INTO `com_grade` VALUES ('140400000', '10000001', '35', '71', '99', '93', null);
+INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '30', '43');
+INSERT INTO `com_grade` VALUES ('140400000', '10000001', '35', '71', '99', '93', '85');
 INSERT INTO `com_grade` VALUES ('140400000', '10000002', '21', '57', '99', '43', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000003', '53', '74', '94', '81', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000004', '35', '40', '16', '6', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000005', '27', '7', '2', '85', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000006', '91', '72', '33', '43', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000007', '75', '90', '91', '81', null);
-INSERT INTO `com_grade` VALUES ('140400001', '10000000', '0', '92', '71', '13', '40');
-INSERT INTO `com_grade` VALUES ('140400001', '10000001', '10', '79', '39', '37', null);
+INSERT INTO `com_grade` VALUES ('140400001', '10000000', '0', '92', '71', '13', '45');
+INSERT INTO `com_grade` VALUES ('140400001', '10000001', '10', '79', '39', '37', '43');
 INSERT INTO `com_grade` VALUES ('140400001', '10000002', '98', '26', '90', '0', null);
 INSERT INTO `com_grade` VALUES ('140400001', '10000003', '17', '10', '76', '87', null);
 INSERT INTO `com_grade` VALUES ('140400001', '10000004', '33', '56', '29', '43', null);
 INSERT INTO `com_grade` VALUES ('140400001', '10000005', '4', '49', '28', '95', null);
 INSERT INTO `com_grade` VALUES ('140400001', '10000006', '91', '66', '83', '26', null);
 INSERT INTO `com_grade` VALUES ('140400001', '10000007', '49', '62', '89', '32', null);
-INSERT INTO `com_grade` VALUES ('140400002', '10000000', '95', '3', '69', '68', '54');
-INSERT INTO `com_grade` VALUES ('140400002', '10000001', '38', '43', '24', '26', null);
+INSERT INTO `com_grade` VALUES ('140400002', '10000000', '95', '3', '69', '68', '58');
+INSERT INTO `com_grade` VALUES ('140400002', '10000001', '38', '43', '24', '26', '30');
 INSERT INTO `com_grade` VALUES ('140400002', '10000002', '69', '2', '84', '49', null);
 INSERT INTO `com_grade` VALUES ('140400002', '10000003', '53', '39', '24', '38', null);
 INSERT INTO `com_grade` VALUES ('140400002', '10000004', '72', '77', '91', '82', null);
 INSERT INTO `com_grade` VALUES ('140400002', '10000005', '27', '80', '37', '61', null);
 INSERT INTO `com_grade` VALUES ('140400002', '10000006', '42', '99', '24', '59', null);
 INSERT INTO `com_grade` VALUES ('140400002', '10000007', '22', '56', '63', '28', null);
-INSERT INTO `com_grade` VALUES ('140400003', '10000000', '88', '82', '68', '74', '79');
-INSERT INTO `com_grade` VALUES ('140400003', '10000001', '62', '56', '44', '23', null);
+INSERT INTO `com_grade` VALUES ('140400003', '10000000', '88', '82', '68', '74', '75');
+INSERT INTO `com_grade` VALUES ('140400003', '10000001', '62', '56', '44', '23', '40');
 INSERT INTO `com_grade` VALUES ('140400003', '10000002', '18', '25', '49', '41', null);
 INSERT INTO `com_grade` VALUES ('140400003', '10000003', '1', '37', '65', '1', null);
 INSERT INTO `com_grade` VALUES ('140400003', '10000004', '41', '82', '47', '13', null);
 INSERT INTO `com_grade` VALUES ('140400003', '10000005', '28', '37', '0', '64', null);
 INSERT INTO `com_grade` VALUES ('140400003', '10000006', '45', '49', '92', '35', null);
 INSERT INTO `com_grade` VALUES ('140400003', '10000007', '12', '13', '69', '28', null);
-INSERT INTO `com_grade` VALUES ('140400004', '10000000', '19', '95', '59', '47', '57');
-INSERT INTO `com_grade` VALUES ('140400004', '10000001', '71', '69', '79', '72', null);
+INSERT INTO `com_grade` VALUES ('140400004', '10000000', '19', '95', '59', '55', '57');
+INSERT INTO `com_grade` VALUES ('140400004', '10000001', '71', '69', '79', '72', '73');
 INSERT INTO `com_grade` VALUES ('140400004', '10000002', '51', '41', '37', '8', null);
 INSERT INTO `com_grade` VALUES ('140400004', '10000003', '64', '83', '34', '84', null);
 INSERT INTO `com_grade` VALUES ('140400004', '10000004', '90', '93', '59', '48', null);
 INSERT INTO `com_grade` VALUES ('140400004', '10000005', '62', '22', '90', '1', null);
 INSERT INTO `com_grade` VALUES ('140400004', '10000006', '59', '1', '0', '74', null);
 INSERT INTO `com_grade` VALUES ('140400004', '10000007', '75', '28', '28', '79', null);
-INSERT INTO `com_grade` VALUES ('140400005', '10000000', '25', '44', '26', '35', '35');
-INSERT INTO `com_grade` VALUES ('140400005', '10000001', '93', '95', '24', '39', null);
+INSERT INTO `com_grade` VALUES ('140400005', '10000000', '25', '44', '26', '35', '33');
+INSERT INTO `com_grade` VALUES ('140400005', '10000001', '93', '95', '24', '39', '51');
 INSERT INTO `com_grade` VALUES ('140400005', '10000002', '65', '7', '14', '80', null);
 INSERT INTO `com_grade` VALUES ('140400005', '10000003', '82', '79', '23', '65', null);
 INSERT INTO `com_grade` VALUES ('140400005', '10000004', '37', '3', '12', '59', null);
@@ -249,31 +255,31 @@ INSERT INTO `com_grade` VALUES ('140400005', '10000005', '84', '83', '94', '86',
 INSERT INTO `com_grade` VALUES ('140400005', '10000006', '26', '16', '21', '18', null);
 INSERT INTO `com_grade` VALUES ('140400005', '10000007', '52', '88', '84', '16', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000000', '31', '73', '52', '14', '39');
-INSERT INTO `com_grade` VALUES ('140400006', '10000001', '39', '14', '35', '10', null);
+INSERT INTO `com_grade` VALUES ('140400006', '10000001', '39', '14', '35', '10', '21');
 INSERT INTO `com_grade` VALUES ('140400006', '10000002', '14', '21', '55', '54', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000003', '96', '8', '25', '51', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000004', '24', '32', '34', '36', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000005', '16', '9', '63', '85', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000006', '93', '58', '31', '93', null);
 INSERT INTO `com_grade` VALUES ('140400006', '10000007', '1', '20', '25', '47', null);
-INSERT INTO `com_grade` VALUES ('140400007', '10000000', '37', '34', '62', '73', '53');
-INSERT INTO `com_grade` VALUES ('140400007', '10000001', '94', '48', '81', '81', null);
+INSERT INTO `com_grade` VALUES ('140400007', '10000000', '37', '34', '62', '73', '58');
+INSERT INTO `com_grade` VALUES ('140400007', '10000001', '94', '48', '81', '81', '76');
 INSERT INTO `com_grade` VALUES ('140400007', '10000002', '88', '73', '27', '9', null);
 INSERT INTO `com_grade` VALUES ('140400007', '10000003', '9', '95', '15', '28', null);
 INSERT INTO `com_grade` VALUES ('140400007', '10000004', '87', '96', '47', '21', null);
 INSERT INTO `com_grade` VALUES ('140400007', '10000005', '74', '74', '13', '70', null);
 INSERT INTO `com_grade` VALUES ('140400007', '10000006', '37', '63', '85', '67', null);
 INSERT INTO `com_grade` VALUES ('140400007', '10000007', '2', '82', '47', '97', null);
-INSERT INTO `com_grade` VALUES ('140400008', '10000000', '96', '98', '33', '4', '54');
-INSERT INTO `com_grade` VALUES ('140400008', '10000001', '86', '1', '52', '40', null);
+INSERT INTO `com_grade` VALUES ('140400008', '10000000', '96', '98', '33', '4', '41');
+INSERT INTO `com_grade` VALUES ('140400008', '10000001', '86', '1', '52', '40', '40');
 INSERT INTO `com_grade` VALUES ('140400008', '10000002', '23', '61', '34', '12', null);
 INSERT INTO `com_grade` VALUES ('140400008', '10000003', '18', '13', '74', '83', null);
 INSERT INTO `com_grade` VALUES ('140400008', '10000004', '95', '87', '42', '28', null);
 INSERT INTO `com_grade` VALUES ('140400008', '10000005', '13', '49', '53', '61', null);
 INSERT INTO `com_grade` VALUES ('140400008', '10000006', '53', '98', '85', '39', null);
 INSERT INTO `com_grade` VALUES ('140400008', '10000007', '34', '63', '13', '6', null);
-INSERT INTO `com_grade` VALUES ('140400009', '10000000', '21', '6', '85', '32', '27');
-INSERT INTO `com_grade` VALUES ('140400009', '10000001', '39', '95', '49', '84', null);
+INSERT INTO `com_grade` VALUES ('140400009', '10000000', '21', '6', '85', '32', '42');
+INSERT INTO `com_grade` VALUES ('140400009', '10000001', '39', '95', '49', '84', '71');
 INSERT INTO `com_grade` VALUES ('140400009', '10000002', '75', '96', '78', '11', null);
 INSERT INTO `com_grade` VALUES ('140400009', '10000003', '93', '4', '20', '30', null);
 INSERT INTO `com_grade` VALUES ('140400009', '10000004', '49', '28', '94', '26', null);
@@ -788,9 +794,9 @@ DROP TABLE IF EXISTS `com_single_question`;
 CREATE TABLE `com_single_question` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `courseId` char(8) NOT NULL COMMENT '课程id',
-  `section` char(10) NOT NULL COMMENT '章节',
+  `section` char(50) NOT NULL COMMENT '章节',
   `levels` tinyint(6) NOT NULL COMMENT '难度等级',
-  `name` char(255) NOT NULL COMMENT '题目正文',
+  `content` char(255) NOT NULL COMMENT '题目正文',
   `que1` char(255) NOT NULL COMMENT '选项1',
   `que2` char(255) NOT NULL COMMENT '选项2',
   `que3` char(255) NOT NULL COMMENT '选项3',
@@ -799,7 +805,7 @@ CREATE TABLE `com_single_question` (
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `com_single_question_fk` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='单选题表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='单选题表';
 
 -- ----------------------------
 -- Records of com_single_question
@@ -813,11 +819,17 @@ INSERT INTO `com_single_question` VALUES ('6', '10000000', '第六章', '6', '6'
 INSERT INTO `com_single_question` VALUES ('7', '10000000', '第七章', '7', '7', '7', '7', '7', '7', '7');
 INSERT INTO `com_single_question` VALUES ('8', '10000001', '第一章', '1', '1', '1', '1', '1', '1', '1');
 INSERT INTO `com_single_question` VALUES ('9', '10000001', '第二章', '2', '2', '2', '2', '2', '2', '2');
-INSERT INTO `com_single_question` VALUES ('10', '10000001', '第三章', '3', '3', '3', '3', '3', '3', '3');
+INSERT INTO `com_single_question` VALUES ('10', '10000001', '第六章', '3', '3', '3', '3', '3', '3', '3');
 INSERT INTO `com_single_question` VALUES ('11', '10000001', '第四章', '4', '4', '4', '4', '4', '4', '4');
 INSERT INTO `com_single_question` VALUES ('12', '10000001', '第五章', '5', '5', '5', '5', '5', '5', '5');
-INSERT INTO `com_single_question` VALUES ('13', '10000001', '第六章', '6', '6', '6', '6', '6', '6', '6');
-INSERT INTO `com_single_question` VALUES ('14', '10000001', '第七章', '7', '7', '7', '7', '7', '7', '7');
+INSERT INTO `com_single_question` VALUES ('13', '10000001', '第三章', '6', '6', '6', '6', '6', '6', '6');
+INSERT INTO `com_single_question` VALUES ('15', '10000000', '第一章', '0', '123', '143', '213413', '534265', '32623', 'A');
+INSERT INTO `com_single_question` VALUES ('16', '10000000', '第一章', '1', '2423453', '45426', '3456425', '153145', '13613', 'A');
+INSERT INTO `com_single_question` VALUES ('17', '10000000', '第一章', '2', '235413253', '4253246', '45267', '43575', '674568', 'A');
+INSERT INTO `com_single_question` VALUES ('18', '10000000', '第一章', '2', '235413253', '4253246', '45267', '43575', '674568', 'A');
+INSERT INTO `com_single_question` VALUES ('19', '10000001', '第一章', '1', '345324563', '6246', '4257', '4357536', '7563486478', 'A');
+INSERT INTO `com_single_question` VALUES ('20', '10000000', '第一章', '1', '214214231', '42135', '13245314', '65346', '45267245', 'A');
+INSERT INTO `com_single_question` VALUES ('21', '10000000', '第六章', '1', '3453245324', '534264523', '64533', '7567', '6548678', 'A');
 
 -- ----------------------------
 -- Table structure for com_specialty
@@ -861,10 +873,10 @@ CREATE TABLE `com_student` (
 -- ----------------------------
 -- Records of com_student
 -- ----------------------------
-INSERT INTO `com_student` VALUES ('67', '140400000', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
-INSERT INTO `com_student` VALUES ('68', '140400001', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
-INSERT INTO `com_student` VALUES ('69', '140400002', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
-INSERT INTO `com_student` VALUES ('70', '140400003', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('67', '140400000', '827ccb0eea8a706c4c34a16891f84e7b', '杨', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('68', '140400001', '827ccb0eea8a706c4c34a16891f84e7b', '徐', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('69', '140400002', '827ccb0eea8a706c4c34a16891f84e7b', '越', '140400', '0', null, null);
+INSERT INTO `com_student` VALUES ('70', '140400003', '827ccb0eea8a706c4c34a16891f84e7b', '天才', '140400', '0', null, null);
 INSERT INTO `com_student` VALUES ('71', '140400004', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
 INSERT INTO `com_student` VALUES ('72', '140400005', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
 INSERT INTO `com_student` VALUES ('73', '140400006', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140400', '0', null, null);
@@ -938,7 +950,7 @@ CREATE TABLE `com_student_l_another_question` (
   CONSTRAINT `com_student_l_another_question_fk_1` FOREIGN KEY (`studentId`) REFERENCES `com_student` (`studentId`) ON DELETE CASCADE,
   CONSTRAINT `com_student_l_another_question_fk_2` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE,
   CONSTRAINT `com_student_l_another_question_fk_3` FOREIGN KEY (`id`) REFERENCES `com_another_question` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='学生附加题答题内容存储表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='学生附加题答题内容存储表';
 
 -- ----------------------------
 -- Records of com_student_l_another_question
@@ -971,7 +983,7 @@ CREATE TABLE `com_teacher` (
 -- ----------------------------
 -- Records of com_teacher
 -- ----------------------------
-INSERT INTO `com_teacher` VALUES ('18', '140400', '827ccb0eea8a706c4c34a16891f84e7b', 'yangxuyue', null, null, null, null, null);
+INSERT INTO `com_teacher` VALUES ('18', '140400', '827ccb0eea8a706c4c34a16891f84e7b', 'yangxuyue', '', '', '北三', null, null);
 INSERT INTO `com_teacher` VALUES ('19', '140401', '827ccb0eea8a706c4c34a16891f84e7b', 'yang', null, null, null, null, null);
 INSERT INTO `com_teacher` VALUES ('20', '140402', '827ccb0eea8a706c4c34a16891f84e7b', '辽工教师', null, null, null, null, null);
 
@@ -997,6 +1009,7 @@ CREATE TABLE `com_teacher_l_course` (
 -- ----------------------------
 -- Records of com_teacher_l_course
 -- ----------------------------
+INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140400', '2017-06-05', '2017-11-22');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140401', '2016-05-01', '2017-05-09');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000000', '140402', '2017-01-02', '2017-10-18');
 INSERT INTO `com_teacher_l_course` VALUES ('140400', '10000001', '140405', '2017-06-12', '2017-06-20');
@@ -1031,13 +1044,16 @@ CREATE TABLE `com_tf_question` (
   `courseId` char(8) NOT NULL COMMENT '课程id',
   `section` char(10) NOT NULL COMMENT '章节',
   `levels` tinyint(6) NOT NULL COMMENT '难度等级',
-  `name` char(255) NOT NULL COMMENT '题目正文',
+  `content` char(255) NOT NULL COMMENT '题目正文',
   `result` tinyint(6) NOT NULL COMMENT '答案',
   PRIMARY KEY (`id`),
   KEY `courseId` (`courseId`),
   CONSTRAINT `com_tf_question_fk` FOREIGN KEY (`courseId`) REFERENCES `com_course` (`courseId`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='判断题表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='判断题表';
 
 -- ----------------------------
 -- Records of com_tf_question
 -- ----------------------------
+INSERT INTO `com_tf_question` VALUES ('1', '10000000', '第一章', '1', '35324654236', '1');
+INSERT INTO `com_tf_question` VALUES ('2', '10000000', '第一章', '1', '35324654236342624364265', '1');
+INSERT INTO `com_tf_question` VALUES ('3', '10000000', '第一章', '1', '235324532', '1');

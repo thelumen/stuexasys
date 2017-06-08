@@ -37,4 +37,14 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return null;
     }
+
+    @Override
+    @Transactional
+    public boolean update(Teacher teacher) {
+        boolean result = false;
+        if (teacherMapper.update(teacher) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }
