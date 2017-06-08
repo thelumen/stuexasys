@@ -1,4 +1,5 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -29,11 +30,6 @@
                 });
         }
         function updateInfo() {
-            var gender = $('[name="gender"]').val();
-//            if (gender !== '男' || gender !== '女') {
-//                swal("oh..", "请输入'男'或'女' :)", "error");
-//                return;
-//            }
             var password = $('[name="password"]').val();
             var name = $('[name="name"]').val();
             if (password !== '' && name !== '') {
@@ -47,7 +43,8 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.isSuccess) {
-                            swal("year", "修改成功！", "success");
+                            $('#teacher_main_modal').modal("hide");
+                            swal("year", "修改成功！请刷新本页：)", "success");
                         }
                     },
                     error: function () {
@@ -56,7 +53,6 @@
                 });
             } else {
                 swal("oh..", "请填写姓名和密码 :)", "error");
-                return;
             }
         }
     </script>
@@ -96,12 +92,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/resource">上传资料</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#" data-toggle="modal"
-                                   data-target="#teacher_main_modal">修改资料</a>
+                                <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
                             </li>
                         </ul>
                     </li>
@@ -111,25 +102,32 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
                                 <a href="${pageContext.request.contextPath}/teacher/another">附加题评分</a>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/teacher/student/grade">成绩统计</a>
                             </li>
-                            <li class="divider"></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown">其他<span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href="${pageContext.request.contextPath}/teacher/question">题目录入</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/teacher/resource">上传资料</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">${teacher.name}</a>
+                    <li><a href="#" data-toggle="modal"
+                           data-target="#teacher_main_modal">${teacher.name}</a>
                     </li>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>
@@ -158,8 +156,10 @@
                                       value="${teacher.teacherId}"></label>
                     <label>姓名：<input name="name" type="text"
                                      value="${teacher.name}"></label>
-                    <label>性别：<input name="gender" type="text"
-                                     value="${teacher.gender}"></label>
+                    <label>性别：<select name="gender">
+                        <option>男</option>
+                        <option>女</option>
+                    </select></label>
                     <label>教研室：<input name="office" type="text"
                                       value="${teacher.office}"></label>
                     <label>职称：<input name="position" type="text"

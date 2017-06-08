@@ -90,7 +90,7 @@
                data-side-pagination="server"
                data-show-refresh="true"
                data-id-field="specialtyId"
-               data-pagination="true"
+               <%--data-pagination="true"--%>
                data-row-style="rowStyle"
         >
             <thead>

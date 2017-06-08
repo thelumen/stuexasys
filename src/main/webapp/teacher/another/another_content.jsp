@@ -92,12 +92,12 @@
             }
         });
     }
-        function checkScore() {
-            var score = $('#info_third').val();
-            if (isNaN(score)) {
-                $('#info_third').val('');
-            }
+    function checkScore() {
+        var score = $('#info_third').val();
+        if (isNaN(score)) {
+            $('#info_third').val('');
         }
+    }
     //查询附加题考察专业学生信息，左下
     function selectStudent() {
         if (course.val() !== '' && specialty.val() !== '') {
