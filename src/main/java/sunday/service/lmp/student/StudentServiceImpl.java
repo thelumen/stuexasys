@@ -117,7 +117,7 @@ public class StudentServiceImpl implements StudentService {
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
-        if (singleTakenList.size() > 0 && tfTakenList.size() > 0 && null != singleTakenList && null != tfTakenList) {
+        if (singleTakenList.size() > 0 && tfTakenList.size() > 0) {
         /*
         用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
         传入选择题列表

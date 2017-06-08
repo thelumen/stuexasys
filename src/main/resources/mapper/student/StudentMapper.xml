@@ -64,9 +64,7 @@
         SELECT *
         FROM com_single_question s
         WHERE s.courseId=#{courseId,jdbcType=CHAR} AND
-        <if test="section!-null">
             s.section IN (#{section,jdbcType=CHAR})
-        </if>
         ORDER BY s.levels
     </select>
 
@@ -75,9 +73,7 @@
         SELECT *
         FROM com_tf_question t
         WHERE t.courseId=#{courseId,jdbcType=CHAR} AND
-        <if test="section!-null">
             t.section IN (#{section,jdbcType=CHAR})
-        </if>
         ORDER BY t.levels
     </select>
 

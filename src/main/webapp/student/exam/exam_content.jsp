@@ -15,23 +15,30 @@
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
 
     <script>
-    $(document).ready(function () {
-        $(".ID").hide();
-    })
+        $(document).ready(function () {
+            $(".ID").hide();
+            $("button.btn-success").click(function () {
+                var examInfo;
+                var rows = this.value;
+                var s = rows.split("_");
+                examInfo = {"courseId": s[0], "content": s[1]};
+                var jsonDate = JSON.stringify(examInfo);
+                alert(jsonDate);
+                $.ajax({
+                    type: "post",
+                    url: '${pageContext.request.contextPath}/student/startTest',
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: jsonDate,
+                    success: function (data) {
+                        alert(data.msg);
+                    }
+                });
+            })
+        })
     </script>
-
 </head>
 <body>
-<c:set var="btnStyle_primary">
-    <button type="button" class="btn btn-primary" disabled="disabled">
-        <label>等待开始</label>
-    </button>
-</c:set>
-<c:set var="btnStyle_success">
-    <button type="button" class="btn btn-success" id="startTest">
-        <label>开始考试</label>
-    </button>
-</c:set>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
@@ -69,7 +76,6 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="ID">ID</th>
                     <th>课程名称</th>
                     <th>测试编号</th>
                     <th>测试章节</th>
@@ -80,18 +86,22 @@
                 <tbody>
                 <c:if test="${!empty studentExamInfo}">
                     <c:forEach items="${studentExamInfo}" var="Info" varStatus="status">
-                        <tr>
-                            <td class="ID">${status.count}</td>
+                        <tr class="rowId">
                             <td>${Info.courseName}</td>
                             <td>${Info.testNum}</td>
                             <td>${Info.content}</td>
                             <td><fum:formatDate value="${Info.date}" pattern="yyyy-MM-dd"/></td>
                             <td>
-                                <c:if test="${Info.test=='1'}">
-                                    ${btnStyle_success}
+                                <c:if test="${Info.test==1}">
+                                    <button type="button" class="btn btn-success"
+                                            value="${Info.courseId}_${Info.content}">
+                                        <label>开始考试</label>
+                                    </button>
                                 </c:if>
-                                <c:if test="${!(Info.test=='1')}">
-                                    ${btnStyle_primary}
+                                <c:if test="${!(Info.test==1)}">
+                                    <button type="button" class="btn btn-primary" disabled="disabled">
+                                        <label>等待开始</label>
+                                    </button>
                                 </c:if>
                             </td>
                         </tr>
