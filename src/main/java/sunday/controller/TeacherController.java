@@ -88,8 +88,14 @@ public class TeacherController {
         }};
         List<Teacher> teachers = teacherService.select(null, params);
         if (null != teachers) {
-            String password = teacher.getPassword();
-            teacher.setPassword(EncryptKit.md5(password));
+            Teacher t = teachers.get(0);
+            //后台接收的密码是加密了的
+            if (!teacher.getPassword().equals(t.getPassword())) {
+                String password = teacher.getPassword();
+                teacher.setPassword(EncryptKit.md5(password));
+            } else {
+                teacher.setPassword(null);
+            }
             if (teacherService.update(teacher)) {
                 info.put("isSuccess", true);
             } else {
