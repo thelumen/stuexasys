@@ -75,6 +75,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public TestPaper selectTestPaper(Page page, ExamInfo examInfo) {
+        if (examInfo == null) return null;
         Map<String, String> changed = new HashMap<String, String>() {{
             put("1", "第一章");
             put("2", "第二章");
@@ -94,18 +95,13 @@ public class StudentServiceImpl implements StudentService {
             put("16", "第十六章");
         }};
         String[] strArray = examInfo.getContent().split(",");
-        StringBuilder sectionInfo = new StringBuilder();
+        List<String> sectionInfo = new ArrayList<>();
         /*
         拼接 章节(sectionInfo) 字符串用于查询
         */
-        for (int i = 0; i < strArray.length; ) {
+        for (int i = 0; i < strArray.length; i++) {
             strArray[i] = changed.get(strArray[i]);
-            sectionInfo.append("'");
-            sectionInfo.append(strArray[i]);
-            i++;
-            if (i != strArray.length) {
-                sectionInfo.append("',");
-            } else sectionInfo.append("'");
+            sectionInfo.add(strArray[i]);
         }
         /*
         将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
@@ -113,7 +109,7 @@ public class StudentServiceImpl implements StudentService {
         */
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
             put("courseId", examInfo.getCourseId());
-            put("section", sectionInfo);
+            put("sectionList", sectionInfo);
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
@@ -133,39 +129,38 @@ public class StudentServiceImpl implements StudentService {
         /*
         按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
         */
-            HashSet<Integer> set = new HashSet<>();
-            HashSet<Integer> set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set);
-            HashSet<Integer> set_s_2 = RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set);
-            HashSet<Integer> set_s_3 = RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set);
-            HashSet<Integer> set_t_1 = RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set);
-            HashSet<Integer> set_t_2 = RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set);
-            HashSet<Integer> set_t_3 = RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set);
+            HashSet<Integer> set_s_1 = new HashSet<>();
+            HashSet<Integer> set_s_2 = new HashSet<>();
+            HashSet<Integer> set_s_3 = new HashSet<>();
+            HashSet<Integer> set_t_1 = new HashSet<>();
+            HashSet<Integer> set_t_2 = new HashSet<>();
+            HashSet<Integer> set_t_3 = new HashSet<>();
+            RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set_s_1);
+            RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set_s_2);
+            RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set_s_3);
+            RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set_t_1);
+            RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set_t_2);
+            RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set_t_3);
         /*
         按上述得到的随机数组从全部列表中得到返回列表
         */
             List<SingleTaken> testSingleList = new ArrayList<>();
             List<TfTaken> testTfList = new ArrayList<>();
-            assert set_s_1 != null;
             for (Integer aQuestion : set_s_1) {
                 testSingleList.add(singleTakenList.get(aQuestion));
             }
-            assert set_s_2 != null;
             for (Integer aQuestion : set_s_2) {
                 testSingleList.add(singleTakenList.get(aQuestion));
             }
-            assert set_s_3 != null;
             for (Integer aQuestion : set_s_3) {
                 testSingleList.add(singleTakenList.get(aQuestion));
             }
-            assert set_t_1 != null;
             for (Integer aQuestion : set_t_1) {
                 testTfList.add(tfTakenList.get(aQuestion));
             }
-            assert set_t_2 != null;
             for (Integer aQuestion : set_t_2) {
                 testTfList.add(tfTakenList.get(aQuestion));
             }
-            assert set_t_3 != null;
             for (Integer aQuestion : set_t_3) {
                 testTfList.add(tfTakenList.get(aQuestion));
             }
@@ -194,6 +189,7 @@ public class StudentServiceImpl implements StudentService {
         return null;
     }
 
+    @Override
     public List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params) {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());

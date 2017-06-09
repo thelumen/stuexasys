@@ -97,7 +97,7 @@ public class StudentTest {
         for (SingleTaken singleTaken4 : singleTakenList) {
             System.out.print(singleTaken4.getLevels());
         }
-
+        System.out.println();
         Map<String, Integer> single_2 = new HashMap<>();
         //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
         Map<String, Integer> single_1 = new HashMap<>();
@@ -115,15 +115,14 @@ public class StudentTest {
         HashSet<Integer> set_t_1 = new HashSet<>();
         HashSet<Integer> set_t_2 = new HashSet<>();
         HashSet<Integer> set_t_3 = new HashSet<>();
-        int s_1 = 2;
+        int s_1 = 4;
         int s_2 = 14;
         int s_3 = 2;
         int t_1 = 1;
         int t_2 = 3;
         int t_3 = 1;
 
-        set_s_1 = RandomKit.randomSet(single_1.get("start"), single_1.get("end"), s_1, set_s_1);
-        assert set_s_1 != null;
+        RandomKit.randomSet(single_1.get("start"), single_1.get("end"), s_1, set_s_1);
         for (Integer aSet_s_1 : set_s_1) {
             System.out.println("value=" + aSet_s_1.toString());
         }

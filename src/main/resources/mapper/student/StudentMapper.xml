@@ -63,17 +63,20 @@
     <select id="selectQuestionBaseSingle" parameterType="java.util.Map" resultType="sunday.pojo.student.SingleTaken">
         SELECT *
         FROM com_single_question s
-        WHERE s.courseId=#{courseId,jdbcType=CHAR} AND
-            s.section IN (#{section,jdbcType=CHAR})
+        WHERE s.courseId = #{courseId,jdbcType=CHAR} AND s.section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
         ORDER BY s.levels
     </select>
-
     <!--查询题库（判断题）-->
     <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
         SELECT *
         FROM com_tf_question t
-        WHERE t.courseId=#{courseId,jdbcType=CHAR} AND
-            t.section IN (#{section,jdbcType=CHAR})
+        WHERE t.courseId = #{courseId,jdbcType=CHAR} AND t.section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
         ORDER BY t.levels
     </select>
 

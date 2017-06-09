@@ -5,7 +5,7 @@ package sunday.common.enums;
  */
 public enum NumberDifficultyEnum {
 
-    Single_1("简单", 4), Single_2("中等", 4), Single_3("困难", 2),
+    Single_1("简单", 4), Single_2("中等", 14), Single_3("困难", 2),
     Tf_1("简单", 1), Tf_2("中等", 3), Tf_3("困难", 1);
 
     private final String difficulty;
