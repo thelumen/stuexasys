@@ -69,6 +69,7 @@
         </foreach>
         ORDER BY s.levels
     </select>
+
     <!--查询题库（判断题）-->
     <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
         SELECT *

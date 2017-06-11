@@ -136,31 +136,25 @@ public class StudentController {
      * 通过 ExamInfo 组题并返回 普通测试题 卷
      *
      * @param examInfo .
-     * @return 成功信号
+     * @return 测试页面
      */
     @RequestMapping(value = "/startTest", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> startTest(@RequestBody ExamInfo examInfo, Model model) {
-        Map<String, Object> msg = new HashMap<String, Object>() {{
-            put("msg", "isSuccess");
-        }};
+    public String startTest(@RequestBody ExamInfo examInfo, Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
-        return msg;
+        return "/student/exam/testProxy";
     }
 
     /**
      * 通过 ExamInfo 组题并返回 附加题 卷
      *
      * @param examInfo .
-     * @return 成功信号
+     * @return 测试页面
      */
     @RequestMapping(value = "/startTestAnother", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> startTestAnother(@RequestBody ExamInfo examInfo, Model model) {
-        Map<String, Object> msg = new HashMap<String, Object>() {{
-            put("msg", "isSuccess");
-        }};
+    public String startTestAnother(@RequestBody ExamInfo examInfo, Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, examInfo));
-        return msg;
+        return "/student/exam/testProxy";
     }
 }
