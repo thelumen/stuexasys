@@ -22,16 +22,21 @@
                 var examInfo = {"courseId": s[0], "content": s[1]};
                 var jsonDate = JSON.stringify(examInfo);
                 if (s[1] !== 0) {
-                    var myUrl = '${pageContext.request.contextPath}/student/startTest';
+                    var myUrl = '${pageContext.request.contextPath}/student/readyTest';
                 } else {
-                    var myUrl = '${pageContext.request.contextPath}/student/startTestAnother';
+                    var myUrl = '${pageContext.request.contextPath}/student/readyTestAnother';
                 }
                 alert(jsonDate);
                 $.ajax({
                     type:'post',
                     url: myUrl,
+                    dataType:'json',
                     contentType: 'application/json',
-                    data: jsonDate
+                    data: jsonDate,
+                    success:function (data) {
+                        alert(data.examInfo);
+                        window.location.href='${pageContext.request.contextPath}/student/startTest?examInfo='+data.examInfo;
+                    }
                 });
             })
         })

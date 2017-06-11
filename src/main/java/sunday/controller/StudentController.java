@@ -12,6 +12,7 @@ import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,8 +139,27 @@ public class StudentController {
      * @param examInfo .
      * @return 测试页面
      */
-    @RequestMapping(value = "/startTest", method = RequestMethod.POST)
-    public String startTest(@RequestBody ExamInfo examInfo, Model model) {
+    @RequestMapping(value = "/readyTest", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
+        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        Map<String, Object> data = new HashMap<>();
+        data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent());
+        return data;
+    }
+
+    /**
+     * 返回 普通测试 试题页面
+     *
+     * @return url
+     */
+    @RequestMapping(value = "/startTest", method = RequestMethod.GET)
+    public String startTest(HttpServletRequest request, Model model) {
+        String examInfo1=request.getParameter("examInfo");
+        String[] s = examInfo1.split("_");
+        ExamInfo examInfo = new ExamInfo();
+        examInfo.setCourseId(s[0]);
+        examInfo.setContent(s[1]);
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
         return "/student/exam/testProxy";
@@ -151,8 +171,9 @@ public class StudentController {
      * @param examInfo .
      * @return 测试页面
      */
-    @RequestMapping(value = "/startTestAnother", method = RequestMethod.POST)
-    public String startTestAnother(@RequestBody ExamInfo examInfo, Model model) {
+    @RequestMapping(value = "/readyTestAnother", method = RequestMethod.POST)
+    @ResponseBody
+    public String readyTestAnother(@RequestBody ExamInfo examInfo, Model model) {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, examInfo));
         return "/student/exam/testProxy";

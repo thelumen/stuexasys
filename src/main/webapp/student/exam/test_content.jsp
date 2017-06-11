@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>测试</title>
+    <jsp:include page="/common/inc/head.jsp"></jsp:include>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -47,15 +48,15 @@
         <div class="col-md-12">
             <h2>一，选择题（共20题）</h2>
             <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
-                <p style="word-break: break-all">${statusSingle}.${testPaperSingle.name}</p>
+                <p style="word-break: break-all">${statusSingle.count}.${testPaperSingle.name}</p>
                 <p><label>A.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que1}</label></p>
-                <p><label>B.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que1}</label></p>
-                <p><label>C.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que1}</label></p>
-                <p><label>D.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que1}</label></p>
+                <p><label>B.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que2}</label></p>
+                <p><label>C.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que3}</label></p>
+                <p><label>D.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que4}</label></p>
             </c:forEach>
             <h2>二，判断题（共5题）</h2>
             <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
-                <p style="word-break: break-all">${statusTf}.${testPaperTf.name}</p>
+                <p style="word-break: break-all">${statusTf.count}.${testPaperTf.name}</p>
                 <p><label><input type="radio" name="tf-${statusTf}">正确</label></p>
                 <p><label><input type="radio" name="tf-${statusTf}">错误</label></p>
             </c:forEach>
