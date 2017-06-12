@@ -26,7 +26,6 @@
                 } else {
                     var myUrl = '${pageContext.request.contextPath}/student/readyTestAnother';
                 }
-                alert(jsonDate);
                 $.ajax({
                     type:'post',
                     url: myUrl,
@@ -34,7 +33,6 @@
                     contentType: 'application/json',
                     data: jsonDate,
                     success:function (data) {
-                        alert(data.examInfo);
                         window.location.href='${pageContext.request.contextPath}/student/startTest?examInfo='+data.examInfo;
                     }
                 });
