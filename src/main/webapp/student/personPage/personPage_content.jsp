@@ -47,6 +47,7 @@
                 if (validate_email($("#email").val()) && validate_cellphone($("#cellphone").val())) {
                     alert("正在修改");
                     var str = $("#submitForm").serializeObject();
+                    alert(str);
                     var jsonDate = JSON.stringify(str);
                     $.ajax({
                         type: 'post',

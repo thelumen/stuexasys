@@ -12,15 +12,17 @@
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
         $(document).ready(function () {
-//            $("#hideArea").hide();
-            var ans='${testPaper.singleTakenList[0].courseId},';
+            var ans = '${testPaper.singleTakenList[0].courseId},';
             <c:forEach items="${testPaper.singleTakenList}" var="Ans">
-            ans +='${Ans.result},';
+            ans += '${Ans.result},';
             </c:forEach>
-            alert(ans);
+            <c:forEach items="${testPaper.tfTakenList}" var="Ant">
+            ans += '${Ant.result},';
+            </c:forEach>
             document.getElementById("hideArea").value = ans;
-
-            var timeS = 420;
+            alert($("#hideArea").val());
+            //计时器实现
+            var timeS = 40;
             var setI = setInterval(countDown, 1000);
 
             function countDown() {
@@ -33,10 +35,24 @@
                 m += ':';
                 m += s;
                 $("#countDownTxt").text(m);
-                if (m === 0 && s === 0) {
+                if (timeS === 0) {
                     clearInterval(setI);
-
+                    submitTest();
                 }
+            }
+
+            //提交按钮
+            $("#submitTestPaper").click(function () {
+                alert("确定要提交吗？");
+                submitTest();
+            });
+            //提交到服务器
+            function submitTest() {
+                var an = $("#hideArea").val().split(",");
+                for (var i = 1; i < 26; i++) {
+                    $('#single-i')
+                }
+                alert("提交成功"+an);
             }
         });
     </script>
@@ -81,20 +97,23 @@
             <h2>一，选择题（共20题）</h2>
             <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
                 <p style="word-break: break-all">${statusSingle.count}.${testPaperSingle.name}</p>
-                <p><label>A.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que1}</label></p>
-                <p><label>B.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que2}</label></p>
-                <p><label>C.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que3}</label></p>
-                <p><label>D.<input type="radio" name="single-${statusSingle}">${testPaperSingle.que4}</label></p>
+                <p><label>A.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que1}</label></p>
+                <p><label>B.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que2}</label></p>
+                <p><label>C.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que3}</label></p>
+                <p><label>D.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que4}</label></p>
                 <hr>
             </c:forEach>
             <h2>二，判断题（共5题）</h2>
             <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
                 <p style="word-break: break-all">${statusTf.count}.${testPaperTf.name}</p>
-                <p><label><input type="radio" name="tf-${statusTf}">正确</label></p>
-                <p><label><input type="radio" name="tf-${statusTf}">错误</label></p>
+                <p><label><input type="radio" name="tf-${statusTf.count}">正确</label></p>
+                <p><label><input type="radio" name="tf-${statusTf.count}">错误</label></p>
                 <hr>
             </c:forEach>
-            <input id="hideArea">
+            <button type="button" id="submitTestPaper" class="btn btn-primary">
+                <label>提交试卷</label>
+            </button>
+            <input id="hideArea" type="hidden">
         </div>
     </div>
 </div>

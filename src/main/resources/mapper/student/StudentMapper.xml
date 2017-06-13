@@ -97,16 +97,16 @@
         UPDATE com_student
         <set>
             <if test="password !=null">
-                password=#{password,jdbcType=CHAR}
+                password=#{password,jdbcType=CHAR},
             </if>
             <if test="cellphone !=null">
-                cellphone=#{cellphone,jdbcType=CHAR}
+                cellphone=#{cellphone,jdbcType=CHAR},
             </if>
             <if test="gender !=null">
-                gender=#{gender,jdbcType=CHAR}
+                gender=#{gender,jdbcType=CHAR},
             </if>
             <if test="email !=null">
-                email=#{email,jdbcType=CHAR}
+                email=#{email,jdbcType=CHAR},
             </if>
         </set>
         where studentId=#{studentId,jdbcType=CHAR}
