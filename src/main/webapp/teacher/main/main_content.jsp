@@ -127,7 +127,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="modal"
-                           data-target="#teacher_main_modal">${teacher.name}</a>
+                           data-target="#teacher_main_modal">${currentTeacher.name}</a>
                     </li>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>
@@ -153,20 +153,20 @@
             <div class="modal-body">
                 <form id="teacher_main_form">
                     <label>教工号：<input name="teacherId" readonly type="text"
-                                      value="${teacher.teacherId}"></label>
+                                      value="${currentTeacher.teacherId}"></label>
                     <label>姓名：<input name="name" type="text"
-                                     value="${teacher.name}"></label>
+                                     value="${currentTeacher.name}"></label>
                     <label>性别：<select name="gender">
                         <option>男</option>
                         <option>女</option>
                     </select></label>
                     <label>教研室：<input name="office" type="text"
-                                      value="${teacher.office}"></label>
+                                      value="${currentTeacher.office}"></label>
                     <label>职称：<input name="position" type="text"
-                                     value="${teacher.position}"></label>
+                                     value="${currentTeacher.position}"></label>
                     <label>密码：<input name="password" type="text"
                                      onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"
-                                     value="${teacher.password}"></label>
+                                     value="${currentTeacher.password}"></label>
                 </form>
             </div>
             <div class="modal-footer">

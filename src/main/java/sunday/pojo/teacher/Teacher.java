@@ -1,12 +1,13 @@
 package sunday.pojo.teacher;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by yang on 2017/5/15.
  * At 15:51
  */
-public final class Teacher {
+public final class Teacher implements Serializable {
     //自增
     private short id;
     private String teacherId;

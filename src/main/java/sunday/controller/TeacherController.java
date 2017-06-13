@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ChapterKit;
@@ -51,23 +50,7 @@ public class TeacherController {
      * @return
      */
     private String getCurrentTeacherId() {
-        return (String) ShiroKit.getSession().getAttribute("currentTeacherId");
-    }
-
-    /**
-     * 获取当前教师用户的信息
-     *
-     * @param model
-     */
-    @ModelAttribute
-    public void getTeacher(Model model) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", getCurrentTeacherId());
-        }};
-        List<Teacher> teachers = teacherService.select(null, params);
-        if (null != teachers) {
-            model.addAttribute("teacher", teachers.get(0));
-        }
+        return ((Teacher) ShiroKit.getSession().getAttribute("currentTeacher")).getTeacherId();
     }
 
     /**

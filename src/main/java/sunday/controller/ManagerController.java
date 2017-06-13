@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * At 15:48
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/manager")
 public class ManagerController {
 }
