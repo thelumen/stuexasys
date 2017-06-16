@@ -5,15 +5,15 @@ package sunday.pojo.shiro;
  * At 19:11
  */
 public final class Role {
-    private short id;
+    private int id;
     private String name;
     private String remark;
 
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 

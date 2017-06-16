@@ -6,17 +6,17 @@ package sunday.pojo.school;
  */
 public final class TfQuestion {
     private long id;
-    private String courseId;
+    private Integer courseId;
     private String section;
-    private byte levels;
+    private int levels;
     private String content;
-    private byte result;
+    private int result;
 
     @Override
     public String toString() {
         return "TfQuestion{" +
                 "id=" + id +
-                ", courseId='" + courseId + '\'' +
+                ", courseId=" + courseId +
                 ", section='" + section + '\'' +
                 ", levels=" + levels +
                 ", content='" + content + '\'' +
@@ -32,11 +32,11 @@ public final class TfQuestion {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
@@ -48,11 +48,11 @@ public final class TfQuestion {
         this.section = section;
     }
 
-    public byte getLevels() {
+    public int getLevels() {
         return levels;
     }
 
-    public void setLevels(byte levels) {
+    public void setLevels(int levels) {
         this.levels = levels;
     }
 
@@ -64,11 +64,11 @@ public final class TfQuestion {
         this.content = content;
     }
 
-    public byte getResult() {
+    public int getResult() {
         return result;
     }
 
-    public void setResult(byte result) {
+    public void setResult(int result) {
         this.result = result;
     }
 }

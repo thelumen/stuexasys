@@ -8,48 +8,49 @@
         UPDATE com_grade
         <set>
             <if test="grade1 != 0">
-                grade1 = #{grade1,jdbcType=TINYINT},
+                grade1 = #{grade1,jdbcType=INTEGER},
             </if>
             <if test="grade2 != 0">
-                grade2 = #{grade2,jdbcType=TINYINT},
+                grade2 = #{grade2,jdbcType=INTEGER},
             </if>
             <if test="grade3 != 0">
-                grade3 = #{grade3,jdbcType=TINYINT},
+                grade3 = #{grade3,jdbcType=INTEGER},
             </if>
             <if test="grade4 != 0">
-                grade4 = #{grade4,jdbcType=TINYINT},
+                grade4 = #{grade4,jdbcType=INTEGER},
             </if>
             <if test="total != 0">
-                total = #{total,jdbcType=TINYINT},
+                total = #{total,jdbcType=INTEGER},
             </if>
         </set>
-        WHERE studentId = #{studentId,jdbcType=CHAR} AND courseId =
-        #{courseId,jdbcType=CHAR}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =
+        #{courseId,jdbcType=INTEGER}
     </update>
 
     <!--查询学生成绩-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.GradeTaken">
-        SELECT DISTINCT g.studentId AS studentId,s.name AS studentName,c.name AS
+        SELECT g.studentId AS studentId,s.name AS studentName,c.name AS
         courseName, g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS
         grade3,g.grade4 AS grade4,g.total AS total,p.name AS
         specialtyName,p.specialtyId AS specialtyId ,c.courseId AS courseId
         FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade
-        g,com_student s,com_specialty p,com_clazz_l_student cl
-        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
-        c.courseId=g.courseId AND g.studentId=s.studentId AND
-        cl.studentId=s.studentId AND cl.specialtyId=p.specialtyId
+        g,com_student s,com_specialty p
+        WHERE l.courseId=c.courseId AND l.specialtyId=p.specialtyId AND
+        l.teacherId=t.teacherId
+        AND g.courseId=c.courseId AND g.studentId=g.studentId AND
+        s.specialtyId=p.specialtyId
         <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=CHAR}
+            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
         </if>
         <if test="specialtyName != null">
-            AND p.name=#{specialtyName,jdbcType=CHAR}
+            AND p.name=#{specialtyName,jdbcType=VARCHAR}
         </if>
         <if test="specialtyId != null">
-            AND p.specialtyId=#{specialtyId,jdbcType=CHAR}
+            AND p.specialtyId=#{specialtyId,jdbcType=INTEGER}
         </if>
         <if test="courseId != null">
-            AND c.courseId=#{courseId,jdbcType=CHAR}
+            AND c.courseId=#{courseId,jdbcType=INTEGER}
         </if>
         ORDER BY p.specialtyId ASC
     </select>
@@ -57,8 +58,8 @@
     <!--更新附加题成绩-->
     <update id="updateAnother">
         UPDATE com_grade
-        SET grade4=#{score,jdbcType=TINYINT}
-        WHERE studentId = #{studentId,jdbcType=CHAR} AND courseId =
-        #{courseId,jdbcType=CHAR}
+        SET grade4=#{score,jdbcType=INTEGER}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =
+        #{courseId,jdbcType=INTEGER}
     </update>
 </mapper>

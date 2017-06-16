@@ -8,10 +8,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.manager.Manager;
+import sunday.pojo.school.Student;
 import sunday.pojo.shiro.Resource;
 import sunday.pojo.shiro.Role;
 import sunday.pojo.shiro.ShiroInfo;
-import sunday.pojo.school.Student;
 import sunday.pojo.teacher.Teacher;
 import sunday.service.manager.ManagerService;
 import sunday.service.shiro.ResourceService;
@@ -187,7 +187,7 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
 
-            ShiroKit.getSession().setAttribute("currentTeacherId", shiroInfo.getUserId());
+            ShiroKit.getSession().setAttribute("currentTeacher", teacher);
 
             return shiroInfo;
         }

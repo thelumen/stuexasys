@@ -10,48 +10,74 @@ import java.util.Date;
  * At 8:32
  */
 public final class ExamTaken {
-    private byte id;
-    private String courseId;
+    private int id;
+
+    private Integer courseId;
     private String courseName;
-    private String specialtyId;
+
+    private Integer specialtyId;
     private String specialtyName;
     //测验一
     private String content1;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date1;
-    private byte sign1;
+    private int sign1;
     //测验二
     private String content2;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date2;
-    private byte sign2;
+    private int sign2;
     //测验三
     private String content3;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date3;
-    private byte sign3;
+    private int sign3;
     //测验四
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date4;
-    private byte sign4;
+    private int sign4;
     //是否可以开始考试
-    private byte test;
+    private int test;
     //是否有考试信息
-    private byte started;
+    private int started;
 
-    public byte getId() {
+    @Override
+    public String toString() {
+        return "ExamTaken{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", specialtyId=" + specialtyId +
+                ", specialtyName='" + specialtyName + '\'' +
+                ", content1='" + content1 + '\'' +
+                ", date1=" + date1 +
+                ", sign1=" + sign1 +
+                ", content2='" + content2 + '\'' +
+                ", date2=" + date2 +
+                ", sign2=" + sign2 +
+                ", content3='" + content3 + '\'' +
+                ", date3=" + date3 +
+                ", sign3=" + sign3 +
+                ", date4=" + date4 +
+                ", sign4=" + sign4 +
+                ", test=" + test +
+                ", started=" + started +
+                '}';
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -63,11 +89,11 @@ public final class ExamTaken {
         this.courseName = courseName;
     }
 
-    public String getSpecialtyId() {
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
     }
 
@@ -95,11 +121,11 @@ public final class ExamTaken {
         this.date1 = date1;
     }
 
-    public byte getSign1() {
+    public int getSign1() {
         return sign1;
     }
 
-    public void setSign1(byte sign1) {
+    public void setSign1(int sign1) {
         this.sign1 = sign1;
     }
 
@@ -119,11 +145,11 @@ public final class ExamTaken {
         this.date2 = date2;
     }
 
-    public byte getSign2() {
+    public int getSign2() {
         return sign2;
     }
 
-    public void setSign2(byte sign2) {
+    public void setSign2(int sign2) {
         this.sign2 = sign2;
     }
 
@@ -143,11 +169,11 @@ public final class ExamTaken {
         this.date3 = date3;
     }
 
-    public byte getSign3() {
+    public int getSign3() {
         return sign3;
     }
 
-    public void setSign3(byte sign3) {
+    public void setSign3(int sign3) {
         this.sign3 = sign3;
     }
 
@@ -159,51 +185,27 @@ public final class ExamTaken {
         this.date4 = date4;
     }
 
-    public byte getSign4() {
+    public int getSign4() {
         return sign4;
     }
 
-    public void setSign4(byte sign4) {
+    public void setSign4(int sign4) {
         this.sign4 = sign4;
     }
 
-    public byte getTest() {
+    public int getTest() {
         return test;
     }
 
-    public void setTest(byte test) {
+    public void setTest(int test) {
         this.test = test;
     }
 
-    public byte getStarted() {
+    public int getStarted() {
         return started;
     }
 
-    public void setStarted(byte started) {
+    public void setStarted(int started) {
         this.started = started;
-    }
-
-    @Override
-    public String toString() {
-        return "ExamTaken{" +
-                "id=" + id +
-                ", courseId='" + courseId + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", specialtyId='" + specialtyId + '\'' +
-                ", specialtyName='" + specialtyName + '\'' +
-                ", content1='" + content1 + '\'' +
-                ", date1=" + date1 +
-                ", sign1=" + sign1 +
-                ", content2='" + content2 + '\'' +
-                ", date2=" + date2 +
-                ", sign2=" + sign2 +
-                ", content3='" + content3 + '\'' +
-                ", date3=" + date3 +
-                ", sign3=" + sign3 +
-                ", date4=" + date4 +
-                ", sign4=" + sign4 +
-                ", test=" + test +
-                ", started=" + started +
-                '}';
     }
 }

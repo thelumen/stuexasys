@@ -10,41 +10,84 @@ import java.util.Date;
  * At 14:53
  */
 public final class CourseTaken {
-    private String teacherId;
+    private Integer teacherId;
     private String teacherName;
-    private String courseId;
+
+    private Integer courseId;
     private String courseName;
-    private String specialtyId;
+
+    private Integer specialtyId;
     private String specialtyName;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date starttime;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endtime;
+
     //课程结束与否，false：结束了，true：没有
     private String on;
 
-    public String getTeacherId() {
+    @Override
+    public String toString() {
+        return "CourseTaken{" +
+                "teacherId=" + teacherId +
+                ", teacherName='" + teacherName + '\'' +
+                ", courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", specialtyId=" + specialtyId +
+                ", specialtyName='" + specialtyName + '\'' +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", on='" + on + '\'' +
+                '}';
+    }
+
+    public Integer getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(Integer teacherId) {
         this.teacherId = teacherId;
     }
 
-    public String getCourseId() {
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
-    public String getSpecialtyId() {
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
+    }
+
+    public String getSpecialtyName() {
+        return specialtyName;
+    }
+
+    public void setSpecialtyName(String specialtyName) {
+        this.specialtyName = specialtyName;
     }
 
     public Date getStarttime() {
@@ -63,50 +106,11 @@ public final class CourseTaken {
         this.endtime = endtime;
     }
 
-    public String getTeacherName() {
-        return teacherName;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getSpecialtyName() {
-        return specialtyName;
-    }
-
-    public void setSpecialtyName(String specialtyName) {
-        this.specialtyName = specialtyName;
-    }
-
     public String getOn() {
         return on;
     }
 
     public void setOn(String on) {
         this.on = on;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseTaken{" +
-                "teacherId='" + teacherId + '\'' +
-                ", teacherName='" + teacherName + '\'' +
-                ", courseId='" + courseId + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", specialtyId='" + specialtyId + '\'' +
-                ", specialtyName='" + specialtyName + '\'' +
-                ", starttime=" + starttime +
-                ", endtime=" + endtime +
-                ", on=" + on +
-                '}';
     }
 }

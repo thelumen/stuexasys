@@ -6,23 +6,32 @@ package sunday.pojo.school;
  * At 12:06
  */
 public final class Specialty {
-    private byte id;
-    private String specialtyId;
+    private int id;
+    private Integer specialtyId;
     private String name;
 
-    public byte getId() {
+    @Override
+    public String toString() {
+        return "Specialty{" +
+                "id=" + id +
+                ", specialtyId=" + specialtyId +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(byte id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getSpecialtyId() {
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
     }
 

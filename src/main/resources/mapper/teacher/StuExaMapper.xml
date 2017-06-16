@@ -34,7 +34,7 @@
         UPDATE com_examinfo
         <set>
             <if test="content1 != null">
-                content1 = #{content1,jdbcType=CHAR},
+                content1 = #{content1,jdbcType=VARCHAR},
             </if>
             <if test="date1 != null">
                 date1 = #{date1,jdbcType=DATE},
@@ -76,7 +76,7 @@
     <!--删除考试信息-->
     <delete id="deleteExamInfo" parameterType="java.lang.String">
         DELETE FROM com_examinfo
-        WHERE id=#{id,jdbcType=TINYINT}
+        WHERE id=#{id,jdbcType=INTEGER}
     </delete>
 
     <!--获取modal中table的考试信息-->
@@ -91,9 +91,9 @@
         UPDATE com_examinfo
         <set>
             <if test="test != null">
-                test = #{test,jdbcType=TINYINT},
+                test = #{test,jdbcType=INTEGER},
             </if>
         </set>
-        WHERE id=#{id,jdbcType=TINYINT}
+        WHERE id=#{id,jdbcType=INTEGER}
     </update>
 </mapper>

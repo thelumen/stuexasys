@@ -6,23 +6,43 @@ package sunday.pojo.teacher;
  * At 18:47
  */
 public final class GradeTaken {
-    private String studentId;
+    //学生信息
+    private Integer studentId;
     private String studentName;
-    private String specialtyId;
+    //专业信息
+    private Integer specialtyId;
     private String specialtyName;
-    private String courseId;
+    //课程信息
+    private Integer courseId;
     private String courseName;
-    private byte grade1;
-    private byte grade2;
-    private byte grade3;
-    private byte grade4;
-    private byte total;
+    private int grade1;
+    private int grade2;
+    private int grade3;
+    private int grade4;
+    private int total;
 
-    public String getStudentId() {
+    @Override
+    public String toString() {
+        return "GradeTaken{" +
+                "studentId=" + studentId +
+                ", studentName='" + studentName + '\'' +
+                ", specialtyId=" + specialtyId +
+                ", specialtyName='" + specialtyName + '\'' +
+                ", courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", grade1=" + grade1 +
+                ", grade2=" + grade2 +
+                ", grade3=" + grade3 +
+                ", grade4=" + grade4 +
+                ", total=" + total +
+                '}';
+    }
+
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -34,27 +54,11 @@ public final class GradeTaken {
         this.studentName = studentName;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getSpecialtyId() {
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
     }
 
@@ -66,43 +70,59 @@ public final class GradeTaken {
         this.specialtyName = specialtyName;
     }
 
-    public byte getGrade1() {
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public int getGrade1() {
         return grade1;
     }
 
-    public void setGrade1(byte grade1) {
+    public void setGrade1(int grade1) {
         this.grade1 = grade1;
     }
 
-    public byte getGrade2() {
+    public int getGrade2() {
         return grade2;
     }
 
-    public void setGrade2(byte grade2) {
+    public void setGrade2(int grade2) {
         this.grade2 = grade2;
     }
 
-    public byte getGrade3() {
+    public int getGrade3() {
         return grade3;
     }
 
-    public void setGrade3(byte grade3) {
+    public void setGrade3(int grade3) {
         this.grade3 = grade3;
     }
 
-    public byte getGrade4() {
+    public int getGrade4() {
         return grade4;
     }
 
-    public void setGrade4(byte grade4) {
+    public void setGrade4(int grade4) {
         this.grade4 = grade4;
     }
 
-    public byte getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(byte total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
