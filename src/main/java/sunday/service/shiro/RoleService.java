@@ -50,7 +50,7 @@ public interface RoleService {
      * @param roleId
      * @return
      */
-    boolean link2Teacher(short teacherId, short roleId);
+    boolean link2Teacher(Integer teacherId, Integer roleId);
 
     /**
      * 绑定普通管理员-角色

@@ -5,7 +5,7 @@
     <!--新增考试信息-->
     <insert id="insertExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
         INSERT INTO com_examinfo(specialtyId,courseId,started)
-        VALUES (#{specialtyId,jdbcType=CHAR},#{courseId,jdbcType=CHAR},#{started,jdbcType=TINYINT})
+        VALUES (#{specialtyId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{started,jdbcType=INTEGER})
     </insert>
 
     <!--查询考试信息-->
@@ -22,10 +22,10 @@
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
         l.specialtyId=s.specialtyId AND s.specialtyId=e.specialtyId
         <if test="specialtyId != null">
-            AND s.specialtyId=#{specialtyId,jdbcType=CHAR}
+            AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
         </if>
         <if test="courseId != null">
-            AND c.courseId=#{courseId,jdbcType=CHAR}
+            AND c.courseId=#{courseId,jdbcType=INTEGER}
         </if>
     </select>
 
@@ -40,37 +40,37 @@
                 date1 = #{date1,jdbcType=DATE},
             </if>
             <if test="sign1 != null">
-                sign1 = #{sign1,jdbcType=TINYINT},
+                sign1 = #{sign1,jdbcType=INTEGER},
             </if>
             <if test="content2 != null">
-                content2 = #{content2,jdbcType=CHAR},
+                content2 = #{content2,jdbcType=VARCHAR},
             </if>
             <if test="date2 != null">
                 date2 = #{date2,jdbcType=DATE},
             </if>
             <if test="sign2 != null">
-                sign2 = #{sign2,jdbcType=TINYINT},
+                sign2 = #{sign2,jdbcType=INTEGER},
             </if>
             <if test="content3 != null">
-                content3 = #{content3,jdbcType=CHAR},
+                content3 = #{content3,jdbcType=VARCHAR},
             </if>
             <if test="date3 != null">
                 date3 = #{date3,jdbcType=DATE},
             </if>
             <if test="sign3 != null">
-                sign3 = #{sign3,jdbcType=TINYINT},
+                sign3 = #{sign3,jdbcType=INTEGER},
             </if>
             <if test="date4 != null">
                 date4 = #{date4,jdbcType=DATE},
             </if>
             <if test="sign4 != null">
-                sign4 = #{sign4,jdbcType=TINYINT},
+                sign4 = #{sign4,jdbcType=INTEGER},
             </if>
             <if test="started != null">
-                started = #{started,jdbcType=TINYINT},
+                started = #{started,jdbcType=INTEGER},
             </if>
         </set>
-        WHERE id = #{id,jdbcType=TINYINT}
+        WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
     <!--删除考试信息-->

@@ -88,11 +88,10 @@ public class ShiroTest {
     //教师-角色关联
     @Test
     public void t3() {
-        short roleId = (short) 3;
         List<Teacher> teachers = teacherService.select(null, null);
         for (Teacher teacher : teachers) {
-            short teacherId = teacher.getId();
-            if (roleService.link2Teacher(teacherId, roleId)) {
+            int teacherId = teacher.getId();
+            if (roleService.link2Teacher(teacherId, 3)) {
                 out.print(" " + teacher.getId() + "绑定角色成功！");
             } else {
                 out.print(" " + teacher.getId() + "绑定角色失败！");

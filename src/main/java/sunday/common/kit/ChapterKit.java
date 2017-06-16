@@ -2,9 +2,7 @@ package sunday.common.kit;
 
 import sunday.pojo.school.SingleQuestion;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 目前只用于选择题
@@ -16,23 +14,27 @@ public final class ChapterKit {
     }
 
     //冒泡排序
-    public static ArrayList<SingleQuestion> bubbleSort(List<SingleQuestion> chapters) {
-        SingleQuestion[] chaptersArray = (SingleQuestion[]) chapters.toArray(new SingleQuestion[chapters.size()]);
+    public static ArrayList<String> bubbleSort(List<SingleQuestion> chapters) {
+        Set<String> screen = new HashSet<>();
+        for (SingleQuestion question : chapters) {
+            screen.add(question.getSection());
+        }
+        String[] chaptersArray = (String[]) screen.toArray(new String[screen.size()]);
         for (int i = 0; i < chaptersArray.length - 1; i++) {
             for (int j = chaptersArray.length - 1; j > i; j--) {
-                char char1 = chaptersArray[j].getSection().charAt(1);
-                char char2 = chaptersArray[j - 1].getSection().charAt(1);
+                char char1 = chaptersArray[j].charAt(1);
+                char char2 = chaptersArray[j - 1].charAt(1);
                 if (ChapterKit.string2int(char1) < ChapterKit.string2int(char2)) {
                     swap(chaptersArray, j - 1, j);
                 }
             }
         }
-        return new ArrayList<SingleQuestion>(Arrays.asList(chaptersArray));
+        return new ArrayList<>(Arrays.asList(chaptersArray));
     }
 
     //冒泡排序——转换
-    private static void swap(SingleQuestion[] chapters, int i, int j) {
-        SingleQuestion chapter = chapters[i];
+    private static void swap(String[] chapters, int i, int j) {
+        String chapter = chapters[i];
         chapters[i] = chapters[j];
         chapters[j] = chapter;
     }

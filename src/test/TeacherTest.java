@@ -14,6 +14,7 @@ import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,9 +73,9 @@ public class TeacherTest {
         }};
         List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
         if (null != questions) {
-            List<SingleQuestion> target = ChapterKit.bubbleSort(questions);
-            for (SingleQuestion s : target) {
-                out.print(s.getSection() + " ");
+            ArrayList<String> target = ChapterKit.bubbleSort(questions);
+            for (String s : target) {
+                out.print(s + " ");
             }
         }
     }
@@ -99,7 +100,7 @@ public class TeacherTest {
     public void t6() {
         for (int i = 0; i < 8; i++) {
             Course course = new Course();
-            course.setCourseId("1000000" + i);
+            course.setCourseId(Integer.valueOf("1000000" + i));
             course.setName("数据结构" + i);
             course.setCredit(new Byte("2"));
             course.setPeriod(new Byte("12"));
@@ -123,7 +124,7 @@ public class TeacherTest {
     public void t5() {
         for (int i = 0; i < 6; i++) {
             Specialty specialty = new Specialty();
-            specialty.setSpecialtyId("14040" + i);
+            specialty.setSpecialtyId(Integer.valueOf("14040" + i));
             specialty.setName("计算机" + i + "班");
             if (speCouService.insertSpecialty(specialty) > 0) {
                 out.print(i + "：成功 ");
@@ -170,7 +171,7 @@ public class TeacherTest {
     public void t2() {
         for (int i = 0; i < 3; i++) {
             Teacher teacher = new Teacher();
-            teacher.setTeacherId("14040" + i);
+            teacher.setTeacherId(Integer.valueOf("14040" + i));
             teacher.setPassword(EncryptKit.md5("12345"));
             if (teacherService.insert(teacher) > 0) {
                 out.print(i + " 成功！ ");
@@ -182,7 +183,7 @@ public class TeacherTest {
     @Test
     public void t1() {
         Teacher teacher = new Teacher();
-        teacher.setTeacherId("140406");
+        teacher.setTeacherId(Integer.valueOf("140406"));
         teacher.setPassword("123456");
         if (teacherService.insert(teacher) > 0) {
             List<Teacher> teachers = teacherService.select(null, null);

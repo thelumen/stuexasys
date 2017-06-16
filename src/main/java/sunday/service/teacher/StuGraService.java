@@ -37,5 +37,5 @@ public interface StuGraService {
      * @param score
      * @return
      */
-    boolean updateAnother(String studentId, String courseId, Byte score);
+    boolean updateAnother(Integer studentId, Integer courseId, int score);
 }

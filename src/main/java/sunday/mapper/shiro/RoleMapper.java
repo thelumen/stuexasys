@@ -52,7 +52,7 @@ public interface RoleMapper {
      * @param roleId
      * @return
      */
-    int link2Teacher(@Param("teacherId") short teacherId, @Param("roleId") short roleId);
+    int link2Teacher(@Param("teacherId") Integer teacherId, @Param("roleId") Integer roleId);
 
     /**
      * 绑定普通管理员-角色

@@ -28,7 +28,7 @@ public interface StuGraMapper {
      * @param studentGrade
      * @return
      */
-    int insertGrade(GradeTaken studentGrade);
+    int updateGrade(GradeTaken studentGrade);
 
     /**
      * 更新附加题成绩
@@ -38,5 +38,5 @@ public interface StuGraMapper {
      * @param score
      * @return
      */
-    int updateAnother(@Param("studentId") String studentId, @Param("courseId") String courseId, @Param("score") Byte score);
+    int updateAnother(@Param("studentId") Integer studentId, @Param("courseId") Integer courseId, @Param("score") int score);
 }
