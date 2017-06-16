@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public final class Teacher implements Serializable {
     //自增
-    private short id;
-    private String teacherId;
+    private int id;
+    private Integer teacherId;
     private String password;
     private String name;
     private String gender;
@@ -23,7 +23,7 @@ public final class Teacher implements Serializable {
     public String toString() {
         return "Teacher{" +
                 "id=" + id +
-                ", teacherId='" + teacherId + '\'' +
+                ", teacherId=" + teacherId +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
@@ -34,28 +34,28 @@ public final class Teacher implements Serializable {
                 '}';
     }
 
-    public String getTeacherId() {
-        return teacherId;
+    public int getId() {
+        return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public short getId() {
-        return id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {

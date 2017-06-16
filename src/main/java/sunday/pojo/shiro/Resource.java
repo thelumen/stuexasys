@@ -5,17 +5,17 @@ package sunday.pojo.shiro;
  * At 19:11
  */
 public final class Resource {
-    private short id;
+    private int id;
     private String name;
     private String remark;
     private String permission;
     private String url;
 
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 

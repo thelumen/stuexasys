@@ -6,25 +6,36 @@ package sunday.pojo.school;
  * At 12:28
  */
 public final class Course {
-    private short id;
-    private String courseId;
+    private int id;
+    private Integer courseId;
     private String name;
-    private byte period;
-    private byte credit;
+    private int period;
+    private int credit;
 
-    public short getId() {
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", name='" + name + '\'' +
+                ", period=" + period +
+                ", credit=" + credit +
+                '}';
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -36,19 +47,19 @@ public final class Course {
         this.name = name;
     }
 
-    public byte getPeriod() {
+    public int getPeriod() {
         return period;
     }
 
-    public void setPeriod(byte period) {
+    public void setPeriod(int period) {
         this.period = period;
     }
 
-    public byte getCredit() {
+    public int getCredit() {
         return credit;
     }
 
-    public void setCredit(byte credit) {
+    public void setCredit(int credit) {
         this.credit = credit;
     }
 }

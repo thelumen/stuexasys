@@ -11,10 +11,10 @@ import sunday.common.kit.ChapterKit;
 import sunday.common.kit.EncryptKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
+import sunday.controller.common.CommonController;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.*;
 import sunday.pojo.teacher.*;
-import sunday.service.teacher.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,29 +27,14 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/teacher")
-public class TeacherController {
-
-    @javax.annotation.Resource(name = "teacherService")
-    private TeacherService teacherService;
-
-    @javax.annotation.Resource(name = "speCouService")
-    private SpeCouService speCouService;
-
-    @javax.annotation.Resource(name = "stuGraService")
-    private StuGraService stuGraService;
-
-    @javax.annotation.Resource(name = "stuExaService")
-    private StuExaService stuExaService;
-
-    @javax.annotation.Resource(name = "teaQueService")
-    private TeaQueService teaQueService;
+public class TeacherController extends CommonController {
 
     /**
      * 获取当前登录教师id
      *
      * @return
      */
-    private String getCurrentTeacherId() {
+    private Integer getCurrentTeacherId() {
         return ((Teacher) ShiroKit.getSession().getAttribute("currentTeacher")).getTeacherId();
     }
 
@@ -413,8 +398,8 @@ public class TeacherController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> takeExamInfo(@PathVariable("courseId") String courseId,
-                                            @PathVariable("specialtyId") String specialtyId) {
+    public Map<String, Object> takeExamInfo(@PathVariable("courseId") Integer courseId,
+                                            @PathVariable("specialtyId") Integer specialtyId) {
         Map<String, Object> info = new HashMap<>();
 
         Map<String, Object> specouInfo = new HashMap<String, Object>() {{
@@ -430,7 +415,7 @@ public class TeacherController {
         ExamTaken exam = new ExamTaken();
         exam.setCourseId(courseId);
         exam.setSpecialtyId(specialtyId);
-        exam.setStarted(new Byte("1"));
+        exam.setStarted(1);
 
         stuExaService.insertExamInfo(exam);
 
@@ -486,9 +471,9 @@ public class TeacherController {
     public Map<String, Object> getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
         Map<String, Object> info = new HashMap<>();
         //sign信号只有一个为1才能被保存
-        byte[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
+        int[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
         int i = 0;
-        for (byte b : signs) {
+        for (Integer b : signs) {
             if (b == (byte) 1) {
                 i++;
             }
@@ -614,12 +599,12 @@ public class TeacherController {
             float total;
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
             //采用四舍五入方式计算总成绩
-            studentGrade.setTotal(new Byte(String.valueOf(Math.round(total))));
+            studentGrade.setTotal(Integer.parseInt((String.valueOf(Math.round(total)))));
             //不更新
-            studentGrade.setGrade1((byte) 0);
-            studentGrade.setGrade2((byte) 0);
-            studentGrade.setGrade3((byte) 0);
-            studentGrade.setGrade4((byte) 0);
+            studentGrade.setGrade1(0);
+            studentGrade.setGrade2(0);
+            studentGrade.setGrade3(0);
+            studentGrade.setGrade4(0);
 
             stuGraService.updateGrade(studentGrade);
         }

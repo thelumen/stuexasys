@@ -9,13 +9,13 @@ public final class AnotherTaken {
     //附加题标号
     private long id;
     //课程信息
-    private String courseId;
+    private Integer courseId;
     private String courseName;
     //专业信息
-    private String specialtyId;
+    private Integer specialtyId;
     private String specialtyName;
     //学生信息
-    private String studentId;
+    private Integer studentId;
     private String studentName;
     //附加题内容
     private String content;
@@ -24,31 +24,23 @@ public final class AnotherTaken {
     //学生回答
     private String studentAnswer;
     //成绩
-    private byte score;
+    private int score;
 
     @Override
     public String toString() {
         return "AnotherTaken{" +
                 "id=" + id +
-                ", courseId='" + courseId + '\'' +
+                ", courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
-                ", specialtyId='" + specialtyId + '\'' +
+                ", specialtyId=" + specialtyId +
                 ", specialtyName='" + specialtyName + '\'' +
-                ", studentId='" + studentId + '\'' +
+                ", studentId=" + studentId +
                 ", studentName='" + studentName + '\'' +
                 ", content='" + content + '\'' +
                 ", result='" + result + '\'' +
                 ", studentAnswer='" + studentAnswer + '\'' +
                 ", score=" + score +
                 '}';
-    }
-
-    public byte getScore() {
-        return score;
-    }
-
-    public void setScore(byte score) {
-        this.score = score;
     }
 
     public long getId() {
@@ -59,11 +51,11 @@ public final class AnotherTaken {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -75,11 +67,11 @@ public final class AnotherTaken {
         this.courseName = courseName;
     }
 
-    public String getSpecialtyId() {
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
     }
 
@@ -91,11 +83,11 @@ public final class AnotherTaken {
         this.specialtyName = specialtyName;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
@@ -129,5 +121,13 @@ public final class AnotherTaken {
 
     public void setStudentAnswer(String studentAnswer) {
         this.studentAnswer = studentAnswer;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

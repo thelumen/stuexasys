@@ -7,7 +7,7 @@ package sunday.pojo.school;
  */
 public final class Another {
     private long id;
-    private String courseId;
+    private Integer courseId;
     private String content;
     private String result;
 
@@ -15,7 +15,7 @@ public final class Another {
     public String toString() {
         return "Another{" +
                 "id=" + id +
-                ", courseId='" + courseId + '\'' +
+                ", courseId=" + courseId +
                 ", content='" + content + '\'' +
                 ", result='" + result + '\'' +
                 '}';
@@ -29,11 +29,11 @@ public final class Another {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 

@@ -7,9 +7,9 @@ package sunday.pojo.school;
  */
 public final class SingleQuestion {
     private long id;
-    private String courseId;
+    private Integer courseId;
     private String section;
-    private byte levels;
+    private int levels;
     private String content;
     private String que1;
     private String que2;
@@ -21,7 +21,7 @@ public final class SingleQuestion {
     public String toString() {
         return "SingleQuestion{" +
                 "id=" + id +
-                ", courseId='" + courseId + '\'' +
+                ", courseId=" + courseId +
                 ", section='" + section + '\'' +
                 ", levels=" + levels +
                 ", content='" + content + '\'' +
@@ -41,11 +41,11 @@ public final class SingleQuestion {
         this.id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
@@ -57,11 +57,11 @@ public final class SingleQuestion {
         this.section = section;
     }
 
-    public byte getLevels() {
+    public int getLevels() {
         return levels;
     }
 
-    public void setLevels(byte levels) {
+    public void setLevels(int levels) {
         this.levels = levels;
     }
 

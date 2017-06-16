@@ -7,22 +7,26 @@ import java.util.Date;
  * At 19:06
  */
 public final class Manager {
-    private short id;
-    private String managerId;
+    private int id;
+    private int managerId;
     private String password;
     private String name;
     private Date logintime;
     private String ip;
 
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setManagerId(String managerId) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
         this.managerId = managerId;
     }
 

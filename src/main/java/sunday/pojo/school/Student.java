@@ -7,35 +7,24 @@ package sunday.pojo.school;
 public final class Student {
     //自增
     private long id;
-    private String studentId;
+    private Integer studentId;
     private String password;
     private String name;
-    private String specialtyId;
+    private Integer specialtyId;
     private String gender;
     private String cellphone;
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setSpecialtyId(String specialtyId) {
-        this.specialtyId = specialtyId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSpecialtyId() {
-        return specialtyId;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", studentId=" + studentId +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", specialtyId=" + specialtyId +
+                ", gender='" + gender + '\'' +
+                ", cellphone='" + cellphone + '\'' +
+                '}';
     }
 
     public long getId() {
@@ -46,12 +35,36 @@ public final class Student {
         this.id = id;
     }
 
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
     }
 
     public String getGender() {

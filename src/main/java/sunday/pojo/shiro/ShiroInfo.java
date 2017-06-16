@@ -7,20 +7,20 @@ import java.util.Set;
  * Created by yang on 2017/5/22.
  * At 17:27
  */
-public final class ShiroInfo implements Serializable{
-    private String userId;
+public final class ShiroInfo implements Serializable {
+    private Integer userId;
     private String userName;
-    private String userLoginName;
+    private Integer userLoginName;
     private String userLoginPassword;
 
     private Set<String> roles;
     private Set<String> permissions;
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -32,11 +32,11 @@ public final class ShiroInfo implements Serializable{
         this.userName = userName;
     }
 
-    public String getUserLoginName() {
+    public Integer getUserLoginName() {
         return userLoginName;
     }
 
-    public void setUserLoginName(String userLoginName) {
+    public void setUserLoginName(Integer userLoginName) {
         this.userLoginName = userLoginName;
     }
 

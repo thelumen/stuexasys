@@ -6,26 +6,38 @@ package sunday.pojo.dto;
  * At 8:59
  */
 public final class GradePercent {
-    private String specialtyId;
-    private String courseId;
+    private Integer specialtyId;
+    private Integer courseId;
     private String percent1;
     private String percent2;
     private String percent3;
     private String percent4;
 
-    public String getSpecialtyId() {
+    @Override
+    public String toString() {
+        return "GradePercent{" +
+                "specialtyId=" + specialtyId +
+                ", courseId=" + courseId +
+                ", percent1='" + percent1 + '\'' +
+                ", percent2='" + percent2 + '\'' +
+                ", percent3='" + percent3 + '\'' +
+                ", percent4='" + percent4 + '\'' +
+                '}';
+    }
+
+    public Integer getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(String specialtyId) {
+    public void setSpecialtyId(Integer specialtyId) {
         this.specialtyId = specialtyId;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
