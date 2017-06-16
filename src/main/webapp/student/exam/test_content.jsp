@@ -49,10 +49,12 @@
             //提交到服务器
             function submitTest() {
                 var an = $("#hideArea").val().split(",");
-                for (var i = 1; i < 26; i++) {
-                    $('#single-i')
-                }
-                alert("提交成功"+an);
+//                for (var i = 1; i < 26; i++) {
+//                    $('#single-i')
+//                }
+                var testForm=$("#testForm:checked").value;
+//                var testJson = JSON.stringify(testForm);.serializeObject()
+                alert("提交成功" + testForm);
             }
         });
     </script>
@@ -92,27 +94,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4 id="countDownTxt">
-            </h4>
-            <h2>一，选择题（共20题）</h2>
-            <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
-                <p style="word-break: break-all">${statusSingle.count}.${testPaperSingle.name}</p>
-                <p><label>A.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que1}</label></p>
-                <p><label>B.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que2}</label></p>
-                <p><label>C.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que3}</label></p>
-                <p><label>D.<input type="radio" name="single-${statusSingle.count}">${testPaperSingle.que4}</label></p>
-                <hr>
-            </c:forEach>
-            <h2>二，判断题（共5题）</h2>
-            <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
-                <p style="word-break: break-all">${statusTf.count}.${testPaperTf.name}</p>
-                <p><label><input type="radio" name="tf-${statusTf.count}">正确</label></p>
-                <p><label><input type="radio" name="tf-${statusTf.count}">错误</label></p>
-                <hr>
-            </c:forEach>
-            <button type="button" id="submitTestPaper" class="btn btn-primary">
-                <label>提交试卷</label>
-            </button>
+            <h4 id="countDownTxt"></h4>
+            <form id="testForm">
+                <h2>一，选择题（共20题）</h2>
+                <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
+                    <p style="word-break: break-all">${statusSingle.count}.${testPaperSingle.name}</p>
+                    <p><label>A.<input type="radio" name="single-${statusSingle.count}" value="1">${testPaperSingle.que1}</label>
+                    </p>
+                    <p><label>B.<input type="radio" name="single-${statusSingle.count}" value="2">${testPaperSingle.que2}</label>
+                    </p>
+                    <p><label>C.<input type="radio" name="single-${statusSingle.count}" value="3">${testPaperSingle.que3}</label>
+                    </p>
+                    <p><label>D.<input type="radio" name="single-${statusSingle.count}" value="4">${testPaperSingle.que4}</label>
+                    </p>
+                    <hr>
+                </c:forEach>
+                <h2>二，判断题（共5题）</h2>
+                <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
+                    <p style="word-break: break-all">${statusTf.count}.${testPaperTf.name}</p>
+                    <p><label><input type="radio" name="tf-${statusTf.count}" value="1">正确</label></p>
+                    <p><label><input type="radio" name="tf-${statusTf.count}" value="2">错误</label></p>
+                    <hr>
+                </c:forEach>
+                <button type="button" id="submitTestPaper" class="btn btn-primary">
+                    <label>提交试卷</label>
+                </button>
+            </form>
             <input id="hideArea" type="hidden">
         </div>
     </div>

@@ -29,8 +29,8 @@ public class StudentController {
      *
      * @return 当前登录学生的id
      */
-    private String getCurrentStudentId() {
-        return (String) ShiroKit.getSession().getAttribute("currentStudentId");
+    private Integer getCurrentStudentId() {
+        return (Integer) ShiroKit.getSession().getAttribute("currentStudentId");
     }
 
     /**
@@ -141,7 +141,7 @@ public class StudentController {
      */
     @RequestMapping(value = "/readyTest", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
+    public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         Map<String, Object> data = new HashMap<>();
         data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent());
@@ -155,10 +155,10 @@ public class StudentController {
      */
     @RequestMapping(value = "/startTest", method = RequestMethod.GET)
     public String startTest(HttpServletRequest request, Model model) {
-        String examInfo1=request.getParameter("examInfo");
+        String examInfo1 = request.getParameter("examInfo");
         String[] s = examInfo1.split("_");
         ExamInfo examInfo = new ExamInfo();
-        examInfo.setCourseId(s[0]);
+        examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));

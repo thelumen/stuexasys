@@ -256,11 +256,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int insertStudentSpecialty(Student student) {
-        return studentMapper.insertStudentSpecialty(student);
-    }
-
-    @Override
     public Boolean update(StudentInfo studentInfo) {
         int count = 0;
         Map<String, Object> params = new HashMap<String, Object>() {{

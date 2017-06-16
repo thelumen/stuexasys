@@ -4,21 +4,13 @@ package sunday.pojo.student;
  * Created by 花间一壶酒 on 2017/5/31.
  */
 public final class StudentTaken {
-    private String studentId;
+    private Integer studentId;
     private String password;
     private String name;
     private String specialtyName;
     private String gender;
     private String cellphone;
     private String email;
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
 
     public String getPassword() {
         return password;
@@ -66,6 +58,14 @@ public final class StudentTaken {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
     }
 
     @Override

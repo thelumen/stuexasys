@@ -13,8 +13,8 @@ public final class CourseTaken {
     private Date startTime;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
-    private Byte period;
-    private Byte credit;
+    private Integer period;
+    private Integer credit;
 
     public String getCourseName() {
         return courseName;
@@ -40,19 +40,19 @@ public final class CourseTaken {
         this.endTime = endTime;
     }
 
-    public Byte getPeriod() {
+    public Integer getPeriod() {
         return period;
     }
 
-    public void setPeriod(Byte period) {
+    public void setPeriod(Integer period) {
         this.period = period;
     }
 
-    public Byte getCredit() {
+    public Integer getCredit() {
         return credit;
     }
 
-    public void setCredit(Byte credit) {
+    public void setCredit(Integer credit) {
         this.credit = credit;
     }
 

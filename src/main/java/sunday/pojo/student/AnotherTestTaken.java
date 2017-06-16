@@ -5,7 +5,7 @@ package sunday.pojo.student;
  */
 public final class AnotherTestTaken {
     private Long Id;
-    private String courseId;
+    private Integer courseId;
     private String content;
 
     public Long getId() {
@@ -16,11 +16,11 @@ public final class AnotherTestTaken {
         Id = id;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 

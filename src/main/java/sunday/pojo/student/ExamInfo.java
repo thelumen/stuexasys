@@ -9,14 +9,14 @@ import java.util.Date;
  */
 public final class ExamInfo {
     private Long Id;
-    private String courseId;
+    private Integer courseId;
     private String courseName;
     private String content;
     private String testNum;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     //是否有考试信息
-    private byte test;
+    private Integer test;
 
     public Long getId() {
         return Id;
@@ -24,14 +24,6 @@ public final class ExamInfo {
 
     public void setId(Long id) {
         Id = id;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
     }
 
     public String getCourseName() {
@@ -58,11 +50,19 @@ public final class ExamInfo {
         this.date = date;
     }
 
-    public byte getTest() {
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getTest() {
         return test;
     }
 
-    public void setTest(byte test) {
+    public void setTest(Integer test) {
         this.test = test;
     }
 

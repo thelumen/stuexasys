@@ -8,39 +8,31 @@ import java.util.Date;
  * Created by 花间一壶酒 on 2017/6/3.
  */
 public final class ExamTaken {
-    private String courseId;
+    private Integer courseId;
     private String courseName;
     //测验一
     private String content1;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date1;
-    private byte sign1;
+    private Integer sign1;
     //测验二
     private String content2;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date2;
-    private byte sign2;
+    private Integer sign2;
     //测验三
     private String content3;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date3;
-    private byte sign3;
+    private Integer sign3;
     //测验四
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date4;
-    private byte sign4;
+    private Integer sign4;
     //是否可以开始考试
-    private byte test;
+    private Integer test;
     //是否有考试信息
-    private byte started;
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
+    private Integer started;
 
     public String getCourseName() {
         return courseName;
@@ -66,14 +58,6 @@ public final class ExamTaken {
         this.date1 = date1;
     }
 
-    public byte getSign1() {
-        return sign1;
-    }
-
-    public void setSign1(byte sign1) {
-        this.sign1 = sign1;
-    }
-
     public String getContent2() {
         return content2;
     }
@@ -88,14 +72,6 @@ public final class ExamTaken {
 
     public void setDate2(Date date2) {
         this.date2 = date2;
-    }
-
-    public byte getSign2() {
-        return sign2;
-    }
-
-    public void setSign2(byte sign2) {
-        this.sign2 = sign2;
     }
 
     public String getContent3() {
@@ -114,14 +90,6 @@ public final class ExamTaken {
         this.date3 = date3;
     }
 
-    public byte getSign3() {
-        return sign3;
-    }
-
-    public void setSign3(byte sign3) {
-        this.sign3 = sign3;
-    }
-
     public Date getDate4() {
         return date4;
     }
@@ -130,27 +98,59 @@ public final class ExamTaken {
         this.date4 = date4;
     }
 
-    public byte getSign4() {
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getSign1() {
+        return sign1;
+    }
+
+    public void setSign1(Integer sign1) {
+        this.sign1 = sign1;
+    }
+
+    public Integer getSign2() {
+        return sign2;
+    }
+
+    public void setSign2(Integer sign2) {
+        this.sign2 = sign2;
+    }
+
+    public Integer getSign3() {
+        return sign3;
+    }
+
+    public void setSign3(Integer sign3) {
+        this.sign3 = sign3;
+    }
+
+    public Integer getSign4() {
         return sign4;
     }
 
-    public void setSign4(byte sign4) {
+    public void setSign4(Integer sign4) {
         this.sign4 = sign4;
     }
 
-    public byte getTest() {
+    public Integer getTest() {
         return test;
     }
 
-    public void setTest(byte test) {
+    public void setTest(Integer test) {
         this.test = test;
     }
 
-    public byte getStarted() {
+    public Integer getStarted() {
         return started;
     }
 
-    public void setStarted(byte started) {
+    public void setStarted(Integer started) {
         this.started = started;
     }
 

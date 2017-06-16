@@ -21,23 +21,6 @@ public final class GradeTaken {
     private int grade4;
     private int total;
 
-    @Override
-    public String toString() {
-        return "GradeTaken{" +
-                "studentId=" + studentId +
-                ", studentName='" + studentName + '\'' +
-                ", specialtyId=" + specialtyId +
-                ", specialtyName='" + specialtyName + '\'' +
-                ", courseId=" + courseId +
-                ", courseName='" + courseName + '\'' +
-                ", grade1=" + grade1 +
-                ", grade2=" + grade2 +
-                ", grade3=" + grade3 +
-                ", grade4=" + grade4 +
-                ", total=" + total +
-                '}';
-    }
-
     public Integer getStudentId() {
         return studentId;
     }

@@ -5,11 +5,11 @@ package sunday.pojo.student;
  */
 public final class TfTaken {
     private Long Id;
-    private String courseId;
+    private Integer courseId;
     private String section;
-    private Byte levels;
+    private Integer levels;
     private String name;
-    private String result;
+    private Integer result;
 
     public Long getId() {
         return Id;
@@ -17,14 +17,6 @@ public final class TfTaken {
 
     public void setId(Long id) {
         Id = id;
-    }
-
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
     }
 
     public String getSection() {
@@ -35,14 +27,6 @@ public final class TfTaken {
         this.section = section;
     }
 
-    public Byte getLevels() {
-        return levels;
-    }
-
-    public void setLevels(Byte levels) {
-        this.levels = levels;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,11 +35,27 @@ public final class TfTaken {
         this.name = name;
     }
 
-    public String getResult() {
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Integer levels) {
+        this.levels = levels;
+    }
+
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 }

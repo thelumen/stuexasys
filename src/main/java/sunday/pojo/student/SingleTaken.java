@@ -5,9 +5,9 @@ package sunday.pojo.student;
  */
 public final class SingleTaken {
     private Long Id;
-    private String courseId;
+    private Integer courseId;
     private String section;
-    private Byte levels;
+    private Integer levels;
     private String name;
     private String que1;
     private String que2;
@@ -23,28 +23,12 @@ public final class SingleTaken {
         Id = id;
     }
 
-    public String getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
     public String getSection() {
         return section;
     }
 
     public void setSection(String section) {
         this.section = section;
-    }
-
-    public Byte getLevels() {
-        return levels;
-    }
-
-    public void setLevels(Byte levels) {
-        this.levels = levels;
     }
 
     public String getName() {
@@ -95,4 +79,19 @@ public final class SingleTaken {
         this.result = result;
     }
 
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Integer levels) {
+        this.levels = levels;
+    }
 }

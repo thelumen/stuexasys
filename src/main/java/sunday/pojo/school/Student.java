@@ -23,19 +23,6 @@ public final class Student {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", studentId=" + studentId +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", specialtyId=" + specialtyId +
-                ", gender='" + gender + '\'' +
-                ", cellphone='" + cellphone + '\'' +
-                '}';
-    }
-
     public long getId() {
         return id;
     }

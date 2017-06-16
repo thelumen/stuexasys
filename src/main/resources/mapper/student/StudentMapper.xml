@@ -10,13 +10,13 @@
         FROM com_student
         <where>
             <if test="studentId != null">
-                AND studentId=#{studentId,jdbcType=CHAR}
+                AND studentId=#{studentId,jdbcType=INTEGER}
             </if>
             <if test="name != null">
-                AND name = #{name,jdbcType=CHAR}
+                AND name = #{name,jdbcType=VARCHAR}
             </if>
             <if test="password != null">
-                AND password=#{password,jdbcType=CHAR}
+                AND password=#{password,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -33,7 +33,7 @@
             p.name      AS specialtyName
         FROM com_student s, com_specialty p
         WHERE s.specialtyId = p.specialtyId AND
-              s.studentId = #{studentId,jdbcType=CHAR}
+              s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生考试信息-->
@@ -56,14 +56,14 @@
             e.test     AS test
         FROM com_examinfo e, com_student s, com_course c
         WHERE s.specialtyId = e.specialtyId AND c.courseId = e.courseId AND e.started = 1 AND
-              s.studentId = #{studentId,jdbcType=CHAR}
+              s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询题库（选择题）-->
     <select id="selectQuestionBaseSingle" parameterType="java.util.Map" resultType="sunday.pojo.student.SingleTaken">
         SELECT *
         FROM com_single_question s
-        WHERE s.courseId = #{courseId,jdbcType=CHAR} AND s.section IN
+        WHERE s.courseId = #{courseId,jdbcType=INTEGER} AND s.section IN
         <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
@@ -74,7 +74,7 @@
     <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
         SELECT *
         FROM com_tf_question t
-        WHERE t.courseId = #{courseId,jdbcType=CHAR} AND t.section IN
+        WHERE t.courseId = #{courseId,jdbcType=INTEGER} AND t.section IN
         <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
@@ -89,7 +89,7 @@
             a.content  AS content,
             a.id       AS Id
         FROM com_another_question a
-        WHERE a.courseId = #{courseId,jdbcType=CHAR}
+        WHERE a.courseId = #{courseId,jdbcType=INTEGER}
     </select>
 
     <!--更新学生信息-->
@@ -97,41 +97,35 @@
         UPDATE com_student
         <set>
             <if test="password !=null">
-                password=#{password,jdbcType=CHAR},
+                password=#{password,jdbcType=VARCHAR},
             </if>
             <if test="cellphone !=null">
-                cellphone=#{cellphone,jdbcType=CHAR},
+                cellphone=#{cellphone,jdbcType=VARCHAR},
             </if>
             <if test="gender !=null">
                 gender=#{gender,jdbcType=CHAR},
             </if>
             <if test="email !=null">
-                email=#{email,jdbcType=CHAR},
+                email=#{email,jdbcType=VARCHAR},
             </if>
         </set>
-        where studentId=#{studentId,jdbcType=CHAR}
+        where studentId=#{studentId,jdbcType=INTEGER}
     </update>
 
     <!--插入学生-->
     <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
         INSERT INTO com_student (studentId, password, specialtyId)
-        VALUES (#{studentId,jdbcType=CHAR}, #{password,jdbcType=CHAR},
-                #{specialtyId,jdbcType=CHAR})
-    </insert>
-
-    <!--插入学生班级-->
-    <insert id="insertStudentSpecialty" parameterType="sunday.pojo.school.Student">
-        INSERT INTO com_clazz_l_student (studentId, specialtyId)
-        VALUES (#{studentId,jdbcType=CHAR}, #{specialtyId,jdbcType=CHAR})
+        VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
+                #{specialtyId,jdbcType=INTEGER})
     </insert>
 
     <!--插入学生成绩(待议)-->
     <insert id="insertGrade" parameterType="java.util.Map">
         INSERT INTO com_grade (studentId, courseId, grade1, grade2, grade3, grade4)
         VALUES (
-            #{studentId,jdbcType=CHAR}, #{courseId,jdbcType=CHAR},
-            #{grade1,jdbcType=TINYINT}, #{grade2,jdbcType=TINYINT},
-            #{grade3,jdbcType=TINYINT}, #{grade4,jdbcType=TINYINT})
+            #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
+            #{grade1,jdbcType=INTEGER}, #{grade2,jdbcType=INTEGER},
+            #{grade3,jdbcType=INTEGER}, #{grade4,jdbcType=INTEGER})
     </insert>
 
     <!--查询学生成绩以及信息-->
@@ -150,7 +144,7 @@
         FROM com_course c, com_grade g, com_student s, com_teacher_l_course tc
         WHERE
             g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
-            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=CHAR}
+            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生课程-->
@@ -162,6 +156,6 @@
             tc.starttime AS startTime,
             tc.endtime   AS endtime
         FROM com_course c, com_teacher_l_course tc, com_student s
-        WHERE c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=CHAR}
+        WHERE c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 </mapper>
