@@ -6,9 +6,18 @@ import java.util.List;
  * Created by 花间一壶酒 on 2017/6/4.
  */
 public final class TestPaper {
+    private String testNum;
     private List<SingleTaken> singleTakenList;
     private List<TfTaken> tfTakenList;
     private AnotherTestTaken anotherQuestionTaken;
+
+    public String getTestNum() {
+        return testNum;
+    }
+
+    public void setTestNum(String testNum) {
+        this.testNum = testNum;
+    }
 
     public AnotherTestTaken getAnotherQuestionTaken() {
         return anotherQuestionTaken;

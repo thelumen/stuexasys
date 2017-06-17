@@ -84,10 +84,10 @@ public interface StudentService {
     /**
      * 插入学生成绩
      *
-     * @param params 参数.
+     * @param gradeInfo 参数.
      * @return int 插入成功的行数
      */
-    int insertGrade(Map<String, Object> params);
+    boolean insertGrade(GradeInfo gradeInfo);
 
     /**
      * 更新学生信息

@@ -108,8 +108,8 @@ public class TeacherController extends CommonController {
      */
     @RequestMapping(value = "/{courseId}/{specialtyId}/another", method = RequestMethod.GET)
     @ResponseBody
-    public List<AnotherTaken> getAnother(@PathVariable("courseId") String courseId,
-                                         @PathVariable("specialtyId") String specialtyId) {
+    public List<AnotherTaken> getAnother(@PathVariable("courseId") Integer courseId,
+                                         @PathVariable("specialtyId") Integer specialtyId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
             put("specialtyId", specialtyId);
@@ -155,16 +155,15 @@ public class TeacherController extends CommonController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> recordGrade4(@PathVariable("studentId") String studentId,
-                                            @PathVariable("courseId") String courseId,
-                                            @PathVariable("score") String score) {
+    public Map<String, Object> recordGrade4(@PathVariable("studentId") Integer studentId,
+                                            @PathVariable("courseId") Integer courseId,
+                                            @PathVariable("score") int score) {
         Map<String, Object> info = new HashMap<>();
         //前台不做了，后台修改数据
-        byte s = new Byte(score);
-        if (s > (byte) 100) {
-            s = (byte) 100;
+        if (score > 100) {
+            score = 100;
         }
-        if (stuGraService.updateAnother(studentId, courseId, s)) {
+        if (stuGraService.updateAnother(studentId, courseId, score)) {
             info.put("isSuccess", true);
         } else {
             info.put("isSuccess", false);
@@ -192,19 +191,19 @@ public class TeacherController extends CommonController {
      */
     @RequestMapping(value = "/{courseId}/chapter", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getCourseChapter(@PathVariable("courseId") String courseId) {
+    public List<Map<String, Object>> getCourseChapter(@PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
         List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
         if (null != questions) {
             //按章节排序
-            List<SingleQuestion> target = ChapterKit.bubbleSort(questions);
+            List<String> target = ChapterKit.bubbleSort(questions);
             List<Map<String, Object>> father = new ArrayList<>();
-            for (SingleQuestion question : target) {
+            for (String chapterName : target) {
                 Map<String, Object> child = new HashMap<String, Object>() {{
-                    put("id", question.getSection());
-                    put("text", question.getSection());
+                    put("id", chapterName);
+                    put("text", chapterName);
                 }};
                 father.add(child);
             }
@@ -474,7 +473,7 @@ public class TeacherController extends CommonController {
         int[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
         int i = 0;
         for (Integer b : signs) {
-            if (b == (byte) 1) {
+            if (b == 1) {
                 i++;
             }
         }
@@ -521,7 +520,7 @@ public class TeacherController extends CommonController {
         Map<String, Object> info = new HashMap<>();
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
-            put("test", (byte) 1);
+            put("test", 1);
         }};
         if (stuExaService.startOrCloseExam(params)) {
             info.put("isSuccess", true);
@@ -545,7 +544,7 @@ public class TeacherController extends CommonController {
         Map<String, Object> info = new HashMap<>();
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
-            put("test", (byte) 0);
+            put("test", 0);
         }};
         if (stuExaService.startOrCloseExam(params)) {
             info.put("isSuccess", true);
@@ -593,18 +592,14 @@ public class TeacherController extends CommonController {
 
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", percentInfo.getSpecialtyId());
+            put("courseId", percentInfo.getCourseId());
         }};
         List<GradeTaken> studentGrades = stuGraService.selectGradeTaken(null, params);
         for (GradeTaken studentGrade : studentGrades) {
             float total;
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
             //采用四舍五入方式计算总成绩
-            studentGrade.setTotal(Integer.parseInt((String.valueOf(Math.round(total)))));
-            //不更新
-            studentGrade.setGrade1(0);
-            studentGrade.setGrade2(0);
-            studentGrade.setGrade3(0);
-            studentGrade.setGrade4(0);
+            studentGrade.setTotal(Math.round(total));
 
             stuGraService.updateGrade(studentGrade);
         }
@@ -621,8 +616,8 @@ public class TeacherController extends CommonController {
      */
     @RequestMapping(value = "/grade/{specialtyId}/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") String specialtyId,
-                                                     @PathVariable("courseId") String courseId) {
+    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") Integer specialtyId,
+                                                     @PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
             put("courseId", courseId);
@@ -851,7 +846,7 @@ public class TeacherController extends CommonController {
      */
     @RequestMapping(value = "/getSpecialties/{courseId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") String courseId) {
+    public List<Map<String, Object>> getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
             put("courseId", courseId);

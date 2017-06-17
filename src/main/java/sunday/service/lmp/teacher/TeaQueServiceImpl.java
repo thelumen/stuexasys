@@ -32,19 +32,16 @@ public class TeaQueServiceImpl implements TeaQueService {
     }
 
     @Override
-    @Transactional
     public int insertSingleQuestion(SingleQuestion question) {
         return teaQueMapper.insertSingleQuestion(question);
     }
 
     @Override
-    @Transactional
     public int insertTfQuestion(TfQuestion question) {
         return teaQueMapper.insertTfQuestion(question);
     }
 
     @Override
-    @Transactional
     public int insertAnother(Another another) {
         return teaQueMapper.insertAnother(another);
     }

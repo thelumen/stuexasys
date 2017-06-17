@@ -170,6 +170,7 @@ public class StudentServiceImpl implements StudentService {
             TestPaper testPaper = new TestPaper();
             testPaper.setSingleTakenList(testSingleList);
             testPaper.setTfTakenList(testTfList);
+            testPaper.setTestNum(examInfo.getTestNum());
             return testPaper;
         }
         return null;
@@ -183,6 +184,7 @@ public class StudentServiceImpl implements StudentService {
         List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
         TestPaper testPaper = new TestPaper();
         testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random()) * anotherTestTakens.size()));
+        testPaper.setTestNum(examInfo.getTestNum());
         if (testPaper.getAnotherQuestionTaken() != null) {
             return testPaper;
         }
@@ -229,7 +231,7 @@ public class StudentServiceImpl implements StudentService {
                 if (o1.getTest() > o2.getTest()) {
                     return 1;
                 }
-                if (o1.getTest() == o2.getTest()) {
+                if (Objects.equals(o1.getTest(), o2.getTest())) {
                     return 0;
                 }
                 return -1;
@@ -251,8 +253,43 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int insertGrade(Map<String, Object> params) {
-        return studentMapper.insertGrade(params);
+    public boolean insertGrade(GradeInfo gradeInfo) {
+        boolean changedRow = false;
+        Map<String, Object> uploadGrade = new HashMap<String, Object>() {{
+            put("courseId", gradeInfo.getCourseId());
+            put("studentId", gradeInfo.getStudentId());
+        }};
+        switch (gradeInfo.getTestNum()) {
+            case "1":
+                uploadGrade.put("grade1", gradeInfo.getGrade());
+                if (studentMapper.insertGrade(uploadGrade) == 0) {
+                    studentMapper.updateGrade(uploadGrade);
+                }
+                changedRow = true;
+                break;
+            case "2":
+                uploadGrade.put("grade2", gradeInfo.getGrade());
+                if (studentMapper.updateGrade(uploadGrade) == 0) {
+                    studentMapper.insertGrade(uploadGrade);
+                }
+                changedRow = true;
+                break;
+            case "3":
+                uploadGrade.put("grade3", gradeInfo.getGrade());
+                if (studentMapper.updateGrade(uploadGrade) == 0) {
+                    studentMapper.insertGrade(uploadGrade);
+                }
+                changedRow = true;
+                break;
+            case "4":
+                uploadGrade.put("grade4", gradeInfo.getGrade());
+                if (studentMapper.updateGrade(uploadGrade) == 0) {
+                    studentMapper.insertGrade(uploadGrade);
+                }
+                changedRow = true;
+                break;
+        }
+        return changedRow;
     }
 
     @Override

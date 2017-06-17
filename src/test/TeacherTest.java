@@ -3,7 +3,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sunday.common.kit.ChapterKit;
+import sunday.common.kit.EncryptKit;
+import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
+import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.AnotherTaken;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
@@ -11,6 +14,7 @@ import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,9 +73,9 @@ public class TeacherTest {
         }};
         List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
         if (null != questions) {
-            List<SingleQuestion> target = ChapterKit.bubbleSort(questions);
-            for (SingleQuestion s : target) {
-                out.print(s.getSection() + " ");
+            ArrayList<String> target = ChapterKit.bubbleSort(questions);
+            for (String s : target) {
+                out.print(s + " ");
             }
         }
     }
@@ -94,47 +98,47 @@ public class TeacherTest {
     //测试新增和查询课程功能
     @Test
     public void t6() {
-//        for (int i = 0; i < 8; i++) {
-//            Course course = new Course();
-//            course.setCourseId("1000000" + i);
-//            course.setName("数据结构" + i);
-//            course.setCredit(new Byte("2"));
-//            course.setPeriod(new Byte("12"));
-//            if (speCouService.insertCourse(course) > 0) {
-//                out.print(i + "：成功 ");
-//            }
-//        }
-////        Map<String, Object> params = new HashMap<String, Object>() {{
-////            put("period", new Byte("12"));
-////        }};
-//        List<Course> courses = speCouService.selectCourse(null);
-//        if (courses != null) {
-//            for (Course course : courses) {
-//                out.print(" " + course.getName());
-//            }
-//        }
+        for (int i = 0; i < 8; i++) {
+            Course course = new Course();
+            course.setCourseId(Integer.valueOf("1000000" + i));
+            course.setName("数据结构" + i);
+            course.setCredit(new Byte("2"));
+            course.setPeriod(new Byte("12"));
+            if (speCouService.insertCourse(course) > 0) {
+                out.print(i + "：成功 ");
+            }
+        }
+//        Map<String, Object> params = new HashMap<String, Object>() {{
+//            put("period", new Byte("12"));
+//        }};
+        List<Course> courses = speCouService.selectCourse(null);
+        if (courses != null) {
+            for (Course course : courses) {
+                out.print(" " + course.getName());
+            }
+        }
     }
 
     //测试新增和查询班级功能
     @Test
     public void t5() {
-//        for (int i = 0; i < 6; i++) {
-//            Specialty specialty = new Specialty();
-//            specialty.setSpecialtyId("14040" + i);
-//            specialty.setName("计算机" + i + "班");
-//            if (speCouService.insertSpecialty(specialty) > 0) {
-//                out.print(i + "：成功 ");
-//            }
-//        }
-////        Map<String, Object> params = new HashMap<String, Object>() {{
-////            put("name", "计算机0班");
-////        }};
-//        List<Specialty> specialties = speCouService.selectSpecialty(null);
-//        if (specialties != null) {
-//            for (Specialty specialty : specialties) {
-//                out.print(" " + specialty.getName());
-//            }
-//        }
+        for (int i = 0; i < 6; i++) {
+            Specialty specialty = new Specialty();
+            specialty.setSpecialtyId(Integer.valueOf("14040" + i));
+            specialty.setName("计算机" + i + "班");
+            if (speCouService.insertSpecialty(specialty) > 0) {
+                out.print(i + "：成功 ");
+            }
+        }
+//        Map<String, Object> params = new HashMap<String, Object>() {{
+//            put("name", "计算机0班");
+//        }};
+        List<Specialty> specialties = speCouService.selectSpecialty(null);
+        if (specialties != null) {
+            for (Specialty specialty : specialties) {
+                out.print(" " + specialty.getName());
+            }
+        }
 
     }
 
@@ -165,29 +169,29 @@ public class TeacherTest {
     //添加教师数据
     @Test
     public void t2() {
-        //for (int i = 0; i < 3; i++) {
-        //    Teacher teacher = new Teacher();
-        //    teacher.setTeacherId("14040" + i);
-        //    teacher.setPassword(EncryptKit.md5("12345"));
-        //    if (teacherService.insert(teacher) > 0) {
-        //        out.print(i + " 成功！ ");
-        //    }
-        //}
+        for (int i = 0; i < 3; i++) {
+            Teacher teacher = new Teacher();
+            teacher.setTeacherId(Integer.valueOf("14040" + i));
+            teacher.setPassword(EncryptKit.md5("12345"));
+            if (teacherService.insert(teacher) > 0) {
+                out.print(i + " 成功！ ");
+            }
+        }
     }
 
     //测试新增和查询功能
     @Test
     public void t1() {
-        //Teacher teacher = new Teacher();
-        //teacher.setTeacherId("140406");
-        //teacher.setPassword("123456");
-        //if (teacherService.insert(teacher) > 0) {
-        //    List<Teacher> teachers = teacherService.select(null, null);
-        //    for (Teacher t : teachers) {
-        //        out.print(t.getId() + " " + t.getTeacherId());
-        //    }
-        //} else {
-        //    out.print("新增教师失败!");
-        //}
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId(Integer.valueOf("140406"));
+        teacher.setPassword("123456");
+        if (teacherService.insert(teacher) > 0) {
+            List<Teacher> teachers = teacherService.select(null, null);
+            for (Teacher t : teachers) {
+                out.print(t.getId() + " " + t.getTeacherId());
+            }
+        } else {
+            out.print("新增教师失败!");
+        }
     }
 }

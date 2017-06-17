@@ -4,33 +4,32 @@
 <mapper namespace="sunday.mapper.teacher.StuGraMapper">
 
     <!--更新学生成绩-->
-    <update id="insertGrade" parameterType="sunday.pojo.teacher.GradeTaken">
+    <update id="updateGrade" parameterType="sunday.pojo.teacher.GradeTaken">
         UPDATE com_grade
         <set>
-            <if test="grade1 != 0">
+            <if test="grade1 != null">
                 grade1 = #{grade1,jdbcType=INTEGER},
             </if>
-            <if test="grade2 != 0">
+            <if test="grade2 != null">
                 grade2 = #{grade2,jdbcType=INTEGER},
             </if>
-            <if test="grade3 != 0">
+            <if test="grade3 != null">
                 grade3 = #{grade3,jdbcType=INTEGER},
             </if>
-            <if test="grade4 != 0">
+            <if test="grade4 != null">
                 grade4 = #{grade4,jdbcType=INTEGER},
             </if>
-            <if test="total != 0">
+            <if test="total != null">
                 total = #{total,jdbcType=INTEGER},
             </if>
         </set>
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =
-        #{courseId,jdbcType=INTEGER}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =#{courseId,jdbcType=INTEGER}
     </update>
 
     <!--查询学生成绩-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.GradeTaken">
-        SELECT g.studentId AS studentId,s.name AS studentName,c.name AS
+        SELECT DISTINCT g.studentId AS studentId,s.name AS studentName,c.name AS
         courseName, g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS
         grade3,g.grade4 AS grade4,g.total AS total,p.name AS
         specialtyName,p.specialtyId AS specialtyId ,c.courseId AS courseId
@@ -38,7 +37,7 @@
         g,com_student s,com_specialty p
         WHERE l.courseId=c.courseId AND l.specialtyId=p.specialtyId AND
         l.teacherId=t.teacherId
-        AND g.courseId=c.courseId AND g.studentId=g.studentId AND
+        AND g.courseId=c.courseId AND g.studentId=s.studentId AND
         s.specialtyId=p.specialtyId
         <if test="teacherId != null">
             AND t.teacherId=#{teacherId,jdbcType=INTEGER}

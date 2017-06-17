@@ -95,6 +95,14 @@ public interface StudentMapper {
     int insertGrade(Map<String, Object> params);
 
     /**
+     * 更新学生成绩
+     *
+     * @param params .
+     * @return List<Student>
+     */
+    int updateGrade(Map<String, Object> params);
+
+    /**
      * 更新学生信息
      *
      * @param params .

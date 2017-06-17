@@ -19,7 +19,15 @@
 //                var modelTitle=this.parent().prev().prev().value;
                 var rows = this.value;
                 var s = rows.split("_");
-                var examInfo = {"courseId": s[0], "content": s[1]};
+                var testNum = 0;
+                if (s[2] === "测试一") {
+                    testNum = 1;
+                } else if (s[2] === "测试二") {
+                    testNum = 2;
+                } else if (s[2] === "测试三") {
+                    testNum = 3;
+                } else testNum = 4;
+                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum};
                 var jsonDate = JSON.stringify(examInfo);
                 if (s[1] !== 0) {
                     var myUrl = '${pageContext.request.contextPath}/student/readyTest';
@@ -27,13 +35,13 @@
                     var myUrl = '${pageContext.request.contextPath}/student/readyTestAnother';
                 }
                 $.ajax({
-                    type:'post',
+                    type: 'post',
                     url: myUrl,
-                    dataType:'json',
+                    dataType: 'json',
                     contentType: 'application/json',
                     data: jsonDate,
-                    success:function (data) {
-                        window.location.href='${pageContext.request.contextPath}/student/startTest?examInfo='+data.examInfo;
+                    success: function (data) {
+                        window.location.href = '${pageContext.request.contextPath}/student/startTest?examInfo=' + data.examInfo;
                     }
                 });
             })
@@ -96,7 +104,7 @@
                             <td>
                                 <c:if test="${Info.test==1}">
                                     <button type="button" class="btn btn-success"
-                                            value="${Info.courseId}_${Info.content}">
+                                            value="${Info.courseId}_${Info.content}_${Info.testNum}">
                                         <label>开始考试</label>
                                     </button>
                                 </c:if>

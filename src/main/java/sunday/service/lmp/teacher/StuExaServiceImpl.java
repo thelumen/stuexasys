@@ -22,7 +22,6 @@ public class StuExaServiceImpl implements StuExaService {
     private StuExaMapper stuExaMapper;
 
     @Override
-    @Transactional
     public int insertExamInfo(ExamTaken exam) {
         return stuExaMapper.insertExamInfo(exam);
     }

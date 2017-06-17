@@ -38,7 +38,7 @@ public class StuGraServiceImpl implements StuGraService {
     @Transactional
     public boolean updateGrade(GradeTaken studentGrade) {
         boolean result = false;
-        if (stuGraMapper.insertGrade(studentGrade) > 0) {
+        if (stuGraMapper.updateGrade(studentGrade) > 0) {
             result = true;
         }
         return result;
@@ -46,7 +46,7 @@ public class StuGraServiceImpl implements StuGraService {
 
     @Override
     @Transactional
-    public boolean updateAnother(String studentId, String courseId, Byte score) {
+    public boolean updateAnother(Integer studentId, Integer courseId, int score) {
         boolean result = false;
         if (stuGraMapper.updateAnother(studentId, courseId, score) > 0) {
             result = true;

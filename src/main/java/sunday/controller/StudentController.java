@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.student.ExamInfo;
+import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
@@ -144,7 +145,7 @@ public class StudentController {
     public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         Map<String, Object> data = new HashMap<>();
-        data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent());
+        data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent()+"_"+examInfo.getTestNum());
         return data;
     }
 
@@ -160,6 +161,7 @@ public class StudentController {
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
+        examInfo.setTestNum(s[2]);
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
         return "/student/exam/testProxy";
@@ -177,5 +179,16 @@ public class StudentController {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, examInfo));
         return "/student/exam/testProxy";
+    }
+
+    @RequestMapping(value = "/uploadGrade" ,method = RequestMethod.POST)
+    @ResponseBody
+    public Map uploadGrade(@RequestBody GradeInfo gradeInfo){
+        Map<String, Object> info = new HashMap<>();
+        gradeInfo.setStudentId(getCurrentStudentId());
+        if (studentService.insertGrade(gradeInfo)){
+            info.put("issuccess", true);
+        }else info.put("issuccess", false);
+        return info;
     }
 }

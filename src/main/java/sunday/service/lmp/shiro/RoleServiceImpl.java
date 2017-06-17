@@ -53,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public boolean link2Teacher(short teacherId, short roleId) {
+    public boolean link2Teacher(Integer teacherId, Integer roleId) {
         boolean result = false;
         if (roleMapper.link2Teacher(teacherId, roleId) > 0) {
             result = true;

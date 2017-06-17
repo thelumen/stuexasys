@@ -119,14 +119,30 @@
                 #{specialtyId,jdbcType=INTEGER})
     </insert>
 
-    <!--插入学生成绩(待议)-->
+    <!--插入学生成绩(首次测试)-->
     <insert id="insertGrade" parameterType="java.util.Map">
-        INSERT INTO com_grade (studentId, courseId, grade1, grade2, grade3, grade4)
+        INSERT INTO com_grade (studentId, courseId, grade1)
         VALUES (
             #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
-            #{grade1,jdbcType=INTEGER}, #{grade2,jdbcType=INTEGER},
-            #{grade3,jdbcType=INTEGER}, #{grade4,jdbcType=INTEGER})
+            #{grade1,jdbcType=INTEGER})
     </insert>
+
+    <!--更新学生成绩（除测试一）-->
+    <update id="updateGrade" parameterType="java.util.Map">
+        UPDATE com_grade
+        <set>
+            <if test="grade2!=null">
+                grade2 = #{grade2,jdbcType=INTEGER}
+            </if>
+            <if test="grade3!=null">
+                grade3 = #{grade3,jdbcType=INTEGER}
+            </if>
+            <if test="grade4!=null">
+                grade4 = #{grade4,jdbcType=INTEGER}
+            </if>
+        </set>
+        WHERE studentId=#{studentId,jdbcType=INTEGER} AND courseId= #{courseId,jdbcType=INTEGER}
+    </update>
 
     <!--查询学生成绩以及信息-->
     <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
@@ -156,6 +172,7 @@
             tc.starttime AS startTime,
             tc.endtime   AS endtime
         FROM com_course c, com_teacher_l_course tc, com_student s
-        WHERE c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
+        WHERE
+            c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 </mapper>

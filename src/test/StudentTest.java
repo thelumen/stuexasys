@@ -170,22 +170,22 @@ public class StudentTest {
     @Test
     //录入学生成绩
     public void t3() {
-        List<Student> studentList = studentService.select(null, null);
-        for (int i = 0; i < 8; i++) {
-            String courseId = "1000000" + i;
-            for (Student student : studentList) {
-                Map<String, Object> params = new HashMap<String, Object>() {{
-                    put("studentId", student.getStudentId());
-                    put("courseId", courseId);
-                    put("grade1", Integer.toString((int) ((Math.random()) * 100)));
-                    put("grade2", Integer.toString((int) ((Math.random()) * 100)));
-                    put("grade3", Integer.toString((int) ((Math.random()) * 100)));
-                    put("grade4", Integer.toString((int) ((Math.random()) * 100)));
-                }};
-                studentService.insertGrade(params);
-                System.out.println(params.toString());
-            }
-        }
+        //List<Student> studentList = studentService.select(null, null);
+        //for (int i = 0; i < 8; i++) {
+        //    String courseId = "1000000" + i;
+        //    for (Student student : studentList) {
+        //        Map<String, Object> params = new HashMap<String, Object>() {{
+        //            put("studentId", student.getStudentId());
+        //            put("courseId", courseId);
+        //            put("grade1", Integer.toString((int) ((Math.random()) * 100)));
+        //            put("grade2", Integer.toString((int) ((Math.random()) * 100)));
+        //            put("grade3", Integer.toString((int) ((Math.random()) * 100)));
+        //            put("grade4", Integer.toString((int) ((Math.random()) * 100)));
+        //        }};
+        //        studentService.insertGrade(params);
+        //        System.out.println(params.toString());
+        //    }
+        //}
     }
 
     @Test

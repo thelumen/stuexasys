@@ -24,7 +24,6 @@ public class SpeCouServiceImp implements SpeCouService {
     private SpeCouMapper speCouMapper;
 
     @Override
-    @Transactional
     public int insertSpecialty(Specialty specialty) {
         return speCouMapper.insertSpecialty(specialty);
     }
@@ -39,7 +38,6 @@ public class SpeCouServiceImp implements SpeCouService {
     }
 
     @Override
-    @Transactional
     public int insertCourse(Course course) {
         return speCouMapper.insertCourse(course);
     }
@@ -63,7 +61,6 @@ public class SpeCouServiceImp implements SpeCouService {
     }
 
     @Override
-    @Transactional
     public int insertCourseTaken(CourseTaken courseTaken) {
         return speCouMapper.insertCourseTaken(courseTaken);
     }

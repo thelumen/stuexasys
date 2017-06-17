@@ -21,7 +21,6 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherMapper teacherMapper;
 
     @Override
-    @Transactional
     public int insert(Teacher teacher) {
         return teacherMapper.insert(teacher);
     }
