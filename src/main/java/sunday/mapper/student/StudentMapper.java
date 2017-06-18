@@ -88,19 +88,27 @@ public interface StudentMapper {
 
     /**
      * 新增学生成绩
-     *
+     * 针对测试一
      * @param params .
-     * @return List<Student>
+     * @return int
      */
     int insertGrade(Map<String, Object> params);
 
     /**
      * 更新学生成绩
-     *
+     * 针对测试二和三
      * @param params .
-     * @return List<Student>
+     * @return int
      */
     int updateGrade(Map<String, Object> params);
+
+    /**
+     * 插入学生附加题答案
+     *  针对测试四
+     * @param params .
+     * @return int
+     */
+    int insertAnotherResult(Map<String, Object> params);
 
     /**
      * 更新学生信息

@@ -135,7 +135,7 @@ public class StudentController {
     }
 
     /**
-     * 通过 ExamInfo 组题并返回 普通测试题 卷
+     * 返回 测试题 试卷开始路径
      *
      * @param examInfo .
      * @return 测试页面
@@ -145,7 +145,13 @@ public class StudentController {
     public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         Map<String, Object> data = new HashMap<>();
-        data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent()+"_"+examInfo.getTestNum());
+        if (!"4".equals(examInfo.getTestNum())){
+            data.put("generalTest", true);
+            data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent() + "_" + examInfo.getTestNum());
+        }else {
+            data.put("generalTest", false);
+            data.put("examInfo", examInfo.getCourseId());
+        }
         return data;
     }
 
@@ -168,27 +174,35 @@ public class StudentController {
     }
 
     /**
-     * 通过 ExamInfo 组题并返回 附加题 卷
+     * 返回 附加题 测试页面
      *
-     * @param examInfo .
-     * @return 测试页面
+     * @return String
      */
-    @RequestMapping(value = "/readyTestAnother", method = RequestMethod.POST)
-    @ResponseBody
-    public String readyTestAnother(@RequestBody ExamInfo examInfo, Model model) {
+    @RequestMapping(value = "/startTestAnother", method = RequestMethod.GET)
+    public String startTestAnother(HttpServletRequest request, Model model) {
+        String examInfo1 = request.getParameter("examInfo");
+        String[] s = examInfo1.split("_");
+        ExamInfo examInfo = new ExamInfo();
+        examInfo.setCourseId(Integer.valueOf(s[0]));
         model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
-        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, examInfo));
-        return "/student/exam/testProxy";
+        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null,examInfo));
+        return "/student/exam/testAnotherProxy";
     }
 
-    @RequestMapping(value = "/uploadGrade" ,method = RequestMethod.POST)
+    /**
+     * 上传学生测试成绩
+     * 测试 一 二 三
+     * @param gradeInfo .
+     * @return Map
+     */
+    @RequestMapping(value = "/uploadGrade", method = RequestMethod.POST)
     @ResponseBody
-    public Map uploadGrade(@RequestBody GradeInfo gradeInfo){
+    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
         gradeInfo.setStudentId(getCurrentStudentId());
-        if (studentService.insertGrade(gradeInfo)){
+        if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
-        }else info.put("issuccess", false);
+        } else info.put("issuccess", false);
         return info;
     }
 }

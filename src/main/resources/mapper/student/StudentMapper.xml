@@ -127,7 +127,7 @@
             #{grade1,jdbcType=INTEGER})
     </insert>
 
-    <!--更新学生成绩（除测试一）-->
+    <!--更新学生成绩（除测试一和测试四）-->
     <update id="updateGrade" parameterType="java.util.Map">
         UPDATE com_grade
         <set>
@@ -137,12 +137,15 @@
             <if test="grade3!=null">
                 grade3 = #{grade3,jdbcType=INTEGER}
             </if>
-            <if test="grade4!=null">
-                grade4 = #{grade4,jdbcType=INTEGER}
-            </if>
         </set>
         WHERE studentId=#{studentId,jdbcType=INTEGER} AND courseId= #{courseId,jdbcType=INTEGER}
     </update>
+
+    <!--插入学生附加题的答案-->
+    <insert id="insertAnotherResult" parameterType="java.util.Map">
+        INSERT INTO com_student_l_another_question (studentId, courseId, result)
+        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR})
+    </insert>
 
     <!--查询学生成绩以及信息-->
     <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">

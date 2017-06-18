@@ -8,6 +8,15 @@ public class GradeInfo {
     private Integer courseId;
     private Integer grade;
     private String testNum;
+    private String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 
     public Integer getStudentId() {
         return studentId;

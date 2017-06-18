@@ -183,7 +183,7 @@ public class StudentServiceImpl implements StudentService {
         }};
         List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
         TestPaper testPaper = new TestPaper();
-        testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random()) * anotherTestTakens.size()));
+        testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random() * anotherTestTakens.size())));
         testPaper.setTestNum(examInfo.getTestNum());
         if (testPaper.getAnotherQuestionTaken() != null) {
             return testPaper;
@@ -282,11 +282,10 @@ public class StudentServiceImpl implements StudentService {
                 changedRow = true;
                 break;
             case "4":
-                uploadGrade.put("grade4", gradeInfo.getGrade());
-                if (studentMapper.updateGrade(uploadGrade) == 0) {
-                    studentMapper.insertGrade(uploadGrade);
+                uploadGrade.put("result", gradeInfo.getResult());
+                if (studentMapper.insertAnotherResult(uploadGrade)>0){
+                    changedRow = true;
                 }
-                changedRow = true;
                 break;
         }
         return changedRow;
