@@ -218,6 +218,8 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo.setRoles(null);
             shiroInfo.setPermissions(null);
 
+            ShiroKit.getSession().setAttribute("currentStudentId", shiroInfo.getUserId());
+
             return shiroInfo;
         }
         return null;
