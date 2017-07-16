@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="stuexasys:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/stuexasys_war2</output-path>
+    <root id="archive" name="stuexasys_war.war">
+      <element id="artifact" artifact-name="stuexasys:war exploded" />
+    </root>
+  </artifact>
+</component>
