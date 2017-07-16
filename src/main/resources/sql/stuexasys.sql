@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : mylove1621
 Source Server Version : 50713
 Source Host           : 127.0.0.1:3306
-Source Database       : yang
+Source Database       : stuexasys
 
 Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-07-16 17:38:28
+Date: 2017-07-16 19:18:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -119,7 +119,7 @@ CREATE TABLE `com_grade` (
 -- ----------------------------
 -- Records of com_grade
 -- ----------------------------
-INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '90', '43');
+INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '20', '43');
 INSERT INTO `com_grade` VALUES ('140400000', '10000001', '35', '71', '99', '93', '85');
 INSERT INTO `com_grade` VALUES ('140400000', '10000002', '21', '57', '99', '43', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000003', '53', '74', '94', '81', null);
