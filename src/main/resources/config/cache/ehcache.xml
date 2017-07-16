@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
     <!--diskStore：缓存数据持久化的目录 地址  -->
-    <!--<diskStore path="E:/搬移文件/Desktop/shiro-ehcache"/>-->
+    <diskStore path="E:/搬移文件/Desktop/data/ehcache"/>
     <!--<diskStore path="java.io.tmpdir/shiro-ehcache"/>-->
-    <diskStore path="/home/cache"/>
     <defaultCache
             maxElementsInMemory="10000"
             eternal="false"

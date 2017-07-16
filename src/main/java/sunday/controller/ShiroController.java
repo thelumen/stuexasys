@@ -1,6 +1,7 @@
 package sunday.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sunday.common.enums.UserTypeEnum;
@@ -34,7 +35,7 @@ public class ShiroController {
     @RequestMapping("/logout")
     public String logout() {
         ShiroKit.getSubject().logout();
-        return "/student/main/mainProxy";
+        return "/common/user/login";
     }
 
     /**
@@ -43,10 +44,11 @@ public class ShiroController {
      * @param account  账号
      * @param password 密码
      * @param type     用户类型
+     * @param model
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String account, String password, String type) {
+    public String login(String account, String password, String type, Model model) {
         String url = "";
         String userType = TypeValidateKit.validateUserType(type);
         String realAccount = StringKit.trim(account) + userType;
@@ -57,7 +59,8 @@ public class ShiroController {
                 }
             }
         } else {
-            url = "index";
+            model.addAttribute("exception", "登入失败，可能原因：1.账号信息错误；2.身份类型错误（管理员？教师？学生？）；3.不存在该账号.");
+            url = "/common/error/error";
         }
         return url;
     }

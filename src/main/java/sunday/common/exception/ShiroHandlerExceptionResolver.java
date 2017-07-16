@@ -17,32 +17,36 @@ import java.util.Map;
  * At 13:22
  */
 public class ShiroHandlerExceptionResolver implements HandlerExceptionResolver {
-    private static final Logger logger = LogKit.getLogger();
+    private static final Logger LOGGER = LogKit.getLogger();
 
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
+        ModelAndView mav = new ModelAndView();
+
         String stackTrace = ExceptionUtils.getStackTrace(e);
 
         if (e instanceof org.apache.shiro.authz.AuthorizationException) {
-            logger.info("没有权限!");
-        } else if (e instanceof org.apache.shiro.authz.UnauthenticatedException) {
-            logger.info("未登录!");
+            LOGGER.info("没有权限!---即授权失败");
         } else {
-            logger.error(stackTrace);
+            LOGGER.error(stackTrace);
         }
 
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("exception", stackTrace.replaceAll("\r\n", "<br/>"));
 
-        String view = "/shiro/error/defaultError";
+        mav.addObject("exception", stackTrace.replaceAll("\r\n", "<br/>"));
+
+        //授权失败页面
+        String view = "/common/error/error";
 
         if (e instanceof org.apache.shiro.authz.UnauthenticatedException) {
             //未登录
-            view = "/users/login";
+            view = "/common/user/login";
         } else if (e instanceof org.apache.shiro.authz.AuthorizationException) {
             //没有权限
-            view = "/shiro/error/unauthorized";
+            mav.addObject("exception", "该用户没有权限!");
+            view = "/common/error/error";
         }
 
-        return new ModelAndView(view, model);
+        mav.setViewName(view);
+
+        return mav;
     }
 }
