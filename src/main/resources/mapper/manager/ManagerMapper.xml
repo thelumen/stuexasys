@@ -10,7 +10,7 @@
         FROM com_manager
         <where>
             <if test="managerId != null">
-                AND managerId=#{studentId,jdbcType=CHAR}
+                AND managerId=#{managerId,jdbcType=CHAR}
             </if>
             <if test="name != null">
                 AND name = #{name,jdbcType=CHAR}
