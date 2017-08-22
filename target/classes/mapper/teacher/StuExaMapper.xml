@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sunday.mapper.teacher.StuExaMapper">
+    <!--新增考试信息-->
+    <insert id="insertExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
+        INSERT INTO com_examinfo(specialtyId,courseId,started)
+        VALUES (#{specialtyId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{started,jdbcType=INTEGER})
+    </insert>
+
+    <!--查询考试信息-->
+    <select id="selectExamTaken" parameterType="java.util.Map"
+            resultType="sunday.pojo.teacher.ExamTaken">
+        SELECT DISTINCT e.id AS id,c.courseId AS courseId,c.name AS
+        courseName,s.specialtyId AS specialtyId,
+        s.name AS specialtyName,e.content1 AS content1,e.date1 AS date1,e.sign1
+        AS sign1,e.content2 AS content2,e.date2 AS date2,e.sign2 AS sign2,
+        e.content3 AS content3,e.date3 AS date3,e.sign3 AS sign4,e.date4 AS
+        date4,e.sign4 AS sign4,e.started AS started
+        FROM com_teacher t,com_teacher_l_course l,com_specialty s,com_examinfo
+        e,com_course c
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
+        l.specialtyId=s.specialtyId AND s.specialtyId=e.specialtyId
+        <if test="specialtyId != null">
+            AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
+        </if>
+        <if test="courseId != null">
+            AND c.courseId=#{courseId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--更新考试信息-->
+    <update id="updateExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
+        UPDATE com_examinfo
+        <set>
+            <if test="content1 != null">
+                content1 = #{content1,jdbcType=VARCHAR},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1,jdbcType=DATE},
+            </if>
+            <if test="sign1 != null">
+                sign1 = #{sign1,jdbcType=INTEGER},
+            </if>
+            <if test="content2 != null">
+                content2 = #{content2,jdbcType=VARCHAR},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2,jdbcType=DATE},
+            </if>
+            <if test="sign2 != null">
+                sign2 = #{sign2,jdbcType=INTEGER},
+            </if>
+            <if test="content3 != null">
+                content3 = #{content3,jdbcType=VARCHAR},
+            </if>
+            <if test="date3 != null">
+                date3 = #{date3,jdbcType=DATE},
+            </if>
+            <if test="sign3 != null">
+                sign3 = #{sign3,jdbcType=INTEGER},
+            </if>
+            <if test="date4 != null">
+                date4 = #{date4,jdbcType=DATE},
+            </if>
+            <if test="sign4 != null">
+                sign4 = #{sign4,jdbcType=INTEGER},
+            </if>
+            <if test="started != null">
+                started = #{started,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--删除考试信息-->
+    <delete id="deleteExamInfo" parameterType="java.lang.String">
+        DELETE FROM com_examinfo
+        WHERE id=#{id,jdbcType=INTEGER}
+    </delete>
+
+    <!--获取modal中table的考试信息-->
+    <select id="selectTableExamInfo" resultType="sunday.pojo.teacher.ExamTaken">
+        SELECT e.id AS id,c.name AS courseName,s.name AS specialtyName,e.test AS test
+        FROM com_examinfo e,com_course c,com_specialty s
+        WHERE e.courseId=c.courseId AND e.specialtyId=s.specialtyId
+    </select>
+
+    <!--开启/关闭考试-->
+    <update id="startOrCloseExam" parameterType="java.util.Map">
+        UPDATE com_examinfo
+        <set>
+            <if test="test != null">
+                test = #{test,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id=#{id,jdbcType=INTEGER}
+    </update>
+</mapper>

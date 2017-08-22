@@ -1,16 +1,11 @@
 package sunday.controller;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sunday.common.kit.ChapterKit;
-import sunday.common.kit.EncryptKit;
-import sunday.common.kit.ResourceFileKit;
-import sunday.common.kit.ShiroKit;
+import sunday.common.kit.*;
 import sunday.controller.common.CommonController;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.school.*;
@@ -434,9 +429,9 @@ public class TeacherController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<ExamTaken> examTakens = stuExaService.selectExamTaken(getMapInfo2Page(params), teacherInfo);
+        List<ExamTaken> examTakens = stuExaService.selectExamTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
         if (null != examTakens) {
-            return getTakenInfo(examTakens);
+            return CommonKit.getTakenInfo(examTakens);
         }
         return null;
     }
@@ -452,7 +447,7 @@ public class TeacherController extends CommonController {
     public Map<String, Object> getTableExamInfo() {
         List<ExamTaken> examTakens = stuExaService.selectTableExamInfo();
         if (null != examTakens) {
-            return getTakenInfo(examTakens);
+            return CommonKit.getTakenInfo(examTakens);
         }
         return null;
     }
@@ -623,7 +618,7 @@ public class TeacherController extends CommonController {
             put("courseId", courseId);
         }};
         List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
-        return getTakenInfo(gradeTakens);
+        return CommonKit.getTakenInfo(gradeTakens);
     }
 
     /**
@@ -640,7 +635,7 @@ public class TeacherController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(getMapInfo2Page(params), teacherInfo);
+        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
         if (null == courseTakens) {
             return null;
         }
@@ -655,7 +650,7 @@ public class TeacherController extends CommonController {
             target.addAll(gradeTakens);
         }
 
-        return getTakenInfo(target);
+        return CommonKit.getTakenInfo(target);
     }
 
     /**
@@ -701,7 +696,7 @@ public class TeacherController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", getCurrentTeacherId());
         }};
-        List<CourseTaken> courses = speCouService.selectCourseTaken(getMapInfo2Page(params), teacherInfo);
+        List<CourseTaken> courses = speCouService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
 
         //添加teacherId并且设置课程教学状态
         Date currentTime = new Date();
@@ -717,7 +712,7 @@ public class TeacherController extends CommonController {
             }
         }
 
-        return getTakenInfo(courses);
+        return CommonKit.getTakenInfo(courses);
     }
 
     /**
@@ -746,44 +741,6 @@ public class TeacherController extends CommonController {
             info.put("isSuccess", true);
         }
         return info;
-    }
-
-    /**
-     * 获取table所需格式
-     *
-     * @param target
-     * @return
-     */
-    private Map<String, Object> getTakenInfo(List<?> target) {
-        Map<String, Object> takenInfo = new HashMap<>();
-
-        PageInfo<?> pageInfo = new PageInfo<>(target);
-
-        takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
-
-        return takenInfo;
-    }
-
-    /**
-     * 从map中获取page信息
-     *
-     * @param params
-     * @return
-     */
-    private Page getMapInfo2Page(Map<String, Object> params) {
-        Page page = new Page();
-
-        if (null != params.get("pageNum")) {
-            page.setPageNum(Integer.parseInt(params.get("pageNum").toString()));
-        }
-        if (null != params.get("pageSize")) {
-            page.setPageSize(Integer.parseInt(params.get("pageSize").toString()));
-        }
-        if (null != params.get("sort")) {
-            page.setOrderBy(params.get("sort") + " " + params.get("order"));
-        }
-        return page;
     }
 
     /**

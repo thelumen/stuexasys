@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    <mapper namespace="sunday.mapper.teacher.SpeCouMapper">
+
+    <!--新增专业-->
+    <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
+        INSERT INTO com_specialty(specialtyId,name)
+        VALUES (#{specialtyId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR})
+    </insert>
+
+    <!--查询专业-->
+    <select id="selectSpecialty" parameterType="java.util.Map"
+            resultType="sunday.pojo.school.Specialty">
+        SELECT DISTINCT s.*
+        FROM com_teacher_l_course l,com_teacher t,com_specialty s,com_course c
+        WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId AND
+        l.courseId=c.courseId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+        </if>
+        <if test="courseId != null">
+            AND c.courseId=#{courseId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--查询全部专业-->
+    <select id="selectAllSpecialties" resultType="sunday.pojo.school.Specialty">
+        SELECT *
+        FROM com_specialty
+    </select>
+
+    <!--新增课程-->
+    <insert id="insertCourse" parameterType="sunday.pojo.school.Course">
+        INSERT INTO com_course(courseId,name,period,credit)
+        VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER})
+    </insert>
+
+    <!--查询课程-->
+    <select id="selectCourse" parameterType="java.util.Map"
+            resultType="sunday.pojo.school.Course">
+        SELECT DISTINCT c.*
+        FROM com_teacher_l_course l,com_course c,com_teacher t
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!--查询全部课程-->
+    <select id="selectAllCourses" resultType="sunday.pojo.school.Course">
+        SELECT *
+        FROM com_course
+    </select>
+
+    <!--新增选课信息-->
+    <insert id="insertCourseTaken"
+            parameterType="sunday.pojo.teacher.CourseTaken">
+        INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
+        VALUES (#{teacherId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},
+        #{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
+    </insert>
+
+    <!--查询选课信息-->
+    <select id="selectCourseTaken" parameterType="java.util.Map"
+            resultType="sunday.pojo.teacher.CourseTaken">
+        SELECT DISTINCT t.teacherId AS teacherId ,t.name AS teacherName
+        ,c.courseId AS courseId,
+        c.name AS courseName,s.specialtyId AS specialtyId,s.name AS
+        specialtyName,l.starttime AS starttime,l.endtime AS endtime
+        FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
+        l.specialtyId=s.specialtyId
+        <if test="teacherId != null">
+            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+        </if>
+        <if test="courseName != null">
+            AND c.name=#{courseName,jdbcType=VARCHAR}
+        </if>
+        <if test="specialtyId != null">
+            AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
+        </if>
+        <if test="specialtyName != null">
+            AND s.name=#{specialtyName,jdbcType=VARCHAR}
+        </if>
+        ORDER BY l.starttime ASC ,l.endtime ASC
+    </select>
+
+    <!--删除选课信息-->
+    <delete id="deleteTakenInfo" parameterType="java.util.Map">
+        DELETE l FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
+        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND l.specialtyId=s.specialtyId
+        AND t.teacherId=#{teacherId,jdbcType=INTEGER} AND c.name=#{courseName,jdbcType=VARCHAR} AND s.name=#{specialtyName,jdbcType=VARCHAR}
+    </delete>
+</mapper>
