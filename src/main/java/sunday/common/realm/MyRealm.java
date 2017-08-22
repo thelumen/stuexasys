@@ -147,6 +147,8 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo.setRoles(rolesSet);
             shiroInfo.setPermissions(permissionsSet);
 
+            ShiroKit.getSession().setAttribute("currentManager", manager);
+
             return shiroInfo;
         }
         return null;

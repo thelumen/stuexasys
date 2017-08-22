@@ -1,12 +1,13 @@
 package sunday.pojo.manager;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by yang on 2017/5/22.
  * At 19:06
  */
-public final class Manager {
+public final class Manager implements Serializable{
     private int id;
     private int managerId;
     private String password;
@@ -14,12 +15,20 @@ public final class Manager {
     private Date logintime;
     private String ip;
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "id=" + id +
+                ", managerId=" + managerId +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", logintime=" + logintime +
+                ", ip='" + ip + '\'' +
+                '}';
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public int getManagerId() {
@@ -30,16 +39,12 @@ public final class Manager {
         this.managerId = managerId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setId(short id) {
-        this.id = id;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {

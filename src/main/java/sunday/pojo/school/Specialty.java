@@ -23,10 +23,6 @@ public final class Specialty {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Integer getSpecialtyId() {
         return specialtyId;
     }

@@ -40,11 +40,11 @@
                     </div>
                     <div class="form-group">
                         <label><input name="type" type="radio"
-                                      value="管理员"/>管理员</label>
+                                      value="管理员" checked/>管理员</label>
                         <label><input name="type" type="radio"
                                       value="教师"/>教师</label>
                         <label><input name="type" type="radio"
-                                      value="学生" checked/>学生</label>
+                                      value="学生"/>学生</label>
                     </div>
                     <div class="form-group">
                         <div class="main-checkbox">

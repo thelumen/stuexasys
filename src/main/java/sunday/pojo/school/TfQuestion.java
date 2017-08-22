@@ -28,10 +28,6 @@ public final class TfQuestion {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public int getCourseId() {
         return courseId;
     }

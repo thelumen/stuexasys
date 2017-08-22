@@ -37,10 +37,6 @@ public final class SingleQuestion {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Integer getCourseId() {
         return courseId;
     }
