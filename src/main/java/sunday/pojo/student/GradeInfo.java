@@ -4,11 +4,20 @@ package sunday.pojo.student;
  * Created by 花间一壶酒 on 2017/6/17.
  */
 public class GradeInfo {
+    private Long Id;
     private Integer studentId;
     private Integer courseId;
     private Integer grade;
     private String testNum;
     private String result;
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getResult() {
         return result;

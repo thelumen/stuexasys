@@ -113,7 +113,7 @@ public class StudentServiceImpl implements StudentService {
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
-        if (singleTakenList.size() > 0 && tfTakenList.size() > 0) {
+        if (null != singleTakenList && null != tfTakenList && singleTakenList.size() > 0 && tfTakenList.size() > 0) {
         /*
         用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
         传入选择题列表
@@ -177,13 +177,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public TestPaper selectTestPaperAnother(Page page, ExamInfo examInfo) {
+    public TestPaper selectTestPaperAnother(Page page, int studentId, ExamInfo examInfo) {
+        TestPaper testPaper = new TestPaper();
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
+            put("studentId", studentId);
             put("courseId", examInfo.getCourseId());
         }};
+        AnotherTestTaken anotherTestTaken = studentMapper.selectStudentAnotherQuestionInfo(testInfo);
         List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
-        TestPaper testPaper = new TestPaper();
-        testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random() * anotherTestTakens.size())));
+
+        if (null != anotherTestTaken) {
+            long anotherQuestionId = anotherTestTaken.getId();
+            String studentLastAnswer = anotherTestTaken.getResult();
+            for (AnotherTestTaken anotherTestTaken1 : anotherTestTakens) {
+                if (anotherTestTaken1.getId() == anotherQuestionId) {
+                    anotherTestTaken1.setResult(studentLastAnswer);
+                    testPaper.setAnotherQuestionTaken(anotherTestTaken1);
+                }
+            }
+        } else {
+            testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random() * anotherTestTakens.size())));
+        }
         testPaper.setTestNum(examInfo.getTestNum());
         if (testPaper.getAnotherQuestionTaken() != null) {
             return testPaper;
@@ -253,9 +267,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public int insertStudentRole(Student student) {
+        return studentMapper.insertStudentRole(student);
+    }
+
+    @Override
     public boolean insertGrade(GradeInfo gradeInfo) {
         boolean changedRow = false;
         Map<String, Object> uploadGrade = new HashMap<String, Object>() {{
+            put("Id", gradeInfo.getId());
             put("courseId", gradeInfo.getCourseId());
             put("studentId", gradeInfo.getStudentId());
         }};
@@ -283,7 +303,8 @@ public class StudentServiceImpl implements StudentService {
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
-                if (studentMapper.insertAnotherResult(uploadGrade)>0){
+                if (studentMapper.insertAnotherResult(uploadGrade) > 0) {
+                    studentMapper.updateAnotherResult(uploadGrade);
                     changedRow = true;
                 }
                 break;
@@ -292,7 +313,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Boolean update(StudentInfo studentInfo) {
+    public boolean update(StudentInfo studentInfo) {
         int count = 0;
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", studentInfo.getStudentId());

@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
+import sunday.pojo.shiro.ShiroInfo;
 import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
-import sunday.pojo.student.StudentTaken;
 import sunday.service.student.StudentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,24 +26,32 @@ public class StudentController {
     private StudentService studentService;
 
     /**
-     * 从Session中获取当前登录学生的id
+     * 从Session中获取当前登录学生的信息
      *
-     * @return 当前登录学生的id
+     * @return 当前登录学生的信息
      */
-    private Integer getCurrentStudentId() {
-        return (Integer) ShiroKit.getSession().getAttribute("currentStudentId");
+    private ShiroInfo getCurrentStudent() {
+        return (ShiroInfo) ShiroKit.getSession().getAttribute("currentStudent");
     }
 
     /**
-     * 查询并返回当前登录学生的基本信息
+     * 用于获取学生 int 类型的学号
      *
-     * @return List<Student>
+     * @return 当前登录学生的id（int）
      */
-    private List<StudentTaken> getCurrentStudentInfo() {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudentId());
+    private int getStudentIdWithInt() {
+        return getCurrentStudent().getUserId();
+    }
+
+    /**
+     * 用于获取学生 Map 类型的学号
+     *
+     * @return 当前登录学生的id（Map）
+     */
+    private Map<String, Object> getStudentIdWithMap() {
+        return new HashMap<String, Object>() {{
+            put("studentId", getCurrentStudent().getUserId());
         }};
-        return studentService.selectStudentInfo(null, params);
     }
 
     /**
@@ -58,12 +66,12 @@ public class StudentController {
 
     /**
      * 显示学生主页
-     * （遗留问题 待解决）
+     *
+     * @return 主页url
      */
     @RequestMapping(value = "/main", method = RequestMethod.POST)
-    public void homepage(Model model) {
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
-        //return "/student/main/mainProxy";
+    public String homepage() {
+        return "/student/main/mainProxy";
     }
 
     /**
@@ -74,12 +82,9 @@ public class StudentController {
      */
     @RequestMapping(value = "/personPage", method = RequestMethod.GET)
     public String personPage(Model model) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudentId());
-        }};
-        model.addAttribute("studentCourse", studentService.selectCourse(null, params));
-        model.addAttribute("studentGrade", studentService.selectGrade(null, params));
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        model.addAttribute("studentCourse", studentService.selectCourse(null, getStudentIdWithMap()));
+        model.addAttribute("studentGrade", studentService.selectGrade(null, getStudentIdWithMap()));
+        model.addAttribute("studentInfo", studentService.selectStudentInfo(null, getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
     }
 
@@ -91,11 +96,7 @@ public class StudentController {
      */
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     public String exam(Model model) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudentId());
-        }};
-        model.addAttribute("studentExamInfo", studentService.selectExamInfo(null, params));
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(null, getStudentIdWithMap()));
         return "/student/exam/examProxy";
     }
 
@@ -107,31 +108,26 @@ public class StudentController {
      */
     @RequestMapping(value = "/resourcesDownload", method = RequestMethod.GET)
     public String resourceDownload(Model model) {
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
+        model.addAttribute("resourceInfo", ResourceFileKit.getResourceInfo());
         return "/student/resourcesDownload/resourcesDownloadProxy";
     }
 
     /**
-     * 更新学会个人信息
+     * 更新学生个人信息
      *
      * @return 成功信号
      */
     @RequestMapping(value = "/updateStudentInfo", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> updateStudentInfo(@RequestBody StudentInfo studentInfo) {
-        boolean isSuccess = false;
         Map<String, Object> msg = new HashMap<String, Object>() {{
-            put("msg", "isFail");
+            put("isSuccess", false);
         }};
-        studentInfo.setStudentId(getCurrentStudentId());
+        studentInfo.setStudentId(getStudentIdWithInt());
         if (studentService.update(studentInfo)) {
-            isSuccess = true;
+            msg.put("isSuccess", true);
         }
-        if (isSuccess) {
-            msg.put("msg", "isSuccess");
-            return msg;
-        }
-        return null;
+        return msg;
     }
 
     /**
@@ -143,12 +139,11 @@ public class StudentController {
     @RequestMapping(value = "/readyTest", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         Map<String, Object> data = new HashMap<>();
-        if (!"4".equals(examInfo.getTestNum())){
+        if (!"4".equals(examInfo.getTestNum())) {
             data.put("generalTest", true);
             data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent() + "_" + examInfo.getTestNum());
-        }else {
+        } else {
             data.put("generalTest", false);
             data.put("examInfo", examInfo.getCourseId());
         }
@@ -168,7 +163,6 @@ public class StudentController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
         model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
         return "/student/exam/testProxy";
     }
@@ -184,14 +178,13 @@ public class StudentController {
         String[] s = examInfo1.split("_");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
-        model.addAttribute("studentInfo", getCurrentStudentInfo().get(0));
-        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null,examInfo));
+        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, getStudentIdWithInt(), examInfo));
         return "/student/exam/testAnotherProxy";
     }
 
     /**
-     * 上传学生测试成绩
-     * 测试 一 二 三
+     * 上传学生测试成绩或者答案
+     *
      * @param gradeInfo .
      * @return Map
      */
@@ -199,7 +192,7 @@ public class StudentController {
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
-        gradeInfo.setStudentId(getCurrentStudentId());
+        gradeInfo.setStudentId(getStudentIdWithInt());
         if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
         } else info.put("issuccess", false);

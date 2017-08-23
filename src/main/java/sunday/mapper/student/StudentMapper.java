@@ -87,6 +87,13 @@ public interface StudentMapper {
     int insertStudent(Student student);
 
     /**
+     * 增加学生与权限关联
+     *
+     * @param student .
+     * @return int
+     */
+    int insertStudentRole(Student student);
+    /**
      * 新增学生成绩
      * 针对测试一
      * @param params .
@@ -103,12 +110,27 @@ public interface StudentMapper {
     int updateGrade(Map<String, Object> params);
 
     /**
+     * 查询学生附加题信息
+     *
+     * @param params .
+     * @return AnotherTestTaken
+     */
+    AnotherTestTaken selectStudentAnotherQuestionInfo(Map<String, Object> params);
+
+    /**
      * 插入学生附加题答案
      *  针对测试四
      * @param params .
      * @return int
      */
     int insertAnotherResult(Map<String, Object> params);
+
+    /**
+     * 更新学生附加题答案
+     * @param params .
+     * @return int
+     */
+    int updateAnotherResult(Map<String, Object> params);
 
     /**
      * 更新学生信息

@@ -7,6 +7,15 @@ public final class AnotherTestTaken {
     private Long Id;
     private Integer courseId;
     private String content;
+    private String result;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 
     public Long getId() {
         return Id;

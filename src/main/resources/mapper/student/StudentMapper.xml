@@ -7,7 +7,7 @@
     <select id="select" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Student">
         SELECT *
-        FROM com_student
+        FROM stuexasys.com_student
         <where>
             <if test="studentId != null">
                 AND studentId=#{studentId,jdbcType=INTEGER}
@@ -31,7 +31,7 @@
             s.gender    AS gender,
             s.password  AS password,
             p.name      AS specialtyName
-        FROM com_student s, com_specialty p
+        FROM stuexasys.com_student s, stuexasys.com_specialty p
         WHERE s.specialtyId = p.specialtyId AND
               s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
@@ -54,7 +54,7 @@
             e.sign4    AS sign4,
             e.started  AS started,
             e.test     AS test
-        FROM com_examinfo e, com_student s, com_course c
+        FROM stuexasys.com_examinfo e, stuexasys.com_student s, stuexasys.com_course c
         WHERE s.specialtyId = e.specialtyId AND c.courseId = e.courseId AND e.started = 1 AND
               s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
@@ -62,7 +62,7 @@
     <!--查询题库（选择题）-->
     <select id="selectQuestionBaseSingle" parameterType="java.util.Map" resultType="sunday.pojo.student.SingleTaken">
         SELECT *
-        FROM com_single_question s
+        FROM stuexasys.com_single_question s
         WHERE s.courseId = #{courseId,jdbcType=INTEGER} AND s.section IN
         <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
             #{sectionItem}
@@ -73,7 +73,7 @@
     <!--查询题库（判断题）-->
     <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
         SELECT *
-        FROM com_tf_question t
+        FROM stuexasys.com_tf_question t
         WHERE t.courseId = #{courseId,jdbcType=INTEGER} AND t.section IN
         <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
             #{sectionItem}
@@ -88,13 +88,13 @@
             a.courseId AS courseId,
             a.content  AS content,
             a.id       AS Id
-        FROM com_another_question a
+        FROM stuexasys.com_another_question a
         WHERE a.courseId = #{courseId,jdbcType=INTEGER}
     </select>
 
     <!--更新学生信息-->
     <update id="update" parameterType="java.util.Map">
-        UPDATE com_student
+        UPDATE stuexasys.com_student
         <set>
             <if test="password !=null">
                 password=#{password,jdbcType=VARCHAR},
@@ -114,14 +114,20 @@
 
     <!--插入学生-->
     <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
-        INSERT INTO com_student (studentId, password, specialtyId)
+        INSERT INTO stuexasys.com_student (studentId, password, specialtyId)
         VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
                 #{specialtyId,jdbcType=INTEGER})
     </insert>
 
+    <!--插入学生与权限的关联-->
+    <insert id="insertStudentRole" parameterType="sunday.pojo.school.Student">
+        INSERT INTO stuexasys.com_studnet_l_role(studentId,roleId)
+                VALUES (#{studentId,jdbcType=INTEGER},4)
+    </insert>
+
     <!--插入学生成绩(首次测试)-->
     <insert id="insertGrade" parameterType="java.util.Map">
-        INSERT INTO com_grade (studentId, courseId, grade1)
+        INSERT INTO stuexasys.com_grade (studentId, courseId, grade1)
         VALUES (
             #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
             #{grade1,jdbcType=INTEGER})
@@ -129,7 +135,7 @@
 
     <!--更新学生成绩（除测试一和测试四）-->
     <update id="updateGrade" parameterType="java.util.Map">
-        UPDATE com_grade
+        UPDATE stuexasys.com_grade
         <set>
             <if test="grade2!=null">
                 grade2 = #{grade2,jdbcType=INTEGER}
@@ -141,11 +147,28 @@
         WHERE studentId=#{studentId,jdbcType=INTEGER} AND courseId= #{courseId,jdbcType=INTEGER}
     </update>
 
+    <!--查询学生附加题信息-->
+    <select id="selectStudentAnotherQuestionInfo" parameterType="java.util.Map"
+            resultType="sunday.pojo.student.AnotherTestTaken">
+        SELECT *
+        FROM stuexasys.com_student_l_another_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND studentId = #{studentId,jdbcType=INTEGER}
+    </select>
+
     <!--插入学生附加题的答案-->
     <insert id="insertAnotherResult" parameterType="java.util.Map">
-        INSERT INTO com_student_l_another_question (studentId, courseId, result)
-        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR})
+        INSERT INTO stuexasys.com_student_l_another_question (studentId, courseId, result, id)
+        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR},
+                #{Id,jdbcType=BIGINT})
     </insert>
+
+    <!--更新学生附加题的答案-->
+    <update id="updateAnotherResult" parameterType="java.util.Map">
+        UPDATE stuexasys.com_student_l_another_question
+        SET result = #{result,jdbcType=VARCHAR}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER} AND
+              Id = #{Id,jdbcType=BIGINT}
+    </update>
 
     <!--查询学生成绩以及信息-->
     <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
@@ -160,7 +183,7 @@
             g.total      AS total,
             tc.starttime AS startTime,
             tc.endtime   AS endtime
-        FROM com_course c, com_grade g, com_student s, com_teacher_l_course tc
+        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
         WHERE
             g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
             s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
@@ -174,7 +197,7 @@
             c.period     AS period,
             tc.starttime AS startTime,
             tc.endtime   AS endtime
-        FROM com_course c, com_teacher_l_course tc, com_student s
+        FROM stuexasys.com_course c, stuexasys.com_teacher_l_course tc, stuexasys.com_student s
         WHERE
             c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>

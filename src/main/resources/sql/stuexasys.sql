@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mylove1621
-Source Server Version : 50713
+Source Server         : localhost_3306
+Source Server Version : 50717
 Source Host           : 127.0.0.1:3306
 Source Database       : stuexasys
 
 Target Server Type    : MYSQL
-Target Server Version : 50713
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-07-16 19:18:09
+Date: 2017-08-16 23:19:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -106,7 +106,7 @@ INSERT INTO `com_examinfo` VALUES ('15', '140405', '10000001', null, null, '1', 
 -- ----------------------------
 DROP TABLE IF EXISTS `com_grade`;
 CREATE TABLE `com_grade` (
-  `studentId` int(9) NOT NULL COMMENT '学号',
+  `studentId` int(11) NOT NULL COMMENT '学号',
   `courseId` int(8) NOT NULL COMMENT '课程id',
   `grade1` int(3) DEFAULT NULL COMMENT '成绩一',
   `grade2` int(3) DEFAULT NULL COMMENT '成绩二',
@@ -618,7 +618,7 @@ CREATE TABLE `com_manager` (
 -- ----------------------------
 -- Records of com_manager
 -- ----------------------------
-INSERT INTO `com_manager` VALUES ('1', '140400', '827ccb0eea8a706c4c34a16891f84e7b', 'yang', '2017-05-24 19:29:51', '127.0.0.1');
+INSERT INTO `com_manager` VALUES ('1', '20170520', 'f379eaf3c831b04de153469d1bec345e', 'yang', '2017-05-24 19:29:51', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for com_manager_l_role
@@ -651,7 +651,7 @@ CREATE TABLE `com_resource` (
   `url` varchar(50) DEFAULT NULL COMMENT '资源地址',
   PRIMARY KEY (`id`),
   UNIQUE KEY `permission` (`permission`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='资源表';
 
 -- ----------------------------
 -- Records of com_resource
@@ -659,6 +659,7 @@ CREATE TABLE `com_resource` (
 INSERT INTO `com_resource` VALUES ('1', 'admin', '超级管理员', 'shiro:sys:admin', '');
 INSERT INTO `com_resource` VALUES ('2', 'manager', '普通管理员', 'shiro:sys:manager', '/manager/main/main');
 INSERT INTO `com_resource` VALUES ('3', 'teacher', '教师', 'shiro:sys:teacher', '/teacher/main/mainProxy');
+INSERT INTO `com_resource` VALUES ('4', 'student', '学生', 'shiro:sys:student', '/student/main/mainProxy');
 
 -- ----------------------------
 -- Table structure for com_role
@@ -670,7 +671,7 @@ CREATE TABLE `com_role` (
   `remark` varchar(250) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of com_role
@@ -678,6 +679,7 @@ CREATE TABLE `com_role` (
 INSERT INTO `com_role` VALUES ('1', 'admin', '超级管理员');
 INSERT INTO `com_role` VALUES ('2', 'manager', '普通管理员');
 INSERT INTO `com_role` VALUES ('3', 'teacher', '教师');
+INSERT INTO `com_role` VALUES ('4', 'student', '学生');
 
 -- ----------------------------
 -- Table structure for com_role_l_resource
@@ -699,6 +701,7 @@ CREATE TABLE `com_role_l_resource` (
 INSERT INTO `com_role_l_resource` VALUES ('1', '1');
 INSERT INTO `com_role_l_resource` VALUES ('2', '2');
 INSERT INTO `com_role_l_resource` VALUES ('3', '3');
+INSERT INTO `com_role_l_resource` VALUES ('4', '4');
 
 -- ----------------------------
 -- Table structure for com_single_question
@@ -771,7 +774,7 @@ INSERT INTO `com_specialty` VALUES ('6', '140405', '计算机5班');
 DROP TABLE IF EXISTS `com_student`;
 CREATE TABLE `com_student` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `studentId` int(9) NOT NULL COMMENT '学号',
+  `studentId` int(11) NOT NULL COMMENT '学号',
   `password` varchar(50) NOT NULL COMMENT '登录密码',
   `name` varchar(50) DEFAULT '辽工学子' COMMENT '姓名',
   `specialtyId` int(6) NOT NULL COMMENT '班级id',
@@ -845,6 +848,7 @@ INSERT INTO `com_student` VALUES ('123', '140405056', '827ccb0eea8a706c4c34a1689
 INSERT INTO `com_student` VALUES ('124', '140405057', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
 INSERT INTO `com_student` VALUES ('125', '140405058', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
 INSERT INTO `com_student` VALUES ('126', '140405059', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
+INSERT INTO `com_student` VALUES ('127', '140405099', '827ccb0eea8a706c4c34a16891f84e7b', '辽工学子', '140405', '0', null, null);
 
 -- ----------------------------
 -- Table structure for com_student_l_another_question
@@ -852,7 +856,7 @@ INSERT INTO `com_student` VALUES ('126', '140405059', '827ccb0eea8a706c4c34a1689
 DROP TABLE IF EXISTS `com_student_l_another_question`;
 CREATE TABLE `com_student_l_another_question` (
   `id` bigint(11) NOT NULL COMMENT '主键',
-  `studentId` int(9) NOT NULL COMMENT '学生id',
+  `studentId` int(11) NOT NULL COMMENT '学生id',
   `courseId` int(8) NOT NULL COMMENT '课程id',
   `result` varchar(255) DEFAULT NULL COMMENT '学生答案',
   PRIMARY KEY (`studentId`,`courseId`)
@@ -867,6 +871,23 @@ INSERT INTO `com_student_l_another_question` VALUES ('3', '140400002', '10000000
 INSERT INTO `com_student_l_another_question` VALUES ('4', '140400003', '10000000', '6265464');
 INSERT INTO `com_student_l_another_question` VALUES ('5', '140400004', '10000000', '24624624');
 INSERT INTO `com_student_l_another_question` VALUES ('6', '140401011', '10000001', '737437452');
+
+-- ----------------------------
+-- Table structure for com_studnet_l_role
+-- ----------------------------
+DROP TABLE IF EXISTS `com_studnet_l_role`;
+CREATE TABLE `com_studnet_l_role` (
+  `studentId` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL,
+  PRIMARY KEY (`studentId`,`roleId`),
+  KEY `roleId` (`roleId`),
+  CONSTRAINT `com_studnet_l_role_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `com_student` (`studentId`) ON DELETE CASCADE,
+  CONSTRAINT `com_studnet_l_role_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `com_role` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of com_studnet_l_role
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for com_teacher
@@ -889,9 +910,9 @@ CREATE TABLE `com_teacher` (
 -- ----------------------------
 -- Records of com_teacher
 -- ----------------------------
-INSERT INTO `com_teacher` VALUES ('18', '140400', '827ccb0eea8a706c4c34a16891f84e7b', 'yangxuyue', '', '', '北三', null, null);
-INSERT INTO `com_teacher` VALUES ('19', '140401', '827ccb0eea8a706c4c34a16891f84e7b', 'yang', null, null, null, null, null);
-INSERT INTO `com_teacher` VALUES ('20', '140402', '827ccb0eea8a706c4c34a16891f84e7b', '辽工教师', null, null, null, null, null);
+INSERT INTO `com_teacher` VALUES ('18', '140400', 'f379eaf3c831b04de153469d1bec345e', 'yangxuyue', '', '', '北三', null, null);
+INSERT INTO `com_teacher` VALUES ('19', '140401', 'f379eaf3c831b04de153469d1bec345e', 'yang', null, null, null, null, null);
+INSERT INTO `com_teacher` VALUES ('20', '140402', 'f379eaf3c831b04de153469d1bec345e', '辽工教师', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for com_teacher_l_course
@@ -962,3 +983,4 @@ INSERT INTO `com_tf_question` VALUES ('1', '10000000', '第一章', '1', '353246
 INSERT INTO `com_tf_question` VALUES ('2', '10000000', '第一章', '1', '35324654236342624364265', '1');
 INSERT INTO `com_tf_question` VALUES ('3', '10000000', '第一章', '1', '235324532', '1');
 INSERT INTO `com_tf_question` VALUES ('4', '10000000', '第五章', '3', '4553', '1');
+SET FOREIGN_KEY_CHECKS=1;
