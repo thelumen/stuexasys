@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="重整项目">
+    <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/ManagerController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/ManagerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/TeacherController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/TeacherController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" afterPath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/another/another_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/another/another_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/exam/exam_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/exam/exam_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/grade/grade_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/grade/grade_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/main/main_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/main/main_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/question/question_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/question_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/resource/resource_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/resource/resource_content.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +18,8 @@
       <file leaf-file-name="TeacherController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/TeacherController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="690" column="61" lean-forward="true" selection-start-line="690" selection-start-column="61" selection-end-line="690" selection-end-column="61" />
+            <state relative-caret-position="269">
+              <caret line="690" column="61" lean-forward="false" selection-start-line="690" selection-start-column="61" selection-end-line="690" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -38,7 +28,7 @@
       <file leaf-file-name="course_content.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3193">
+            <state relative-caret-position="3170">
               <caret line="179" column="85" lean-forward="false" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
               <folding />
             </state>
@@ -860,7 +850,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1503498589145</updated>
-      <workItem from="1503498590613" duration="8016000" />
+      <workItem from="1503498590613" duration="8426000" />
     </task>
     <task id="LOCAL-00001" summary="重整项目">
       <created>1503499513335</created>
@@ -869,11 +859,18 @@
       <option name="project" value="LOCAL" />
       <updated>1503499513335</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="优化代码（未做测试）">
+      <created>1503506942233</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1503506942233</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8016000" />
+    <option name="totallyTimeSpent" value="8426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
@@ -916,7 +913,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="重整项目" />
-    <option name="LAST_COMMIT_MESSAGE" value="重整项目" />
+    <MESSAGE value="优化代码（未做测试）" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化代码（未做测试）" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1069,7 +1067,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3193">
+        <state relative-caret-position="3170">
           <caret line="179" column="85" lean-forward="false" selection-start-line="179" selection-start-column="85" selection-end-line="179" selection-end-column="85" />
           <folding />
         </state>
@@ -1077,8 +1075,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/TeacherController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="690" column="61" lean-forward="true" selection-start-line="690" selection-start-column="61" selection-end-line="690" selection-end-column="61" />
+        <state relative-caret-position="269">
+          <caret line="690" column="61" lean-forward="false" selection-start-line="690" selection-start-column="61" selection-end-line="690" selection-end-column="61" />
           <folding />
         </state>
       </provider>
