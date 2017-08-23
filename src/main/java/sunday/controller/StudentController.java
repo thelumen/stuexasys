@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
+import sunday.controller.common.CommonController;
 import sunday.pojo.shiro.ShiroInfo;
 import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
-import sunday.service.student.StudentService;
+import sunday.pojo.student.TestPaper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,10 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/student")
-public class StudentController {
-
-    @javax.annotation.Resource(name = "studentService")
-    private StudentService studentService;
+public class StudentController extends CommonController {
 
     /**
      * 从Session中获取当前登录学生的信息
@@ -163,8 +161,12 @@ public class StudentController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
-        return "/student/exam/testProxy";
+        TestPaper testPaper = studentService.selectTestPaper(null, examInfo);
+        model.addAttribute("exception", "后台数据异常");
+        if (null != testPaper) {
+            model.addAttribute("testPaper", testPaper);
+            return "/student/exam/testProxy";
+        } else return "/common/error/error";
     }
 
     /**
