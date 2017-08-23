@@ -3,8 +3,7 @@ package sunday.common.kit;
 import org.slf4j.Logger;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 资源文件目录工具类
@@ -16,7 +15,7 @@ public final class ResourceFileKit {
     //必须给定一个主目录
     //如果不存在的话，则自动创建
     //假定在Windows系统
-    private static final String HOME = "E:/搬移文件/Desktop/资源文件";
+    private static final String HOME = "C:/搬移文件/Desktop/资源文件";
 
     private ResourceFileKit() {
     }
@@ -73,4 +72,51 @@ public final class ResourceFileKit {
         return null;
     }
 
+    /**
+     * 获取资源信息
+     * 按照最后更新时间降序排序
+     *
+     * @return List<Map<String, Object>>.
+     */
+    public static List<Map<String, Object>> getResourceInfo() {
+        List<String> filePackagerNames = getHomeDirectories();//获取主目录下的文件夹名
+        List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
+        if (filePackagerNames != null) {
+            for (String fileName : filePackagerNames) {
+                File fileNameInfo = new File(HOME + "/" + fileName);//拼接绝对路径并创建file类
+                File[] children = fileNameInfo.listFiles();
+                List<Map<String, Object>> father = new ArrayList<>();
+                if (children != null && children.length > 0) {
+                    for (File file : children) {
+                        String path=ResourceFileKit.getRelativePath(fileName, file.getPath()).replaceAll("\\\\","%2F");
+                        Map<String, Object> fileInfo = new HashMap<String, Object>() {{
+                            put("name", file.getName());
+                            put("path", path);
+                            put("lastUpdateTime", DateKit.date2String(file.lastModified()));
+                        }};
+                        father.add(fileInfo);
+                    }
+                    //按最后更新时间对目录下的文件进行排序
+                    father.sort((o1, o2) -> {
+                        Date d1 = DateKit.string2Date((String) o1.get("lastUpdateTime"));
+                        Date d2 = DateKit.string2Date((String) o2.get("lastUpdateTime"));
+                        if (d1.getTime() > d2.getTime()) {
+                            return -1;
+                        }
+                        if (d1.getTime() == d2.getTime()) {
+                            return 0;
+                        }
+                        return 1;
+                    });//end sort
+                }//end for
+                Map<String, Object> filePackageInfo = new HashMap<String, Object>() {{
+                    put("directoryName", fileName);
+                    put("directory", father);
+                }};
+                target.add(filePackageInfo);
+            }//end for
+            return target;
+        }//end if
+        return null;
+    }
 }

@@ -1,6 +1,5 @@
 package sunday.common.kit;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,10 +16,49 @@ public final class DateKit {
      *
      * @param date
      * @return
-     * @throws ParseException
      */
-    public static Date string2Date(String date) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.parse(date);
+    public static Date string2Date(String date) {
+        Date resultDate = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+            resultDate = sdf.parse(date);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return resultDate;
+    }
+
+    /**
+     * 将时间戳（String）格式化成 yyyy-MM-dd HH-mm-ss
+     *
+     * @param stringTime 时间戳类型
+     * @return yyyy-MM-dd HH-mm-ss.
+     */
+    public static String date2String(String stringTime) {
+        long longTime = new Long(stringTime);
+        return date2String(longTime);
+    }
+
+    /**
+     * 将时间戳（long）格式化成 yyyy-MM-dd HH-mm-ss
+     *
+     * @param longTime 时间戳类型
+     * @return yyyy-MM-dd HH-mm-ss.
+     */
+    public static String date2String(long longTime) {
+        Date date = new Date(longTime);
+        return date2String(date);
+    }
+
+
+    /**
+     * 将date 格式化为 yyyy-MM-dd HH-mm-ss
+     *
+     * @param date 日期类型
+     * @return yyyy-MM-dd HH-mm-ss.
+     */
+    public static String date2String(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        return sdf.format(date);
     }
 }

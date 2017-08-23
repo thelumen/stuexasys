@@ -23,6 +23,19 @@ public class StudentTest {
     private StudentService studentService;
 
     @Test
+    public void t8() {
+        int i, j;
+        List<Student> studentList = studentService.select(null, null);
+        i = studentList.size();
+        j = 0;
+        for (Student student : studentList) {
+            j += studentService.insertStudentRole(student);
+        }
+        System.out.println("全长" + i);
+        System.out.println("成功" + j);
+    }
+
+    @Test
     public void t7() {
         //ExamInfo examInfo = new ExamInfo();
         //examInfo.setContent("1,2,4");

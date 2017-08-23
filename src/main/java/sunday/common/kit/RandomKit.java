@@ -20,6 +20,7 @@ public final class RandomKit {
      * @param set 随机数结果集
      */
     public static void randomSet(int min, int max, int n, HashSet<Integer> set) {
+        //判断传入值的合法性
         if (n > (max - min + 1) || max < min) {
             return;
         }

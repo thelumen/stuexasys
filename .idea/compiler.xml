@@ -9,7 +9,7 @@
         <module name="stuexasys" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="stuexasys" target="1.8" />
     </bytecodeTargetLevel>
   </component>
