@@ -55,7 +55,7 @@
                        data-method="post"
                        data-side-pagination="server"
                        data-row-style="modalRowStyle"
-                       data-url="${pageContext.request.contextPath}/teacher/getModalTableExamInfo">
+                       data-url="${pageContext.request.contextPath}/teacher/modal/examInfo/list">
                     <thead>
                     <tr>
                         <th data-field="id" data-visible="false">序列号</th>
@@ -83,11 +83,11 @@
     //    开启考试
     function examStart(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/examStart/' + id,
+            url: '${pageContext.request.contextPath}/teacher/exam/' + id + "/start",
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data.isSuccess) {
+                if (data === true) {
                     $('#teacher_exam_modal_table').bootstrapTable("refresh");
                 }
             },
@@ -99,11 +99,11 @@
     //    关闭考试
     function examClose(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/examClose/' + id,
+            url: '${pageContext.request.contextPath}/teacher/exam/' + id + "/close",
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data.isSuccess) {
+                if (data === true) {
                     $('#teacher_exam_modal_table').bootstrapTable("refresh");
                 }
             },
@@ -135,13 +135,13 @@
         var table = $('#teacher_exam_table');
         var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/updateExamInfo',
+            url: '${pageContext.request.contextPath}/teacher/examInfo/update',
             data: data,
             contentType: 'application/json',
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data.isSuccess) {
+                if (data === true) {
                     swal("year..", "考试信息已更新!", "success");
                     table.bootstrapTable("refresh");
                 } else {
@@ -170,11 +170,11 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '${pageContext.request.contextPath}/teacher/examInfo/delete/' + id,
+                        url: '${pageContext.request.contextPath}/teacher/examInfo/' + id + "/delete",
                         type: 'delete',
                         dataType: 'json',
                         success: function (data) {
-                            if (data.isSuccess) {
+                            if (data === true) {
                                 swal("year..", "删除成功!", "success");
                                 $('#teacher_exam_table').bootstrapTable("refresh");
                                 $('#teacher_exam_modal_table').bootstrapTable("refresh");
@@ -473,11 +473,11 @@
             var specialtyId = $('#teacher_exam_choose_specialty').val();
             if (courseId !== '') {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/teacher/takeExamInfo/' + courseId + "/" + specialtyId,
+                    url: '${pageContext.request.contextPath}/teacher/examInfo/' + courseId + "/" + specialtyId + "/insert",
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        if (data.isSuccess) {
+                        if (data === true) {
                             swal("Success", "添加考试信息成功！", "success");
                             $('#teacher_exam_table').bootstrapTable("refresh");
                             $('#teacher_exam_modal_table').bootstrapTable("refresh");

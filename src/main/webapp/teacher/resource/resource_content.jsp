@@ -75,7 +75,7 @@
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data === true) {
                         swal("year", "上传成功！", "success");
                     }
                 },

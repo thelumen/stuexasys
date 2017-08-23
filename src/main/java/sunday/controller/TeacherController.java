@@ -39,17 +39,16 @@ public class TeacherController extends CommonController {
      * @param teacher
      * @return
      */
-    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> updateInfo(@RequestBody Teacher teacher) {
-        Map<String, Object> info = new HashMap<>();
-
+    public boolean updateInfo(@RequestBody Teacher teacher) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", teacher.getTeacherId());
         }};
         List<Teacher> teachers = teacherService.select(null, params);
+
         if (null != teachers) {
             Teacher t = teachers.get(0);
             //后台接收的密码是加密了的
@@ -59,15 +58,10 @@ public class TeacherController extends CommonController {
             } else {
                 teacher.setPassword(null);
             }
-            if (teacherService.update(teacher)) {
-                info.put("isSuccess", true);
-            } else {
-                info.put("isSuccess", false);
-            }
-        } else {
-            info.put("isSuccess", false);
+
+            return teacherService.update(teacher);
         }
-        return info;
+        return false;
     }
 
     /**
@@ -105,15 +99,15 @@ public class TeacherController extends CommonController {
     @ResponseBody
     public List<AnotherTaken> getAnother(@PathVariable("courseId") Integer courseId,
                                          @PathVariable("specialtyId") Integer specialtyId) {
+        if (null == courseId || null == specialtyId) {
+            return null;
+        }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
-        List<AnotherTaken> takens = teaQueService.selectAnother(params);
-        if (null != takens) {
-            return takens;
-        }
-        return null;
+        return teaQueService.selectAnother(params);
     }
 
     /**
@@ -126,14 +120,17 @@ public class TeacherController extends CommonController {
     @ResponseBody
     public AnotherTaken getStudentResult(@PathVariable("content") String content) {
         String[] ele = content.split("&");
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("id", Long.valueOf(ele[0]));
-            put("courseId", ele[1]);
-            put("studentId", ele[2]);
-        }};
-        List<AnotherTaken> takens = teaQueService.selectAnother(params);
-        if (null != takens) {
-            return takens.get(0);
+        //只有三个值
+        if (ele.length == 3) {
+            Map<String, Object> params = new HashMap<String, Object>() {{
+                put("id", Long.valueOf(ele[0]));
+                put("courseId", ele[1]);
+                put("studentId", ele[2]);
+            }};
+            List<AnotherTaken> takens = teaQueService.selectAnother(params);
+            if (null != takens) {
+                return takens.get(0);
+            }
         }
         return null;
     }
@@ -150,20 +147,19 @@ public class TeacherController extends CommonController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> recordGrade4(@PathVariable("studentId") Integer studentId,
-                                            @PathVariable("courseId") Integer courseId,
-                                            @PathVariable("score") int score) {
-        Map<String, Object> info = new HashMap<>();
+    public boolean recordGrade4(@PathVariable("studentId") Integer studentId,
+                                @PathVariable("courseId") Integer courseId,
+                                @PathVariable("score") int score) {
+
+        if (null == studentId || null == courseId) {
+            return false;
+        }
         //前台不做了，后台修改数据
         if (score > 100) {
             score = 100;
         }
-        if (stuGraService.updateAnother(studentId, courseId, score)) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+
+        return stuGraService.updateAnother(studentId, courseId, score);
     }
 
     /**
@@ -187,6 +183,11 @@ public class TeacherController extends CommonController {
     @RequestMapping(value = "/{courseId}/chapter", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getCourseChapter(@PathVariable("courseId") Integer courseId) {
+        //如果courseId为null，则会查询出所有的信息
+        if (null == courseId) {
+            return null;
+        }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
@@ -195,16 +196,26 @@ public class TeacherController extends CommonController {
             //按章节排序
             List<String> target = ChapterKit.bubbleSort(questions);
             List<Map<String, Object>> father = new ArrayList<>();
-            for (String chapterName : target) {
-                Map<String, Object> child = new HashMap<String, Object>() {{
-                    put("id", chapterName);
-                    put("text", chapterName);
-                }};
-                father.add(child);
-            }
+            getSelectInfo(target, father);
             return father;
         }
         return null;
+    }
+
+    /**
+     * 设置select2所需要的数据格式
+     *
+     * @param target
+     * @param father
+     */
+    private void getSelectInfo(List<String> target, List<Map<String, Object>> father) {
+        for (String chapterName : target) {
+            Map<String, Object> child = new HashMap<String, Object>() {{
+                put("id", chapterName);
+                put("text", chapterName);
+            }};
+            father.add(child);
+        }
     }
 
     /**
@@ -213,18 +224,13 @@ public class TeacherController extends CommonController {
      * @param question
      * @return
      */
-    @RequestMapping(value = "/saveSingleQuestion", method = RequestMethod.POST)
+    @RequestMapping(value = "/single/insert", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> saveSingleQuestion(@RequestBody SingleQuestion question) {
-        Map<String, Object> info = new HashMap<>();
-        if (teaQueService.insertSingleQuestion(question) > 0) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+    public boolean saveSingleQuestion(@RequestBody SingleQuestion question) {
+
+        return teaQueService.insertSingleQuestion(question) > 0;
     }
 
     /**
@@ -233,18 +239,13 @@ public class TeacherController extends CommonController {
      * @param question
      * @return
      */
-    @RequestMapping(value = "/saveTfQuestion", method = RequestMethod.POST)
+    @RequestMapping(value = "/tfQuestion/insert", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> saveTfQuestion(@RequestBody TfQuestion question) {
-        Map<String, Object> info = new HashMap<>();
-        if (teaQueService.insertTfQuestion(question) > 0) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+    public boolean saveTfQuestion(@RequestBody TfQuestion question) {
+
+        return teaQueService.insertTfQuestion(question) > 0;
     }
 
     /**
@@ -253,18 +254,13 @@ public class TeacherController extends CommonController {
      * @param another
      * @return
      */
-    @RequestMapping(value = "/saveAnother", method = RequestMethod.POST)
+    @RequestMapping(value = "/another/insert", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> saveAnother(@RequestBody Another another) {
-        Map<String, Object> info = new HashMap<>();
-        if (teaQueService.insertAnother(another) > 0) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+    public boolean saveAnother(@RequestBody Another another) {
+
+        return teaQueService.insertAnother(another) > 0;
     }
 
     /**
@@ -290,13 +286,7 @@ public class TeacherController extends CommonController {
         List<String> directories = ResourceFileKit.getHomeDirectories();
         if (null != directories) {
             List<Map<String, Object>> target = new ArrayList<>();
-            for (String directoryFileName : directories) {
-                Map<String, Object> child = new HashMap<String, Object>() {{
-                    put("id", directoryFileName);
-                    put("text", directoryFileName);
-                }};
-                target.add(child);
-            }
+            getSelectInfo(directories, target);
             return target;
         }
         return null;
@@ -314,25 +304,30 @@ public class TeacherController extends CommonController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> uploadFiles(@PathVariable("directoryName") String directoryName,
-                                           @RequestParam("files") List<MultipartFile> files) throws IOException {
-        Map<String, Object> info = new HashMap<>();
-        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
-        //HOME主目录下的某一directory
-        String realPath = ResourceFileKit.getHome() + "/" + directory;
-        File child = new File(realPath);
-        if (!child.exists()) {
-            child.mkdir();
-        }
-        if (null != files && files.size() > 0) {
-            for (MultipartFile file : files) {
-                file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
+    public boolean uploadFiles(@PathVariable("directoryName") String directoryName,
+                               @RequestParam("files") List<MultipartFile> files) {
+        String directory;
+        try {
+            directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+            //HOME主目录下的某一directory
+            String realPath = ResourceFileKit.getHome() + File.separator + directory;
+            File child = new File(realPath);
+            if (!child.exists()) {
+                child.mkdir();
             }
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
+            if (null != files && files.size() > 0) {
+                for (MultipartFile file : files) {
+                    file.transferTo(new File(realPath + File.separator + file.getOriginalFilename()));
+                }
+                return true;
+            }
+        } catch (IOException e) {
+            //这里做日志写入
+            e.printStackTrace();
+            return false;
         }
-        return info;
+
+        return false;
     }
 
     /**
@@ -344,26 +339,31 @@ public class TeacherController extends CommonController {
      */
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
-    public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
-        String directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
-        String deepPath = ResourceFileKit.getHome() + "/" + directory;
+    public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) {
+        String directory;
+        try {
+            directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String deepPath = ResourceFileKit.getHome() + File.separator + directory;
         File home = new File(deepPath);
-        if (home.exists()) {
-            if (home.isDirectory()) {
-                File[] children = home.listFiles();
-                if (null != children && children.length > 0) {
-                    List<Map<String, Object>> father = new ArrayList<>();
-                    for (File file : children) {
-                        if (file.isFile()) {
-                            Map<String, Object> child = new HashMap<String, Object>() {{
-                                put("name", file.getName());
-                                put("path", ResourceFileKit.getRelativePath(directory, file.getPath()));
-                            }};
-                            father.add(child);
-                        }
+        if (home.exists() && home.isDirectory()) {
+            File[] children = home.listFiles();
+            if (null != children && children.length > 0) {
+                List<Map<String, Object>> father = new ArrayList<>();
+                for (File file : children) {
+                    if (file.isFile()) {
+                        Map<String, Object> child = new HashMap<String, Object>() {{
+                            put("name", file.getName());
+                            put("path", ResourceFileKit.getRelativePath(directory, file.getPath()));
+                        }};
+                        father.add(child);
                     }
-                    return father;
                 }
+                return father;
             }
         }
         return null;
@@ -388,13 +388,15 @@ public class TeacherController extends CommonController {
      * @param specialtyId
      * @return
      */
-    @RequestMapping(value = "/takeExamInfo/{courseId}/{specialtyId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/examInfo/{courseId}/{specialtyId}/insert", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> takeExamInfo(@PathVariable("courseId") Integer courseId,
-                                            @PathVariable("specialtyId") Integer specialtyId) {
-        Map<String, Object> info = new HashMap<>();
+    public boolean takeExamInfo(@PathVariable("courseId") Integer courseId,
+                                @PathVariable("specialtyId") Integer specialtyId) {
+        if (null == courseId || null == specialtyId) {
+            return false;
+        }
 
         Map<String, Object> specouInfo = new HashMap<String, Object>() {{
             put("courseId", courseId);
@@ -402,8 +404,7 @@ public class TeacherController extends CommonController {
         }};
         List<ExamTaken> examTakens = stuExaService.selectExamTaken(null, specouInfo);
         if (null != examTakens) {
-            info.put("isSuccess", false);
-            return info;
+            return false;
         }
 
         ExamTaken exam = new ExamTaken();
@@ -411,10 +412,7 @@ public class TeacherController extends CommonController {
         exam.setSpecialtyId(specialtyId);
         exam.setStarted(1);
 
-        stuExaService.insertExamInfo(exam);
-
-        info.put("isSuccess", true);
-        return info;
+        return stuExaService.insertExamInfo(exam) > 0;
     }
 
     /**
@@ -442,7 +440,7 @@ public class TeacherController extends CommonController {
      *
      * @return
      */
-    @RequestMapping(value = "/getModalTableExamInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/modal/examInfo/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getTableExamInfo() {
         List<ExamTaken> examTakens = stuExaService.selectTableExamInfo();
@@ -458,27 +456,22 @@ public class TeacherController extends CommonController {
      * @param examInfo
      * @return
      */
-    @RequestMapping(value = "/updateExamInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/examInfo/update", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
-        Map<String, Object> info = new HashMap<>();
+    public boolean getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
+
         //sign信号只有一个为1才能被保存
         int[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
         int i = 0;
-        for (Integer b : signs) {
+        for (int b : signs) {
             if (b == 1) {
                 i++;
             }
         }
-        if (i == 1) {
-            stuExaService.updateExamInfo(examInfo);
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+
+        return i == 1 && stuExaService.updateExamInfo(examInfo) > 0;
     }
 
     /**
@@ -487,18 +480,13 @@ public class TeacherController extends CommonController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/examInfo/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/examInfo/{id}/delete", method = RequestMethod.DELETE)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> deleteExamInfo(@PathVariable("id") String id) {
-        Map<String, Object> info = new HashMap<>();
-        if (stuExaService.deleteExamInfo(id)) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+    public boolean deleteExamInfo(@PathVariable("id") String id) {
+
+        return stuExaService.deleteExamInfo(id);
     }
 
     /**
@@ -507,22 +495,22 @@ public class TeacherController extends CommonController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/examStart/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/exam/{id}/start", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> examStart(@PathVariable("id") String id) {
-        Map<String, Object> info = new HashMap<>();
+    public boolean examStart(@PathVariable("id") String id) {
+
+        if (id == null || Objects.equals(id, "")) {
+            return false;
+        }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
             put("test", 1);
         }};
-        if (stuExaService.startOrCloseExam(params)) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+
+        return stuExaService.startOrCloseExam(params);
     }
 
     /**
@@ -531,22 +519,22 @@ public class TeacherController extends CommonController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/examClose/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/exam/{id}/close", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> examClose(@PathVariable("id") String id) {
-        Map<String, Object> info = new HashMap<>();
+    public boolean examClose(@PathVariable("id") String id) {
+
+        if (id == null || Objects.equals(id, "")) {
+            return false;
+        }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
             put("test", 0);
         }};
-        if (stuExaService.startOrCloseExam(params)) {
-            info.put("isSuccess", true);
-        } else {
-            info.put("isSuccess", false);
-        }
-        return info;
+
+        return stuExaService.startOrCloseExam(params);
     }
 
     /**
@@ -567,10 +555,11 @@ public class TeacherController extends CommonController {
      * @param percentInfo
      * @return
      */
-    @RequestMapping(value = "/student/assignGrades", method = RequestMethod.POST)
+    @RequestMapping(value = "/student/grade/assign", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String assignGrades(GradePercent percentInfo) {
+
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
         if (!percentInfo.getPercent1().equals("")) {
             p1 = Float.parseFloat(percentInfo.getPercent1()) / 100.0f;
@@ -613,12 +602,18 @@ public class TeacherController extends CommonController {
     @ResponseBody
     public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") Integer specialtyId,
                                                      @PathVariable("courseId") Integer courseId) {
+        if (null == specialtyId || null == courseId) {
+            return null;
+        }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
             put("courseId", courseId);
         }};
         List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
-        return CommonKit.getTakenInfo(gradeTakens);
+        if (null != gradeTakens) {
+            return CommonKit.getTakenInfo(gradeTakens);
+        }
+        return null;
     }
 
     /**
@@ -671,17 +666,14 @@ public class TeacherController extends CommonController {
      * @param courseTaken
      * @return
      */
-    @RequestMapping(value = "/takeCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/course/insert", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> takeCourse(@RequestBody CourseTaken courseTaken) {
-        Map<String, Object> info = new HashMap<>();
+    public boolean takeCourse(@RequestBody CourseTaken courseTaken) {
+
         courseTaken.setTeacherId(getCurrentTeacherId());
-        if (speCouService.insertCourseTaken(courseTaken) > 0) {
-            info.put("isSuccess", true);
-        }
-        return info;
+        return speCouService.insertCourseTaken(courseTaken) > 0;
     }
 
     /**
@@ -698,21 +690,24 @@ public class TeacherController extends CommonController {
         }};
         List<CourseTaken> courses = speCouService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
 
-        //添加teacherId并且设置课程教学状态
-        Date currentTime = new Date();
-        for (CourseTaken info : courses) {
-            if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
-                info.setOn("教学中");
+        if (null != courses) {
+            //添加teacherId并且设置课程教学状态
+            Date currentTime = new Date();
+            for (CourseTaken info : courses) {
+                if (info.getEndtime().compareTo(currentTime) >= 0 && currentTime.compareTo(info.getStarttime()) >= 0) {
+                    info.setOn("教学中");
+                }
+                if (currentTime.compareTo(info.getStarttime()) < 0) {
+                    info.setOn("未开始");
+                }
+                if (info.getEndtime().compareTo(currentTime) < 0) {
+                    info.setOn("已结课");
+                }
             }
-            if (currentTime.compareTo(info.getStarttime()) < 0) {
-                info.setOn("未开始");
-            }
-            if (info.getEndtime().compareTo(currentTime) < 0) {
-                info.setOn("已结课");
-            }
-        }
 
-        return CommonKit.getTakenInfo(courses);
+            return CommonKit.getTakenInfo(courses);
+        }
+        return null;
     }
 
     /**
@@ -725,22 +720,24 @@ public class TeacherController extends CommonController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public Map<String, Object> editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
-        Map<String, Object> info = new HashMap<>();
-        //此数组有三个数值，teacherId+courseName+specialtyName
-        //这种写法并不好
-        String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
+    public boolean editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {
 
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", target[0]);
-            put("courseName", target[1]);
-            put("specialtyName", target[2]);
-        }};
-
-        if (speCouService.deleteTakenInfo(params)) {
-            info.put("isSuccess", true);
+        if (Objects.equals(content, "")) {
+            return false;
         }
-        return info;
+        //此数组有三个数值，teacherId+courseName+specialtyName
+        String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
+        if (target.length == 3) {
+            Map<String, Object> params = new HashMap<String, Object>() {{
+                put("teacherId", target[0]);
+                put("courseName", target[1]);
+                put("specialtyName", target[2]);
+            }};
+
+            return speCouService.deleteTakenInfo(params);
+        }
+
+        return false;
     }
 
     /**

@@ -36,13 +36,13 @@
                 var formdata = $('#teacher_main_form').serializeObject();
                 var data = JSON.stringify(formdata);
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/teacher/updateInfo',
+                    url: '${pageContext.request.contextPath}/teacher/update',
                     data: data,
                     contentType: 'application/json',
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        if (data.isSuccess) {
+                        if (data === true) {
                             $('#teacher_main_modal').modal("hide");
                             swal("year", "修改成功！请刷新本页：)", "success");
                         }

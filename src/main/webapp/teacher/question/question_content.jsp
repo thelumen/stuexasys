@@ -180,13 +180,13 @@
             var formdata = $('#teacher_question_single_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/saveSingleQuestion',
+                url: '${pageContext.request.contextPath}/teacher/single/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
                 contentType: 'application/json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data === true) {
                         swal("year..", "录入成功！", "success");
                         $("#single_content").val('');
                         $("[name='que1']").val('');
@@ -210,13 +210,13 @@
             var formdata = $('#teacher_question_tf_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/saveTfQuestion',
+                url: '${pageContext.request.contextPath}/teacher/tfQuestion/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
                 contentType: 'application/json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data === true) {
                         swal("year..", "录入成功！", "success");
                         $('#tf_content').val('');
                     }
@@ -237,13 +237,13 @@
             var formdata = $('#teacher_question_ano_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/saveAnother',
+                url: '${pageContext.request.contextPath}/teacher/another/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
                 contentType: 'application/json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data === true) {
                         swal("year..", "录入成功！", "success");
                         $('#ano_content').val('');
                         $('#ano_result').val('');

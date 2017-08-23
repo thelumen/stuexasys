@@ -15,7 +15,7 @@
     </ol>
     <div class="container-fluid" style="text-align: center">
         <form id="teacher_course_form" method="post"
-              action="${pageContext.request.contextPath}/teacher/student/assignGrades">
+              action="${pageContext.request.contextPath}/teacher/student/grade/assign">
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
                     id="teacher_grade_select_course"
@@ -90,7 +90,7 @@
                data-side-pagination="server"
                data-show-refresh="true"
                data-id-field="specialtyId"
-               <%--data-pagination="true"--%>
+        <%--data-pagination="true"--%>
                data-row-style="rowStyle"
         >
             <thead>

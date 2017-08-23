@@ -52,8 +52,10 @@
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data.isSuccess) {
+                if (data === true) {
                     alert("成绩录入成功!");
+                } else {
+                    alert("更新成绩出错！");
                 }
             },
             error: function () {

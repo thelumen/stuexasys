@@ -125,15 +125,17 @@
         if ($("[name='endtime']").val() !== '' && $("[name='starttime']").val() !== '') {
 //            alert(JSON.stringify(data))
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/takeCourse',
+                url: '${pageContext.request.contextPath}/teacher/course/insert',
                 type: 'post',
                 contentType: 'application/json',
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (d) {
-                    if (d.isSuccess) {
+                    if (d === true) {
                         swal("恭喜..", "添加新课程成功！ :)", "success");
                         $('#teacher_course_table').bootstrapTable("refresh");
+                    } else {
+                        swal("Sorry", "课程添加失败！", "success");
                     }
                 },
                 error: function () {
@@ -170,8 +172,11 @@
                         url: '${pageContext.request.contextPath}/teacher/course/delete/' + content,
                         dataType: 'json',
                         success: function (data) {
-                            if (data.isSuccess) {
+                            if (data === true) {
                                 swal("Deleted!", "此课程成功删除！", "success");
+                                $('#teacher_course_table').bootstrapTable("refresh");
+                            } else {
+                                swal("Sorry", "此课程已结被删除！", "error");
                                 $('#teacher_course_table').bootstrapTable("refresh");
                             }
                         },
