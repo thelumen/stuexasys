@@ -71,6 +71,7 @@ public class ManagerController extends CommonController {
         if (null != teachers) {
             return CommonKit.getTakenInfo(teachers);
         }
+
         return null;
     }
 }

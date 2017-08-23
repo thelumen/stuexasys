@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="@localhost" uuid="53c4cf5d-36f7-4cdf-a2f8-0da81fec730e">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <introspection-schemas>*:stuexasys</introspection-schemas>
-    </data-source>
-  </component>
-</project>
