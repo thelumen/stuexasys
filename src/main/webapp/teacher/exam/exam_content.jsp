@@ -55,7 +55,7 @@
                        data-method="post"
                        data-side-pagination="server"
                        data-row-style="modalRowStyle"
-                       data-url="${pageContext.request.contextPath}/teacher/modal/examInfo/list">
+                       data-url="${pageContext.request.contextPath}/exam/modal/examInfo/list">
                     <thead>
                     <tr>
                         <th data-field="id" data-visible="false">序列号</th>
@@ -83,7 +83,7 @@
     //    开启考试
     function examStart(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/exam/' + id + "/start",
+            url: '${pageContext.request.contextPath}/exam/' + id + "/start",
             type: 'post',
             dataType: 'json',
             success: function (data) {
@@ -99,7 +99,7 @@
     //    关闭考试
     function examClose(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/exam/' + id + "/close",
+            url: '${pageContext.request.contextPath}/exam/' + id + "/close",
             type: 'post',
             dataType: 'json',
             success: function (data) {
@@ -135,7 +135,7 @@
         var table = $('#teacher_exam_table');
         var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/examInfo/update',
+            url: '${pageContext.request.contextPath}/exam/examInfo/update',
             data: data,
             contentType: 'application/json',
             type: 'post',
@@ -170,7 +170,7 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '${pageContext.request.contextPath}/teacher/examInfo/' + id + "/delete",
+                        url: '${pageContext.request.contextPath}/exam/examInfo/' + id + "/delete",
                         type: 'delete',
                         dataType: 'json',
                         success: function (data) {
@@ -197,7 +197,7 @@
     }
     $(function () {
         $('#teacher_exam_table').bootstrapTable({
-            url: '${pageContext.request.contextPath}/teacher/examInfos',
+            url: '${pageContext.request.contextPath}/exam/examInfos',
             method: 'post',
             sidePagination: 'server',
             height: 600,
@@ -473,7 +473,7 @@
             var specialtyId = $('#teacher_exam_choose_specialty').val();
             if (courseId !== '') {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/teacher/examInfo/' + courseId + "/" + specialtyId + "/insert",
+                    url: '${pageContext.request.contextPath}/exam/examInfo/' + courseId + "/" + specialtyId + "/insert",
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
@@ -499,7 +499,7 @@
 
 //        课程select查询数据
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourse',
+            url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
                 $('#teacher_exam_choose_course').select2({
@@ -511,7 +511,7 @@
         $('#teacher_exam_choose_course').on("select2:select", function (e) {
             var courseId = $('#teacher_exam_choose_course').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     var choS = $('#teacher_exam_choose_specialty');

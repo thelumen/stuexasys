@@ -180,7 +180,7 @@
             var formdata = $('#teacher_question_single_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/single/insert',
+                url: '${pageContext.request.contextPath}/question/single/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
@@ -210,7 +210,7 @@
             var formdata = $('#teacher_question_tf_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/tfQuestion/insert',
+                url: '${pageContext.request.contextPath}/question/tfQuestion/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
@@ -237,7 +237,7 @@
             var formdata = $('#teacher_question_ano_form').serializeObject();
             var data = JSON.stringify(formdata);
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/another/insert',
+                url: '${pageContext.request.contextPath}/question/another/insert',
                 data: data,
                 dataType: 'json',
                 type: 'post',
@@ -266,7 +266,7 @@
         $('#teacher_question_tf_select_level').select2();
         //课程select查询数据
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourse',
+            url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
                 course.select2({
@@ -284,7 +284,7 @@
         course.on("select2:select", function (e) {
             var courseId = course.val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/' + courseId + '/chapter',
+                url: '${pageContext.request.contextPath}/question/' + courseId + '/chapter',
                 dataType: 'json',
                 success: function (data) {
                     section.empty();
@@ -297,7 +297,7 @@
         tfcourse.on("select2:select", function (e) {
             var courseId = tfcourse.val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/' + courseId + '/chapter',
+                url: '${pageContext.request.contextPath}/question/' + courseId + '/chapter',
                 dataType: 'json',
                 success: function (data) {
                     tfsection.empty();
