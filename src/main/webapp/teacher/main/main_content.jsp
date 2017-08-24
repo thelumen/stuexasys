@@ -36,13 +36,13 @@
                 var formdata = $('#teacher_main_form').serializeObject();
                 var data = JSON.stringify(formdata);
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/teacher/updateInfo',
+                    url: '${pageContext.request.contextPath}/teacher/update',
                     data: data,
                     contentType: 'application/json',
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        if (data.isSuccess) {
+                        if (data === true) {
                             $('#teacher_main_modal').modal("hide");
                             swal("year", "修改成功！请刷新本页：)", "success");
                         }
@@ -88,11 +88,11 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/cource">课程管理</a>
+                                <a href="${pageContext.request.contextPath}/course/main">课程管理</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>
+                                <a href="${pageContext.request.contextPath}/exam/main">发布考试信息</a>
                             </li>
                         </ul>
                     </li>
@@ -102,11 +102,11 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/another">附加题评分</a>
+                                <a href="${pageContext.request.contextPath}/grade/another/main">附加题评分</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/student/grade">成绩统计</a>
+                                <a href="${pageContext.request.contextPath}/grade/main">成绩统计</a>
                             </li>
                         </ul>
                     </li>
@@ -116,11 +116,11 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/question">题目录入</a>
+                                <a href="${pageContext.request.contextPath}/question/main">题目录入</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/teacher/resource">上传资料</a>
+                                <a href="${pageContext.request.contextPath}/resource/main">上传资料</a>
                             </li>
                         </ul>
                     </li>

@@ -38,7 +38,7 @@
     $(function () {
 //        展示学科目录
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/directory',
+            url: '${pageContext.request.contextPath}/resource/directory',
             dateType: 'json',
             success: function (data) {
                 $('#teacher_resource_home_directory').select2({
@@ -50,7 +50,7 @@
         $('#teacher_resource_home_directory').on("select2:select", function (e) {
             var directoryName = $('#teacher_resource_home_directory').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/' + directoryName + '/files',
+                url: '${pageContext.request.contextPath}/resource/' + directoryName + '/files',
                 dataType: 'json',
                 type: 'post',
                 success: function (data) {
@@ -71,11 +71,11 @@
         var directoryName = $('#teacher_resource_home_directory').val();
         if (files !== '' && directoryName !== '') {
             $('#teacher_resource_form').ajaxSubmit({
-                url: '${pageContext.request.contextPath}/teacher/' + directoryName + '/upload',
+                url: '${pageContext.request.contextPath}/resource/' + directoryName + '/upload',
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data === true) {
                         swal("year", "上传成功！", "success");
                     }
                 },

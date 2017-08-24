@@ -48,12 +48,14 @@
         var studentId = $('#info_second').val();
         var score = $('#info_third').val();
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/' + studentId + "/" + courseId + "/" + score,
+            url: '${pageContext.request.contextPath}/grade/' + studentId + "/" + courseId + "/" + score,
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data.isSuccess) {
+                if (data === true) {
                     alert("成绩录入成功!");
+                } else {
+                    alert("更新成绩出错！");
                 }
             },
             error: function () {
@@ -65,7 +67,7 @@
     //显示并评估
     function assessStudent(content) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/student/another/' + content,
+            url: '${pageContext.request.contextPath}/grade/another/' + content,
             type: 'post',
             dataType: 'json',
             success: function (data) {
@@ -102,7 +104,7 @@
     function selectStudent() {
         if (course.val() !== '' && specialty.val() !== '') {
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/' + course.val() + "/" + specialty.val() + "/another",
+                url: '${pageContext.request.contextPath}/grade/' + course.val() + "/" + specialty.val() + "/another",
                 dataType: 'json',
                 success: function (data) {
                     var studentInfo = $('#teacher_another_student_info');
@@ -128,7 +130,7 @@
         $('#teacher_another_select_specialty').select2();
         //        课程select查询数据
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourse',
+            url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
                 $('#teacher_another_select_course').select2({
@@ -140,7 +142,7 @@
         $('#teacher_another_select_course').on("select2:select", function (e) {
             var courseId = $('#teacher_another_select_course').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     var choS = $('#teacher_another_select_specialty');

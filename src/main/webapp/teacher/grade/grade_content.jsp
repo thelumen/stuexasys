@@ -15,7 +15,7 @@
     </ol>
     <div class="container-fluid" style="text-align: center">
         <form id="teacher_course_form" method="post"
-              action="${pageContext.request.contextPath}/teacher/student/assignGrades">
+              action="${pageContext.request.contextPath}/grade/assign">
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
                     name="courseId"
                     id="teacher_grade_select_course"
@@ -85,12 +85,12 @@
                data-toolbar="#teacher_grade_toolbar"
                data-method="post"
                data-show-export="true"
-               data-url="${pageContext.request.contextPath}/teacher/student/grade/all"
+               data-url="${pageContext.request.contextPath}/grade/list"
                data-height="1500"
                data-side-pagination="server"
                data-show-refresh="true"
                data-id-field="specialtyId"
-               <%--data-pagination="true"--%>
+        <%--data-pagination="true"--%>
                data-row-style="rowStyle"
         >
             <thead>
@@ -160,13 +160,13 @@
     $(function () {
 //        重置
         $('#teacher_grade_reset_btn').click(function () {
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/student/grade/all"});
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/list"});
         });
 //        查询
         $('#teacher_grade_select_btn').click(function () {
             var specialtyId = $('#teacher_grade_choose_specialty').val();
             var courseId = $('#teacher_grade_choose_course').val();
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/teacher/grade/" + specialtyId + "/" + courseId});
+            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/" + specialtyId + "/" + courseId});
         });
 //        预加载数据
 //        专业select添加样式
@@ -175,7 +175,7 @@
 
 //        课程select查询数据
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourse',
+            url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
 //                上
@@ -193,7 +193,7 @@
 //            alert($('#teacher_grade_select_course').val());
             var courseId = $('#teacher_grade_select_course').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     var selS = $('#teacher_grade_select_specialty');
@@ -208,7 +208,7 @@
 //            alert($('#teacher_grade_select_course').val());
             var courseId = $('#teacher_grade_choose_course').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/getSpecialties/' + courseId,
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     var choS = $('#teacher_grade_choose_specialty');

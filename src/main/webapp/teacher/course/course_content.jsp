@@ -48,7 +48,7 @@
                data-page-list="[10, 25, 50, 100, ALL]"
                data-show-footer="false"
                data-side-pagination="server"
-               data-url="${pageContext.request.contextPath}/teacher/tlcls"
+               data-url="${pageContext.request.contextPath}/course/list"
                data-method="post"
                data-row-style="rowStyle"
                data-query-params="$.fn.bootstrapTable.queryParams"
@@ -58,7 +58,7 @@
                 <th colspan="2">教师信息</th>
                 <th colspan="3">课程和班级</th>
                 <th colspan="2">时间信息</th>
-                <th data-field="on" data-width="200" rowspan="2">教课中？</th>
+                <th data-field="on" data-width="200" rowspan="2">状态</th>
                 <th data-formatter="operateCourseTaken" data-width="150"
                     rowspan="2">操作
                 </th>
@@ -100,7 +100,7 @@
     $(function () {
 //        全部课程
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getCourses',
+            url: '${pageContext.request.contextPath}/course/all',
             dataType: 'json',
             success: function (data) {
                 $('#teacher_course_select_course').select2({
@@ -110,7 +110,7 @@
         });
 //        全部专业
         $.ajax({
-            url: '${pageContext.request.contextPath}/teacher/getSpecialties',
+            url: '${pageContext.request.contextPath}/course/specialties',
             dataType: 'json',
             success: function (data) {
                 $('#teacher_course_select_specialty').select2({
@@ -125,15 +125,17 @@
         if ($("[name='endtime']").val() !== '' && $("[name='starttime']").val() !== '') {
 //            alert(JSON.stringify(data))
             $.ajax({
-                url: '${pageContext.request.contextPath}/teacher/takeCourse',
+                url: '${pageContext.request.contextPath}/course/insert',
                 type: 'post',
                 contentType: 'application/json',
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (d) {
-                    if (d.isSuccess) {
+                    if (d === true) {
                         swal("恭喜..", "添加新课程成功！ :)", "success");
                         $('#teacher_course_table').bootstrapTable("refresh");
+                    } else {
+                        swal("Sorry", "课程添加失败！", "success");
                     }
                 },
                 error: function () {
@@ -167,11 +169,14 @@
                 if (isConfirm) {
                     $.ajax({
                         type: 'delete',
-                        url: '${pageContext.request.contextPath}/teacher/course/delete/' + content,
+                        url: '${pageContext.request.contextPath}/course/delete/' + content,
                         dataType: 'json',
                         success: function (data) {
-                            if (data.isSuccess) {
+                            if (data === true) {
                                 swal("Deleted!", "此课程成功删除！", "success");
+                                $('#teacher_course_table').bootstrapTable("refresh");
+                            } else {
+                                swal("Sorry", "此课程已结被删除！", "error");
                                 $('#teacher_course_table').bootstrapTable("refresh");
                             }
                         },
