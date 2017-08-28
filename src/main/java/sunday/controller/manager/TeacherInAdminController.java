@@ -49,4 +49,15 @@ public class TeacherInAdminController extends CommonController{
         }
         return null;
     }
+
+    @RequestMapping(value = "/student", method = RequestMethod.GET)
+    public String EditStudent() {
+        return "/manager/student/studentProxy";
+    }
+
+    @RequestMapping(value = "/initStudentTable", method = RequestMethod.POST)
+    public Map<String, Object> initStudentTable() {
+
+        return null;
+    }
 }

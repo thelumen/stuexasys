@@ -5,13 +5,11 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.CommonKit;
-import sunday.common.kit.ShiroKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
-import sunday.pojo.teacher.Teacher;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -102,7 +100,7 @@ public class CourseController extends CommonController{
             return false;
         }
         //此数组有三个数值，teacherId+courseName+specialtyName
-        String[] target = new String(content.getBytes("ISO8859-1"), "utf-8").split("&");
+        String[] target = content.split("&");
         if (target.length == 3) {
             Map<String, Object> params = new HashMap<String, Object>() {{
                 put("teacherId", target[0]);

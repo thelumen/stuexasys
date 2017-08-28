@@ -11,6 +11,7 @@ import java.util.Map;
  * Created by yang on 2017/5/24.
  * At 8:56
  */
+
 @Repository
 public interface StudentMapper {
 

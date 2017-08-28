@@ -69,7 +69,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="#">查看学生</a>
+                                <a href="${pageContext.request.contextPath}/admin/student">查看学生</a>
                             </li>
                             <%--<li class="divider"></li>--%>
                             <%--<li>--%>
