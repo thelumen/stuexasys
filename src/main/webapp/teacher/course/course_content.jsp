@@ -46,7 +46,7 @@
                data-pagination="true"
                data-id-field="teacherId"
                data-page-list="[10, 25, 50, 100, ALL]"
-               data-show-footer="false"
+               data-show-footer="true"
                data-side-pagination="server"
                data-url="${pageContext.request.contextPath}/course/list"
                data-method="post"
@@ -177,12 +177,10 @@
                                 $('#teacher_course_table').bootstrapTable("refresh");
                             } else {
                                 swal("Sorry", "此课程已结被删除！", "error");
-                                $('#teacher_course_table').bootstrapTable("refresh");
                             }
                         },
                         error: function () {
                             swal("Sorry!", "系统出错了！.", "error");
-                            $('#teacher_course_table').bootstrapTable("refresh");
                         }
                     });
                 } else {

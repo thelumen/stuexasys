@@ -14,7 +14,10 @@ import sunday.service.teacher.SpeCouService;
 import sunday.service.teacher.TeaQueService;
 import sunday.service.teacher.TeacherService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.System.out;
 
@@ -36,7 +39,12 @@ public class TeacherTest {
 
     @Test
     public void t11() {
-        out.print(EncryptKit.md5("666666"));
+        List<Teacher> teachers = teacherService.select(null, null);
+        if (null != teachers) {
+            for (Teacher t : teachers) {
+                out.print(t.toString());
+            }
+        }
     }
 
     //查询附加题taken
