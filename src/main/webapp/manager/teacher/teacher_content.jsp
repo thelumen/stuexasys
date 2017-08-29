@@ -6,47 +6,59 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<ol class="breadcrumb">
-    <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
-    </li>
-    <li class="active">查看教师</li>
-</ol>
-<hr class="divider"/>
-<br><br>
-<div class="table-responsive">
-    <table
-            data-toggle="table"
-            data-method="post"
-            data-show-export="true"
-            data-url="${pageContext.request.contextPath}/admin/teacher/list"
-            data-side-pagination="server"
-            data-show-refresh="true"
-            data-id-field="teacherId"
-            data-pagination="true"
-            data-show-columns="true"
-    >
-        <thead>
-        <tr>
-            <th data-field="teacherId" data-width="300"
-                data-sortable="true">
-                职工号
-            </th>
-            <th data-field="name" data-width="300">
-                姓名
-            </th>
-            <th data-field="gender" data-width="250">性别
-            </th>
-            <th data-field="position" data-width="350">职位</th>
-            <th data-field="office" data-width="500">教研室</th>
-            <th data-field="logintime" data-width="200">登录时间</th>
-            <th data-field="ip" data-width="200">登录Ip</th>
-            <th data-formatter="operateTeacher" data-width="200">操作
-            </th>
-        </tr>
-        </thead>
-    </table>
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
+        </li>
+        <li class="active">查看教师</li>
+    </ol>
+    <hr class="divider"/>
+    <br><br>
+    <div id="admin_teacher_tool">
+        <button type="button" class="btn-primary" onclick="insert()">添加教师
+        </button>
+    </div>
+    <div class="table-responsive">
+        <table
+                id="manager_teacher_table"
+                data-toolbar="#admin_teacher_tool"
+                data-toggle="table"
+                data-method="post"
+                data-show-export="true"
+                data-url="${pageContext.request.contextPath}/admin/teacher/list"
+                data-side-pagination="server"
+                data-show-refresh="true"
+                data-id-field="teacherId"
+                data-pagination="true"
+                data-show-columns="true"
+        >
+            <thead>
+            <tr>
+                <th data-field="teacherId" data-width="300"
+                    data-sortable="true">
+                    职工号
+                </th>
+                <th data-field="name" data-width="300">
+                    姓名
+                </th>
+                <th data-field="gender" data-width="250">性别
+                </th>
+                <th data-field="position" data-width="350">职位</th>
+                <th data-field="office" data-width="500">教研室</th>
+                <th data-field="logintime" data-width="200">登录时间</th>
+                <th data-field="ip" data-width="200">登录Ip</th>
+                <th data-formatter="operateTeacher" data-width="200">操作
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 <script>
+    //新增
+    function insert() {
+        location.href = '${pageContext.request.contextPath}/admin/teacher/insert';
+    }
 
     //编辑
     function edit(id) {
@@ -55,7 +67,23 @@
 
     //删除
     function del(id) {
-        alert(id);
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/teacher/delete/' + id,
+            type: 'delete',
+            dataType: 'json',
+            success: function (data) {
+                if (data === true) {
+                    swal("Success", "该教师信息删除成功！", "success");
+                    $('#manager_teacher_table').bootstrapTable("refresh");
+                }
+                else {
+                    swal("Error", "该教师信息删除失败...", "error");
+                }
+            },
+            error: function () {
+                swal("Error", "您没有权限！", "error");
+            }
+        })
     }
 
     //操作

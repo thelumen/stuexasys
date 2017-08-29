@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public final class Teacher implements Serializable {
     //自增
-    private int id;
+    private Integer id;
     private Integer teacherId;
     private String password;
     private String name;
@@ -34,8 +34,13 @@ public final class Teacher implements Serializable {
                 '}';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+
+        this.id = id;
     }
 
     public Integer getTeacherId() {

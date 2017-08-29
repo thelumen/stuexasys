@@ -13,6 +13,7 @@ import sunday.pojo.teacher.Teacher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by yang on 2017/8/28.
@@ -52,6 +53,35 @@ public class TeacherInAdminController extends CommonController {
     }
 
     /**
+     * 转至添加教师界面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
+    public String insert(Model model) {
+        model.addAttribute("action", "insert");
+        return "/manager/teacher/formProxy";
+    }
+
+    /**
+     * 新增教师
+     *
+     * @param teacher
+     * @return
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
+    public String insert(Teacher teacher) {
+        teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
+        teacherService.insert(teacher);
+        return "/manager/teacher/teacherProxy";
+    }
+
+    /**
      * 删除教师（仅限超管）
      *
      * @param teacherId
@@ -74,10 +104,11 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/edit/{teacherId}", method = RequestMethod.GET)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Model model, @PathVariable(value = "teacherId") Integer teacherId) {
         getTeacherInfo(model, teacherId);
-        return "/manager/teacher/editProxy";
+        model.addAttribute("action", "edit");
+        return "/manager/teacher/formProxy";
     }
 
     /**
@@ -104,18 +135,23 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Teacher teacher) {
         Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", teacher.getTeacherId());
+            put("id", teacher.getId());
         }};
         List<Teacher> teachers = teacherService.select(null, params);
         if (null != teachers) {
-            if (!teachers.get(0).getPassword().equals(teacher.getPassword())) {
+            Teacher t = teachers.get(0);
+            //如果修改密码了，就加密
+            if (!t.getPassword().equals(teacher.getPassword())) {
                 teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
             }
+            //教工号不能变
+            teacher.setTeacherId(t.getTeacherId());
             teacherService.update(teacher);
         }
+
         return "/manager/teacher/teacherProxy";
     }
 }
