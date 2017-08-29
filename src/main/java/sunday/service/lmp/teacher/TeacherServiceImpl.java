@@ -46,4 +46,10 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return result;
     }
+
+    @Override
+    @Transactional
+    public boolean delete(int teacherId) {
+        return teacherMapper.delete(teacherId) > 0;
+    }
 }

@@ -3,6 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.TeacherMapper">
 
+    <!--删除教师-->
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM com_teacher WHERE teacherId=#{teacherId,jdbcType=INTEGER}
+    </delete>
+
     <!--新增教师-->
     <insert id="insert" parameterType="sunday.pojo.teacher.Teacher">
         INSERT INTO com_teacher(teacherId,password)

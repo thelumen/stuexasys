@@ -38,6 +38,11 @@ public class TeacherTest {
     private TeaQueService teaQueService;
 
     @Test
+    public void t12() {
+        out.print(teacherService.delete(140402));
+    }
+
+    @Test
     public void t11() {
         List<Teacher> teachers = teacherService.select(null, null);
         if (null != teachers) {

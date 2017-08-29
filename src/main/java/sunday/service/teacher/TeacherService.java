@@ -36,4 +36,12 @@ public interface TeacherService {
      * @return
      */
     boolean update(Teacher teacher);
+
+    /**
+     * 删除教师
+     *
+     * @param teacherId
+     * @return
+     */
+    boolean delete(int teacherId);
 }

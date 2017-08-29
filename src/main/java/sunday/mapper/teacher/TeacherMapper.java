@@ -35,4 +35,12 @@ public interface TeacherMapper {
      * @return
      */
     int update(Teacher teacher);
+
+    /**
+     * 删除教师
+     *
+     * @param teacherId
+     * @return
+     */
+    int delete(int teacherId);
 }
