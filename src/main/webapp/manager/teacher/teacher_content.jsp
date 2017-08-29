@@ -47,14 +47,17 @@
     </table>
 </div>
 <script>
+
     //编辑
     function edit(id) {
-        alert(id);
+        location.href = '${pageContext.request.contextPath}/admin/teacher/edit/' + id;
     }
+
     //删除
     function del(id) {
         alert(id);
     }
+
     //操作
     function operateTeacher(value, row) {
         var html = [];

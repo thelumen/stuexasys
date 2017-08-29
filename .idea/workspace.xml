@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/manager/teacher/editProxy.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/TeacherMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/TeacherMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/TeacherServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/TeacherServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/TeacherService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/TeacherService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/TeacherTest.java" afterPath="$PROJECT_DIR$/src/test/TeacherTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/teacher/teacher_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/teacher/teacher_content.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +36,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TeacherInAdminController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TeacherInAdminController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
-              <caret line="99" column="16" lean-forward="false" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+            <state relative-caret-position="318">
+              <caret line="94" column="43" lean-forward="false" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,16 +48,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeacherMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml">
+      <file leaf-file-name="edit_content.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <marker date="1503964235671" expanded="true" signature="298:367" ph="DELETE FROM " />
-                <marker date="1503964235671" expanded="true" signature="476:595" ph="INSERT INTO com_teacher... " />
-                <marker date="1503964235671" expanded="true" signature="1485:2355" ph="UPDATE com_t... " />
-              </folding>
+            <state relative-caret-position="502">
+              <caret line="70" column="48" lean-forward="false" selection-start-line="70" selection-start-column="48" selection-end-line="70" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,8 +111,9 @@
         <option value="$PROJECT_DIR$/src/test/TeacherTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/manager/teacher/editProxy.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/manager/teacher/teacher_content.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp" />
       </list>
     </option>
   </component>
@@ -131,6 +122,13 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
@@ -879,7 +877,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503963356965</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="添加教师修改，删除功能">
+      <created>1503989064315</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1503989064315</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -897,7 +902,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22102000" />
+    <option name="totallyTimeSpent" value="23624000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -995,7 +1000,8 @@
     <MESSAGE value="异常处理&#10;学生考试页面的组题逻辑部分" />
     <MESSAGE value="管理员学生界面添加" />
     <MESSAGE value="重整manager端" />
-    <option name="LAST_COMMIT_MESSAGE" value="重整manager端" />
+    <MESSAGE value="添加教师修改，删除功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加教师修改，删除功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1109,6 +1115,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="11" column="51" lean-forward="true" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1116,14 +1123,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/main/main_content.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1349">
-          <caret line="71" column="89" lean-forward="false" selection-start-line="71" selection-start-column="89" selection-end-line="71" selection-end-column="89" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1209,14 +1208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/teacher_content.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/mapper/student/StudentMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -1230,6 +1221,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="23" column="23" lean-forward="false" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1326,27 +1318,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <marker date="1503964235671" expanded="true" signature="298:367" ph="DELETE FROM " />
-            <marker date="1503964235671" expanded="true" signature="476:595" ph="INSERT INTO com_teacher... " />
-            <marker date="1503964235671" expanded="true" signature="1485:2355" ph="UPDATE com_t... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/editProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="16" />
@@ -1362,13 +1334,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/main/main_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1478">
+          <caret line="71" column="89" lean-forward="false" selection-start-line="71" selection-start-column="89" selection-end-line="71" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/teacher_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/teacher/TeacherMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-690">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <marker date="1503964235671" expanded="true" signature="298:367" ph="DELETE FROM " />
+            <marker date="1503964235671" expanded="true" signature="476:595" ph="INSERT INTO com_teacher... " />
+            <marker date="1503964235671" expanded="true" signature="1485:2355" ph="UPDATE com_t... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="99" column="16" lean-forward="false" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+        <state relative-caret-position="318">
+          <caret line="94" column="43" lean-forward="false" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/teacher/edit_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="70" column="48" lean-forward="false" selection-start-line="70" selection-start-column="48" selection-end-line="70" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
