@@ -11,17 +11,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <p>专业:
+            <p>
                 <label>
-
                     <input class="form-control" placeholder="专业" id="special">
                 </label>
             </p>
         </div>
         <div class="col-md-3">
-            <p>学号:
+            <p>
                 <label>
-
                     <input class="form-control" placeholder="学号" id="studentId">
                 </label>
             </p>
@@ -39,70 +37,67 @@
     </div>
 
     <div class="row">
-        <table id="studentTable">
+        <table id="studentTable"
+               data-toggle="table"
+               data-method="post"
+               data-url="${pageContext.request.contextPath}/admin/student/initStudentTable"
+               data-side-pagination="server"
+               data-id-field="studentId"
+               data-show-refresh="true"
+               data-pagination="true"
+               data-show-columns="true"
+               data-show-export="true"
+        >
+            <thead>
+            <tr>
+                <th data-field="studentId" data-width="300"
+                    data-sortable="true">
+                    学号
+                </th>
+                <th data-field="name" data-width="300">
+                    姓名
+                </th>
+                <th data-field="gender" data-width="300">
+                    性别
+                </th>
+                <th data-field="specialty" data-width="300">
+                    专业
+                </th>
+                <th data-field="cellphone" data-width="300">
+                    电话
+                </th>
+                <th data-field="email" data-width="300">
+                    邮箱
+                </th>
+                <th data-formatter="initEditBtn" data-width="300">
+                    编辑
+                </th>
+            </tr>
+            </thead>
         </table>
+
     </div>
 </div>
 <script>
-    $(function () {
-        TableInit();
-        DataInit();
-    });
-    function TableInit() {
-        var url="${pageContext.request.contextPath}/admin/initStudentTable";
-        $("#studentTable").bootstrapTable({
-            method:'post',
-            dataType:'json',
-            contentType: "application/x-www-form-urlencoded",
-            cache: false,
-            striped: true,
-            url:url,
-            search: false,                      //显示搜索框
-            showRefresh:true,                   //显示刷新按钮
-            showToggle:true,                    //显示切换视图按钮
-            showColumns:true,                   //显示详细信息
-            pagination:true,                    //显示分页条
-            queryParams:queryParams,            //重写向服务器的传参方法
-            minimumCountColumns:2,              //当列数小于此值时，将隐藏内容列下拉框。
-            pageNumber:1,                       //初始化加载第一页，默认第一页
-            pageSize: 20,                       //每页的记录行数（*）
-            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-            uniqueId: "id",                     //为每一行指定一个唯一标示符
-            responseHandler: responseHandler,
-            columns: [
-                {
-                    field: '',
-                    title: 'Sort No.',
-                    formatter: function (value, row, index) {
-                        return index+1;
-                    }
-                },
-                {
-                    field:'studentId',
-                    title : '学号'
-                },
-                {
-                    field:'name',
-                    title : '姓名'
-                },
-                {
-                    field:'special',
-                    title : '专业'
-                },
-                {
-                    field:'gender',
-                    title : '性别'
-                }
-            ]
-        })
-    }
-    function DataInit() {
+    //初始化
+    $();
 
+    //按钮初始化
+    function initEditBtn() {
+        var html=[];
+        html.push('<button class="btn btn-primary saveChanged" type="button">保存</button>');
+        html.push('&nbsp;&nbsp;');
+        html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
+        return html.join('');
     }
-    function queryParams(params) {
 
-    }
-    function responseHandler(params) {
-
+    //点击事件处理
+    window.opersteEvent={
+        'click .saveChanged':function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        'click .delStu':function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        }
     }
 </script>
