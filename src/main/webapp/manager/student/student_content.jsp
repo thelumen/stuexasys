@@ -13,7 +13,7 @@
         <div class="col-md-3">
             <p>
                 <label>
-                    <input class="form-control" placeholder="专业" id="special">
+                    <input class="form-control" placeholder="专业" type="search" id="special">
                 </label>
             </p>
         </div>
@@ -77,10 +77,13 @@
                 field: 'gender',
                 title: '性别',
                 editable: {
-                    type: 'text',
+                    type: 'select',
+                    source: [{value: '男', text: "男"}, {value: '女', text: "女"}],
+                    disabled: false,    //是否禁用编辑
+                    emptytext: "未录入",   //空值的默认文本
                     validate: function (value) {
                         if ($.trim(value) === '') {
-                            return '姓名不能为空';
+                            return '不能为空';
                         }
                     }
                 }
@@ -139,6 +142,20 @@
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]
+        });
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
+            dataType: 'json',
+            success: function (data) {
+                $('#special').select2({
+                    data: data
+                });
+            }
+        });
+
+        $("#selectStudent").click(function () {
+
         })
     });
 
@@ -172,6 +189,21 @@
         },
         'click .delStu': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
+            $.ajax({
+                type: 'post',
+                url: '${pageContext.request.contextPath}/admin/student/studentInfoDel',
+                dataType: "json",
+                data: JSON.stringify(row),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data) {
+                        alert("成功删除");
+                        $("#studentTable").bootstrapTable("refresh")
+                    } else {
+                        alert("删除失败");
+                    }
+                }
+            });
         }
     }
 

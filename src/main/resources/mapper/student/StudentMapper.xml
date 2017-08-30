@@ -212,4 +212,10 @@
         WHERE
             c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
+
+    <!--删除学生信息-->
+    <delete id="delete" parameterType="java.util.Map">
+        DELETE FROM com_student
+        WHERE studentId = #{studentId,jdbcType=INTEGER}
+    </delete>
 </mapper>

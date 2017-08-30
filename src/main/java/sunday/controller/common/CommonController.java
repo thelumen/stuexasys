@@ -1,5 +1,6 @@
 package sunday.controller.common;
 
+import sunday.service.manager.AdminStudentService;
 import sunday.service.manager.ManagerService;
 import sunday.service.shiro.ResourceService;
 import sunday.service.shiro.RoleService;
@@ -37,5 +38,8 @@ public class CommonController {
 
     @javax.annotation.Resource(name = "resourceService")
     protected ResourceService resourceService;
+
+    @javax.annotation.Resource(name = "adminStudentService")
+    protected AdminStudentService adminStudentService;
 
 }

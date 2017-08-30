@@ -140,4 +140,12 @@ public interface StudentMapper {
      * @return int
      */
     int update(Map<String, Object> params);
+
+    /**
+     * 删除学生信息
+     *
+     * @param params .
+     * @return .
+     */
+    int delete(Map<String, Object> params);
 }
