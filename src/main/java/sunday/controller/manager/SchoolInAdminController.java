@@ -6,6 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sunday.controller.common.CommonController;
+import sunday.pojo.school.Specialty;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yang on 2017/8/30.
@@ -25,6 +29,11 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:manager")
     public String main(){
         return "/manager/school/schoolProxy";
+    }
+
+    public Map<String,Object> getSpecialty(){
+        //List<Specialty> specialties=
+        return null;
     }
 
 }

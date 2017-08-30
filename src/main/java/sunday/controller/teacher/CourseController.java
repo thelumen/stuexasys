@@ -47,7 +47,7 @@ public class CourseController extends CommonController {
     public boolean takeCourse(@RequestBody CourseTaken courseTaken) {
 
         courseTaken.setTeacherId(TeacherKit.getCurrentTeacherId());
-        return speCouService.insertCourseTaken(courseTaken) > 0;
+        return specialty2CourseService.insertCourseTaken(courseTaken) > 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public class CourseController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
-        List<CourseTaken> courses = speCouService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
+        List<CourseTaken> courses = specialty2CourseService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
 
         if (null != courses) {
             //添加teacherId并且设置课程教学状态
@@ -107,7 +107,7 @@ public class CourseController extends CommonController {
                 put("specialtyName", target[2]);
             }};
 
-            return speCouService.deleteTakenInfo(params);
+            return specialty2CourseService.deleteTakenInfo(params);
         }
 
         return false;
@@ -147,9 +147,9 @@ public class CourseController extends CommonController {
     private List<Map<String, Object>> getCourses(Map<String, Object> params) {
         List<Course> courses;
         if (null != params) {
-            courses = speCouService.selectCourse(params);
+            courses = specialty2CourseService.selectCourse(params);
         } else {
-            courses = speCouService.selectAllCourses();
+            courses = specialty2CourseService.selectAllCourses();
         }
         if (null != courses) {
             List<Map<String, Object>> father = new ArrayList<>();
@@ -215,10 +215,10 @@ public class CourseController extends CommonController {
     private List<Map<String, Object>> getSpecialties(Map<String, Object> params) {
         List<Specialty> specialties;
         if (null != params) {
-            specialties = speCouService.selectSpecialty(params);
+            specialties = specialty2CourseService.selectSpecialty(params);
         } else {
             //查询全部专业
-            specialties = speCouService.selectAllSpecialties();
+            specialties = specialty2CourseService.selectAllSpecialties();
         }
         if (null != specialties) {
             List<Map<String, Object>> father = new ArrayList<>();

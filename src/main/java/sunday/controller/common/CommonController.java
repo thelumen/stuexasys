@@ -14,17 +14,17 @@ public class CommonController {
     @javax.annotation.Resource(name = "teacherService")
     protected TeacherService teacherService;
 
-    @javax.annotation.Resource(name = "speCouService")
-    protected SpeCouService speCouService;
+    @javax.annotation.Resource(name = "specialty2CourseService")
+    protected Specialty2CourseService specialty2CourseService;
 
-    @javax.annotation.Resource(name = "stuGraService")
-    protected StuGraService stuGraService;
+    @javax.annotation.Resource(name = "student2GradeService")
+    protected Student2GradeService student2GradeService;
 
-    @javax.annotation.Resource(name = "stuExaService")
-    protected StuExaService stuExaService;
+    @javax.annotation.Resource(name = "student2ExamService")
+    protected Student2ExamService student2ExamService;
 
-    @javax.annotation.Resource(name = "teaQueService")
-    protected TeaQueService teaQueService;
+    @javax.annotation.Resource(name = "teacher2QuestionService")
+    protected Teacher2QuestionService teacher2QuestionService;
 
     @javax.annotation.Resource(name = "studentService")
     protected StudentService studentService;

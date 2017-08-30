@@ -2,20 +2,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sunday.common.enums.RoleEnum;
 import sunday.common.kit.ChapterKit;
 import sunday.common.kit.EncryptKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.Specialty;
-import sunday.pojo.shiro.Role;
 import sunday.pojo.teacher.AnotherTaken;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
-import sunday.service.teacher.SpeCouService;
-import sunday.service.teacher.TeaQueService;
-import sunday.service.teacher.TeacherService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +50,7 @@ public class TeacherTest extends CommonController{
             put("courseId", "10000000");
             put("specialtyId", "140400");
         }};
-        List<AnotherTaken> anotherTaken = teaQueService.selectAnother(params);
+        List<AnotherTaken> anotherTaken = teacher2QuestionService.selectAnother(params);
         if (anotherTaken != null) {
             for (AnotherTaken taken : anotherTaken) {
                 out.println(taken.toString());
@@ -81,7 +76,7 @@ public class TeacherTest extends CommonController{
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", "10000001");
         }};
-        List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
+        List<SingleQuestion> questions = teacher2QuestionService.selectSingleQuestion(params);
         if (null != questions) {
             ArrayList<String> target = ChapterKit.bubbleSort(questions);
             for (String s : target) {
@@ -95,7 +90,7 @@ public class TeacherTest extends CommonController{
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", "140400");
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(null, teacherInfo);
+        List<CourseTaken> courseTakens = specialty2CourseService.selectCourseTaken(null, teacherInfo);
         if (courseTakens != null) {
             for (CourseTaken courseTaken : courseTakens) {
                 out.print(" " + courseTaken.getCourseName());
@@ -114,14 +109,14 @@ public class TeacherTest extends CommonController{
             course.setName("数据结构" + i);
             course.setCredit(new Byte("2"));
             course.setPeriod(new Byte("12"));
-            if (speCouService.insertCourse(course) > 0) {
+            if (specialty2CourseService.insertCourse(course) > 0) {
                 out.print(i + "：成功 ");
             }
         }
 //        Map<String, Object> params = new HashMap<String, Object>() {{
 //            put("period", new Byte("12"));
 //        }};
-        List<Course> courses = speCouService.selectCourse(null);
+        List<Course> courses = specialty2CourseService.selectCourse(null);
         if (courses != null) {
             for (Course course : courses) {
                 out.print(" " + course.getName());
@@ -136,14 +131,14 @@ public class TeacherTest extends CommonController{
             Specialty specialty = new Specialty();
             specialty.setSpecialtyId(Integer.valueOf("14040" + i));
             specialty.setName("计算机" + i + "班");
-            if (speCouService.insertSpecialty(specialty) > 0) {
+            if (specialty2CourseService.insertSpecialty(specialty) > 0) {
                 out.print(i + "：成功 ");
             }
         }
 //        Map<String, Object> params = new HashMap<String, Object>() {{
 //            put("name", "计算机0班");
 //        }};
-        List<Specialty> specialties = speCouService.selectSpecialty(null);
+        List<Specialty> specialties = specialty2CourseService.selectSpecialty(null);
         if (specialties != null) {
             for (Specialty specialty : specialties) {
                 out.print(" " + specialty.getName());

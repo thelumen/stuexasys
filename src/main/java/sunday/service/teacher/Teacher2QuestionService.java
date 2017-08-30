@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by yang on 2017/6/5.
  * At 15:24
  */
-public interface TeaQueService {
+public interface Teacher2QuestionService {
     /**
      * 查询选择题
      *

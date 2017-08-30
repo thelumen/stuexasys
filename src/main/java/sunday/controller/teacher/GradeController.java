@@ -66,14 +66,14 @@ public class GradeController extends CommonController {
             put("specialtyId", percentInfo.getSpecialtyId());
             put("courseId", percentInfo.getCourseId());
         }};
-        List<GradeTaken> studentGrades = stuGraService.selectGradeTaken(null, params);
+        List<GradeTaken> studentGrades = student2GradeService.selectGradeTaken(null, params);
         for (GradeTaken studentGrade : studentGrades) {
             float total;
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
             //采用四舍五入方式计算总成绩
             studentGrade.setTotal(Math.round(total));
 
-            stuGraService.updateGrade(studentGrade);
+            student2GradeService.updateGrade(studentGrade);
         }
 
         return "/teacher/grade/gradeProxy";
@@ -97,7 +97,7 @@ public class GradeController extends CommonController {
             put("specialtyId", specialtyId);
             put("courseId", courseId);
         }};
-        List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, params);
+        List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(null, params);
         if (null != gradeTakens) {
             return CommonKit.getTakenInfo(gradeTakens);
         }
@@ -118,14 +118,14 @@ public class GradeController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
-        List<CourseTaken> courseTakens = speCouService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
+        List<CourseTaken> courseTakens = specialty2CourseService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
         if (null == courseTakens) {
             return null;
         }
         for (CourseTaken course : courseTakens) {
             teacherInfo.put("specialtyName", course.getSpecialtyName());
             teacherInfo.put("courseId", course.getCourseId());
-            List<GradeTaken> gradeTakens = stuGraService.selectGradeTaken(null, teacherInfo);
+            List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(null, teacherInfo);
             //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
             if (null == gradeTakens) {
                 continue;
@@ -167,7 +167,7 @@ public class GradeController extends CommonController {
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
-        return teaQueService.selectAnother(params);
+        return teacher2QuestionService.selectAnother(params);
     }
 
     /**
@@ -187,7 +187,7 @@ public class GradeController extends CommonController {
                 put("courseId", ele[1]);
                 put("studentId", ele[2]);
             }};
-            List<AnotherTaken> takens = teaQueService.selectAnother(params);
+            List<AnotherTaken> takens = teacher2QuestionService.selectAnother(params);
             if (null != takens) {
                 return takens.get(0);
             }
@@ -219,6 +219,6 @@ public class GradeController extends CommonController {
             score = 100;
         }
 
-        return stuGraService.updateAnother(studentId, courseId, score);
+        return student2GradeService.updateAnother(studentId, courseId, score);
     }
 }

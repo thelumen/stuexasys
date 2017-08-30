@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by yang on 2017/5/25.
  * At 12:11
  */
-public interface SpeCouService {
+public interface Specialty2CourseService {
     /**
      * 新增专业
      *

@@ -54,7 +54,7 @@ public class QuestionController extends CommonController{
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
-        List<SingleQuestion> questions = teaQueService.selectSingleQuestion(params);
+        List<SingleQuestion> questions = teacher2QuestionService.selectSingleQuestion(params);
         if (null != questions) {
             //按章节排序
             List<String> target = ChapterKit.bubbleSort(questions);
@@ -77,7 +77,7 @@ public class QuestionController extends CommonController{
     @ResponseBody
     public boolean saveSingleQuestion(@RequestBody SingleQuestion question) {
 
-        return teaQueService.insertSingleQuestion(question) > 0;
+        return teacher2QuestionService.insertSingleQuestion(question) > 0;
     }
 
     /**
@@ -92,7 +92,7 @@ public class QuestionController extends CommonController{
     @ResponseBody
     public boolean saveTfQuestion(@RequestBody TfQuestion question) {
 
-        return teaQueService.insertTfQuestion(question) > 0;
+        return teacher2QuestionService.insertTfQuestion(question) > 0;
     }
 
     /**
@@ -107,7 +107,7 @@ public class QuestionController extends CommonController{
     @ResponseBody
     public boolean saveAnother(@RequestBody Another another) {
 
-        return teaQueService.insertAnother(another) > 0;
+        return teacher2QuestionService.insertAnother(another) > 0;
     }
 
 

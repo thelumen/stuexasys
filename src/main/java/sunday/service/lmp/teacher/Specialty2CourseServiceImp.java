@@ -4,11 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.teacher.SpeCouMapper;
+import sunday.mapper.teacher.Specialty2CourseMapper;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
-import sunday.service.teacher.SpeCouService;
+import sunday.service.teacher.Specialty2CourseService;
 
 import java.util.List;
 import java.util.Map;
@@ -17,20 +17,20 @@ import java.util.Map;
  * Created by yang on 2017/5/25.
  * At 12:11
  */
-@Service("speCouService")
-public class SpeCouServiceImp implements SpeCouService {
+@Service("specialty2CourseService")
+public class Specialty2CourseServiceImp implements Specialty2CourseService {
 
-    @javax.annotation.Resource(name = "speCouMapper")
-    private SpeCouMapper speCouMapper;
+    @javax.annotation.Resource(name = "specialty2CourseMapper")
+    private Specialty2CourseMapper specialty2CourseMapper;
 
     @Override
     public int insertSpecialty(Specialty specialty) {
-        return speCouMapper.insertSpecialty(specialty);
+        return specialty2CourseMapper.insertSpecialty(specialty);
     }
 
     @Override
     public List<Specialty> selectSpecialty(Map<String, Object> params) {
-        List<Specialty> specialties = speCouMapper.selectSpecialty(params);
+        List<Specialty> specialties = specialty2CourseMapper.selectSpecialty(params);
         if (null != specialties && specialties.size() > 0) {
             return specialties;
         }
@@ -39,12 +39,12 @@ public class SpeCouServiceImp implements SpeCouService {
 
     @Override
     public int insertCourse(Course course) {
-        return speCouMapper.insertCourse(course);
+        return specialty2CourseMapper.insertCourse(course);
     }
 
     @Override
     public List<Course> selectCourse(Map<String, Object> params) {
-        List<Course> courses = speCouMapper.selectCourse(params);
+        List<Course> courses = specialty2CourseMapper.selectCourse(params);
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -53,7 +53,7 @@ public class SpeCouServiceImp implements SpeCouService {
 
     @Override
     public List<Course> selectAllCourses() {
-        List<Course> courses = speCouMapper.selectAllCourses();
+        List<Course> courses = specialty2CourseMapper.selectAllCourses();
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -62,14 +62,14 @@ public class SpeCouServiceImp implements SpeCouService {
 
     @Override
     public int insertCourseTaken(CourseTaken courseTaken) {
-        return speCouMapper.insertCourseTaken(courseTaken);
+        return specialty2CourseMapper.insertCourseTaken(courseTaken);
     }
 
     @Override
     @Transactional
     public boolean deleteTakenInfo(Map<String, Object> params) {
         boolean result = false;
-        if (speCouMapper.deleteTakenInfo(params) > 0) {
+        if (specialty2CourseMapper.deleteTakenInfo(params) > 0) {
             result = true;
         }
         return result;
@@ -80,7 +80,7 @@ public class SpeCouServiceImp implements SpeCouService {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<CourseTaken> courses = speCouMapper.selectCourseTaken(params);
+        List<CourseTaken> courses = specialty2CourseMapper.selectCourseTaken(params);
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -89,7 +89,7 @@ public class SpeCouServiceImp implements SpeCouService {
 
     @Override
     public List<Specialty> selectAllSpecialties() {
-        List<Specialty> specialties = speCouMapper.selectAllSpecialties();
+        List<Specialty> specialties = specialty2CourseMapper.selectAllSpecialties();
         if (null != specialties && specialties.size() > 0) {
             return specialties;
         }

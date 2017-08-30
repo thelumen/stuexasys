@@ -1,6 +1,6 @@
-package sunday.service.teacher;
+package sunday.mapper.teacher;
 
-import com.github.pagehelper.Page;
+import org.springframework.stereotype.Repository;
 import sunday.pojo.teacher.ExamTaken;
 
 import java.util.List;
@@ -8,9 +8,10 @@ import java.util.Map;
 
 /**
  * Created by yang on 2017/6/2.
- * At 9:22
+ * At 9:36
  */
-public interface StuExaService {
+@Repository
+public interface Student2ExamMapper {
     /**
      * 新增考试信息
      *
@@ -20,13 +21,12 @@ public interface StuExaService {
     int insertExamInfo(ExamTaken exam);
 
     /**
-     * 获取考试信息
+     * 查询考试信息
      *
-     * @param page
      * @param params
      * @return
      */
-    List<ExamTaken> selectExamTaken(Page page, Map<String, Object> params);
+    List<ExamTaken> selectExamTaken(Map<String, Object> params);
 
     /**
      * 更新考试信息
@@ -42,7 +42,7 @@ public interface StuExaService {
      * @param id
      * @return
      */
-    boolean deleteExamInfo(String id);
+    int deleteExamInfo(String id);
 
     /**
      * 获取modal中table的考试信息
@@ -57,5 +57,5 @@ public interface StuExaService {
      * @param params
      * @return
      */
-    boolean startOrCloseExam(Map<String, Object> params);
+    int startOrCloseExam(Map<String, Object> params);
 }
