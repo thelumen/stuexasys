@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/manager/school/schoolProxy.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" afterPath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,11 +61,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="school_content.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="school_content.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="322">
               <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stuexasys.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="622" column="41" lean-forward="false" selection-start-line="622" selection-start-column="23" selection-end-line="622" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -88,6 +97,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>select</find>
+      <find>com_manager_l_role</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -325,6 +335,10 @@
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -409,6 +423,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="shiro" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -615,6 +651,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="studentt&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/java/sunday/pojo/student/StudentTaken.java&#10;studenti&#9;PSI&#9;JAVA://sunday.pojo.student.StudentInfo&#10;myrea&#9;PSI&#9;JAVA://sunday.common.realm.MyRealm&#10;studentsi&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java&#10;studentm&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;man&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/resources/mapper/manager/ManStuMapper.xml&#10;student&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/java/sunday/pojo/school/Student.java&#10;ma&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/jiang/stuexasys/src/main/java/sunday/mapper/manager/ManStuMapper.java&#10;teachers&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/service/lmp/teacher/TeacherServiceImpl.java&#10;teachert&#9;PSI&#9;JAVA://TeacherTest&#10;manac&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/20170823/stuexasys/src/main/java/sunday/controller/ManagerController.java&#10;mans&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/20170823/stuexasys/src/main/java/sunday/mapper/manager/ManStuMapper.java&#10;tea&#9;PSI&#9;JAVA://sunday.controller.teacher.TeacherController&#10;jdbc.p&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;mana&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/20170823/stuexasys/src/main/java/sunday/controller/ManagerController.java" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\20170823\stuexasys\src\main\resources\sql" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -958,7 +999,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504083782489</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="整理主支">
+      <created>1504085264197</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1504085264197</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -976,7 +1024,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54000000" />
+    <option name="totallyTimeSpent" value="54161000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1080,7 +1128,8 @@
     <MESSAGE value="新建分支，学生管理页面代码完善" />
     <MESSAGE value="修复上个版本中的bug,添加管理员保存学生信息修改的代码" />
     <MESSAGE value="拉取主支" />
-    <option name="LAST_COMMIT_MESSAGE" value="拉取主支" />
+    <MESSAGE value="整理主支" />
+    <option name="LAST_COMMIT_MESSAGE" value="整理主支" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1101,13 +1150,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/mapper/student/StudentMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/CommonKit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -1436,6 +1478,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="622" column="41" lean-forward="false" selection-start-line="622" selection-start-column="23" selection-end-line="622" selection-end-column="41" />
           <folding />
         </state>
       </provider>

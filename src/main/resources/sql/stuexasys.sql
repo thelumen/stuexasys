@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-08-30 11:45:30
+Date: 2017-08-30 17:29:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `com_another_question` (
   `content` varchar(255) DEFAULT NULL COMMENT '内容',
   `result` varchar(255) DEFAULT NULL COMMENT '标准答案',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='附加题表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='附加题表';
 
 -- ----------------------------
 -- Records of com_another_question
@@ -43,6 +43,7 @@ INSERT INTO `com_another_question` VALUES ('11', '10000000', '325325342', '65243
 INSERT INTO `com_another_question` VALUES ('12', '10000000', '23月45', '32465423624');
 INSERT INTO `com_another_question` VALUES ('13', '10000000', '韩国人头合同人它已经热压机', '济仁堂脚疼监听耳机特优级特优级体育');
 INSERT INTO `com_another_question` VALUES ('14', '10000001', '身无分文', '如果');
+INSERT INTO `com_another_question` VALUES ('15', '10000000', '213', '31241');
 
 -- ----------------------------
 -- Table structure for com_course
@@ -92,7 +93,7 @@ CREATE TABLE `com_examinfo` (
   `test` int(1) DEFAULT NULL COMMENT '是否可以测试，0不可，1可以',
   `started` int(1) DEFAULT NULL COMMENT '考试是否开启，0未开启，1开启',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考试信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='考试信息表';
 
 -- ----------------------------
 -- Records of com_examinfo
@@ -116,7 +117,7 @@ CREATE TABLE `com_grade` (
 -- ----------------------------
 -- Records of com_grade
 -- ----------------------------
-INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '50', '73');
+INSERT INTO `com_grade` VALUES ('140400000', '10000000', '68', '73', '71', '60', '73');
 INSERT INTO `com_grade` VALUES ('140400000', '10000001', '35', '71', '99', '93', '85');
 INSERT INTO `com_grade` VALUES ('140400000', '10000002', '21', '57', '99', '43', null);
 INSERT INTO `com_grade` VALUES ('140400000', '10000003', '53', '74', '94', '81', null);
@@ -628,15 +629,15 @@ CREATE TABLE `com_manager_l_role` (
   PRIMARY KEY (`managerId`,`roleId`),
   KEY `roleId` (`roleId`),
   KEY `managerId` (`managerId`),
-  CONSTRAINT `com_manager_l_role_fk1` FOREIGN KEY (`managerId`) REFERENCES `com_manager` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `com_manager_l_role_fk1` FOREIGN KEY (`managerId`) REFERENCES `com_manager` (`managerId`) ON DELETE CASCADE,
   CONSTRAINT `com_manager_l_role_fk2` FOREIGN KEY (`roleId`) REFERENCES `com_role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员与角色关联表';
 
 -- ----------------------------
 -- Records of com_manager_l_role
 -- ----------------------------
-INSERT INTO `com_manager_l_role` VALUES ('2', '1');
-INSERT INTO `com_manager_l_role` VALUES ('1', '2');
+INSERT INTO `com_manager_l_role` VALUES ('19950221', '1');
+INSERT INTO `com_manager_l_role` VALUES ('20170520', '2');
 
 -- ----------------------------
 -- Table structure for com_resource
@@ -966,12 +967,12 @@ CREATE TABLE `com_teacher` (
   `ip` char(15) DEFAULT NULL COMMENT '登录ip',
   PRIMARY KEY (`id`),
   UNIQUE KEY `com_teacher` (`teacherId`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='教师表';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='教师表';
 
 -- ----------------------------
 -- Records of com_teacher
 -- ----------------------------
-INSERT INTO `com_teacher` VALUES ('27', '140400', '96e79218965eb72c92a549dd5a330112', '辽工教师', '男', '天才', '仙界', null, null);
+INSERT INTO `com_teacher` VALUES ('44', '140400', '698d51a19d8a121ce581499d7b701668', '辽工教师', '男', 'Nothing To Show好', 'Nothing To Show', null, null);
 
 -- ----------------------------
 -- Table structure for com_teacher_l_course
@@ -1013,6 +1014,7 @@ CREATE TABLE `com_teacher_l_role` (
 -- ----------------------------
 -- Records of com_teacher_l_role
 -- ----------------------------
+INSERT INTO `com_teacher_l_role` VALUES ('140400', '3');
 
 -- ----------------------------
 -- Table structure for com_tf_question
