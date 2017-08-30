@@ -57,10 +57,6 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/admin/teacher/main">查看教师</a>
                             </li>
-                            <%--<li class="divider"></li>--%>
-                            <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/teacher/exam">发布考试信息</a>--%>
-                            <%--</li>--%>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -71,10 +67,6 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/admin/student">查看学生</a>
                             </li>
-                            <%--<li class="divider"></li>--%>
-                            <%--<li>--%>
-                            <%--<a href="${pageContext.request.contextPath}/teacher/student/grade">安排</a>--%>
-                            <%--</li>--%>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -83,11 +75,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="#">题目录入</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">上传资料</a>
+                                <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
                             </li>
                         </ul>
                     </li>

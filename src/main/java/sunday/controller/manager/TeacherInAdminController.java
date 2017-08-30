@@ -58,7 +58,7 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String insert(Model model) {
         model.addAttribute("action", "insert");
         return "/manager/teacher/formProxy";
