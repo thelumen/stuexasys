@@ -6,6 +6,24 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script>
+    function logout() {
+        swal({
+                title: "您确定要退出登录？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "登出",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            },
+            function () {
+                location.href = '${pageContext.request.contextPath}/shiro/logout';
+            });
+    }
+</script>
 <nav class="navbar-inverse navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">

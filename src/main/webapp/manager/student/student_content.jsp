@@ -37,54 +37,110 @@
     </div>
 
     <div class="row">
-        <table id="studentTable"
-               data-toggle="table"
-               data-method="post"
-               data-url="${pageContext.request.contextPath}/admin/student/initStudentTable"
-               data-side-pagination="server"
-               data-id-field="studentId"
-               data-show-refresh="true"
-               data-pagination="true"
-               data-show-columns="true"
-               data-show-export="true"
-        >
-            <thead>
-            <tr>
-                <th data-field="studentId" data-width="300"
-                    data-sortable="true">
-                    学号
-                </th>
-                <th data-field="name" data-width="300">
-                    姓名
-                </th>
-                <th data-field="gender" data-width="300">
-                    性别
-                </th>
-                <th data-field="specialty" data-width="300">
-                    专业
-                </th>
-                <th data-field="cellphone" data-width="300">
-                    电话
-                </th>
-                <th data-field="email" data-width="300">
-                    邮箱
-                </th>
-                <th data-formatter="initEditBtn" data-width="300">
-                    编辑
-                </th>
-            </tr>
-            </thead>
+        <table id="studentTable">
         </table>
-
     </div>
 </div>
+
 <script>
     //初始化
-    $();
+    $(function () {
+        $("#studentTable").bootstrapTable({
+            method: "post",
+            url: "${pageContext.request.contextPath}/admin/student/initStudentTable",
+            sidePagination: "server",
+            idField: "studentId",
+            showRefresh: "true",
+            pagination: "true",
+            showColumns: "true",
+            showExport: "true",
+            columns: [{
+                field: 'studentId',
+                title: '学号',
+                sortable: true
+            }, {
+                field: 'name',
+                title: '姓名',
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+                        if ($.trim(value) === '') {
+                            return '姓名不能为空';
+                        }
+                    }
+                }
+            }, {
+                field: 'gender',
+                title: '性别',
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+                        if ($.trim(value) === '') {
+                            return '姓名不能为空';
+                        }
+                    }
+                }
+            }, {
+                field: 'specialtyName',
+                title: '专业',
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+                        if ($.trim(value) === '') {
+                            return '姓名不能为空';
+                        }
+                    }
+                }
+            }, {
+                field: 'cellphone',
+                title: '电话',
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+                        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+                        var cellphone = $.trim(value);
+                        if (!myreg.test(cellphone)) {
+                            return '请输入有效的手机号码！';
+                        }
+                    }
+                }
+            }, {
+                field: 'email',
+                title: '邮箱',
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+                        var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+                        var email = $.trim(value);
+                        if (!myreg.test(email)) {
+                            return '请输入有效的E_mail！';
+                        }
+                    }
+                }
+            }, {
+                field: 'passwordChanged',
+                title: '修改密码',
+                formatter:function (value,row,index) {
+                    return '修改密码';
+                },
+                editable: {
+                    type: 'text',
+                    validate: function (value) {
+
+                    }
+                }
+            }, {
+                field: 'edit',
+                title: '编辑',
+                formatter: initEditBtn(),
+                events: 'editBtnEvent'
+            }]
+        })
+    });
 
     //按钮初始化
     function initEditBtn() {
-        var html=[];
+        var html = [];
         html.push('<button class="btn btn-primary saveChanged" type="button">保存</button>');
         html.push('&nbsp;&nbsp;');
         html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
@@ -92,12 +148,27 @@
     }
 
     //点击事件处理
-    window.opersteEvent={
-        'click .saveChanged':function (e, value, row, index) {
+    window.editBtnEvent = {
+        'click .saveChanged': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
+            $.ajax({
+                type:'post',
+                url: '${pageContext.request.contextPath}/admin/student/studentInfoSave',
+                dataType: "json",
+                data: row,
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.isSuccess) {
+                        alert("更新成功");
+                    } else {
+                        alert("更新失败");
+                    }
+                }
+            });
         },
-        'click .delStu':function (e, value, row, index) {
+        'click .delStu': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
         }
     }
+
 </script>

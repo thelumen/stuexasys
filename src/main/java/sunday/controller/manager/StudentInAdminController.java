@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sunday.common.kit.CommonKit;
 import sunday.controller.common.CommonController;
-import sunday.pojo.school.Student;
+import sunday.pojo.student.StudentTaken;
 
 import java.util.List;
 import java.util.Map;
@@ -34,11 +34,17 @@ public class StudentInAdminController extends CommonController{
     @RequestMapping(value = "/initStudentTable", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> initStudentTable(@RequestBody Map<String,Object> params) {
-        List<Student> studentList = managerService.selectStuInfo(CommonKit.getMapInfo2Page(params), null);
-        if(null!=studentList&&studentList.size()!=0){
-            return CommonKit.getTakenInfo(studentList);
+        List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), null);
+        if(null!=studentTakenList&&studentTakenList.size()!=0){
+            return CommonKit.getTakenInfo(studentTakenList);
         }
         return null;
     }
 
+    @RequestMapping(value = "/studentInfoSave",method = RequestMethod.POST)
+    @ResponseBody
+    public String saveStudentInfo(){
+
+        return null;
+    }
 }

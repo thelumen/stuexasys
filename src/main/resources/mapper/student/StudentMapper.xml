@@ -24,16 +24,30 @@
     <!--查询学生详细信息-->
     <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
         SELECT DISTINCT
-            s.studentId AS studentId,
-            s.name      AS name,
-            s.email     AS email,
-            s.cellphone AS cellphone,
-            s.gender    AS gender,
-            s.password  AS password,
-            p.name      AS specialtyName
+        s.studentId AS studentId,
+        s.name AS name,
+        s.email AS email,
+        s.cellphone AS cellphone,
+        s.gender AS gender,
+        s.password AS password,
+        s.specialtyId AS specialtyId,
+        p.name AS specialtyName
         FROM stuexasys.com_student s, stuexasys.com_specialty p
-        WHERE s.specialtyId = p.specialtyId AND
-              s.studentId = #{studentId,jdbcType=INTEGER}
+        <where>
+            s.specialtyId = p.specialtyId
+            <if test="studentId!=null">
+                AND s.studentId = #{studentId,jdbcType=INTEGER}
+            </if>
+            <if test="specialtyId != null">
+                AND s.specialtyId = #{specialtyId,jdbcType=int}
+            </if>
+            <if test="specialtyId == null">
+                AND s.specialtyId = 100000
+            </if>
+            <if test="studentId != null">
+                AND s.studentId = #{studnetId,jdbcType=int}
+            </if>
+        </where>
     </select>
 
     <!--查询学生考试信息-->
@@ -108,6 +122,9 @@
             <if test="email !=null">
                 email=#{email,jdbcType=VARCHAR},
             </if>
+            <if test="specialtyId!=null">
+                specialtyId=#{specialtyId,jdbcTYpe=INT},
+            </if>
         </set>
         where studentId=#{studentId,jdbcType=INTEGER}
     </update>
@@ -121,8 +138,8 @@
 
     <!--插入学生与权限的关联-->
     <insert id="insertStudentRole" parameterType="sunday.pojo.school.Student">
-        INSERT INTO stuexasys.com_studnet_l_role(studentId,roleId)
-                VALUES (#{studentId,jdbcType=INTEGER},4)
+        INSERT INTO stuexasys.com_studnet_l_role (studentId, roleId)
+        VALUES (#{studentId,jdbcType=INTEGER}, 4)
     </insert>
 
     <!--插入学生成绩(首次测试)-->

@@ -7,10 +7,19 @@ public final class StudentTaken {
     private Integer studentId;
     private String password;
     private String name;
+    private Integer specialtyId;
     private String specialtyName;
     private String gender;
     private String cellphone;
     private String email;
+
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
 
     public String getPassword() {
         return password;
@@ -71,9 +80,10 @@ public final class StudentTaken {
     @Override
     public String toString() {
         return "StudentTaken{" +
-                "studentId='" + studentId + '\'' +
+                "studentId=" + studentId +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", specialtyId=" + specialtyId +
                 ", specialtyName='" + specialtyName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", cellphone='" + cellphone + '\'' +

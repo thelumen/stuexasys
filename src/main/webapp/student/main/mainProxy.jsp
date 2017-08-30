@@ -10,28 +10,6 @@
 <head>
     <title>学生考试系统</title>
     <%@include file="/common/inc/head.jsp"%>
-    <script>
-        $(document).ready(function () {
-        })
-    </script>
-    <script>
-        function logout() {
-            swal({
-                    title: "您确定要退出登录？",
-                    text: "",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "登出",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    location.href = '${pageContext.request.contextPath}/shiro/logout';
-                });
-        }
-    </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
 <%@include file="/student/nav/nav.jsp"%>
