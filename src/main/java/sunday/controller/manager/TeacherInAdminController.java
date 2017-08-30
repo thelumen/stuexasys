@@ -14,6 +14,7 @@ import sunday.pojo.teacher.Teacher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by yang on 2017/8/28.
@@ -76,11 +77,24 @@ public class TeacherInAdminController extends CommonController {
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     public String insert(Teacher teacher) {
-        teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
-        if (teacherService.insert(teacher) > 0) {
-            //添加权限
-            roleService.link2Teacher(teacher.getTeacherId(), RoleEnum.TEACHER.getRoleId());
+        Map<String, Object> teacherParams = new HashMap<String, Object>() {{
+            put("teacherId", teacher.getTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, teacherParams);
+        if (null == teachers) {
+            teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
+            if (Objects.equals(teacher.getPosition(), "")) {
+                teacher.setPosition("未填写");
+            }
+            if (Objects.equals(teacher.getOffice(), "")) {
+                teacher.setOffice("未填写");
+            }
+            if (teacherService.insert(teacher) > 0) {
+                //添加权限
+                roleService.link2Teacher(teacher.getTeacherId(), RoleEnum.TEACHER.getRoleId());
+            }
         }
+
         return "/manager/teacher/teacherProxy";
     }
 

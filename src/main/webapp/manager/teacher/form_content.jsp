@@ -19,7 +19,7 @@
               action="${pageContext.request.contextPath}/admin/teacher/${action}"
               class="form-horizontal">
             <%--ID--%>
-            <div class="form-group">
+            <div class="form-group" style="display: none">
                 <label class="col-sm-2 control-label">id</label>
                 <div class="col-sm-6">
                     <input class="form-control" name="id"
@@ -32,7 +32,9 @@
                 <label class="col-sm-2 control-label">教工号</label>
                 <div class="col-sm-10">
                     <input class="form-control" name="teacherId" maxlength="6"
-                           minlength="6"
+                           minlength="6" required
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
                            value="${teacherInfo.teacherId}" style="width: 500px"
                            placeholder="your unique id"/>
                 </div>
