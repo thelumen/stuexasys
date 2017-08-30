@@ -3,6 +3,7 @@ package sunday.common.kit;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,12 @@ public final class CommonKit {
         Map<String, Object> takenInfo = new HashMap<>();
 
         PageInfo<?> pageInfo = new PageInfo<>(target);
-
         takenInfo.put("total", pageInfo.getTotal());
-        takenInfo.put("rows", pageInfo.getList());
+        if (null == target) {
+            takenInfo.put("rows", new ArrayList<>());
+        } else {
+            takenInfo.put("rows", pageInfo.getList());
+        }
 
         return takenInfo;
     }

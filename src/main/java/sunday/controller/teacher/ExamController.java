@@ -5,11 +5,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.CommonKit;
-import sunday.common.kit.ShiroKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.teacher.ExamTaken;
-import sunday.pojo.teacher.Teacher;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -23,7 +21,7 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/exam")
-public class ExamController extends CommonController{
+public class ExamController extends CommonController {
 
     /**
      * 转到考试信息页
@@ -84,10 +82,8 @@ public class ExamController extends CommonController{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
         List<ExamTaken> examTakens = stuExaService.selectExamTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
-        if (null != examTakens) {
-            return CommonKit.getTakenInfo(examTakens);
-        }
-        return null;
+
+        return CommonKit.getTakenInfo(examTakens);
     }
 
     /**
