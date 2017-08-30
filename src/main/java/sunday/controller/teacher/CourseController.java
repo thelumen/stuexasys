@@ -78,10 +78,8 @@ public class CourseController extends CommonController {
                     info.setOn("已结课");
                 }
             }
-
-            return CommonKit.getTakenInfo(courses);
         }
-        return null;
+        return CommonKit.getTakenInfo(courses);
     }
 
     /**

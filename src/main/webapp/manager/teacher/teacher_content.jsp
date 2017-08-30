@@ -22,15 +22,17 @@
         <table
                 id="manager_teacher_table"
                 data-toolbar="#admin_teacher_tool"
+                data-show-export="true"
+                data-minimum-count-columns="2"
+                data-show-pagination-switch="true"
+                data-pagination="true"
+                data-id-field="teacherId"
                 data-toggle="table"
                 data-method="post"
-                data-show-export="true"
+                data-show-footer="false"
                 data-url="${pageContext.request.contextPath}/admin/teacher/list"
                 data-side-pagination="server"
                 data-show-refresh="true"
-                data-id-field="teacherId"
-                data-pagination="true"
-                data-show-columns="true"
         >
             <thead>
             <tr>
@@ -74,6 +76,7 @@
             success: function (data) {
                 if (data === true) {
                     swal("Success", "该教师信息删除成功！", "success");
+                    //location.reload();
                     $('#manager_teacher_table').bootstrapTable("refresh");
                 }
                 else {

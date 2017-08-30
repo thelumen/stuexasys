@@ -47,10 +47,7 @@ public class TeacherInAdminController extends CommonController {
     @ResponseBody
     public Map<String, Object> getTeachers(@RequestBody Map<String, Object> params) {
         List<Teacher> teachers = teacherService.select(CommonKit.getMapInfo2Page(params), null);
-        if (null != teachers) {
-            return CommonKit.getTakenInfo(teachers);
-        }
-        return null;
+        return CommonKit.getTakenInfo(teachers);
     }
 
     /**
@@ -61,7 +58,7 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String insert(Model model) {
         model.addAttribute("action", "insert");
         return "/manager/teacher/formProxy";
@@ -84,10 +81,10 @@ public class TeacherInAdminController extends CommonController {
         if (null == teachers) {
             teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
             if (Objects.equals(teacher.getPosition(), "")) {
-                teacher.setPosition("未填写");
+                teacher.setPosition("Nothing To Show");
             }
             if (Objects.equals(teacher.getOffice(), "")) {
-                teacher.setOffice("未填写");
+                teacher.setOffice("Nothing To Show");
             }
             if (teacherService.insert(teacher) > 0) {
                 //添加权限

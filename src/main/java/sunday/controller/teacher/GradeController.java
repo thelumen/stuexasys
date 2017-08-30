@@ -5,14 +5,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.CommonKit;
-import sunday.common.kit.ShiroKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.teacher.AnotherTaken;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.GradeTaken;
-import sunday.pojo.teacher.Teacher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/grade")
-public class GradeController extends CommonController{
+public class GradeController extends CommonController {
 
     /**
      * 转到成绩统计页面
