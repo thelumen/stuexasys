@@ -5,6 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sunday.common.enums.RoleEnum;
 import sunday.common.kit.CommonKit;
 import sunday.common.kit.EncryptKit;
 import sunday.controller.common.CommonController;
@@ -13,7 +14,6 @@ import sunday.pojo.teacher.Teacher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by yang on 2017/8/28.
@@ -77,7 +77,10 @@ public class TeacherInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     public String insert(Teacher teacher) {
         teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
-        teacherService.insert(teacher);
+        if (teacherService.insert(teacher) > 0) {
+            //添加权限
+            roleService.link2Teacher(teacher.getTeacherId(), RoleEnum.TEACHER.getRoleId());
+        }
         return "/manager/teacher/teacherProxy";
     }
 

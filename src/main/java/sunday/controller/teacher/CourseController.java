@@ -20,7 +20,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/course")
-public class CourseController extends CommonController{
+public class CourseController extends CommonController {
 
     /**
      * 转到选课页
@@ -99,8 +99,9 @@ public class CourseController extends CommonController{
         if (Objects.equals(content, "")) {
             return false;
         }
+        String targetStr = new String(content.getBytes("iso8859-1"), "utf-8");
         //此数组有三个数值，teacherId+courseName+specialtyName
-        String[] target = content.split("&");
+        String[] target = targetStr.split("&");
         if (target.length == 3) {
             Map<String, Object> params = new HashMap<String, Object>() {{
                 put("teacherId", target[0]);

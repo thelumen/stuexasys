@@ -176,9 +176,10 @@
                         success: function (data) {
                             if (data === true) {
                                 swal("year..", "删除成功!", "success");
+                                location.reload();
                             }
-                            $('#teacher_exam_table').bootstrapTable("refresh");
-                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                            //$('#teacher_exam_table').bootstrapTable("refresh");
+                            //$('#teacher_exam_modal_table').bootstrapTable("refresh");
                         },
                         error: function () {
                             swal("Error", "系统出现错误，请联系管理员!", "error");
@@ -496,6 +497,7 @@
 //        预加载数据
 //        专业select添加样式
         $('#teacher_exam_choose_specialty').select2();
+        $('#teacher_exam_choose_course').select2();
 
 //        课程select查询数据
         $.ajax({

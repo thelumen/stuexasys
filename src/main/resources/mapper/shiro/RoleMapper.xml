@@ -15,7 +15,7 @@
         FROM com_role
         <where>
             <if test="id != null">
-                id=#{id,jdbcType=SMALLINT}
+                id=#{id,jdbcType=INTEGER}
             </if>
             <if test="name != null">
                 AND name=#{name,jdbcType=VARCHAR}
@@ -27,27 +27,27 @@
     <select id="selectByTeacherInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
-        FROM com_teacher_l_role l,com_role r
-        WHERE l.roleId=r.id AND l.teacherId=#{teacherId,jdbcType=SMALLINT}
+        FROM com_teacher_l_role l,com_role r,com_teacher t
+        WHERE l.roleId=r.id AND l.teacherId=t.teacherId AND t.teacherId=#{teacherId,jdbcType=INTEGER}
     </select>
 
     <!--查询教师角色-->
     <select id="selectByManagerInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
-        FROM com_manager_l_role l,com_role r
-        WHERE l.roleId=r.id AND l.managerId=#{managerId,jdbcType=SMALLINT}
+        FROM com_manager_l_role l,com_role r,com_manager m
+        WHERE l.roleId=r.id AND l.managerId=m.managerId AND m.managerId=#{managerId,jdbcType=INTEGER}
     </select>
 
     <!--教师与角色相关联-->
     <insert id="link2Teacher">
         INSERT INTO com_teacher_l_role(teacherId,roleId)
-        VALUES (#{teacherId,jdbcType=SMALLINT},#{roleId,jdbcType=SMALLINT})
+        VALUES (#{teacherId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
     </insert>
 
     <!--普通管理员与角色相关联-->
     <insert id="link2Manager">
         INSERT INTO com_manager_l_role(managerId,roleId)
-        VALUES (#{managerId,jdbcType=SMALLINT},#{roleId,jdbcType=SMALLINT})
+        VALUES (#{managerId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
     </insert>
 </mapper>

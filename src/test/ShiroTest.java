@@ -34,6 +34,17 @@ public class ShiroTest {
     @javax.annotation.Resource(name = "managerService")
     private ManagerService managerService;
 
+    @Test
+    public void t7(){
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
+            put("teacherId", 140400);
+        }};
+        List<Role> roles = roleService.selectByTeacherInfo(teacherInfo);
+        if (null != roles){
+            out.print("有角色");
+        }
+    }
+
     //测试教师-角色-资源查询
     @Test
     public void t6() {

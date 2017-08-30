@@ -1,4 +1,5 @@
 import org.junit.Test;
+import sunday.common.enums.RoleEnum;
 import sunday.common.kit.DateKit;
 import sunday.common.kit.ResourceFileKit;
 
@@ -10,6 +11,12 @@ import java.util.Map;
  * Created by 花间一壶酒 on 2017/7/30.
  */
 public class OrdinaryTest {
+
+    @Test
+    public void t4(){
+        System.out.print(RoleEnum.TEACHER.getRoleId());
+    }
+
     @Test
     public void t3() {
         List<Map<String, Object>> testList = ResourceFileKit.getResourceInfo();
