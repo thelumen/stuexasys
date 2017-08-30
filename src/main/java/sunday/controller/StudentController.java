@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sunday.common.enums.UpdateType;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.controller.common.CommonController;
@@ -122,6 +123,7 @@ public class StudentController extends CommonController {
             put("isSuccess", false);
         }};
         studentInfo.setStudentId(getStudentIdWithInt());
+        studentInfo.setUpdateType(UpdateType.StuSet);
         if (studentService.update(studentInfo)) {
             msg.put("isSuccess", true);
         }

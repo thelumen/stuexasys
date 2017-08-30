@@ -10,8 +10,9 @@
 
     <!--新增教师-->
     <insert id="insert" parameterType="sunday.pojo.teacher.Teacher">
-        INSERT INTO com_teacher(teacherId,password)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{password,jdbcType=VARCHAR})
+        INSERT INTO com_teacher(teacherId, password, gender, position, office)
+        VALUES (#{teacherId,jdbcType=INTEGER},#{password,jdbcType=VARCHAR},#{gender,jdbcType=CHAR},
+        #{position,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR})
     </insert>
 
     <!--查询教师-->
@@ -20,8 +21,11 @@
         SELECT *
         FROM com_teacher
         <where>
+            <if test="id != null">
+                id=#{id,jdbcType=INTEGER}
+            </if>
             <if test="teacherId != null">
-                teacherId=#{teacherId,jdbcType=INTEGER}
+                AND teacherId=#{teacherId,jdbcType=INTEGER}
             </if>
             <if test="name != null">
                 AND name = #{name,jdbcType=VARCHAR}

@@ -174,7 +174,8 @@
                         success: function (data) {
                             if (data === true) {
                                 swal("Deleted!", "此课程成功删除！", "success");
-                                $('#teacher_course_table').bootstrapTable("refresh");
+                                location.reload();
+                                //$('#teacher_course_table').bootstrapTable("refresh");
                             } else {
                                 swal("Sorry", "此课程已结被删除！", "error");
                             }

@@ -2,7 +2,6 @@ package sunday.service.manager;
 
 import com.github.pagehelper.Page;
 import sunday.pojo.manager.Manager;
-import sunday.pojo.school.Student;
 
 import java.util.List;
 import java.util.Map;
@@ -28,13 +27,4 @@ public interface ManagerService {
      * @return
      */
     List<Manager> select(Page page, Map<String, Object> params);
-
-    /**
-     * 管理员查询学生信息
-     *
-     * @param page
-     * @param params
-     * @return
-     */
-    List<Student> selectStuInfo(Page page, Map<String, Object> params);
 }

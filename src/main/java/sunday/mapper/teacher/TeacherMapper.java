@@ -1,5 +1,6 @@
 package sunday.mapper.teacher;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import sunday.pojo.teacher.Teacher;
 
@@ -43,4 +44,5 @@ public interface TeacherMapper {
      * @return
      */
     int delete(int teacherId);
+
 }

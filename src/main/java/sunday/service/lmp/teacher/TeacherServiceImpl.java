@@ -40,11 +40,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     @Transactional
     public boolean update(Teacher teacher) {
-        boolean result = false;
-        if (teacherMapper.update(teacher) > 0) {
-            result = true;
-        }
-        return result;
+        return teacherMapper.update(teacher) > 0;
     }
 
     @Override
@@ -52,4 +48,5 @@ public class TeacherServiceImpl implements TeacherService {
     public boolean delete(int teacherId) {
         return teacherMapper.delete(teacherId) > 0;
     }
+
 }

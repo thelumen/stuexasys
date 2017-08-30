@@ -51,6 +51,7 @@ public class MyRealm extends AuthorizingRealm {
      * @return
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         ShiroInfo shiroInfo = (ShiroInfo) this.getAuthenticationCacheKey(principalCollection);
 
@@ -68,10 +69,13 @@ public class MyRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+
         String account = token.getUsername();
         String direction = account.substring(account.length() - 1);
+
         String realAccount = account.substring(0, account.length() - 1);
         String password = new String(token.getPassword());
+
         ShiroInfo shiroInfo = null;
         if (direction.equals("0")) {
             shiroInfo = getStudentInfo(realAccount, password);
@@ -138,7 +142,7 @@ public class MyRealm extends AuthorizingRealm {
             Set<String> permissionsSet = new HashSet<>();
 
             Map<String, Object> managerInfo = new HashMap<String, Object>() {{
-                put("managerId", manager.getId());
+                put("managerId", manager.getManagerId());
             }};
             List<Role> roles = roleService.selectByManagerInfo(managerInfo);
             if (null != roles) {
@@ -180,7 +184,7 @@ public class MyRealm extends AuthorizingRealm {
             Set<String> permissionsSet = new HashSet<>();
 
             Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
-                put("teacherId", teacher.getId());
+                put("teacherId", teacher.getTeacherId());
             }};
             List<Role> roles = roleService.selectByTeacherInfo(teacherInfo);
             if (null != roles) {

@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.manager.ManStuMapper;
 import sunday.mapper.manager.ManagerMapper;
 import sunday.pojo.manager.Manager;
 import sunday.pojo.school.Student;
@@ -22,8 +21,6 @@ public class ManagerServiceImpl implements ManagerService {
 
     @javax.annotation.Resource(name = "managerMapper")
     private ManagerMapper managerMapper;
-    @javax.annotation.Resource(name = "manStuMapper")
-    private ManStuMapper manStuMapper;
 
     @Override
     @Transactional
@@ -43,15 +40,4 @@ public class ManagerServiceImpl implements ManagerService {
         return null;
     }
 
-    @Override
-    public List<Student> selectStuInfo(Page page, Map<String, Object> params) {
-        if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        }
-        List<Student> studentList = manStuMapper.selectStuInfo(params);
-        if (null != studentList && studentList.size() > 0) {
-            return studentList;
-        }
-        return null;
-    }
 }

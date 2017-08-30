@@ -5,6 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sunday.common.enums.RoleEnum;
 import sunday.common.kit.CommonKit;
 import sunday.common.kit.EncryptKit;
 import sunday.controller.common.CommonController;
@@ -13,6 +14,7 @@ import sunday.pojo.teacher.Teacher;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by yang on 2017/8/28.
@@ -52,6 +54,51 @@ public class TeacherInAdminController extends CommonController {
     }
 
     /**
+     * 转至添加教师界面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
+    public String insert(Model model) {
+        model.addAttribute("action", "insert");
+        return "/manager/teacher/formProxy";
+    }
+
+    /**
+     * 新增教师
+     *
+     * @param teacher
+     * @return
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
+    public String insert(Teacher teacher) {
+        Map<String, Object> teacherParams = new HashMap<String, Object>() {{
+            put("teacherId", teacher.getTeacherId());
+        }};
+        List<Teacher> teachers = teacherService.select(null, teacherParams);
+        if (null == teachers) {
+            teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
+            if (Objects.equals(teacher.getPosition(), "")) {
+                teacher.setPosition("未填写");
+            }
+            if (Objects.equals(teacher.getOffice(), "")) {
+                teacher.setOffice("未填写");
+            }
+            if (teacherService.insert(teacher) > 0) {
+                //添加权限
+                roleService.link2Teacher(teacher.getTeacherId(), RoleEnum.TEACHER.getRoleId());
+            }
+        }
+
+        return "/manager/teacher/teacherProxy";
+    }
+
+    /**
      * 删除教师（仅限超管）
      *
      * @param teacherId
@@ -74,10 +121,11 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/edit/{teacherId}", method = RequestMethod.GET)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Model model, @PathVariable(value = "teacherId") Integer teacherId) {
         getTeacherInfo(model, teacherId);
-        return "/manager/teacher/editProxy";
+        model.addAttribute("action", "edit");
+        return "/manager/teacher/formProxy";
     }
 
     /**
@@ -104,18 +152,23 @@ public class TeacherInAdminController extends CommonController {
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @RequiresAuthentication
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Teacher teacher) {
         Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", teacher.getTeacherId());
+            put("id", teacher.getId());
         }};
         List<Teacher> teachers = teacherService.select(null, params);
         if (null != teachers) {
-            if (!teachers.get(0).getPassword().equals(teacher.getPassword())) {
+            Teacher t = teachers.get(0);
+            //如果修改密码了，就加密
+            if (!t.getPassword().equals(teacher.getPassword())) {
                 teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
             }
+            //教工号不能变
+            teacher.setTeacherId(t.getTeacherId());
             teacherService.update(teacher);
         }
+
         return "/manager/teacher/teacherProxy";
     }
 }

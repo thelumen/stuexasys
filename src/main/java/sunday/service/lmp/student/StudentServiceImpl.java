@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.rmi.runtime.Log;
 import sunday.common.enums.NumberDifficultyEnum;
+import sunday.common.enums.UpdateType;
 import sunday.common.kit.EncryptKit;
 import sunday.common.kit.MakeTestPaperKit;
 import sunday.common.kit.RandomKit;
@@ -325,14 +326,38 @@ public class StudentServiceImpl implements StudentService {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", studentInfo.getStudentId());
         }};
+
         List<StudentTaken> studentTakens = studentMapper.selectStudentInfo(params);
-        if (null != studentInfo.getOldPassword()) {//判断旧密码是否填写
-            if (!studentInfo.getOldPassword().equals(studentInfo.getNewPassword())) {//判断填写的新旧密码是否不同
-                if (EncryptKit.md5(studentInfo.getOldPassword()).equals
-                        (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据相同
-                    params.put("password", EncryptKit.md5(studentInfo.getNewPassword()));
+
+        switch (studentInfo.getUpdateType()) {
+            case StuSet://学生设置密码处理
+                if (null != studentInfo.getOldPassword()) {//判断旧密码是否填写
+                    if (!studentInfo.getOldPassword().equals(studentInfo.getNewPassword())) {//判断填写的新旧密码是否不同
+                        if (EncryptKit.md5(studentInfo.getOldPassword()).equals
+                                (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据是否相同
+                            params.put("password", EncryptKit.md5(studentInfo.getNewPassword()));
+                            count++;
+                        }
+                    }
+                }
+                break;
+            case StuFind://学生密码找回处理
+                break;
+            case AdminSet://管理员设置密码处理
+                if (EncryptKit.md5(studentInfo.getPassword()).equals
+                        (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据是否相同
+                    params.put("password", EncryptKit.md5(studentInfo.getOldPassword()));
                     count++;
                 }
+                break;
+            default:
+                break;
+        }
+        //判断专业是否更改
+        if (null != studentInfo.getSpecialtyId()) {
+            if (!studentInfo.getSpecialtyId().equals(studentTakens.get(0).getSpecialtyId())) {
+                params.put("specialtyId", studentInfo.getSpecialtyId());
+                count++;
             }
         }
         //判断号码是否更改

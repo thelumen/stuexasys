@@ -128,6 +128,7 @@
     $(function () {
         //        预加载数据
         $('#teacher_another_select_specialty').select2();
+        $('#teacher_another_select_course').select2();
         //        课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/course/single',

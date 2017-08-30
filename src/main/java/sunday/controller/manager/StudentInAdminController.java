@@ -1,14 +1,14 @@
 package sunday.controller.manager;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import sunday.common.enums.UpdateType;
 import sunday.common.kit.CommonKit;
 import sunday.controller.common.CommonController;
+import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin/student")
-public class StudentInAdminController extends CommonController{
+public class StudentInAdminController extends CommonController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String EditStudent() {
@@ -26,25 +26,36 @@ public class StudentInAdminController extends CommonController{
     }
 
     /**
-     * 初始化学生表
-     * 默认加载信息异常的学生
-     * @param params
-     * @return
+     * 初始化学生信息表
+     *
+     * @param params       分页参数.
+     * @param selectOption 预留显示.
+     * @return 格式化的信息.
      */
-    @RequestMapping(value = "/initStudentTable", method = RequestMethod.POST)
+    @RequestMapping(value = "/initStudentTable/{selectOption}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> initStudentTable(@RequestBody Map<String,Object> params) {
-        List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), null);
-        if(null!=studentTakenList&&studentTakenList.size()!=0){
+    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params, @PathVariable(value = "selectOption") Integer selectOption) {
+        Map<String, Object> selectOptionMap = new HashMap<>();
+        if (selectOption == 1) {
+            selectOptionMap.put("specialtyId", 100000);
+        }
+        List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
+        if (null != studentTakenList && studentTakenList.size() != 0) {
             return CommonKit.getTakenInfo(studentTakenList);
         }
         return null;
     }
 
-    @RequestMapping(value = "/studentInfoSave",method = RequestMethod.POST)
+    /**
+     * 保存学生信息的修改
+     *
+     * @param studentInfo
+     * @return
+     */
+    @RequestMapping(value = "/studentInfoSave", method = RequestMethod.POST)
     @ResponseBody
-    public String saveStudentInfo(){
-
-        return null;
+    public boolean saveStudentInfo(@RequestBody StudentInfo studentInfo) {
+        studentInfo.setUpdateType(UpdateType.AdminSet);
+        return studentService.update(studentInfo);
     }
 }

@@ -27,7 +27,7 @@
         <div class="col-md-3">
             <p>信息异常
                 <label>
-                    <input type="checkbox" id="errorStudent" checked="checked">
+                    <input type="checkbox" id="errorStudent" name="errorStudent" checked="checked">
                 </label>
             </p>
         </div>
@@ -45,9 +45,13 @@
 <script>
     //初始化
     $(function () {
+        var selectOption = 0;
+        if ($('input:radio[name="errorStudent"]:checked').val() !== null) {
+            selectOption = 1;
+        }
         $("#studentTable").bootstrapTable({
             method: "post",
-            url: "${pageContext.request.contextPath}/admin/student/initStudentTable",
+            url: "${pageContext.request.contextPath}/admin/student/initStudentTable/" + selectOption,
             sidePagination: "server",
             idField: "studentId",
             showRefresh: "true",
@@ -120,7 +124,7 @@
             }, {
                 field: 'passwordChanged',
                 title: '修改密码',
-                formatter:function (value,row,index) {
+                formatter: function (value, row, index) {
                     return '修改密码';
                 },
                 editable: {
@@ -152,13 +156,13 @@
         'click .saveChanged': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
-                type:'post',
+                type: 'post',
                 url: '${pageContext.request.contextPath}/admin/student/studentInfoSave',
                 dataType: "json",
-                data: row,
+                data: JSON.stringify(row),
                 contentType: 'application/json',
                 success: function (data) {
-                    if (data.isSuccess) {
+                    if (data) {
                         alert("更新成功");
                     } else {
                         alert("更新失败");

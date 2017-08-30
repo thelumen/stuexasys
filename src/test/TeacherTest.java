@@ -2,11 +2,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sunday.common.enums.RoleEnum;
 import sunday.common.kit.ChapterKit;
 import sunday.common.kit.EncryptKit;
+import sunday.controller.common.CommonController;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.Specialty;
+import sunday.pojo.shiro.Role;
 import sunday.pojo.teacher.AnotherTaken;
 import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.Teacher;
@@ -27,19 +30,11 @@ import static java.lang.System.out;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:/config/spring/spring-*.xml"})
-public class TeacherTest {
-    @javax.annotation.Resource(name = "teacherService")
-    private TeacherService teacherService;
-
-    @javax.annotation.Resource(name = "speCouService")
-    private SpeCouService speCouService;
-
-    @javax.annotation.Resource(name = "teaQueService")
-    private TeaQueService teaQueService;
+public class TeacherTest extends CommonController{
 
     @Test
     public void t12() {
-        out.print(teacherService.delete(140402));
+        //teacherService.link2Role(140400, RoleEnum.TEACHER.getRoleId());
     }
 
     @Test

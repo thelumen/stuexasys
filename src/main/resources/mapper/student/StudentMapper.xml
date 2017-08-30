@@ -39,13 +39,7 @@
                 AND s.studentId = #{studentId,jdbcType=INTEGER}
             </if>
             <if test="specialtyId != null">
-                AND s.specialtyId = #{specialtyId,jdbcType=int}
-            </if>
-            <if test="specialtyId == null">
-                AND s.specialtyId = 100000
-            </if>
-            <if test="studentId != null">
-                AND s.studentId = #{studnetId,jdbcType=int}
+                AND s.specialtyId = #{specialtyId,jdbcType=INTEGER}
             </if>
         </where>
     </select>
