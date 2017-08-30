@@ -115,7 +115,7 @@ public class StudentServiceImpl implements StudentService {
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
-        //判断返回值不为空 且 选择题数量大于最小数量 判断题数量大于最小数量
+        //判断返回值不为空 且 选择题数量大于配置枚举中最小数量 判断题数量大于配置枚举最小数量
         if (null != singleTakenList && null != tfTakenList) {
             if (singleTakenList.size() >= NumberDifficultyEnum.Total_Single.getNumbers() && tfTakenList.size() >= NumberDifficultyEnum.Total_Tf.getNumbers()) {
                 /*
@@ -383,8 +383,14 @@ public class StudentServiceImpl implements StudentService {
         }
         //判断是否有更改
         if (count > 0) {
-            Integer returnRow = studentMapper.update(params);
-            return returnRow > 0;
+            return studentMapper.update(params) > 0;
         } else return count == 0;
+    }
+
+    @Override
+    public boolean delete(StudentInfo studentInfo) {
+        return studentMapper.delete(new HashMap<String, Object>() {{
+            put("studentId", studentInfo.getStudentId());
+        }}) > 0;
     }
 }

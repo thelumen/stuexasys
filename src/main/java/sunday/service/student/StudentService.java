@@ -106,4 +106,12 @@ public interface StudentService {
      * @return int
      */
     boolean update(StudentInfo studentInfo);
+
+    /**
+     * 删除学生信息
+     *
+     * @param studentInfo .
+     * @return .
+     */
+    boolean delete(StudentInfo studentInfo);
 }

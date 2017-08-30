@@ -58,4 +58,22 @@ public class StudentInAdminController extends CommonController {
         studentInfo.setUpdateType(UpdateType.AdminSet);
         return studentService.update(studentInfo);
     }
+
+    /**
+     * 删除学生
+     *
+     * @param studentInfo .
+     * @return .
+     */
+    @RequestMapping(value = "/studentInfoDel", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteStudent(@RequestBody StudentInfo studentInfo) {
+        return studentService.delete(studentInfo);
+    }
+
+    @RequestMapping(value = "/specialtyGet",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String, Object>> loadSpecialty(){
+        return adminStudentService.selectSpecialty();
+    }
 }
