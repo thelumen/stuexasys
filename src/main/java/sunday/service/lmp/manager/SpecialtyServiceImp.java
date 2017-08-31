@@ -35,4 +35,10 @@ public class SpecialtyServiceImp extends CommonService implements SpecialtyServi
     public boolean delete(Integer specialtyId) {
         return specialtyMapper.delete(specialtyId) > 0;
     }
+
+    @Override
+    @Transactional
+    public boolean update(Specialty specialty) {
+        return specialtyMapper.update(specialty) > 0;
+    }
 }

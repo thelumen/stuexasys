@@ -25,4 +25,18 @@
     <delete id="delete" parameterType="java.lang.Integer">
         DELETE FROM com_specialty WHERE specialtyId=#{specialtyId,jdbcType=INTEGER}
     </delete>
+
+    <!--更新专业-->
+    <update id="update" parameterType="sunday.pojo.school.Specialty">
+        UPDATE com_specialty
+        <set>
+            <if test="specialtyId != null">
+                specialtyId = #{specialtyId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

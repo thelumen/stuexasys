@@ -33,4 +33,12 @@ public interface SpecialtyService {
      * @return
      */
     boolean delete(Integer specialtyId);
+
+    /**
+     * 更新专业
+     *
+     * @param specialty
+     * @return
+     */
+    boolean update(Specialty specialty);
 }

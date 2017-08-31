@@ -35,4 +35,12 @@ public interface SpecialtyMapper {
      * @return
      */
     int delete(Integer specialtyId);
+
+    /**
+     * 更新专业
+     *
+     * @param specialty
+     * @return
+     */
+    int update(Specialty specialty);
 }
