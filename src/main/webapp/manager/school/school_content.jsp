@@ -79,7 +79,7 @@
                                 <td>${course.credit}</td>
                                 <td>
                                     <button class="btn-primary"
-                                            onclick="modifyCourse('${course.courseId}')">
+                                            onclick="showModifyCourse('${course.courseId}')">
                                         修改
                                     </button>
                                     <button class="btn-warning"
@@ -108,7 +108,7 @@
                         aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    新增专业</h4>
+                    新增课程</h4>
             </div>
             <div class="modal-body">
                 <form id="school_course_form">
@@ -129,6 +129,44 @@
                            class="form-control" maxlength="2"
                            onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     <button type="button" onclick="addCourse()">添加</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%--修改课程--%>
+<div id="school_course_modify_modal" class="modal fade" tabindex="-1"
+     role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    课程修改</h4>
+            </div>
+            <div class="modal-body">
+                <form id="school_course_modify_form">
+                    <input id="modify_c_id" name="id" hidden>
+                    <input class="form-control"
+                           name="courseId" id="modify_c_cId"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
+                           maxlength="8" minlength="8"
+                           placeholder="请填写课程Id，8位数值">
+                    <input name="name" placeholder="请填写课程名称" id="modify_c_name"
+                           class="form-control">
+                    <input name="period" placeholder="请填写学时" id="modify_c_p"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           class="form-control" maxlength="2"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                    <input name="credit" placeholder="请填写学分" id="modify_c_c"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           class="form-control" maxlength="2"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                    <button type="button" onclick="modifyCourse()">修改</button>
                 </form>
             </div>
         </div>
@@ -183,7 +221,7 @@
             </div>
             <div class="modal-body">
                 <form id="school_specialty_modify_form">
-                    <input id="modify_s_realId" name="id">
+                    <input id="modify_s_realId" name="id" hidden>
                     <input class="form-control"
                            name="specialtyId" id="modify_s_id"
                            onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -193,7 +231,8 @@
                     <input name="name" type="text"
                            class="form-control" id="modify_s_name"
                            placeholder="专业名称，如：计算机科学与技术">
-                    <button type="button" onclick="modifySpecialty()">修改</button>
+                    <button type="button" onclick="modifySpecialty()">修改
+                    </button>
                 </form>
             </div>
         </div>
@@ -235,7 +274,7 @@
                     alert("课程Id重复！");
                 }
             },
-            error:function () {
+            error: function () {
                 alert("您没有权限！");
             }
         })
@@ -270,12 +309,40 @@
             });
     }
     //展示修改课程modal
-    function showModifyCourse() {
-        
+    function showModifyCourse(id) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/school/course/' + id,
+            success: function (data) {
+                $('#modify_c_id').val(data.id);
+                $('#modify_c_cId').val(data.courseId);
+                $('#modify_c_name').val(data.name);
+                $('#modify_c_p').val(data.period);
+                $('#modify_c_c').val(data.credit);
+            }
+        });
+        $('#school_course_modify_modal').modal('show');
     }
     //修改课程
     function modifyCourse() {
-
+        var stringData = $('#school_course_modify_form').serializeObject();
+        var jsonDate = JSON.stringify(stringData);
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/school/course/update',
+            contentType: 'application/json',
+            data: jsonDate,
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                if (data) {
+                    location.reload();
+                } else {
+                    alert("请填写正确参数！");
+                }
+            },
+            error: function () {
+                alert("出错！可能原因：1.您没有权限；2.该课程Id被其他事务所关联;3.课程Id重复");
+            }
+        })
     }
     //展示新增专业modal
     function showAddSpecialty(id) {
@@ -322,8 +389,8 @@
     //展示修改专业modal
     function showModifySpecialty(id) {
         $.ajax({
-            url:'${pageContext.request.contextPath}/admin/school/specialty/'+id,
-            success:function (data) {
+            url: '${pageContext.request.contextPath}/admin/school/specialty/' + id,
+            success: function (data) {
                 $('#modify_s_realId').val(data.id);
                 $('#modify_s_id').val(data.specialtyId);
                 $('#modify_s_name').val(data.name);

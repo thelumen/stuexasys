@@ -17,7 +17,7 @@ public interface CourseService {
      * @param params
      * @return
      */
-    List<Course> select(Map<String,Object> params);
+    List<Course> select(Map<String, Object> params);
 
     /**
      * 新增课程
@@ -34,4 +34,12 @@ public interface CourseService {
      * @return
      */
     boolean delete(Integer courseId);
+
+    /**
+     * 更新课程
+     *
+     * @param course
+     * @return
+     */
+    boolean update(Course course);
 }

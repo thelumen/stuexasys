@@ -95,12 +95,54 @@ public class SchoolInAdminController extends CommonController {
      * @param courseId
      * @return
      */
-    @RequestMapping(value = "/course/delete/{courseId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/course/delete/{courseId}", method = RequestMethod.DELETE)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteCourse(@PathVariable("courseId") Integer courseId) {
         return !(courseId < 10000000 || courseId > 99999999) && courseService.delete(courseId);
+    }
+
+    /**
+     * 获取指定课程
+     *
+     * @param courseId
+     * @return
+     */
+    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Course getRowInCourse(@PathVariable("courseId") String courseId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+        }};
+        List<Course> courses = courseService.select(params);
+        if (null != courses) {
+            return courses.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 更新专业
+     *
+     * @param course
+     * @return
+     */
+    @RequestMapping(value = "/course/update", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
+    @ResponseBody
+    public boolean updateCourse(@RequestBody Course course) {
+        if (course.getCourseId() < 10000000 || course.getCourseId() > 99999999) {
+            return false;
+        }
+        if (Objects.equals(course.getName(), "")) {
+            return false;
+        }
+        if (course.getPeriod() < 0 || course.getPeriod() > 99 || course.getCredit() < 0 || course.getCredit() > 99) {
+            return false;
+        }
+        return courseService.update(course);
     }
 
     /**
@@ -157,18 +199,17 @@ public class SchoolInAdminController extends CommonController {
      * 获取指定专业信息
      *
      * @param specialtyId
-     * @param model
      * @return
      */
-    @RequestMapping(value = "/specialty/{specialtyId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/specialty/{specialtyId}", method = RequestMethod.GET)
     @ResponseBody
-    public Specialty getRowInSpecialty(@PathVariable("specialtyId")String specialtyId, Model model){
+    public Specialty getRowInSpecialty(@PathVariable("specialtyId") String specialtyId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
         }};
         List<Specialty> specialties = specialtyService.select(params);
         if (null != specialties) {
-            return  specialties.get(0);
+            return specialties.get(0);
         }
         return null;
     }
@@ -179,11 +220,11 @@ public class SchoolInAdminController extends CommonController {
      * @param specialty
      * @return
      */
-    @RequestMapping(value = "/specialty/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/specialty/update", method = RequestMethod.POST)
     @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public boolean updateSpecialty(@RequestBody Specialty specialty){
+    public boolean updateSpecialty(@RequestBody Specialty specialty) {
         if (specialty.getSpecialtyId() < 100000 || specialty.getSpecialtyId() > 999999) {
             return false;
         }

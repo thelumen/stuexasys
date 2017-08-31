@@ -35,4 +35,12 @@ public interface CourseMapper {
      * @return
      */
     int delete(Integer courseId);
+
+    /**
+     * 更新课程
+     *
+     * @param course
+     * @return
+     */
+    int update(Course course);
 }

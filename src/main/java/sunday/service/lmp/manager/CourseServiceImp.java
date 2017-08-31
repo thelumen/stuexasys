@@ -33,7 +33,13 @@ public class CourseServiceImp extends CommonService implements CourseService {
     @Override
     @Transactional
     public boolean delete(Integer courseId) {
-        return courseMapper.delete(courseId)>0;
+        return courseMapper.delete(courseId) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean update(Course course) {
+        return courseMapper.update(course) > 0;
     }
 
 }
