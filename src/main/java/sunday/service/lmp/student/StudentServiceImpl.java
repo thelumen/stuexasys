@@ -339,9 +339,9 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             case StuFind://学生密码找回处理
                 break;
             case AdminSet://管理员设置密码处理
-                if (EncryptKit.md5(studentInfo.getPassword()).equals
+                if (!EncryptKit.md5(studentInfo.getPassword()).equals
                         (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据是否相同
-                    params.put("password", EncryptKit.md5(studentInfo.getOldPassword()));
+                    params.put("password", EncryptKit.md5(studentInfo.getPassword()));
                     count++;
                 }
                 break;

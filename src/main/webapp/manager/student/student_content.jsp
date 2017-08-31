@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 花间一壶酒
@@ -7,48 +8,25 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <p>
-                <label>
-                    <input class="form-control" placeholder="专业" type="search" id="special">
-                </label>
-            </p>
-        </div>
-        <div class="col-md-3">
-            <p>
-                <label>
-                    <input class="form-control" placeholder="学号" id="studentId">
-                </label>
-            </p>
-        </div>
-        <div class="col-md-3">
-            <p>信息异常
-                <label>
-                    <input type="checkbox" id="errorStudent" name="errorStudent" checked="checked">
-                </label>
-            </p>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-primary" type="button" id="selectStudent">查找</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <table id="studentTable">
-        </table>
-    </div>
-</div>
-
 <script>
     //初始化
     $(function () {
-        var selectOption = 0;
-        if ($('input:radio[name="errorStudent"]:checked').val() !== null) {
-            selectOption = 1;
-        }
+        //初始化下拉框
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
+            dataType: 'json',
+            success: function (data) {
+                $('#specialty').select2({
+                    placeholder: "专业",
+                    allowClear: true,
+                    data: data
+                });
+                window._data = data;
+            }
+        });
+
+        var selectOption = 1;//默认加载预留专业的学生
+
         $("#studentTable").bootstrapTable({
             method: "post",
             url: "${pageContext.request.contextPath}/admin/student/initStudentTable/" + selectOption,
@@ -80,7 +58,7 @@
                     type: 'select',
                     source: [{value: '男', text: "男"}, {value: '女', text: "女"}],
                     disabled: false,    //是否禁用编辑
-                    emptytext: "未录入",   //空值的默认文本
+                    emptyText: "未录入",   //空值的默认文本
                     validate: function (value) {
                         if ($.trim(value) === '') {
                             return '不能为空';
@@ -88,13 +66,22 @@
                     }
                 }
             }, {
-                field: 'specialtyName',
+                field: 'specialtyId',
                 title: '专业',
                 editable: {
-                    type: 'text',
+                    type: 'select',
+                    disabled: false,    //是否禁用编辑
+                    emptyText: "未录入",   //空值的默认文本
+                    source: function () {
+                        var result = [];
+                        $.each(window._data, function (key, value) {
+                            result.push({value: value.id, text: value.text});
+                        });
+                        return result;
+                    },
                     validate: function (value) {
                         if ($.trim(value) === '') {
-                            return '姓名不能为空';
+                            return '专业不能为空';
                         }
                     }
                 }
@@ -125,7 +112,7 @@
                     }
                 }
             }, {
-                field: 'passwordChanged',
+                field: 'password',
                 title: '修改密码',
                 formatter: function (value, row, index) {
                     return '修改密码';
@@ -133,7 +120,9 @@
                 editable: {
                     type: 'text',
                     validate: function (value) {
-
+                        if ($.trim(value) === '') {
+                            return '密码不能为空';
+                        }
                     }
                 }
             }, {
@@ -144,28 +133,43 @@
             }]
         });
 
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
-            dataType: 'json',
-            success: function (data) {
-                $('#special').select2({
-                    data: data
-                });
-            }
-        });
-
+        //查找按钮点击事件
         $("#selectStudent").click(function () {
-
+            var specialty = $("#specialty").val();
+            var studentId = $("#studentId").val();
+            if (specialty === null) {
+                specialty = 0;//未选中时的默认值
+            }
+            if (studentId === null || studentId.length === 0) {
+                studentId = 0;//未选中时的默认值
+            }
+            if (studentId !== 0) {
+                if (studentId.length === 9) {
+                    $("#studentTable").bootstrapTable("refresh",
+                        {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+                } else {
+                    alert("请输入正确的学号");
+                }
+            }else $("#studentTable").bootstrapTable("refresh",
+                {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
         })
     });
 
-    //按钮初始化
+    //表格内的按钮初始化
     function initEditBtn() {
         var html = [];
         html.push('<button class="btn btn-primary saveChanged" type="button">保存</button>');
         html.push('&nbsp;&nbsp;');
         html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
         return html.join('');
+    }
+
+    //判断学号合法性
+    function validate_studentId() {
+        var studentId = $("#studentId").val();
+        if (studentId.length !== 9) {
+            alert("请输入正确的学号");
+        }
     }
 
     //点击事件处理
@@ -181,6 +185,7 @@
                 success: function (data) {
                     if (data) {
                         alert("更新成功");
+                        $("#studentTable").bootstrapTable("refresh")
                     } else {
                         alert("更新失败");
                     }
@@ -208,3 +213,27 @@
     }
 
 </script>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <label style="display: block">
+                <select multiple="multiple" class="form-control " id="specialty"></select>
+            </label>
+        </div>
+        <div class="col-md-3">
+            <label style="display: block">
+                <input class="form-control" placeholder="学号" id="studentId" onchange="validate_studentId()">
+            </label>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" type="button" id="selectStudent">&nbsp;查&nbsp;找&nbsp;</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <table id="studentTable">
+        </table>
+    </div>
+</div>
+

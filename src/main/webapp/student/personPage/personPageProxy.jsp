@@ -96,7 +96,8 @@
                     </label>
                 </p>
                 <p>&nbsp;&nbsp;邮箱：<label>
-                    <input class="form-control" type="text" id="email" name="email" onchange="validate_email()" value="${studentInfo.email}">
+                    <input class="form-control" type="text" id="email" name="email" onchange="validate_email()"
+                           value="${studentInfo.email}">
                 </label></p>
                 <p>&nbsp;&nbsp;号码：<label>
                     <input class="form-control" type="text" id="cellphone" name="cellphone" onchange="validate_cellphone()"
