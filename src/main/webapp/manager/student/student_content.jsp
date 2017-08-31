@@ -58,7 +58,7 @@
                     type: 'select',
                     source: [{value: '男', text: "男"}, {value: '女', text: "女"}],
                     disabled: false,    //是否禁用编辑
-                    emptytext: "未录入",   //空值的默认文本
+                    emptyText: "未录入",   //空值的默认文本
                     validate: function (value) {
                         if ($.trim(value) === '') {
                             return '不能为空';
@@ -71,11 +71,11 @@
                 editable: {
                     type: 'select',
                     disabled: false,    //是否禁用编辑
-                    emptytext: "未录入",   //空值的默认文本
-                    source: function(){
-                        var result=[];
-                        $.each(window._data,function (key,value) {
-                            result.push({value:value.id,text:value.text});
+                    emptyText: "未录入",   //空值的默认文本
+                    source: function () {
+                        var result = [];
+                        $.each(window._data, function (key, value) {
+                            result.push({value: value.id, text: value.text});
                         });
                         return result;
                     },
@@ -142,7 +142,14 @@
             if (studentId === null || studentId.length === 0) {
                 studentId = 0;//未选中时的默认值
             }
-            $("#studentTable").bootstrapTable("refresh",
+            if (studentId !== 0) {
+                if (studentId.length === 9) {
+                    $("#studentTable").bootstrapTable("refresh",
+                        {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+                } else {
+                    alert("请输入正确的学号");
+                }
+            }else $("#studentTable").bootstrapTable("refresh",
                 {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
         })
     });
@@ -154,6 +161,14 @@
         html.push('&nbsp;&nbsp;');
         html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
         return html.join('');
+    }
+
+    //判断学号合法性
+    function validate_studentId() {
+        var studentId = $("#studentId").val();
+        if (studentId.length !== 9) {
+            alert("请输入正确的学号");
+        }
     }
 
     //点击事件处理
@@ -206,7 +221,7 @@
         </div>
         <div class="col-md-3">
             <label style="display: block">
-                <input class="form-control" placeholder="学号" id="studentId">
+                <input class="form-control" placeholder="学号" id="studentId" onchange="validate_studentId()">
             </label>
         </div>
         <div class="col-md-3">
