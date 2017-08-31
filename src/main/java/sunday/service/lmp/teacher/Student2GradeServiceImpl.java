@@ -4,8 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.teacher.Student2GradeMapper;
 import sunday.pojo.teacher.GradeTaken;
+import sunday.service.common.CommonService;
 import sunday.service.teacher.Student2GradeService;
 
 import java.util.List;
@@ -17,10 +17,7 @@ import java.util.Map;
  * At 18:56
  */
 @Service("student2GradeService")
-public class Student2GradeServiceImpl implements Student2GradeService {
-
-    @javax.annotation.Resource(name = "student2GradeMapper")
-    private Student2GradeMapper student2GradeMapper;
+public class Student2GradeServiceImpl extends CommonService implements Student2GradeService {
 
     @Override
     public List<GradeTaken> selectGradeTaken(Page page, Map<String, Object> params) {

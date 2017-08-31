@@ -2,8 +2,8 @@ package sunday.service.lmp.shiro;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.shiro.ResourceMapper;
 import sunday.pojo.shiro.Resource;
+import sunday.service.common.CommonService;
 import sunday.service.shiro.ResourceService;
 
 import java.util.List;
@@ -14,10 +14,7 @@ import java.util.Map;
  * At 20:06
  */
 @Service("resourceService")
-public class ResourceServiceImpl implements ResourceService {
-
-    @javax.annotation.Resource(name = "resourceMapper")
-    private ResourceMapper resourceMapper;
+public class ResourceServiceImpl extends CommonService implements ResourceService {
 
     @Override
     @Transactional

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.TeacherMapper;
 import sunday.pojo.teacher.Teacher;
+import sunday.service.common.CommonService;
 import sunday.service.teacher.TeacherService;
 
 import java.util.List;
@@ -16,9 +17,7 @@ import java.util.Map;
  * At 17:33
  */
 @Service("teacherService")
-public class TeacherServiceImpl implements TeacherService {
-    @javax.annotation.Resource(name = "teacherMapper")
-    private TeacherMapper teacherMapper;
+public class TeacherServiceImpl extends CommonService implements TeacherService {
 
     @Override
     public int insert(Teacher teacher) {

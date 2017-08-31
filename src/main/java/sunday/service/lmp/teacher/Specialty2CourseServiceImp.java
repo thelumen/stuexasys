@@ -8,6 +8,7 @@ import sunday.mapper.teacher.Specialty2CourseMapper;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
+import sunday.service.common.CommonService;
 import sunday.service.teacher.Specialty2CourseService;
 
 import java.util.List;
@@ -18,10 +19,7 @@ import java.util.Map;
  * At 12:11
  */
 @Service("specialty2CourseService")
-public class Specialty2CourseServiceImp implements Specialty2CourseService {
-
-    @javax.annotation.Resource(name = "specialty2CourseMapper")
-    private Specialty2CourseMapper specialty2CourseMapper;
+public class Specialty2CourseServiceImp extends CommonService implements Specialty2CourseService {
 
     @Override
     public int insertSpecialty(Specialty specialty) {

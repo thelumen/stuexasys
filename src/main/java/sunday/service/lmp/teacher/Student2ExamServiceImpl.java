@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.mapper.teacher.Student2ExamMapper;
 import sunday.pojo.teacher.ExamTaken;
+import sunday.service.common.CommonService;
 import sunday.service.teacher.Student2ExamService;
 
 import java.util.List;
@@ -16,10 +17,7 @@ import java.util.Map;
  * At 9:32
  */
 @Service("student2ExamService")
-public class Student2ExamServiceImpl implements Student2ExamService {
-
-    @javax.annotation.Resource(name = "student2ExamMapper")
-    private Student2ExamMapper student2ExamMapper;
+public class Student2ExamServiceImpl extends CommonService implements Student2ExamService {
 
     @Override
     public int insertExamInfo(ExamTaken exam) {

@@ -2,8 +2,8 @@ package sunday.service.lmp.shiro;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.shiro.RoleMapper;
 import sunday.pojo.shiro.Role;
+import sunday.service.common.CommonService;
 import sunday.service.shiro.RoleService;
 
 import java.util.List;
@@ -14,9 +14,7 @@ import java.util.Map;
  * At 17:32
  */
 @Service("roleService")
-public class RoleServiceImpl implements RoleService {
-    @javax.annotation.Resource(name = "roleMapper")
-    private RoleMapper roleMapper;
+public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
     @Transactional

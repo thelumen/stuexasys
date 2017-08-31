@@ -6,6 +6,7 @@ import sunday.pojo.school.Another;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
 import sunday.pojo.teacher.AnotherTaken;
+import sunday.service.common.CommonService;
 import sunday.service.teacher.Teacher2QuestionService;
 
 import java.util.List;
@@ -16,10 +17,7 @@ import java.util.Map;
  * At 15:24
  */
 @Service("teacher2QuestionService")
-public class Teacher2QuestionServiceImpl implements Teacher2QuestionService {
-
-    @javax.annotation.Resource(name = "teacher2QuestionMapper")
-    private Teacher2QuestionMapper teacher2QuestionMapper;
+public class Teacher2QuestionServiceImpl extends CommonService implements Teacher2QuestionService {
 
     @Override
     public List<SingleQuestion> selectSingleQuestion(Map<String, Object> params) {

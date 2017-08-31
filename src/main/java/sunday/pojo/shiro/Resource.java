@@ -11,6 +11,10 @@ public final class Resource {
     private String permission;
     private String url;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

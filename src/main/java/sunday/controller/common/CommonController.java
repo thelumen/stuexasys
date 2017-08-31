@@ -1,7 +1,10 @@
 package sunday.controller.common;
 
+import sunday.pojo.school.Specialty;
 import sunday.service.manager.AdminStudentService;
+import sunday.service.manager.CourseService;
 import sunday.service.manager.ManagerService;
+import sunday.service.manager.SpecialtyService;
 import sunday.service.shiro.ResourceService;
 import sunday.service.shiro.RoleService;
 import sunday.service.student.StudentService;
@@ -42,4 +45,9 @@ public class CommonController {
     @javax.annotation.Resource(name = "adminStudentService")
     protected AdminStudentService adminStudentService;
 
+    @javax.annotation.Resource(name = "courseService")
+    protected CourseService courseService;
+
+    @javax.annotation.Resource(name = "specialtyService")
+    protected SpecialtyService specialtyService;
 }

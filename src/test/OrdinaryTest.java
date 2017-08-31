@@ -1,5 +1,4 @@
 import org.junit.Test;
-import sunday.common.enums.RoleEnum;
 import sunday.common.kit.DateKit;
 import sunday.common.kit.ResourceFileKit;
 
@@ -13,8 +12,8 @@ import java.util.Map;
 public class OrdinaryTest {
 
     @Test
-    public void t4(){
-        System.out.print(RoleEnum.TEACHER.getRoleId());
+    public void t4() {
+
     }
 
     @Test
