@@ -118,7 +118,7 @@
                 email=#{email,jdbcType=VARCHAR},
             </if>
             <if test="specialtyId!=null">
-                specialtyId=#{specialtyId,jdbcTYpe=INT},
+                specialtyId=#{specialtyId,jdbcType=INTEGER},
             </if>
         </set>
         where studentId=#{studentId,jdbcType=INTEGER}

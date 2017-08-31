@@ -184,6 +184,7 @@
                 success: function (data) {
                     if (data) {
                         alert("更新成功");
+                        $("#studentTable").bootstrapTable("refresh")
                     } else {
                         alert("更新失败");
                     }
