@@ -8,9 +8,7 @@ import sunday.controller.common.CommonController;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by yang on 2017/8/29.
@@ -37,7 +35,7 @@ public class StudentInAdminController extends CommonController {
     public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params, @PathVariable(value = "selectOption") Integer selectOption) {
         Map<String, Object> selectOptionMap = new HashMap<>();
         if (selectOption == 1) {
-            selectOptionMap.put("specialtyId", 100000);
+            selectOptionMap.put("specialtyId", new ArrayList<String>(){{add("100000");}});
         }
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
         if (null != studentTakenList && studentTakenList.size() != 0) {
@@ -71,9 +69,38 @@ public class StudentInAdminController extends CommonController {
         return studentService.delete(studentInfo);
     }
 
-    @RequestMapping(value = "/specialtyGet",method = RequestMethod.POST)
+    /**
+     * 加载专业信息
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/specialtyGet", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> loadSpecialty(){
+    public List<Map<String, Object>> loadSpecialty() {
         return adminStudentService.selectSpecialty();
+    }
+
+    @RequestMapping(value = "/loadStudent/{specialty}/{studentId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectStudent(
+            @RequestBody Map<String, Object> params,
+            @PathVariable(value = "specialty") String specialtyId,
+            @PathVariable(value = "studentId") String studentId) {
+        Map<String, Object> selectOption = new HashMap<>();
+        if ("0".equals(specialtyId)) {
+            selectOption.put("specialtyId", null);
+        } else {
+            selectOption.put("specialtyId", Arrays.asList(specialtyId.split(",")));
+        }
+        if ("0".equals(studentId)) {
+            selectOption.put("studentId", null);
+        } else {
+            selectOption.put("studentId", studentId);
+        }
+        List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption);
+        if (null != studentTakenList && studentTakenList.size() != 0) {
+            return CommonKit.getTakenInfo(studentTakenList);
+        }
+        return null;
     }
 }

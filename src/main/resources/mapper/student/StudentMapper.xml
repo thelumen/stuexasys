@@ -33,15 +33,16 @@
         s.specialtyId AS specialtyId,
         p.name AS specialtyName
         FROM stuexasys.com_student s, stuexasys.com_specialty p
-        <where>
-            s.specialtyId = p.specialtyId
-            <if test="studentId!=null">
-                AND s.studentId = #{studentId,jdbcType=INTEGER}
-            </if>
-            <if test="specialtyId != null">
-                AND s.specialtyId = #{specialtyId,jdbcType=INTEGER}
-            </if>
-        </where>
+        where s.specialtyId = p.specialtyId
+        <if test="studentId != null">
+            AND s.studentId = #{studentId,jdbcType=INTEGER}
+        </if>
+        <if test="specialtyId != null">
+            AND s.specialtyId IN
+            <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                #{specialtyItem}
+            </foreach>
+        </if>
     </select>
 
     <!--查询学生考试信息-->
