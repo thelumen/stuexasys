@@ -83,7 +83,6 @@
                         if ($.trim(value) === '') {
                             return '专业不能为空';
                         }
-
                     }
                 }
             }, {
@@ -113,7 +112,7 @@
                     }
                 }
             }, {
-                field: 'passwordChanged',
+                field: 'password',
                 title: '修改密码',
                 formatter: function (value, row, index) {
                     return '修改密码';
@@ -121,7 +120,9 @@
                 editable: {
                     type: 'text',
                     validate: function (value) {
-
+                        if ($.trim(value) === '') {
+                            return '密码不能为空';
+                        }
                     }
                 }
             }, {
