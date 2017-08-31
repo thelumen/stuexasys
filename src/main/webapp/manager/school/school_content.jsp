@@ -276,6 +276,7 @@
             },
             error: function () {
                 alert("您没有权限！");
+                location.reload();
             }
         })
     }
@@ -304,6 +305,7 @@
                     },
                     error: function () {
                         alert("您没有权限！");
+                        location.reload();
                     }
                 })
             });
@@ -341,6 +343,7 @@
             },
             error: function () {
                 alert("出错！可能原因：1.您没有权限；2.该课程Id被其他事务所关联;3.课程Id重复");
+                location.reload();
             }
         })
     }
@@ -383,6 +386,7 @@
             },
             error: function () {
                 alert("您没有权限！");
+                location.reload();
             }
         })
     }
@@ -417,6 +421,7 @@
             },
             error: function () {
                 alert("出错！可能原因：1.您没有权限；2.该专业Id被其他事务所关联;3.专业Id重复");
+                location.reload();
             }
         })
     }
@@ -445,6 +450,7 @@
                     },
                     error: function () {
                         alert("您没有权限！");
+                        location.reload();
                     }
                 })
             });

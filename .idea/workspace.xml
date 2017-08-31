@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/CourseMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/CourseMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/CourseServiceImp.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/CourseServiceImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/manager/CourseService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/manager/CourseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -54,7 +49,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="SchoolInAdminController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SchoolInAdminController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="249">
@@ -92,24 +87,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="school_content.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="school_content.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="339" column="17" lean-forward="true" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
+            <state relative-caret-position="318">
+              <caret line="242" column="29" lean-forward="true" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#!!top" expanded="false" />
                 <element signature="n#div#3;n#!!top" expanded="false" />
                 <element signature="n#div#4;n#!!top" expanded="false" />
-                <element signature="e#11020#11076#0#HTML" expanded="false" />
-                <element signature="e#11113#12178#0#HTML" expanded="false" />
-                <element signature="e#12220#13142#0#HTML" expanded="false" />
-                <element signature="e#13195#13678#0#HTML" expanded="false" />
-                <element signature="e#14560#15623#0#HTML" expanded="false" />
-                <element signature="e#15679#16072#0#HTML" expanded="false" />
-                <element signature="e#16117#16813#0#HTML" expanded="false" />
-                <element signature="e#16858#17783#0#HTML" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -206,12 +193,12 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/SpecialtyMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/SpecialtyServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/SpecialtyMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/manager/CourseService.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/CourseServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/CourseMapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp" />
       </list>
     </option>
   </component>
@@ -1299,7 +1286,7 @@
       <workItem from="1504101233666" duration="509000" />
       <workItem from="1504137361536" duration="13423000" />
       <workItem from="1504164376014" duration="7024000" />
-      <workItem from="1504173449635" duration="3257000" />
+      <workItem from="1504173449635" duration="3437000" />
     </task>
     <task id="LOCAL-00001" summary="异常处理&#10;学生考试页面的组题逻辑部分">
       <created>1503504898615</created>
@@ -1399,7 +1386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504177743462</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="管理员端：完成课程的更新功能">
+      <created>1504182422704</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1504182422704</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1435,7 +1429,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79899000" />
+    <option name="totallyTimeSpent" value="80079000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1526,7 +1520,8 @@
     <MESSAGE value="重构教师端：优化命名规范" />
     <MESSAGE value="管理员端：完成专业的查询，添加和删除功能" />
     <MESSAGE value="管理员端：完成专业的更新；完成课程的查询，添加和删除" />
-    <option name="LAST_COMMIT_MESSAGE" value="管理员端：完成专业的更新；完成课程的查询，添加和删除" />
+    <MESSAGE value="管理员端：完成课程的更新功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="管理员端：完成课程的更新功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1943,33 +1938,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="339" column="17" lean-forward="true" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#!!top" expanded="false" />
-            <element signature="e#11020#11076#0#HTML" expanded="false" />
-            <element signature="e#11113#12178#0#HTML" expanded="false" />
-            <element signature="e#12220#13142#0#HTML" expanded="false" />
-            <element signature="e#13195#13678#0#HTML" expanded="false" />
-            <element signature="e#14560#15623#0#HTML" expanded="false" />
-            <element signature="e#15679#16072#0#HTML" expanded="false" />
-            <element signature="e#16117#16813#0#HTML" expanded="false" />
-            <element signature="e#16858#17783#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="127" column="20" lean-forward="false" selection-start-line="127" selection-start-column="20" selection-end-line="127" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/school/school_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="242" column="29" lean-forward="true" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
