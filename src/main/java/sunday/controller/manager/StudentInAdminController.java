@@ -1,5 +1,7 @@
 package sunday.controller.manager;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.enums.UpdateType;
@@ -19,6 +21,8 @@ import java.util.*;
 public class StudentInAdminController extends CommonController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String EditStudent() {
         return "/manager/student/studentProxy";
     }
@@ -32,7 +36,8 @@ public class StudentInAdminController extends CommonController {
      */
     @RequestMapping(value = "/initStudentTable/{selectOption}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params, @PathVariable(value = "selectOption") Integer selectOption) {
+    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params,
+                                                @PathVariable(value = "selectOption") Integer selectOption) {
         Map<String, Object> selectOptionMap = new HashMap<>();
         if (selectOption == 1) {
             selectOptionMap.put("specialtyId", new ArrayList<String>(){{add("100000");}});
@@ -51,6 +56,8 @@ public class StudentInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/studentInfoSave", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public boolean saveStudentInfo(@RequestBody StudentInfo studentInfo) {
         studentInfo.setUpdateType(UpdateType.AdminSet);
@@ -64,6 +71,8 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/studentInfoDel", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteStudent(@RequestBody StudentInfo studentInfo) {
         return studentService.delete(studentInfo);

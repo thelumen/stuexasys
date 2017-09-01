@@ -1,5 +1,7 @@
 package sunday.controller;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,6 +61,8 @@ public class StudentController extends CommonController {
      * @return 主页url
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String main() {
         return "/student/main/mainProxy";
     }
@@ -69,6 +73,8 @@ public class StudentController extends CommonController {
      * @return 主页url
      */
     @RequestMapping(value = "/main", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String homepage() {
         return "/student/main/mainProxy";
     }
@@ -80,6 +86,8 @@ public class StudentController extends CommonController {
      * @return 个人信息 url
      */
     @RequestMapping(value = "/personPage", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
         model.addAttribute("studentCourse", studentService.selectCourse(null, getStudentIdWithMap()));
         model.addAttribute("studentGrade", studentService.selectGrade(null, getStudentIdWithMap()));
@@ -94,6 +102,8 @@ public class StudentController extends CommonController {
      * @return 测试 url
      */
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
         model.addAttribute("studentExamInfo", studentService.selectExamInfo(null, getStudentIdWithMap()));
         return "/student/exam/examProxy";
@@ -106,6 +116,8 @@ public class StudentController extends CommonController {
      * @return 资源下载 url
      */
     @RequestMapping(value = "/resourcesDownload", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String resourceDownload(Model model) {
         model.addAttribute("resourceInfo", ResourceFileKit.getResourceInfo());
         return "/student/resourcesDownload/resourcesDownloadProxy";
@@ -117,6 +129,8 @@ public class StudentController extends CommonController {
      * @return 成功信号
      */
     @RequestMapping(value = "/updateStudentInfo", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
     public Map<String, Object> updateStudentInfo(@RequestBody StudentInfo studentInfo) {
         Map<String, Object> msg = new HashMap<String, Object>() {{
@@ -156,6 +170,8 @@ public class StudentController extends CommonController {
      * @return url
      */
     @RequestMapping(value = "/startTest", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String startTest(HttpServletRequest request, Model model) {
         String examInfo1 = request.getParameter("examInfo");
         String[] s = examInfo1.split("_");
@@ -177,6 +193,8 @@ public class StudentController extends CommonController {
      * @return String
      */
     @RequestMapping(value = "/startTestAnother", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:student")
     public String startTestAnother(HttpServletRequest request, Model model) {
         String examInfo1 = request.getParameter("examInfo");
         String[] s = examInfo1.split("_");

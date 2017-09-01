@@ -87,7 +87,6 @@ public class ExamController extends CommonController {
     }
 
     /**
-     * **
      * 获取modal中table的考试信息
      *
      * @return
