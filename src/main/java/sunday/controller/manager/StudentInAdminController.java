@@ -35,7 +35,9 @@ public class StudentInAdminController extends CommonController {
     public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params, @PathVariable(value = "selectOption") Integer selectOption) {
         Map<String, Object> selectOptionMap = new HashMap<>();
         if (selectOption == 1) {
-            selectOptionMap.put("specialtyId", new ArrayList<String>(){{add("100000");}});
+            selectOptionMap.put("specialtyId", new ArrayList<String>() {{
+                add("100000");
+            }});
         }
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
         if (null != studentTakenList && studentTakenList.size() != 0) {
@@ -80,6 +82,14 @@ public class StudentInAdminController extends CommonController {
         return adminStudentService.selectSpecialty();
     }
 
+    /**
+     * 查找学生信息
+     *
+     * @param params      分页信息.
+     * @param specialtyId 专业信息.
+     * @param studentId   学号.
+     * @return .
+     */
     @RequestMapping(value = "/loadStudent/{specialty}/{studentId}", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> selectStudent(
@@ -98,9 +108,6 @@ public class StudentInAdminController extends CommonController {
             selectOption.put("studentId", studentId);
         }
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption);
-        if (null != studentTakenList && studentTakenList.size() != 0) {
-            return CommonKit.getTakenInfo(studentTakenList);
-        }
-        return null;
+        return CommonKit.getTakenInfo(studentTakenList);
     }
 }

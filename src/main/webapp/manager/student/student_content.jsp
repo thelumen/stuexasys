@@ -146,11 +146,14 @@
             if (studentId !== 0) {
                 if (studentId.length === 9) {
                     $("#studentTable").bootstrapTable("refresh",
-                        {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+                        {
+                            url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                            silent: true
+                        })
                 } else {
                     alert("请输入正确的学号");
                 }
-            }else $("#studentTable").bootstrapTable("refresh",
+            } else $("#studentTable").bootstrapTable("refresh",
                 {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
         })
     });
