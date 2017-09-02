@@ -14,6 +14,23 @@
         </where>
     </select>
 
+    <!--查询教师选课表 with specialtyId-->
+    <select id="selectTeacher2Course" parameterType="java.util.Map"
+            resultType="sunday.pojo.dto.Specialty2Course">
+        SELECT*
+        FROM stuexasys.com_teacher_l_course
+        <where>
+            <if test="specialtyId != null">
+                AND specialtyId IN
+                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                    #{specialtyItem}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <!--删除专业-->
     <delete id="deleteSpecialty" parameterType="java.util.Map">
         DELETE FROM stuexasys.com_specialty
         <where>
@@ -27,6 +44,7 @@
 
     </delete>
 
+    <!--删除教师选课表中的数据 with specialtyId-->
     <delete id="deleteTeacher2Course" parameterType="java.util.Map">
         DELETE FROM stuexasys.com_teacher_l_course
         <where>

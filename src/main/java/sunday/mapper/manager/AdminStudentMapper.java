@@ -1,6 +1,7 @@
 package sunday.mapper.manager;
 
 import org.springframework.stereotype.Repository;
+import sunday.pojo.dto.Specialty2Course;
 import sunday.pojo.school.Specialty;
 
 import java.util.List;
@@ -35,4 +36,12 @@ public interface AdminStudentMapper {
      * @return .
      */
     int deleteTeacher2Course(Map<String,Object> params);
+
+    /**
+     * 查询与专业相关的教师选课
+     *
+     * @param params .
+     * @return .
+     */
+    List<Specialty2Course> selectTeacher2Course(Map<String,Object> params);
 }

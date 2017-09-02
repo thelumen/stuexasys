@@ -159,17 +159,24 @@
             } else if (!validate_Specialty()) {
                 alert("不可以删除预留专业");
             } else {
-                $("#studentTable").bootstrapTable("refresh",
-                {
-                url: "${pageContext.request.contextPath}/admin/student/specialtyDel/" + specialtyId,
-                silent: true
+                $.ajax({
+                    type: 'post',
+                    url: "${pageContext.request.contextPath}/admin/student/specialtyDel/" + specialtyId,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) {
+                            alert("删除成功");
+                            location.reload()
+                        } else {
+                            alert("删除失败");
+                        }
+                    }
                 });
-                initSelect();
-                alert("删除成功");
             }
         })
     });
 
+    //验证所删除专业中不包括预留专业
     function validate_Specialty() {
         var specialtyId = $("#specialty").val();
         for (var x in specialtyId) {
@@ -180,6 +187,7 @@
         }
         return true;
     }
+
     //表格内的按钮初始化
     function initEditBtn() {
         var html = [];
@@ -203,6 +211,11 @@
                 window._data = data;
             }
         });
+    }
+
+    //文件上传处理
+    function uploadStudent() {
+
     }
     //判断学号合法性
     //    function validate_studentId() {
@@ -267,14 +280,55 @@
             </label>
         </div>
         <div class="col-md-3">
-            <button class="btn btn-primary" type="button" id="selectStudent">&nbsp;查&nbsp;找&nbsp;</button>
+            <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
+            &nbsp;&nbsp;
             <button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
+                    data-toggle="modal">上传学生
+            </button>
         </div>
     </div>
 
     <div class="row">
         <table id="studentTable">
         </table>
+    </div>
+    <%--上传学生模态框--%>
+    <div class="modal fade" id="modal-container-uploadStudent" aria-hidden="true" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        上传学生
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>请选择需要上传的<strong style="color: #985f0d">学生信息表</strong>：
+                                <form id="teacher_resource_form">
+                                    <input id="teacher_resource_form_inp" multiple
+                                           type="file" class="file" name="files"
+                                           data-show-upload="false"
+                                           data-show-caption="true"
+                                           data-allowed-file-extensions='["jpg","png","gif","txt","xls","xlsx","doc", "docx","ppt"]'
+                                           placeholder="仅支持:jpg png gif txt xls xlsx doc docx ppt">
+                                </form>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
+                    <button class="btn btn-primary" type="button" onclick="uploadStudent">上传</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -385,18 +385,13 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public boolean delete(Map<String, Object> params) {
-        switch ((DeleteType)params.get("deleteType")) {
+        switch ((DeleteType) params.get("deleteType")) {
             case DeleteWithStudentId:
-                return studentMapper.delete(new HashMap<String, Object>() {{
-                    put("studentId", params.get("studentId"));
-                }}) > 0;
+                return studentMapper.delete(params) > 0;
             case DeleteWithSpecialtyId:
-                return studentMapper.delete(new HashMap<String, Object>() {{
-                    put("specialtyId", params.get("specialtyId"));
-                }}) > 0;
+                return studentMapper.selectStudentInfo(params).size() <= 0 || studentMapper.delete(params) > 0;
             default:
                 return false;
         }
-
     }
 }

@@ -2,6 +2,7 @@ package sunday.service.lmp.manager;
 
 import org.springframework.stereotype.Service;
 import sunday.mapper.manager.AdminStudentMapper;
+import sunday.mapper.teacher.Specialty2CourseMapper;
 import sunday.pojo.school.Specialty;
 import sunday.service.manager.AdminStudentService;
 
@@ -41,8 +42,11 @@ public class AdminStudentServiceImpl implements AdminStudentService {
 
     @Override
     public boolean deleteSpecialty(Map<String, Object> params) {
-        int numOfDelTeacher2Course = adminStudentMapper.deleteTeacher2Course(params);
-        int numOfDelSpecialty = adminStudentMapper.deleteSpecialty(params);
-        return (numOfDelSpecialty > 0 && numOfDelTeacher2Course > 0);
+        if (adminStudentMapper.selectTeacher2Course(params).size() <= 0 || adminStudentMapper.deleteTeacher2Course(params) > 0) {
+            if (adminStudentMapper.deleteSpecialty(params) > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }
