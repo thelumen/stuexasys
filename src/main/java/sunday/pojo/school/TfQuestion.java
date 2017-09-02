@@ -24,6 +24,10 @@ public final class TfQuestion {
                 '}';
     }
 
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
     public long getId() {
         return id;
     }

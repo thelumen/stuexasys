@@ -15,6 +15,10 @@ public final class Student {
     private String cellphone;
     private String email;
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }

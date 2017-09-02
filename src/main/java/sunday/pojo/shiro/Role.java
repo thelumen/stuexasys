@@ -9,6 +9,10 @@ public final class Role {
     private String name;
     private String remark;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

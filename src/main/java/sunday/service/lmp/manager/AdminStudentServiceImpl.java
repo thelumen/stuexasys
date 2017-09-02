@@ -24,7 +24,7 @@ public class AdminStudentServiceImpl implements AdminStudentService {
     public List<Map<String, Object>> selectSpecialty() {
         List<Specialty> specialtyList = adminStudentMapper.selectSpecialty();
         List<Map<String, Object>> mapList = new ArrayList<>();
-        if(null!=specialtyList){
+        if (null != specialtyList) {
             for (Specialty specialty : specialtyList) {
                 Map<String, Object> aSpecialtyInfo = new HashMap<String, Object>() {{
                     put("id", specialty.getSpecialtyId());
@@ -37,5 +37,12 @@ public class AdminStudentServiceImpl implements AdminStudentService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean deleteSpecialty(Map<String, Object> params) {
+        int numOfDelTeacher2Course = adminStudentMapper.deleteTeacher2Course(params);
+        int numOfDelSpecialty = adminStudentMapper.deleteSpecialty(params);
+        return (numOfDelSpecialty > 0 && numOfDelTeacher2Course > 0);
     }
 }

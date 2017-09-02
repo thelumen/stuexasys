@@ -13,7 +13,7 @@ import java.util.Map;
  * At 19:01
  */
 @Repository
-public interface StuGraMapper {
+public interface Student2GradeMapper {
     /**
      * 查询学生成绩
      *

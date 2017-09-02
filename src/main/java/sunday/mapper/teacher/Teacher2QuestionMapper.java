@@ -14,7 +14,7 @@ import java.util.Map;
  * At 15:25
  */
 @Repository
-public interface TeaQueMapper {
+public interface Teacher2QuestionMapper {
     /**
      * 查询选择题
      *

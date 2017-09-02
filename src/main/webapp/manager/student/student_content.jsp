@@ -11,19 +11,8 @@
 <script>
     //初始化
     $(function () {
-        //初始化下拉框
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
-            dataType: 'json',
-            success: function (data) {
-                $('#specialty').select2({
-                    placeholder: "专业",
-                    allowClear: true,
-                    data: data
-                });
-                window._data = data;
-            }
-        });
+
+        initSelect();//初始化下拉框
 
         var selectOption = 1;//默认加载预留专业的学生
 
@@ -153,11 +142,44 @@
                 } else {
                     alert("请输入正确的学号");
                 }
-            } else $("#studentTable").bootstrapTable("refresh",
-                {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+            } else {
+                $("#studentTable").bootstrapTable("refresh",
+                    {
+                        url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                        silent: true
+                    })
+            }
+        });
+
+        //专业删除按钮的点击事件
+        $("#deleteSpecialty").click(function () {
+            var specialtyId = $("#specialty").val();
+            if (specialtyId === null) {
+                alert("请先选择专业");
+            } else if (!validate_Specialty()) {
+                alert("不可以删除预留专业");
+            } else {
+                $("#studentTable").bootstrapTable("refresh",
+                {
+                url: "${pageContext.request.contextPath}/admin/student/specialtyDel/" + specialtyId,
+                silent: true
+                });
+                initSelect();
+                alert("删除成功");
+            }
         })
     });
 
+    function validate_Specialty() {
+        var specialtyId = $("#specialty").val();
+        for (var x in specialtyId) {
+            alert(specialtyId[x]);
+            if (specialtyId[x] === '100000') {
+                return false;
+            }
+        }
+        return true;
+    }
     //表格内的按钮初始化
     function initEditBtn() {
         var html = [];
@@ -167,13 +189,28 @@
         return html.join('');
     }
 
-    //判断学号合法性
-    function validate_studentId() {
-        var studentId = $("#studentId").val();
-        if (studentId.length !== 9) {
-            alert("请输入正确的学号");
-        }
+    //初始化下拉框
+    function initSelect() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
+            dataType: 'json',
+            success: function (data) {
+                $('#specialty').select2({
+                    placeholder: "专业",
+                    allowClear: true,
+                    data: data
+                });
+                window._data = data;
+            }
+        });
     }
+    //判断学号合法性
+    //    function validate_studentId() {
+    //        var studentId = $("#studentId").val();
+    //        if (studentId.length !== 9) {
+    //            alert("请输入正确的学号");
+    //        }
+    //    }
 
     //点击事件处理
     window.editBtnEvent = {
@@ -226,11 +263,12 @@
         </div>
         <div class="col-md-3">
             <label style="display: block">
-                <input class="form-control" placeholder="学号" id="studentId" onchange="validate_studentId()">
+                <input class="form-control" placeholder="学号" id="studentId">
             </label>
         </div>
         <div class="col-md-3">
             <button class="btn btn-primary" type="button" id="selectStudent">&nbsp;查&nbsp;找&nbsp;</button>
+            <button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>
         </div>
     </div>
 

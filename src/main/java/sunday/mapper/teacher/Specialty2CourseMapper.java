@@ -14,7 +14,7 @@ import java.util.Map;
  * At 12:12
  */
 @Repository
-public interface SpeCouMapper {
+public interface Specialty2CourseMapper {
     /**
      * 新增专业
      *

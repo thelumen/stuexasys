@@ -10,7 +10,14 @@ public interface AdminStudentService {
     /**
      * 查询专业信息
      *
-     * @return
+     * @return .
      */
     List<Map<String, Object>> selectSpecialty();
+
+    /**
+     * 删除专业相关
+     * 包括与专业关联的教师选课数据
+     * @return .
+     */
+    boolean deleteSpecialty(Map<String,Object> params);
 }

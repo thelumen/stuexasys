@@ -110,8 +110,8 @@ public interface StudentService {
     /**
      * 删除学生信息
      *
-     * @param studentInfo .
+     * @param params .
      * @return .
      */
-    boolean delete(StudentInfo studentInfo);
+    boolean delete(Map<String, Object> params);
 }

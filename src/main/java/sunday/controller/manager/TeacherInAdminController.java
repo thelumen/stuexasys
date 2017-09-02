@@ -42,8 +42,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    @RequiresAuthentication
-    @RequiresPermissions(value = {"shiro:sys:manager"})
     @ResponseBody
     public Map<String, Object> getTeachers(@RequestBody Map<String, Object> params) {
         List<Teacher> teachers = teacherService.select(CommonKit.getMapInfo2Page(params), null);
@@ -142,7 +140,7 @@ public class TeacherInAdminController extends CommonController {
     }
 
     /**
-     * 修改教师（仅限超管）
+     * 修改教师
      *
      * @param teacher
      * @return

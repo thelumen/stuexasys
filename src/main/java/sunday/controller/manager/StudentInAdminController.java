@@ -1,7 +1,10 @@
 package sunday.controller.manager;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sunday.common.enums.DeleteType;
 import sunday.common.enums.UpdateType;
 import sunday.common.kit.CommonKit;
 import sunday.controller.common.CommonController;
@@ -19,6 +22,8 @@ import java.util.*;
 public class StudentInAdminController extends CommonController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:manager")
     public String EditStudent() {
         return "/manager/student/studentProxy";
     }
@@ -32,7 +37,8 @@ public class StudentInAdminController extends CommonController {
      */
     @RequestMapping(value = "/initStudentTable/{selectOption}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params, @PathVariable(value = "selectOption") Integer selectOption) {
+    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params,
+                                                @PathVariable(value = "selectOption") Integer selectOption) {
         Map<String, Object> selectOptionMap = new HashMap<>();
         if (selectOption == 1) {
             selectOptionMap.put("specialtyId", new ArrayList<String>() {{
@@ -49,10 +55,12 @@ public class StudentInAdminController extends CommonController {
     /**
      * 保存学生信息的修改
      *
-     * @param studentInfo
-     * @return
+     * @param studentInfo .
+     * @return .
      */
     @RequestMapping(value = "/studentInfoSave", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public boolean saveStudentInfo(@RequestBody StudentInfo studentInfo) {
         studentInfo.setUpdateType(UpdateType.AdminSet);
@@ -66,9 +74,26 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/studentInfoDel", method = RequestMethod.POST)
+    @RequiresAuthentication
+    @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteStudent(@RequestBody StudentInfo studentInfo) {
-        return studentService.delete(studentInfo);
+        return studentService.delete(new HashMap<String, Object>() {{
+            put("deleteType", DeleteType.DeleteWithStudentId);
+            put("studentId", studentInfo.getStudentId());
+        }});
+    }
+
+    @RequestMapping(value = "/specialtyDel/{specialtyId}", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean deleteStudentWithSpecialty(@PathVariable(value = "specialtyId") String specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("deleteType", DeleteType.DeleteWithSpecialtyId);
+            put("specialtyId", Arrays.asList(specialtyId.split(",")));
+        }};
+        boolean successDelStudent = studentService.delete(params);
+        boolean successDelSpecialty = adminStudentService.deleteSpecialty(params);
+        return (successDelSpecialty && successDelStudent);
     }
 
     /**
@@ -90,11 +115,11 @@ public class StudentInAdminController extends CommonController {
      * @param studentId   学号.
      * @return .
      */
-    @RequestMapping(value = "/loadStudent/{specialty}/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/loadStudent/{specialtyId}/{studentId}", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> selectStudent(
             @RequestBody Map<String, Object> params,
-            @PathVariable(value = "specialty") String specialtyId,
+            @PathVariable(value = "specialtyId") String specialtyId,
             @PathVariable(value = "studentId") String studentId) {
         Map<String, Object> selectOption = new HashMap<>();
         if ("0".equals(specialtyId)) {
@@ -107,7 +132,6 @@ public class StudentInAdminController extends CommonController {
         } else {
             selectOption.put("studentId", studentId);
         }
-        List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption);
-        return CommonKit.getTakenInfo(studentTakenList);
+        return CommonKit.getTakenInfo(studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption));
     }
 }

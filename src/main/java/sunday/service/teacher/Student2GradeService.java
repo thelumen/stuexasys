@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by yang on 2017/5/27.
  * At 18:56
  */
-public interface StuGraService {
+public interface Student2GradeService {
     /**
      * 查询学生成绩信息
      *

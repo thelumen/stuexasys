@@ -14,4 +14,28 @@
         </where>
     </select>
 
+    <delete id="deleteSpecialty" parameterType="java.util.Map">
+        DELETE FROM stuexasys.com_specialty
+        <where>
+            <if test="specialtyId!=null">
+                AND specialtyId IN
+                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                    #{specialtyItem}
+                </foreach>
+            </if>
+        </where>
+
+    </delete>
+
+    <delete id="deleteTeacher2Course" parameterType="java.util.Map">
+        DELETE FROM stuexasys.com_teacher_l_course
+        <where>
+            <if test="specialtyId!=null">
+                AND specialtyId IN
+                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                    #{specialtyItem}
+                </foreach>
+            </if>
+        </where>
+    </delete>
 </mapper>

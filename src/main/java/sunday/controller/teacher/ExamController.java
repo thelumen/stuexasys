@@ -56,7 +56,7 @@ public class ExamController extends CommonController {
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
-        List<ExamTaken> examTakens = stuExaService.selectExamTaken(null, specouInfo);
+        List<ExamTaken> examTakens = student2ExamService.selectExamTaken(null, specouInfo);
         if (null != examTakens) {
             return false;
         }
@@ -66,7 +66,7 @@ public class ExamController extends CommonController {
         exam.setSpecialtyId(specialtyId);
         exam.setStarted(1);
 
-        return stuExaService.insertExamInfo(exam) > 0;
+        return student2ExamService.insertExamInfo(exam) > 0;
     }
 
     /**
@@ -81,13 +81,12 @@ public class ExamController extends CommonController {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
-        List<ExamTaken> examTakens = stuExaService.selectExamTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
+        List<ExamTaken> examTakens = student2ExamService.selectExamTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
 
         return CommonKit.getTakenInfo(examTakens);
     }
 
     /**
-     * **
      * 获取modal中table的考试信息
      *
      * @return
@@ -95,7 +94,7 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/modal/examInfo/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getTableExamInfo() {
-        List<ExamTaken> examTakens = stuExaService.selectTableExamInfo();
+        List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo();
         if (null != examTakens) {
             return CommonKit.getTakenInfo(examTakens);
         }
@@ -123,7 +122,7 @@ public class ExamController extends CommonController {
             }
         }
 
-        return i == 1 && stuExaService.updateExamInfo(examInfo) > 0;
+        return i == 1 && student2ExamService.updateExamInfo(examInfo) > 0;
     }
 
     /**
@@ -138,7 +137,7 @@ public class ExamController extends CommonController {
     @ResponseBody
     public boolean deleteExamInfo(@PathVariable("id") String id) {
 
-        return stuExaService.deleteExamInfo(id);
+        return student2ExamService.deleteExamInfo(id);
     }
 
     /**
@@ -162,7 +161,7 @@ public class ExamController extends CommonController {
             put("test", 1);
         }};
 
-        return stuExaService.startOrCloseExam(params);
+        return student2ExamService.startOrCloseExam(params);
     }
 
     /**
@@ -186,7 +185,7 @@ public class ExamController extends CommonController {
             put("test", 0);
         }};
 
-        return stuExaService.startOrCloseExam(params);
+        return student2ExamService.startOrCloseExam(params);
     }
 
 }
