@@ -49,4 +49,9 @@ public class AdminStudentServiceImpl implements AdminStudentService {
         }
         return false;
     }
+
+    @Override
+    public boolean uploadStudentHandle(Map<String, Object> params) {
+        return (adminStudentMapper.insertSpecialty(params) > 0 && adminStudentMapper.insertStudent(params) > 0);
+    }
 }

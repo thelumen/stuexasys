@@ -56,4 +56,22 @@
             </if>
         </where>
     </delete>
+
+    <!--插入新专业-->
+    <insert id="insertSpecialty" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_specialty (specialtyId, name)
+        VALUES (#{specialtyId,jdbcType=INTEGER}, #{specialtyName,jdbcType=VARCHAR})
+    </insert>
+
+    <!--批量插入学生-->
+    <insert id="insertStudent" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_student(studentId, password, name, specialtyId, gender)
+        VALUES
+        <foreach collection="studentUploadList" item="item" index="index" separator=",">
+            (#{item.studentId,jdbcType=INTEGER},#{item.password,jdbcType=VARCHAR},
+            #{item.name,jdbcType=VARCHAR},#{specialtyId,jdbcType=INTEGER},
+            #{item.gender,jdbcType=CHAR})
+        </foreach>
+    </insert>
+
 </mapper>

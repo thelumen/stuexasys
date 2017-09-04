@@ -20,4 +20,12 @@ public interface AdminStudentService {
      * @return .
      */
     boolean deleteSpecialty(Map<String,Object> params);
+
+    /**
+     * 上传学生表处理
+     *
+     * @param params .
+     * @return .
+     */
+    boolean uploadStudentHandle(Map<String,Object> params);
 }

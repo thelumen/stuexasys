@@ -343,7 +343,7 @@ roleId</ColNames>
       <ColNames>managerId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_manager</RefTableName>
-      <RefColNames>id</RefColNames>
+      <RefColNames>managerId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="81" parent="15" name="com_manager_l_role_fk2">
@@ -841,7 +841,7 @@ roleId</ColNames>
       <ColNames>teacherId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_teacher</RefTableName>
-      <RefColNames>id</RefColNames>
+      <RefColNames>teacherId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
     <foreign-key id="172" parent="26" name="com_user_l_role_fk2">

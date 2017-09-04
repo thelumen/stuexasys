@@ -16,6 +16,7 @@
 
         var selectOption = 1;//默认加载预留专业的学生
 
+        //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
             url: "${pageContext.request.contextPath}/admin/student/initStudentTable/" + selectOption,
@@ -122,6 +123,30 @@
             }]
         });
 
+        //文件上传
+        $("#studentExcelFile").fileinput({
+            language: 'zh',
+            maxFileSize: 5000,
+            uploadUrl: '${pageContext.request.contextPath}/admin/student/upload',
+            showUpload: true,
+            showRemove: true,
+            uploadAsync: true,
+            showPreview: true,
+            showCancel: false,
+            dropZoneEnabled: false,
+            enctype: 'multipart/form-data',
+            allowedFileExtensions: ['xls']
+        }).on("fileuploaded", function (event, data, previewId, index) {
+            var result = data.response;
+            if (result) {
+                $("#modal-container-uploadStudent").modal("hide");
+                alert("成功上传");
+                location.reload();
+            } else {
+                alert("上传失败了");
+            }
+        });
+
         //查找按钮点击事件
         $("#selectStudent").click(function () {
             var specialty = $("#specialty").val();
@@ -213,18 +238,6 @@
         });
     }
 
-    //文件上传处理
-    function uploadStudent() {
-
-    }
-    //判断学号合法性
-    //    function validate_studentId() {
-    //        var studentId = $("#studentId").val();
-    //        if (studentId.length !== 9) {
-    //            alert("请输入正确的学号");
-    //        }
-    //    }
-
     //点击事件处理
     window.editBtnEvent = {
         'click .saveChanged': function (e, value, row, index) {
@@ -279,7 +292,7 @@
                 <input class="form-control" placeholder="学号" id="studentId">
             </label>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
             &nbsp;&nbsp;
             <button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>
@@ -294,41 +307,46 @@
         <table id="studentTable">
         </table>
     </div>
-    <%--上传学生模态框--%>
-    <div class="modal fade" id="modal-container-uploadStudent" aria-hidden="true" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        上传学生
-                    </h4>
-                </div>
 
-                <div class="modal-body">
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>请选择需要上传的<strong style="color: #985f0d">学生信息表</strong>：
-                                <form id="teacher_resource_form">
-                                    <input id="teacher_resource_form_inp" multiple
-                                           type="file" class="file" name="files"
-                                           data-show-upload="false"
-                                           data-show-caption="true"
-                                           data-allowed-file-extensions='["jpg","png","gif","txt","xls","xlsx","doc", "docx","ppt"]'
-                                           placeholder="仅支持:jpg png gif txt xls xlsx doc docx ppt">
-                                </form>
-                            </label>
+    <%--学生信息上传模态框--%>
+    <div class="modal fade" id="modal-container-uploadStudent" aria-hidden="true" aria-labelledby="myModalLabel">
+        <form enctype="multipart/form-data" id="uploadForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            上传学生信息
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>&nbsp;&nbsp;请选择需要上传的<strong style="color: #985f0d">学生信息表</strong>：</label>
+                                <div class="form-group">
+                                    <br>
+                                    <label>
+                                        <input id="studentExcelFile" multiple type="file" class="file-loading"
+                                               name="files">
+                                    </label>
+                                </div>
+                                <br>
+                                <a href="${pageContext.request.contextPath}/common/example/上传学生表样表.xls"
+                                   class="form-control" style="border:none;">下载上传模板</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
-                    <button class="btn btn-primary" type="button" onclick="uploadStudent">上传</button>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
+                    </div>
+
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
