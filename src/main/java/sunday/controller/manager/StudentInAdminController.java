@@ -1,17 +1,23 @@
 package sunday.controller.manager;
 
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.enums.DeleteType;
+import sunday.common.enums.MessageInfo;
 import sunday.common.enums.UpdateType;
 import sunday.common.kit.CommonKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -148,59 +154,46 @@ public class StudentInAdminController extends CommonController {
     }
 
 
+    /**
+     * 上传学生表处理
+     *
+     * @param files Excel( xls类型 )
+     * @return .
+     */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public boolean uploadStudentHandle(@RequestParam("files") MultipartFile files) {
-        //if (null != files) {
-        //    try {
-        //        //files.transferTo(new File(ResourceFileKit.getHome() + File.separator + files.getOriginalFilename()));
-        //        InputStream input = files.getInputStream();//IOException
-        //
-        //        //CommonsMultipartFile commonsMultipartFile=(CommonsMultipartFile)files;
-        //        //DiskFileItem diskFileItem = (DiskFileItem) commonsMultipartFile.getFileItem();
-        //        //File file = diskFileItem.getStoreLocation();
-        //        //
-        //        //String fileName = files.getOriginalFilename();
-        //        //String[] fileNameSplit = fileName.split("\\.");//判断文件类型
-        //        //
-        //        //if (fileNameSplit[1].equals("xlsx")) {
-        //        //    String newName = fileName.substring(0, fileName.lastIndexOf(".")) + ".xls";
-        //        //    File newFile = new File(newName);
-        //        //    boolean flag = file.renameTo(newFile);
-        //        //    System.out.println(flag);
-        //        //}
-        //
-        //        jxl.Workbook workbook = Workbook.getWorkbook(input);//BiffException
-        //        Sheet sheet_0 = workbook.getSheet(0);
-        //        Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
-        //            put("specialtyId", Integer.valueOf(sheet_0.getCell(3, 0).getContents()));
-        //            put("specialtyName", sheet_0.getCell(1, 0).getContents());
-        //        }};
-        //        List<StudentTaken> studentUploadList = new ArrayList<>();
-        //        for (int j = 2; j < sheet_0.getRows(); j++) {
-        //            StudentTaken studentTaken = new StudentTaken();
-        //            studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, j).getContents()));
-        //            studentTaken.setName(sheet_0.getCell(1, j).getContents());
-        //            studentTaken.setGender(sheet_0.getCell(2, j).getContents());
-        //            String initPassword = sheet_0.getCell(3, j).getContents();//如果未设置初始密码则使用学号替代
-        //            if (null != initPassword) {
-        //                studentTaken.setPassword(initPassword);
-        //            } else {
-        //                studentTaken.setPassword(sheet_0.getCell(0, j).getContents());
-        //            }
-        //            studentUploadList.add(studentTaken);
-        //        }
-        //        uploadStudentInfo.put("studentUploadList", studentUploadList);
-        //        return adminStudentService.uploadStudentHandle(uploadStudentInfo);
-        //
-        //    } catch (IOException e) {
-        //        e.printStackTrace();
-        //        return false;
-        //    } catch (BiffException e) {
-        //        e.printStackTrace();
-        //    }
-        //}
-        //return false;
-        return true;
+    public int uploadStudentHandle(@RequestParam("files") MultipartFile files) {
+        if (null != files) {
+            try {
+                //files.transferTo(new File(ResourceFileKit.getHome() + File.separator + files.getOriginalFilename()));
+                InputStream input = files.getInputStream();//IOException
+                jxl.Workbook workbook = Workbook.getWorkbook(input);//BiffException
+                Sheet sheet_0 = workbook.getSheet(0);
+                Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
+                    put("specialtyId", Integer.valueOf(sheet_0.getCell(3, 0).getContents()));
+                    put("specialtyName", sheet_0.getCell(1, 0).getContents());
+                }};
+                List<StudentTaken> studentUploadList = new ArrayList<>();
+                for (int j = 2; j < sheet_0.getRows(); j++) {
+                    StudentTaken studentTaken = new StudentTaken();
+                    studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, j).getContents()));
+                    studentTaken.setName(sheet_0.getCell(1, j).getContents());
+                    studentTaken.setGender(sheet_0.getCell(2, j).getContents());
+                    String initPassword = sheet_0.getCell(3, j).getContents();//如果未设置初始密码则使用学号替代
+                    if (!"".equals(initPassword)) {
+                        studentTaken.setPassword(initPassword);
+                    } else {
+                        studentTaken.setPassword(sheet_0.getCell(0, j).getContents());
+                    }
+                    studentUploadList.add(studentTaken);
+                }
+                uploadStudentInfo.put("studentUploadList", studentUploadList);
+                return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
+            } catch (IOException | BiffException e) {
+                e.printStackTrace();
+                return MessageInfo.OperationFailed.getMessageId();
+            }
+        }
+        return MessageInfo.OperationFailed.getMessageId();
     }
 }

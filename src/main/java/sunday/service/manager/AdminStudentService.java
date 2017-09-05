@@ -1,5 +1,7 @@
 package sunday.service.manager;
 
+import sunday.common.enums.MessageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +29,5 @@ public interface AdminStudentService {
      * @param params .
      * @return .
      */
-    boolean uploadStudentHandle(Map<String,Object> params);
+    MessageInfo uploadStudentHandle(Map<String,Object> params);
 }

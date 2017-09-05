@@ -23,6 +23,14 @@ public class StudentTest {
     private StudentService studentService;
 
     @Test
+    public void t9(){
+        Map<String,Object> m1=new HashMap<String,Object>(){{
+            put("1",1);
+        }};
+        System.out.println(m1.get("2"));
+    }
+
+    @Test
     public void t8() {
         int i, j;
         List<Student> studentList = studentService.select(null, null);

@@ -138,12 +138,14 @@
             allowedFileExtensions: ['xls']
         }).on("fileuploaded", function (event, data, previewId, index) {
             var result = data.response;
-            if (result) {
+            if (result===0) {
                 $("#modal-container-uploadStudent").modal("hide");
                 alert("成功上传");
                 location.reload();
-            } else {
-                alert("上传失败了");
+            } else if(result===1){
+                alert("上传失败了，请检查后重试");
+            }else if(result===2){
+                alert("你上传了一张重复的表呢");
             }
         });
 

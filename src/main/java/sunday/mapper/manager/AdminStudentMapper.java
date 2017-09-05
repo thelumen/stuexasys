@@ -19,7 +19,14 @@ public interface AdminStudentMapper {
      *
      * @return .
      */
-    List<Specialty> selectSpecialty();
+    List<Specialty> selectSpecialty(Map<String,Object> params);
+
+    /**
+     * 查询专业信息(list)
+     *
+     * @return .
+     */
+    List<Specialty> selectListSpecialty(Map<String,Object> params);
 
     /**
      * 删除专业
