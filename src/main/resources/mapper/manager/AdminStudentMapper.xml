@@ -14,20 +14,6 @@
         </where>
     </select>
 
-    <!--查询专业信息(list)-->
-    <select id="selectListSpecialty" parameterType="java.util.Map" resultType="sunday.pojo.school.Specialty">
-        SELECT *
-        FROM stuexasys.com_specialty
-        <where>
-            <if test="specialtyId!=null">
-                AND specialtyId IN
-                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
-                    #{specialtyItem}
-                </foreach>
-            </if>
-        </where>
-    </select>
-
     <!--查询教师选课表 with specialtyId-->
     <select id="selectTeacher2Course" parameterType="java.util.Map"
             resultType="sunday.pojo.dto.Specialty2Course">

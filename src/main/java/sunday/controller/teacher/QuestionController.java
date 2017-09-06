@@ -5,11 +5,14 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.ChapterKit;
+import sunday.common.kit.CommonKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.school.Another;
+import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
+import sunday.pojo.teacher.AnotherTaken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +25,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/question")
-public class QuestionController extends CommonController{
+public class QuestionController extends CommonController {
 
     /**
      * 转到题目录入页
@@ -36,6 +39,75 @@ public class QuestionController extends CommonController{
         return "/teacher/question/questionProxy";
     }
 
+    /**
+     * 转到题目编辑界面
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/editQuestion",method = RequestMethod.GET)
+    public String editQuestion() {
+        return "/teacher/editQuestion/editQuestionProxy";
+    }
+
+    /**
+     * 获取课程列表
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/courseGet",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getCourse(){
+        List<Course> courses = specialty2CourseService.selectAllCourses();
+        if (null != courses) {
+            List<Map<String, Object>> father = new ArrayList<>();
+            for (Course course : courses) {
+                Map<String, Object> child = new HashMap<String, Object>() {{
+                    put("id", course.getCourseId());
+                    put("text", course.getName());
+                }};
+                father.add(child);
+            }
+            return father;
+        }
+        return null;
+    }
+
+    /**
+     * 根据课程查询简答题
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionSelect/{courseId}",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId){
+        return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String,Object>(){{
+            put("courseId", courseId);
+        }}));
+    }
+
+    /**
+     * 保存题目更改
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionSave",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean saveQuestion(@RequestBody AnotherTaken anotherTaken){
+        return questionService.saveQuestion(anotherTaken);
+    }
+
+    /**
+     * 删除题目
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionDel",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean delQuestion(@RequestBody AnotherTaken anotherTaken){
+        return questionService.delQuestion(new HashMap<String,Object>(){{
+            put("id",anotherTaken.getId());
+        }});
+    }
 
     /**
      * 获取某一课程选择题的章节
@@ -109,6 +181,5 @@ public class QuestionController extends CommonController{
 
         return teacher2QuestionService.insertAnother(another) > 0;
     }
-
 
 }

@@ -1,5 +1,6 @@
 package sunday.service.common;
 
+import sunday.mapper.manager.AdminStudentMapper;
 import sunday.mapper.manager.CourseMapper;
 import sunday.mapper.manager.ManagerMapper;
 import sunday.mapper.manager.SpecialtyMapper;
@@ -48,5 +49,9 @@ public class CommonService {
     @javax.annotation.Resource(name = "courseMapper")
     protected CourseMapper courseMapper;
 
+    @javax.annotation.Resource(name = "questionMapper")
+    protected QuestionMapper questionMapper;
 
+    @javax.annotation.Resource(name = "adminStudentMapper")
+    protected AdminStudentMapper adminStudentMapper;
 }

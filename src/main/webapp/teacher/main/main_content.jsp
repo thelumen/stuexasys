@@ -118,6 +118,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/question/main">题目录入</a>
                             </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/question/editQuestion">题目编辑</a>
+                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/resource/main">上传资料</a>

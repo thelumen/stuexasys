@@ -168,7 +168,7 @@ public class StudentInAdminController extends CommonController {
                 //files.transferTo(new File(ResourceFileKit.getHome() + File.separator + files.getOriginalFilename()));
                 InputStream input = files.getInputStream();//IOException
                 jxl.Workbook workbook = Workbook.getWorkbook(input);//BiffException
-                Sheet sheet_0 = workbook.getSheet(0);
+                Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
                 Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
                     put("specialtyId", Integer.valueOf(sheet_0.getCell(3, 0).getContents()));
                     put("specialtyName", sheet_0.getCell(1, 0).getContents());

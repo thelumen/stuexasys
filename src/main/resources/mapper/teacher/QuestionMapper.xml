@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sunday.mapper.teacher.QuestionMapper">
+
+    <!--删除简答题-->
+    <delete id="deleteAnotherQuestion" parameterType="java.util.Map">
+        DELETE FROM stuexasys.com_another_question
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <!--更新简答题-->
+    <update id="updateAnotherQuestion" parameterType="sunday.pojo.teacher.AnotherTaken">
+        UPDATE stuexasys.com_another_question
+        SET courseId = #{courseId,jdbcType=INTEGER}, content = #{content,jdbcType=VARCHAR},
+            result   = #{result,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--查询简答题with课程Id-->
+    <select id="selectAnotherQuestionWithCourse" parameterType="java.util.Map"
+            resultType="sunday.pojo.teacher.AnotherTaken">
+        SELECT DISTINCT
+        a.id AS id,
+        a.courseId AS courseId,
+        c.name AS courseName,
+        a.content AS content,
+        a.result AS result
+        FROM stuexasys.com_another_question a,stuexasys.com_course c
+        WHERE a.courseId=c.courseId
+        <if test="courseId!=null">
+            AND a.courseId=#{courseId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>

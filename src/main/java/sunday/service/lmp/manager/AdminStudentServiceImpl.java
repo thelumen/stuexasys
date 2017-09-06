@@ -2,28 +2,22 @@ package sunday.service.lmp.manager;
 
 import org.springframework.stereotype.Service;
 import sunday.common.enums.MessageInfo;
-import sunday.mapper.manager.AdminStudentMapper;
-import sunday.mapper.student.StudentMapper;
-import sunday.mapper.teacher.Specialty2CourseMapper;
 import sunday.pojo.school.Specialty;
-import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
+import sunday.service.common.CommonService;
 import sunday.service.manager.AdminStudentService;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 花间一壶酒 on 2017/8/30.
  */
 
 @Service("adminStudentService")
-public class AdminStudentServiceImpl implements AdminStudentService {
-
-    @javax.annotation.Resource(name = "adminStudentMapper")
-    private AdminStudentMapper adminStudentMapper;
-    @javax.annotation.Resource(name = "studentMapper")
-    private StudentMapper studentMapper;
+public class AdminStudentServiceImpl extends CommonService implements AdminStudentService {
 
     @Override
     public List<Map<String, Object>> selectSpecialty() {
