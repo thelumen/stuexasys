@@ -74,4 +74,12 @@
         </foreach>
     </insert>
 
+    <!--批量插入学生权限-->
+    <insert id="insertStudentRole" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_studnet_l_role(studentId, roleId)
+        VALUES
+        <foreach collection="studentUploadList" item="item" index="index" separator=",">
+            (#{item.studentId,jdbcType=INTEGER},4)
+        </foreach>
+    </insert>
 </mapper>

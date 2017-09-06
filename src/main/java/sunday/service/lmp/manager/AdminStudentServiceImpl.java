@@ -69,7 +69,7 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
                     params.put("studentUploadList", resultStudentList);//将不在数据库中学生提取出来
                 }
             }
-            if (adminStudentMapper.insertStudent(params) > 0) {
+            if (adminStudentMapper.insertStudent(params) > 0 && adminStudentMapper.insertStudentRole(params) > 0) {
                 return MessageInfo.SuccessOperation;
             } else {
                 return MessageInfo.OperationFailed;

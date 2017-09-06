@@ -37,7 +37,7 @@ public class StudentTest {
         i = studentList.size();
         j = 0;
         for (Student student : studentList) {
-            j += studentService.insertStudentRole(student);
+            //j += studentService.insertStudentRole(student);
         }
         System.out.println("全长" + i);
         System.out.println("成功" + j);

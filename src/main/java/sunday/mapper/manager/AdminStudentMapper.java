@@ -67,4 +67,12 @@ public interface AdminStudentMapper {
      * @return .
      */
     int insertStudent(Map<String, Object> params);
+
+    /**
+     * 批量插入学生权限
+     *
+     * @param params .
+     * @return .
+     */
+    int insertStudentRole(Map<String, Object> params);
 }

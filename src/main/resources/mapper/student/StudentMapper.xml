@@ -132,7 +132,7 @@
     </insert>
 
     <!--插入学生与权限的关联-->
-    <insert id="insertStudentRole" parameterType="sunday.pojo.school.Student">
+    <insert id="insertStudentRole" parameterType="java.util.Map">
         INSERT INTO stuexasys.com_studnet_l_role (studentId, roleId)
         VALUES (#{studentId,jdbcType=INTEGER}, 4)
     </insert>

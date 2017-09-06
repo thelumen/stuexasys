@@ -12,7 +12,6 @@
         $(function () {
 
             //初始化下拉框
-            $('#course').select2();
             $.ajax({
                 url: '${pageContext.request.contextPath}/question/courseGet',
                 dataType: 'json',

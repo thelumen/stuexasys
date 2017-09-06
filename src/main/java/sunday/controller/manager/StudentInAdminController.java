@@ -12,6 +12,7 @@ import sunday.common.enums.DeleteType;
 import sunday.common.enums.MessageInfo;
 import sunday.common.enums.UpdateType;
 import sunday.common.kit.CommonKit;
+import sunday.common.kit.EncryptKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.StudentTaken;
@@ -181,9 +182,9 @@ public class StudentInAdminController extends CommonController {
                     studentTaken.setGender(sheet_0.getCell(2, j).getContents());
                     String initPassword = sheet_0.getCell(3, j).getContents();//如果未设置初始密码则使用学号替代
                     if (!"".equals(initPassword)) {
-                        studentTaken.setPassword(initPassword);
+                        studentTaken.setPassword(EncryptKit.md5(initPassword));
                     } else {
-                        studentTaken.setPassword(sheet_0.getCell(0, j).getContents());
+                        studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, j).getContents()));
                     }
                     studentUploadList.add(studentTaken);
                 }
