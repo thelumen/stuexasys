@@ -24,19 +24,19 @@ public final class TfQuestion {
                 '}';
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
     public long getId() {
         return id;
     }
 
-    public int getCourseId() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
