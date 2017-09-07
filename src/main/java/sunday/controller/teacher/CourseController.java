@@ -28,7 +28,6 @@ public class CourseController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String coursePage() {
         return "/teacher/course/courseProxy";
@@ -41,7 +40,6 @@ public class CourseController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean takeCourse(@RequestBody CourseTaken courseTaken) {
@@ -89,7 +87,6 @@ public class CourseController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/delete/{content}", method = RequestMethod.DELETE)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean editCourseTaken(@PathVariable("content") String content) throws UnsupportedEncodingException {

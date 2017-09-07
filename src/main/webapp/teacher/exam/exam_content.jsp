@@ -92,7 +92,7 @@
                 }
             },
             error: function () {
-                swal("Erroe", "系统错误，请联系管理员！", "error");
+                swal("Error", "系统错误，请联系管理员！", "error");
             }
         });
     }
