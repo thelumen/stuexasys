@@ -1,16 +1,20 @@
 package sunday.pojo.school;
 
+import java.io.Serializable;
+
 /**
  * Created by yang on 2017/6/5.
  * At 17:32
  */
-public final class TfQuestion {
+public final class TfQuestion implements Serializable{
     private long id;
     private Integer courseId;
     private String section;
     private int levels;
     private String content;
     private int result;
+
+
 
     @Override
     public String toString() {
@@ -24,19 +28,19 @@ public final class TfQuestion {
                 '}';
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
         return id;
     }
 
-    public int getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 

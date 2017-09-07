@@ -93,4 +93,13 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
         }
         return null;
     }
+
+    @Override
+    public List<String> selectSection(Map<String, Object> params) {
+        List<String> sections = specialty2CourseMapper.selectSection(params);
+        if (null != sections && sections.size() > 0) {
+            return sections;
+        }
+        return null;
+    }
 }

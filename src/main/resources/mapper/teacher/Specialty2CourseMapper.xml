@@ -24,6 +24,17 @@
         </if>
     </select>
 
+    <!--查询某科课程的所有章节-->
+    <select id="selectSection" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT DISTINCT
+        section
+        FROM stuexasys.com_tf_question
+        where
+        <if test="courseId != null">
+             courseId =#{courseId,jdbcType=INTEGER}
+        </if>
+    </select>
+
     <!--查询全部专业-->
     <select id="selectAllSpecialties" resultType="sunday.pojo.school.Specialty">
         SELECT *

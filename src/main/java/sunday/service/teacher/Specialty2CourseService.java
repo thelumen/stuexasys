@@ -84,4 +84,6 @@ public interface Specialty2CourseService {
      * @return
      */
     List<CourseTaken> selectCourseTaken(Page page, Map<String, Object> params);
+
+    List<String> selectSection(Map<String, Object> params);
 }

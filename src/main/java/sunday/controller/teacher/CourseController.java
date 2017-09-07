@@ -10,6 +10,7 @@ import sunday.controller.common.CommonController;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;
+import sunday.service.manager.CourseService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -127,6 +128,10 @@ public class CourseController extends CommonController {
         return getCourses(params);
     }
 
+
+
+
+
     /**
      * 获取全部课程select
      *
@@ -180,6 +185,35 @@ public class CourseController extends CommonController {
         }};
         return getSpecialties(params);
     }
+
+    /**
+     * 获取某一课程的所有章节信息
+     * @param courseId
+     * @return
+     */
+    @RequestMapping(value = "/section/{courseId}" ,method=RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String,Object>> getCourseSection(@PathVariable("courseId")Integer courseId ){
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+        }};
+        List<String> sections=null;
+        if (null != params) {
+            sections = specialty2CourseService.selectSection(params);
+        }
+        if (null != sections) {
+            List<Map<String, Object>> father = new ArrayList<>();
+            for (String section:sections){
+                Map<String,Object> child=new HashMap<String,Object>();
+                child.put("id",section);
+                child.put("text",section);
+                father.add(child);
+            }
+            return father;
+        }
+        return null;
+    }
+
 
     /**
      * 获取全部专业select

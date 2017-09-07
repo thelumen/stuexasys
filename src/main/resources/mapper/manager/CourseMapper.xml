@@ -16,6 +16,9 @@
         ORDER BY courseId ASC
     </select>
 
+
+
+
     <!--新增课程-->
     <insert id="insert" parameterType="sunday.pojo.school.Course">
         INSERT INTO com_course(courseId, name, period, credit)

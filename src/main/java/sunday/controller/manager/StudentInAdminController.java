@@ -81,7 +81,7 @@ public class StudentInAdminController extends CommonController {
     /**
      * 加载专业信息
      *
-     * @return .
+     * @return
      */
     @RequestMapping(value = "/specialtyGet", method = RequestMethod.GET)
     @ResponseBody

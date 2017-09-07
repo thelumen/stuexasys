@@ -1,5 +1,7 @@
 package sunday.pojo.student;
 
+import java.io.Serializable;
+
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */

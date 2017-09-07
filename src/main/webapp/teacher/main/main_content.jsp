@@ -12,6 +12,7 @@
 <head>
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
+    <link href="/common/mycss/mycss.css" rel="stylesheet" type="text/css">
     <script>
         function logout() {
             swal({
@@ -114,15 +115,24 @@
                         <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown">其他<span
                                 class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
+
+
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <li>
                                 <a href="${pageContext.request.contextPath}/question/main">题目录入</a>
                             </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="${pageContext.request.contextPath}/resource/main">上传资料</a>
-                            </li>
-                        </ul>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="javascript:;">题目查看</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="${pageContext.request.contextPath}/question/showTf">判断题</a></li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="${pageContext.request.contextPath}/question/showSingle">选择题</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <li><a href="${pageContext.request.contextPath}/resource/main">上传资料</a></li>
+                            </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

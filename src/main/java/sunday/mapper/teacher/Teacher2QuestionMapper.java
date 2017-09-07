@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import sunday.pojo.school.Another;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
+import sunday.pojo.student.TfTaken;
 import sunday.pojo.teacher.AnotherTaken;
 
 import java.util.List;
@@ -54,4 +55,16 @@ public interface Teacher2QuestionMapper {
      * @return
      */
     List<AnotherTaken> selectAnother(Map<String, Object> params);
+
+    List<TfQuestion> selectTfInfo(Map<String, Object> params);
+
+    boolean updateTfInfo(TfQuestion tfQuestion);
+
+    boolean deleteTfInfo(TfQuestion tfQuestion);
+
+    List<SingleQuestion> selectSingleInfo(Map<String, Object> params);
+
+    boolean updateSingleInfo(SingleQuestion singleQuestion);
+
+    boolean deleteSingleInfo(SingleQuestion singleQuestion);
 }

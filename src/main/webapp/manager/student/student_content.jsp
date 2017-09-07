@@ -150,7 +150,8 @@
                 } else {
                     alert("请输入正确的学号");
                 }
-            }else $("#studentTable").bootstrapTable("refresh",
+            }else
+                $("#studentTable").bootstrapTable("refresh",
                 {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
         })
     });
