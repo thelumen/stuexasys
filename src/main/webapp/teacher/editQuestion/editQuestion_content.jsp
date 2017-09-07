@@ -69,7 +69,7 @@
                 var courseId = $("#course").val();
                 if (courseId !== null) {
                     $("#editQuestionTable").bootstrapTable("refresh", {
-                        url: '${pageContext.request.contextPath}/question/questionSelect/' + courseId,
+                        url: '${pageContext.request.contextPath}/question/questionLoad/' + courseId,
                         silent: true
                     })
                 } else {

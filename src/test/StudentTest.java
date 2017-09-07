@@ -24,10 +24,9 @@ public class StudentTest {
 
     @Test
     public void t9(){
-        Map<String,Object> m1=new HashMap<String,Object>(){{
-            put("1",1);
-        }};
-        System.out.println(m1.get("2"));
+        String s="140401050";
+        String sl = s.substring(0, 5);
+        System.out.println(sl);
     }
 
     @Test

@@ -48,7 +48,7 @@
                 获取老师上传的学习资源或者作业等
             </p>
             <p>
-                <a href="${pageContext.request.contextPath}/student/resourcesDownload">前往</a>
+                <a href="${pageContext.request.contextPath}/student/resources/download">前往</a>
             </p>
         </div>
     </div>

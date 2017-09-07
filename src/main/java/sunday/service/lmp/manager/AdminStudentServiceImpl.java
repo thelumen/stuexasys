@@ -47,22 +47,10 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
     @SuppressWarnings("unchecked")
     public MessageInfo uploadStudentHandle(Map<String, Object> params) {
         if (adminStudentMapper.selectSpecialty(params).size() > 0 || adminStudentMapper.insertSpecialty(params) > 0) {
-            List<StudentTaken> studentTakenList = studentMapper.selectStudentInfo(new HashMap<String, Object>() {{
-                put("specialtyId", new ArrayList<String>() {{
-                    add(params.get("specialtyId").toString());
-                }});
-            }});//将Map中的普通类型转换为集合类型，用于对应map.xml的处理方法
+            List<StudentTaken> studentTakenList = adminStudentMapper.selectStudentInfo(params);
             if (studentTakenList.size() > 0) {
-                List<StudentTaken> resultStudentList = new ArrayList<>();
-                Map<String, Object> contrastGroup = new HashMap<>();
-                for (StudentTaken aStudentTaken : studentTakenList) {
-                    contrastGroup.put(aStudentTaken.getStudentId().toString(), 1);
-                }//以数据库中全部学生的 Id 为 key 存入 Map
-                for (StudentTaken aStudentTaken : (List<StudentTaken>) params.get("studentUploadList")) {
-                    if (contrastGroup.get(aStudentTaken.getStudentId().toString()) == null) {
-                        resultStudentList.add(aStudentTaken);
-                    }//用新上传的学生的 Id 去 Map 中取值,取不到值的为新添加的，能取到的重复的
-                }
+                List<StudentTaken> resultStudentList = (List<StudentTaken>) params.get("studentUploadList");
+                resultStudentList.removeAll(studentTakenList);
                 if (resultStudentList.size() == 0) {
                     return MessageInfo.NeedlessOperation;//完全重复的学生表上传
                 } else {

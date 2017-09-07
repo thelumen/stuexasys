@@ -29,7 +29,7 @@
                 } else testNum = 4;
                 var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum};
                 var jsonDate = JSON.stringify(examInfo);
-                var myUrl = '${pageContext.request.contextPath}/student/readyTest';
+                var myUrl = '${pageContext.request.contextPath}/student/test/ready';
                 $.ajax({
                     type: 'post',
                     url: myUrl,
@@ -38,8 +38,8 @@
                     data: jsonDate,
                     success: function (data) {
                         if (data.generalTest) {
-                            window.location.href = '${pageContext.request.contextPath}/student/startTest?examInfo=' + data.examInfo;
-                        } else window.location.href = '${pageContext.request.contextPath}/student/startTestAnother?examInfo=' + data.examInfo;
+                            window.location.href = '${pageContext.request.contextPath}/student/test/start/' + data.examInfo;
+                        } else window.location.href = '${pageContext.request.contextPath}/student/test/startAnother/' + data.examInfo;
                     }
                 });
             })

@@ -19,7 +19,7 @@
         //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
-            url: "${pageContext.request.contextPath}/admin/student/initStudentTable/" + selectOption,
+            url: "${pageContext.request.contextPath}/admin/student/initTable/" + selectOption,
             sidePagination: "server",
             idField: "studentId",
             showRefresh: "true",
@@ -227,7 +227,7 @@
     //初始化下拉框
     function initSelect() {
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
+            url: '${pageContext.request.contextPath}/admin/student/specialty',
             dataType: 'json',
             success: function (data) {
                 $('#specialty').select2({
@@ -246,7 +246,7 @@
             alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/studentInfoSave',
+                url: '${pageContext.request.contextPath}/admin/student/infoSave',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
@@ -264,7 +264,7 @@
             alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/studentInfoDel',
+                url: '${pageContext.request.contextPath}/admin/student/infoDel',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',

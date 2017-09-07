@@ -40,21 +40,17 @@
             <ul class="nav navbar-nav">
                 <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
                 <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
-                <li><a href='${pageContext.request.contextPath}/student/resourcesDownload'>资源下载</a></li>
+                <li><a href='${pageContext.request.contextPath}/student/resources/download'>资源下载</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <%--导航栏右侧 通过类选择器动态展示用户状态--%>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navDropdown"><span
-                            class="glyphicon glyphicon-user"></span> ${currentStudent.userName}<strong
-                            class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
-                        <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
-                        <li><a href='${pageContext.request.contextPath}/student/resourcesDownload'>资源下载</a></li>
-                        <li role='separator' class='divider'></li>
-                        <li><a href="javascript:void(0);" onclick="logout();">登出</a></li>
-                    </ul>
+                <li>
+                    <a href="${pageContext.request.contextPath}/student/personPage">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;${currentStudent.userName}
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="logout();">登出&nbsp;&nbsp;</a>
                 </li>
             </ul>
         </div>

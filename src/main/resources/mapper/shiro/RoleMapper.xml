@@ -4,8 +4,8 @@
 <mapper namespace="sunday.mapper.shiro.RoleMapper">
     <!--新增角色-->
     <insert id="insert" parameterType="sunday.pojo.shiro.Role">
-        INSERT INTO com_role(name,remark)
-        VALUES (#{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
+        INSERT INTO com_role (name, remark)
+        VALUES (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
     </insert>
 
     <!--查询角色-->
@@ -23,31 +23,39 @@
         </where>
     </select>
 
+    <!--查询学生角色-->
+    <select id="selectByStudentInfo" parameterType="java.util.Map"
+            resultType="sunday.pojo.shiro.Role">
+        SELECT r.*
+        FROM com_studnet_l_role l, com_role r, com_student s
+        WHERE l.roleId = r.id AND l.studentId = s.studentId AND s.studentId = #{studentId,jdbcType=INTEGER}
+    </select>
+
     <!--查询教师角色-->
     <select id="selectByTeacherInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
-        FROM com_teacher_l_role l,com_role r,com_teacher t
-        WHERE l.roleId=r.id AND l.teacherId=t.teacherId AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+        FROM com_teacher_l_role l, com_role r, com_teacher t
+        WHERE l.roleId = r.id AND l.teacherId = t.teacherId AND t.teacherId = #{teacherId,jdbcType=INTEGER}
     </select>
 
-    <!--查询教师角色-->
+    <!--查询管理员角色-->
     <select id="selectByManagerInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.shiro.Role">
         SELECT r.*
-        FROM com_manager_l_role l,com_role r,com_manager m
-        WHERE l.roleId=r.id AND l.managerId=m.managerId AND m.managerId=#{managerId,jdbcType=INTEGER}
+        FROM com_manager_l_role l, com_role r, com_manager m
+        WHERE l.roleId = r.id AND l.managerId = m.managerId AND m.managerId = #{managerId,jdbcType=INTEGER}
     </select>
 
     <!--教师与角色相关联-->
     <insert id="link2Teacher">
-        INSERT INTO com_teacher_l_role(teacherId,roleId)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
+        INSERT INTO com_teacher_l_role (teacherId, roleId)
+        VALUES (#{teacherId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
     </insert>
 
     <!--普通管理员与角色相关联-->
     <insert id="link2Manager">
-        INSERT INTO com_manager_l_role(managerId,roleId)
-        VALUES (#{managerId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
+        INSERT INTO com_manager_l_role (managerId, roleId)
+        VALUES (#{managerId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
     </insert>
 </mapper>

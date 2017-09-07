@@ -201,7 +201,7 @@ public class MyRealm extends AuthorizingRealm {
     }
 
     /**
-     * 学生无角色无权限
+     * 学生信息
      *
      * @param realAccount
      * @param password
@@ -221,8 +221,19 @@ public class MyRealm extends AuthorizingRealm {
             shiroInfo.setUserName(student.getName());
             shiroInfo.setUserLoginName(student.getStudentId());
             shiroInfo.setUserLoginPassword(student.getPassword());
-            shiroInfo.setRoles(null);
-            shiroInfo.setPermissions(null);
+
+            Set<String> rolesSet = new HashSet<>();
+            Set<String> permissionsSet = new HashSet<>();
+
+            Map<String, Object> studentInfo = new HashMap<String, Object>() {{
+                put("studentId", student.getStudentId());
+            }};
+            List<Role> roles = roleService.selectByStudentInfo(studentInfo);
+            if (null != roles) {
+                setRolesAndPermissions(roles, rolesSet, permissionsSet);
+            }
+            shiroInfo.setRoles(rolesSet);
+            shiroInfo.setPermissions(permissionsSet);
 
             ShiroKit.getSession().setAttribute("currentStudent", shiroInfo);
 

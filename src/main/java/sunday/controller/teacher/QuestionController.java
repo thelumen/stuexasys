@@ -77,7 +77,7 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/questionSelect/{courseId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/questionLoad/{courseId}",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId){
         return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String,Object>(){{

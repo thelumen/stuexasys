@@ -3,6 +3,7 @@ package sunday.mapper.manager;
 import org.springframework.stereotype.Repository;
 import sunday.pojo.dto.Specialty2Course;
 import sunday.pojo.school.Specialty;
+import sunday.pojo.student.StudentTaken;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,13 @@ import java.util.Map;
 
 @Repository
 public interface AdminStudentMapper {
+
+    /**
+     * 查询学生信息
+     *
+     * @return .
+     */
+    List<StudentTaken> selectStudentInfo(Map<String,Object> params);
 
     /**
      * 查询专业信息

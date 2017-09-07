@@ -32,6 +32,15 @@ public class RoleServiceImpl extends CommonService implements RoleService {
     }
 
     @Override
+    public List<Role> selectByStudentInfo(Map<String, Object> studentInfo) {
+        List<Role> roles = roleMapper.selectByStudentInfo(studentInfo);
+        if (null != roles && roles.size() > 0) {
+            return roles;
+        }
+        return null;
+    }
+
+    @Override
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {
         List<Role> roles = roleMapper.selectByTeacherInfo(teacherInfo);
         if (null != roles && roles.size() > 0) {
