@@ -172,36 +172,42 @@ public class StudentInAdminController extends CommonController {
                 Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
 
                 int rows = sheet_0.getRows();//获取总行数
-                Set<String> specialtySet = new HashSet<>();
-                List<Specialty> specialtyList = new ArrayList<>();
-                List<StudentTaken> studentUploadList = new ArrayList<>();
+                if (!(Objects.equals(sheet_0.getCell(0, rows).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(1, rows).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(2, rows).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(3, rows).getContents(), ""))
+                        ) {
+                    Set<String> specialtySet = new HashSet<>();
+                    List<Specialty> specialtyList = new ArrayList<>();
+                    List<StudentTaken> studentUploadList = new ArrayList<>();
 
-                for (int k = 1; k < rows; k++) {
-                    //专业处理
-                    int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
-                    specialtySet.add(sheet_0.getCell(3, k).getContents());
-                    Integer specialtyId = Integer.valueOf(sheet_0.getCell(0, k).getContents().substring(0, 6));//截取学号前六位
-                    if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
-                        Specialty specialty = new Specialty();
-                        specialty.setSpecialtyId(specialtyId);
-                        specialty.setName(specialtyId.toString().substring(0, 2) + specialtySet.toArray()[0]);//在专业前拼接学号前两位
-                        specialtyList.add(specialty);
+                    for (int k = 1; k < rows; k++) {
+                        //专业处理
+                        int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
+                        specialtySet.add(sheet_0.getCell(3, k).getContents());
+                        Integer specialtyId = Integer.valueOf(sheet_0.getCell(0, k).getContents().substring(0, 6));//截取学号前六位
+                        if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
+                            Specialty specialty = new Specialty();
+                            specialty.setSpecialtyId(specialtyId);
+                            specialty.setName(specialtyId.toString().substring(0, 2) + specialtySet.toArray()[0]);//在专业前拼接学号前两位
+                            specialtyList.add(specialty);
+                        }
+                        //学生信息处理
+                        StudentTaken studentTaken = new StudentTaken();
+                        studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, k).getContents()));
+                        studentTaken.setName(sheet_0.getCell(1, k).getContents());
+                        studentTaken.setGender(sheet_0.getCell(2, k).getContents());
+                        studentTaken.setSpecialtyId(specialtyId);
+                        studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, k).getContents()));//初始密码为学号
+                        studentUploadList.add(studentTaken);
                     }
-                    //学生信息处理
-                    StudentTaken studentTaken = new StudentTaken();
-                    studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, k).getContents()));
-                    studentTaken.setName(sheet_0.getCell(1, k).getContents());
-                    studentTaken.setGender(sheet_0.getCell(2, k).getContents());
-                    studentTaken.setSpecialtyId(specialtyId);
-                    studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, k).getContents()));//初始密码为学号
-                    studentUploadList.add(studentTaken);
-                }
 
-                Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
-                    put("specialtyInfo", specialtyList);
-                    put("studentUploadList", studentUploadList);
-                }};
-                return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
+                    Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
+                        put("specialtyInfo", specialtyList);
+                        put("studentUploadList", studentUploadList);
+                    }};
+                    return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
+                }
             } catch (IOException | BiffException e) {
                 e.printStackTrace();
                 return MessageInfo.OperationFailed.getMessageId();

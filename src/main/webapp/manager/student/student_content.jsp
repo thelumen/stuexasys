@@ -297,8 +297,8 @@
         <div class="col-md-6">
             <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
             &nbsp;&nbsp;
-            <button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>
-            &nbsp;&nbsp;
+            <%--<button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>--%>
+            <%--&nbsp;&nbsp;--%>
             <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
                     data-toggle="modal">上传学生
             </button>
