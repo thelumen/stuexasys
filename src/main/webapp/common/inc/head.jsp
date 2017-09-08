@@ -6,25 +6,25 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js" charset="utf-8"></script>
 <![endif]-->
 <!--jQuery-->
-<script src="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/js/jquery.min.js"></script>
 <!--Bootstrap-->
 <!-- Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet"
-      href="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css">
+      href="${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/css/bootstrap.min.css">
 <!-- 可选的 Bootstrap 主题文件 -->
 <link rel="stylesheet"
-      href="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+      href="${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/css/bootstrap-theme.min.css">
 <!-- Bootstrap 核心 JavaScript 文件 -->
-<script src="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <!--bootstrap-file-upload-->
-<link href="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/fileinput.min.css"
+<link href="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/fileinput.min.css"
       rel="stylesheet"
       charset="utf-8">
-<script src="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/fileinput.min.js"
+<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/fileinput.min.js"
         charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/zh.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/zh.js" charset="utf-8"></script>
 <%--jquery-form--%>
-<script src="${pageContext.request.contextPath}${pageContext.request.contextPath}/common/jslib/jquery-form/jquery.form.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/jquery-form/jquery.form.js" charset="utf-8"></script>
 <!-- toastr插件 -->
 <link href="${pageContext.request.contextPath}/common/jslib/toastr/toastr.css" rel="stylesheet" charset="utf-8">
 <script src="${pageContext.request.contextPath}/common/jslib/toastr/toastr.js" charset="utf-8"></script>

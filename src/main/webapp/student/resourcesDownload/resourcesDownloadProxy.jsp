@@ -11,7 +11,7 @@
 <head>
     <title>资源下载</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%@include file="/common/inc/head.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
 <%@include file="/student/nav/nav.jsp"%>

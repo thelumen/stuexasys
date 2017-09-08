@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>个人主页</title>
-    <%@include file="/common/inc/head.jsp" %>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
         #contentContainer .col-md-4 {

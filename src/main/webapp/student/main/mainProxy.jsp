@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>学生考试系统</title>
-    <%@include file="/common/inc/head.jsp"%>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
 <%@include file="/student/nav/nav.jsp"%>
