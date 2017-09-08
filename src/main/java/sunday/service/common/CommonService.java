@@ -1,5 +1,6 @@
 package sunday.service.common;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import sunday.mapper.manager.AdminStudentMapper;
 import sunday.mapper.manager.CourseMapper;
 import sunday.mapper.manager.ManagerMapper;
@@ -8,7 +9,6 @@ import sunday.mapper.shiro.ResourceMapper;
 import sunday.mapper.shiro.RoleMapper;
 import sunday.mapper.student.StudentMapper;
 import sunday.mapper.teacher.*;
-import sunday.service.manager.CourseService;
 
 /**
  * Created by yang on 2017/8/31.
@@ -16,42 +16,42 @@ import sunday.service.manager.CourseService;
  */
 public class CommonService {
 
-    @javax.annotation.Resource(name = "specialty2CourseMapper")
+    @Autowired
     protected Specialty2CourseMapper specialty2CourseMapper;
 
-    @javax.annotation.Resource(name = "student2ExamMapper")
+    @Autowired
     protected Student2ExamMapper student2ExamMapper;
 
-    @javax.annotation.Resource(name = "student2GradeMapper")
+    @Autowired
     protected Student2GradeMapper student2GradeMapper;
 
-    @javax.annotation.Resource(name = "teacher2QuestionMapper")
+    @Autowired
     protected Teacher2QuestionMapper teacher2QuestionMapper;
 
-    @javax.annotation.Resource(name = "teacherMapper")
+    @Autowired
     protected TeacherMapper teacherMapper;
 
-    @javax.annotation.Resource(name = "studentMapper")
+    @Autowired
     protected StudentMapper studentMapper;
 
-    @javax.annotation.Resource(name = "resourceMapper")
+    @Autowired
     protected ResourceMapper resourceMapper;
 
-    @javax.annotation.Resource(name = "roleMapper")
+    @Autowired
     protected RoleMapper roleMapper;
 
-    @javax.annotation.Resource(name = "specialtyMapper")
+    @Autowired
     protected SpecialtyMapper specialtyMapper;
 
-    @javax.annotation.Resource(name = "managerMapper")
+    @Autowired
     protected ManagerMapper managerMapper;
 
-    @javax.annotation.Resource(name = "courseMapper")
+    @Autowired
     protected CourseMapper courseMapper;
 
-    @javax.annotation.Resource(name = "questionMapper")
+    @Autowired
     protected QuestionMapper questionMapper;
 
-    @javax.annotation.Resource(name = "adminStudentMapper")
+    @Autowired
     protected AdminStudentMapper adminStudentMapper;
 }

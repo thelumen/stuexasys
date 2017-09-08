@@ -1,6 +1,5 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,6 @@ public class GradeController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String studentPage() {
         return "/teacher/grade/gradeProxy";
@@ -44,7 +42,6 @@ public class GradeController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/assign", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String assignGrades(GradePercent percentInfo) {
 
@@ -142,7 +139,6 @@ public class GradeController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/another/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String otherQuestionPage() {
         return "/teacher/another/anotherProxy";
@@ -204,7 +200,6 @@ public class GradeController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/{studentId}/{courseId}/{score}", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean recordGrade4(@PathVariable("studentId") Integer studentId,

@@ -1,6 +1,5 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/resource")
-public class ResourceController extends CommonController{
+public class ResourceController extends CommonController {
 
     /**
      * 转到资源上传页
@@ -31,7 +30,6 @@ public class ResourceController extends CommonController{
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String resourcePage() {
         return "/teacher/resource/resourceProxy";
@@ -63,7 +61,6 @@ public class ResourceController extends CommonController{
      * @throws IOException
      */
     @RequestMapping(value = "/{directoryName}/upload", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean uploadFiles(@PathVariable("directoryName") String directoryName,

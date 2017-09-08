@@ -1,6 +1,5 @@
 package sunday.controller.manager;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +26,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     public String main(Model model) {
         getSpecialty(model);
@@ -66,7 +64,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/course/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean insertCourse(Course course) {
@@ -94,7 +91,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/course/delete/{courseId}", method = RequestMethod.DELETE)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteCourse(@PathVariable("courseId") Integer courseId) {
@@ -127,7 +123,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/course/update", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean updateCourse(@RequestBody Course course) {
@@ -152,7 +147,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/specialty/add", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean insertSpecialty(@RequestParam(value = "specialtyId") Integer specialtyId,
@@ -186,7 +180,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/specialty/delete/{specialtyId}", method = RequestMethod.DELETE)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteSpecialty(@PathVariable("specialtyId") Integer specialtyId) {
@@ -227,7 +220,6 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/specialty/update", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean updateSpecialty(@RequestBody Specialty specialty) {

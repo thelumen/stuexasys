@@ -1,6 +1,5 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String examPage() {
         return "/teacher/exam/examProxy";
@@ -43,7 +41,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/examInfo/{courseId}/{specialtyId}/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean takeExamInfo(@PathVariable("courseId") Integer courseId,
@@ -108,7 +105,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/examInfo/update", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
@@ -132,7 +128,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/examInfo/{id}/delete", method = RequestMethod.DELETE)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean deleteExamInfo(@PathVariable("id") String id) {
@@ -147,7 +142,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/{id}/start", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examStart(@PathVariable("id") String id) {
@@ -171,7 +165,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/{id}/close", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examClose(@PathVariable("id") String id) {

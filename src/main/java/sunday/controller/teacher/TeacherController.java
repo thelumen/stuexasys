@@ -1,20 +1,18 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import sunday.common.kit.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import sunday.common.kit.EncryptKit;
 import sunday.controller.common.CommonController;
-import sunday.pojo.dto.GradePercent;
-import sunday.pojo.school.*;
-import sunday.pojo.teacher.*;
+import sunday.pojo.teacher.Teacher;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yang on 2017/5/25.
@@ -30,7 +28,6 @@ public class TeacherController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String main() {
         return "/teacher/main/mainProxy";
@@ -43,7 +40,6 @@ public class TeacherController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean updateInfo(@RequestBody Teacher teacher) {

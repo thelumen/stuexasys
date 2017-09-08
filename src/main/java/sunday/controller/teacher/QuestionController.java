@@ -1,6 +1,5 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,6 @@ public class QuestionController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String questionPage() {
         return "/teacher/question/questionProxy";
@@ -44,7 +42,7 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/editQuestion",method = RequestMethod.GET)
+    @RequestMapping(value = "/editQuestion", method = RequestMethod.GET)
     public String editQuestion() {
         return "/teacher/editQuestion/editQuestionProxy";
     }
@@ -54,9 +52,9 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/courseGet",method = RequestMethod.GET)
+    @RequestMapping(value = "/courseGet", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getCourse(){
+    public List<Map<String, Object>> getCourse() {
         List<Course> courses = specialty2CourseService.selectAllCourses();
         if (null != courses) {
             List<Map<String, Object>> father = new ArrayList<>();
@@ -77,10 +75,10 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/questionLoad/{courseId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/questionLoad/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId){
-        return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String,Object>(){{
+    public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId) {
+        return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String, Object>() {{
             put("courseId", courseId);
         }}));
     }
@@ -90,9 +88,9 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/questionSave",method = RequestMethod.POST)
+    @RequestMapping(value = "/questionSave", method = RequestMethod.POST)
     @ResponseBody
-    public boolean saveQuestion(@RequestBody AnotherTaken anotherTaken){
+    public boolean saveQuestion(@RequestBody AnotherTaken anotherTaken) {
         return questionService.saveQuestion(anotherTaken);
     }
 
@@ -101,11 +99,11 @@ public class QuestionController extends CommonController {
      *
      * @return .
      */
-    @RequestMapping(value = "/questionDel",method = RequestMethod.POST)
+    @RequestMapping(value = "/questionDel", method = RequestMethod.POST)
     @ResponseBody
-    public boolean delQuestion(@RequestBody AnotherTaken anotherTaken){
-        return questionService.delQuestion(new HashMap<String,Object>(){{
-            put("id",anotherTaken.getId());
+    public boolean delQuestion(@RequestBody AnotherTaken anotherTaken) {
+        return questionService.delQuestion(new HashMap<String, Object>() {{
+            put("id", anotherTaken.getId());
         }});
     }
 
@@ -144,7 +142,6 @@ public class QuestionController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/single/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean saveSingleQuestion(@RequestBody SingleQuestion question) {
@@ -159,7 +156,6 @@ public class QuestionController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/tfQuestion/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean saveTfQuestion(@RequestBody TfQuestion question) {
@@ -174,7 +170,6 @@ public class QuestionController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/another/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean saveAnother(@RequestBody Another another) {

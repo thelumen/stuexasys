@@ -3,7 +3,6 @@ package sunday.controller.manager;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,6 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     public String EditStudent() {
         return "/manager/student/studentProxy";
@@ -73,7 +71,6 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/infoSave", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public boolean saveStudentInfo(@RequestBody StudentInfo studentInfo) {
@@ -88,7 +85,6 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/infoDel", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteStudent(@RequestBody StudentInfo studentInfo) {
