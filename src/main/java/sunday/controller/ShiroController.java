@@ -5,9 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sunday.common.enums.UserTypeEnum;
-import sunday.common.kit.ShiroKit;
-import sunday.common.kit.StringKit;
-import sunday.common.kit.TypeValidateKit;
+import sunday.common.kit.*;
+import sunday.pojo.manager.Manager;
+import sunday.pojo.school.Student;
+import sunday.pojo.teacher.Teacher;
 
 /**
  * Created by yang on 2017/5/22.
@@ -49,12 +50,12 @@ public class ShiroController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(String account, String password, String type, Model model) {
+        String realAccount = StringKit.trim(account) + type;
+
         String url = "";
-        String userType = TypeValidateKit.validateUserType(type);
-        String realAccount = StringKit.trim(account) + userType;
-        if (ShiroKit.login(realAccount, password)) {
+        if (ShiroKit.login(realAccount, EncryptKit.md5(password))) {
             for (UserTypeEnum user : UserTypeEnum.values()) {
-                if (user.getNum().equals(userType)) {
+                if (user.getNum().equals(type)) {
                     url = user.getUrl();
                 }
             }

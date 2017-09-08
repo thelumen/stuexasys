@@ -25,6 +25,15 @@ public final class TeacherKit {
     }
 
     /**
+     * 获取当前登录教师信息
+     *
+     * @return
+     */
+    public static Teacher getCurrentTeacher() {
+        return ((Teacher) ShiroKit.getSession().getAttribute("currentTeacher"));
+    }
+
+    /**
      * 设置select2所需要的数据格式
      * (针对文件资源的上传和下载)
      *
