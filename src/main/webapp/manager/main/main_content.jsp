@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>管理员后台</title>
-    <jsp:include page="/common/inc/head.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
     <script>
         function logout() {
             swal({
@@ -91,6 +91,6 @@
         </div>
     </nav>
 </div>
-<jsp:include page="/manager/${category}/${name}_content.jsp"></jsp:include>
+<jsp:include page="${pageContext.request.contextPath}/manager/${category}/${name}_content.jsp"></jsp:include>
 </body>
 </html>

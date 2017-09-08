@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>权限管理</title>
-    <jsp:include page="/common/inc/head.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
     <script>
         function logout() {
             swal({
@@ -139,7 +139,7 @@
         </div>
     </nav>
 </div>
-<jsp:include page="/teacher/${category}/${name}_content.jsp"></jsp:include>
+<jsp:include page="${pageContext.request.contextPath}/teacher/${category}/${name}_content.jsp"></jsp:include>
 <%--个人信息完善--%>
 <div id="teacher_main_modal" class="modal fade" tabindex="-1"
      role="dialog"

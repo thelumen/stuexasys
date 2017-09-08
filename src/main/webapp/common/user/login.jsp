@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>登录</title>
-    <jsp:include page="/common/inc/head.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
 </head>
 <body>
 <div class="container">
