@@ -11,25 +11,15 @@
 <script>
     //初始化
     $(function () {
-        //初始化下拉框
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/student/specialtyGet',
-            dataType: 'json',
-            success: function (data) {
-                $('#specialty').select2({
-                    placeholder: "专业",
-                    allowClear: true,
-                    data: data
-                });
-                window._data = data;
-            }
-        });
+
+        initSelect();//初始化下拉框
 
         var selectOption = 1;//默认加载预留专业的学生
 
+        //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
-            url: "${pageContext.request.contextPath}/admin/student/initStudentTable/" + selectOption,
+            url: "${pageContext.request.contextPath}/admin/student/initTable/" + selectOption,
             sidePagination: "server",
             idField: "studentId",
             showRefresh: "true",
@@ -133,6 +123,32 @@
             }]
         });
 
+        //文件上传
+        $("#studentExcelFile").fileinput({
+            language: 'zh',
+            maxFileSize: 5000,
+            uploadUrl: '${pageContext.request.contextPath}/admin/student/upload',
+            showUpload: true,
+            showRemove: true,
+            uploadAsync: true,
+            showPreview: true,
+            showCancel: false,
+            dropZoneEnabled: false,
+            enctype: 'multipart/form-data',
+            allowedFileExtensions: ['xls']
+        }).on("fileuploaded", function (event, data, previewId, index) {
+            var result = data.response;
+            if (result===0) {
+                $("#modal-container-uploadStudent").modal("hide");
+                alert("成功上传");
+                location.reload();
+            } else if(result===1){
+                alert("上传失败了，请检查后重试");
+            }else if(result===2){
+                alert("你上传了一张重复的表呢");
+            }
+        });
+
         //查找按钮点击事件
         $("#selectStudent").click(function () {
             var specialty = $("#specialty").val();
@@ -146,15 +162,58 @@
             if (studentId !== 0) {
                 if (studentId.length === 9) {
                     $("#studentTable").bootstrapTable("refresh",
-                        {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+                        {
+                            url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                            silent: true
+                        })
                 } else {
                     alert("请输入正确的学号");
                 }
-            }else
+            } else {
                 $("#studentTable").bootstrapTable("refresh",
-                {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId})
+                    {
+                        url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                        silent: true
+                    })
+            }
+        });
+
+        //专业删除按钮的点击事件
+        $("#deleteSpecialty").click(function () {
+            var specialtyId = $("#specialty").val();
+            if (specialtyId === null) {
+                alert("请先选择专业");
+            } else if (!validate_Specialty()) {
+                alert("不可以删除预留专业");
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: "${pageContext.request.contextPath}/admin/student/specialtyDel/" + specialtyId,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) {
+                            alert("删除成功");
+                            location.reload()
+                        } else {
+                            alert("删除失败");
+                        }
+                    }
+                });
+            }
         })
     });
+
+    //验证所删除专业中不包括预留专业
+    function validate_Specialty() {
+        var specialtyId = $("#specialty").val();
+        for (var x in specialtyId) {
+            alert(specialtyId[x]);
+            if (specialtyId[x] === '100000') {
+                return false;
+            }
+        }
+        return true;
+    }
 
     //表格内的按钮初始化
     function initEditBtn() {
@@ -165,12 +224,20 @@
         return html.join('');
     }
 
-    //判断学号合法性
-    function validate_studentId() {
-        var studentId = $("#studentId").val();
-        if (studentId.length !== 9) {
-            alert("请输入正确的学号");
-        }
+    //初始化下拉框
+    function initSelect() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/student/specialty',
+            dataType: 'json',
+            success: function (data) {
+                $('#specialty').select2({
+                    placeholder: "专业",
+                    allowClear: true,
+                    data: data
+                });
+                window._data = data;
+            }
+        });
     }
 
     //点击事件处理
@@ -179,7 +246,7 @@
             alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/studentInfoSave',
+                url: '${pageContext.request.contextPath}/admin/student/infoSave',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
@@ -197,7 +264,7 @@
             alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/studentInfoDel',
+                url: '${pageContext.request.contextPath}/admin/student/infoDel',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
@@ -224,11 +291,17 @@
         </div>
         <div class="col-md-3">
             <label style="display: block">
-                <input class="form-control" placeholder="学号" id="studentId" onchange="validate_studentId()">
+                <input class="form-control" placeholder="学号" id="studentId">
             </label>
         </div>
-        <div class="col-md-3">
-            <button class="btn btn-primary" type="button" id="selectStudent">&nbsp;查&nbsp;找&nbsp;</button>
+        <div class="col-md-6">
+            <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
+            &nbsp;&nbsp;
+            <%--<button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>--%>
+            <%--&nbsp;&nbsp;--%>
+            <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
+                    data-toggle="modal">上传学生
+            </button>
         </div>
     </div>
 
@@ -236,5 +309,45 @@
         <table id="studentTable">
         </table>
     </div>
-</div>
 
+    <%--学生信息上传模态框--%>
+    <div class="modal fade" id="modal-container-uploadStudent" aria-hidden="true" aria-labelledby="myModalLabel">
+        <form enctype="multipart/form-data" id="uploadForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            上传学生信息
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>&nbsp;&nbsp;请选择需要上传的<strong style="color: #985f0d">学生信息表</strong>：</label>
+                                <div class="form-group">
+                                    <br>
+                                    <label>
+                                        <input id="studentExcelFile" multiple type="file" class="file-loading"
+                                               name="files">
+                                    </label>
+                                </div>
+                                <br>
+                                <a href="${pageContext.request.contextPath}/common/example/上传学生表样表.xls"
+                                   class="form-control" style="border:none;">下载上传模板</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

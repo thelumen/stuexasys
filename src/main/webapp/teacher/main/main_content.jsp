@@ -121,6 +121,7 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/question/main">题目录入</a>
                             </li>
+                            <li class="divider"></li>
                                 <li class="dropdown-submenu">
                                     <a tabindex="-1" href="javascript:;">题目查看</a>
                                     <ul class="dropdown-menu">
@@ -131,6 +132,7 @@
                                         </li>
                                     </ul>
                                 </li>
+                            <li class="divider"></li>
                             <li><a href="${pageContext.request.contextPath}/resource/main">上传资料</a></li>
                             </ul>
                     </li>
