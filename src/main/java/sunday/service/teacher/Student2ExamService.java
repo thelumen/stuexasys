@@ -42,14 +42,15 @@ public interface Student2ExamService {
      * @param id
      * @return
      */
-    boolean deleteExamInfo(String id);
+    boolean deleteExamInfo(Map<String, Object> params);
 
     /**
      * 获取modal中table的考试信息
      *
      * @return
+     * @param params
      */
-    List<ExamTaken> selectTableExamInfo();
+    List<ExamTaken> selectTableExamInfo(Map<String, Object> params);
 
     /**
      * 开启考试

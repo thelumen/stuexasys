@@ -30,6 +30,14 @@ public interface RoleMapper {
     int insert(Role role);
 
     /**
+     * 查询学生角色
+     *
+     * @param studentInfo .
+     * @return List<Role>.
+     */
+    List<Role> selectByStudentInfo(Map<String, Object> studentInfo);
+
+    /**
      * 查询教师角色
      *
      * @param teacherInfo

@@ -56,7 +56,7 @@
             <thead>
             <tr>
                 <th colspan="2">教师信息</th>
-                <th colspan="3">课程和班级</th>
+                <th colspan="4">课程和班级</th>
                 <th colspan="2">时间信息</th>
                 <th data-field="on" data-width="200" rowspan="2">状态</th>
                 <th data-formatter="operateCourseTaken" data-width="150"
@@ -66,10 +66,11 @@
             <tr>
                 <th data-field="teacherId">教师ID</th>
                 <th data-field="teacherName" data-width="400">教师姓名</th>
-                <th data-field="courseName" data-width="200">所教课程</th>
-                <th data-field="specialtyId" data-width="200">专业ID
+                <th data-field="courseId" data-width="200">课程编号</th>
+                <th data-field="courseName" data-width="200">课程名称</th>
+                <th data-field="specialtyId" data-width="200">专业编号
                 </th>
-                <th data-field="specialtyName" data-width="200">所教专业
+                <th data-field="specialtyName" data-width="200">专业名称
                 </th>
                 <th data-field="starttime" data-width="200">开课时间</th>
                 <th data-field="endtime" data-width="200">结课时间</th>
@@ -149,7 +150,7 @@
     //    添加操作按钮
     function operateCourseTaken(value, row) {
         var html = '';
-        html += '<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseName + "&" + row.specialtyName);
+        html += '<button class="btn btn-danger pull-right" onclick="deleteCourseTaken(\'{0}\');">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId);
         return html;
     }
     //    删除选课信息

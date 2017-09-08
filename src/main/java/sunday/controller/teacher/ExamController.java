@@ -1,6 +1,5 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String examPage() {
         return "/teacher/exam/examProxy";
@@ -43,7 +41,6 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/examInfo/{courseId}/{specialtyId}/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean takeExamInfo(@PathVariable("courseId") Integer courseId,
@@ -53,6 +50,7 @@ public class ExamController extends CommonController {
         }
 
         Map<String, Object> specouInfo = new HashMap<String, Object>() {{
+            put("specialtyId", TeacherKit.getCurrentTeacherId());
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
@@ -62,6 +60,7 @@ public class ExamController extends CommonController {
         }
 
         ExamTaken exam = new ExamTaken();
+        exam.setTeacherId(TeacherKit.getCurrentTeacherId());
         exam.setCourseId(courseId);
         exam.setSpecialtyId(specialtyId);
         exam.setStarted(1);
@@ -91,10 +90,13 @@ public class ExamController extends CommonController {
      *
      * @return
      */
-    @RequestMapping(value = "/modal/examInfo/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/modal/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getTableExamInfo() {
-        List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo();
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", TeacherKit.getCurrentTeacherId());
+        }};
+        List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo(params);
         if (null != examTakens) {
             return CommonKit.getTakenInfo(examTakens);
         }
@@ -107,8 +109,7 @@ public class ExamController extends CommonController {
      * @param examInfo
      * @return
      */
-    @RequestMapping(value = "/examInfo/update", method = RequestMethod.POST)
-    @RequiresAuthentication
+    @RequestMapping(value = "/exam/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
@@ -128,16 +129,24 @@ public class ExamController extends CommonController {
     /**
      * 删除考试信息
      *
-     * @param id
+     * @param info
      * @return
      */
-    @RequestMapping(value = "/examInfo/{id}/delete", method = RequestMethod.DELETE)
-    @RequiresAuthentication
+    @RequestMapping(value = "/examInfo/{info}/delete", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean deleteExamInfo(@PathVariable("id") String id) {
+    public boolean deleteExamInfo(@PathVariable("info") String info) {
 
-        return student2ExamService.deleteExamInfo(id);
+        String[] strArray = info.split("&");
+        if (strArray.length != 3) {
+            return false;
+        }
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", strArray[0]);
+            put("courseId", strArray[1]);
+            put("specialtyId", strArray[2]);
+        }};
+        return student2ExamService.deleteExamInfo(params);
     }
 
     /**
@@ -147,12 +156,11 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/{id}/start", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean examStart(@PathVariable("id") String id) {
+    public boolean examStart(@PathVariable("id") Integer id) {
 
-        if (id == null || Objects.equals(id, "")) {
+        if (id == null || Objects.equals(id.toString(), "")) {
             return false;
         }
 
@@ -171,12 +179,11 @@ public class ExamController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/{id}/close", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean examClose(@PathVariable("id") String id) {
+    public boolean examClose(@PathVariable("id") Integer id) {
 
-        if (id == null || Objects.equals(id, "")) {
+        if (id == null || Objects.equals(id.toString(), "")) {
             return false;
         }
 

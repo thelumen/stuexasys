@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public final class Manager implements Serializable{
     private int id;
-    private int managerId;
+    private Integer managerId;
     private String password;
     private String name;
     private Date logintime;
@@ -27,19 +27,19 @@ public final class Manager implements Serializable{
                 '}';
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
 
-    public int getManagerId() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Integer getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(int managerId) {
+    public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
 

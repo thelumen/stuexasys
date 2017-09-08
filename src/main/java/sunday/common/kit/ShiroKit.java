@@ -52,7 +52,7 @@ public final class ShiroKit {
     public static boolean login(String account, String password) {
         boolean isSuccess = false;
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(account, EncryptKit.md5(password));
+        UsernamePasswordToken token = new UsernamePasswordToken(account, password);
         try {
             subject.login(token);
             if (subject.isAuthenticated()) {

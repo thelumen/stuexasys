@@ -53,12 +53,13 @@
                        data-toggle="table"
                        data-height="299"
                        data-method="post"
+                       data-show-refresh="true"
                        data-side-pagination="server"
                        data-row-style="modalRowStyle"
-                       data-url="${pageContext.request.contextPath}/exam/modal/examInfo/list">
+                       data-url="${pageContext.request.contextPath}/exam/modal/list">
                     <thead>
                     <tr>
-                        <th data-field="id" data-visible="false">序列号</th>
+                        <th data-field="id">id</th>
                         <th data-field="courseName">课程名称</th>
                         <th data-field="specialtyName">专业名称</th>
                         <th data-field="test" data-visible="false">开启/关闭标志</th>
@@ -74,7 +75,8 @@
 
 <script>
     //    modal操作
-    function operateModalExamInfo(value, row) {
+    function
+    operateModalExamInfo(value, row) {
         var html = [];
         html.push('<button class="btn btn-primary" type="button" onclick="examStart(\'{0}\')">开启</button>'.replace('{0}', row.id));
         html.push('<button class="btn btn-danger" type="button" onclick="examClose(\'{0}\')">关闭</button>'.replace('{0}', row.id));
@@ -92,7 +94,7 @@
                 }
             },
             error: function () {
-                swal("Erroe", "系统错误，请联系管理员！", "error");
+                swal("Error", "系统错误，请联系管理员！", "error");
             }
         });
     }
@@ -103,12 +105,12 @@
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data === true) {
+                if (data) {
                     $('#teacher_exam_modal_table').bootstrapTable("refresh");
                 }
             },
             error: function () {
-                swal("Erroe", "系统错误，请联系管理员！", "error");
+                swal("Error", "系统错误，请联系管理员！", "error");
             }
         });
     }
@@ -135,13 +137,13 @@
         var table = $('#teacher_exam_table');
         var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
-            url: '${pageContext.request.contextPath}/exam/examInfo/update',
+            url: '${pageContext.request.contextPath}/exam/exam/update',
             data: data,
             contentType: 'application/json',
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data === true) {
+                if (data) {
                     swal("year..", "考试信息已更新!", "success");
                     table.bootstrapTable("refresh");
                 } else {
@@ -155,7 +157,7 @@
         });
     }
     //    删除考试信息
-    function deleteExamInfo(id) {
+    function deleteExamInfo(info) {
         swal({
                 title: "Are you sure?",
                 text: "Something will be delete ?",
@@ -170,7 +172,7 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '${pageContext.request.contextPath}/exam/examInfo/' + id + "/delete",
+                        url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
                         type: 'delete',
                         dataType: 'json',
                         success: function (data) {
@@ -192,7 +194,7 @@
     function operateExamTaken(value, row) {
         var html = [];
         html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
-        html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.id));
+        html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
         return html.join('');
     }
     $(function () {
@@ -248,7 +250,7 @@
                     title: 'id',
                     align: 'center',
                     valign: 'middle'
-                }, {
+                },{
                     field: 'courseName',
                     title: '课程名称',
                     align: 'center',

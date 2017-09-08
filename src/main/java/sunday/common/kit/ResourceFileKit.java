@@ -15,7 +15,7 @@ public final class ResourceFileKit {
     //必须给定一个主目录
     //如果不存在的话，则自动创建
     //假定在Windows系统
-    private static final String HOME = "C:/搬移文件/Desktop/资源文件";
+    private static final String HOME = File.separator + "home" + File.separator + "stuexasys";
 
     private ResourceFileKit() {
     }
@@ -88,7 +88,7 @@ public final class ResourceFileKit {
                 List<Map<String, Object>> father = new ArrayList<>();
                 if (children != null && children.length > 0) {
                     for (File file : children) {
-                        String path=ResourceFileKit.getRelativePath(fileName, file.getPath()).replaceAll("\\\\","%2F");
+                        String path = ResourceFileKit.getRelativePath(fileName, file.getPath()).replaceAll("\\\\", "%2F");
                         Map<String, Object> fileInfo = new HashMap<String, Object>() {{
                             put("name", file.getName());
                             put("path", path);

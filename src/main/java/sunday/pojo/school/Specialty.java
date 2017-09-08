@@ -9,6 +9,7 @@ public final class Specialty {
     private int id;
     private Integer specialtyId;
     private String name;
+    private Integer total;
 
     @Override
     public String toString() {
@@ -16,7 +17,16 @@ public final class Specialty {
                 "id=" + id +
                 ", specialtyId=" + specialtyId +
                 ", name='" + name + '\'' +
+                ", total=" + total +
                 '}';
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public void setId(int id) {

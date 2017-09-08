@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>学生考试系统</title>
-    <%@include file="/common/inc/head.jsp"%>
+    <jsp:include page="/common/inc/head.jsp"></jsp:include>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
 <%@include file="/student/nav/nav.jsp"%>
@@ -48,7 +48,7 @@
                 获取老师上传的学习资源或者作业等
             </p>
             <p>
-                <a href="${pageContext.request.contextPath}/student/resourcesDownload">前往</a>
+                <a href="${pageContext.request.contextPath}/student/resources/download">前往</a>
             </p>
         </div>
     </div>

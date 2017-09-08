@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>个人主页</title>
-    <%@include file="/common/inc/head.jsp" %>
+    <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
         #contentContainer .col-md-4 {
@@ -22,26 +22,34 @@
         <%--校验邮箱--%>
         function validate_email() {
             var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-            var email=$("#email").val();
+            var email = $("#email").val();
             if (!myreg.test(email)) {
-                alert('提示\n\n请输入有效的E_mail！\n\n' + email);
+                swal("enmmmmun....", "这个邮箱应该是错的", "error");
                 return false;
-            } else return true;
+            } else {
+                $("#spanEmailShow").slideToggle("slow");
+                return true;
+            }
         }
         <%--校验号码--%>
         function validate_cellphone() {
             var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-            var cellphone=$("#cellphone").val();
+            var cellphone = $("#cellphone").val();
             if (!myreg.test(cellphone)) {
-                alert('请输入有效的手机号码！');
+                swal("enmmmmun....", "这个号码应该是错的", "error");
                 return false;
-            } else return true;
+            } else {
+                $("#spanCellShow").slideToggle("slow");
+                return true;
+            }
         }
     </script>
     <script>
-        $(document).ready(function () {
+        $(function () {
 //          修改密码 按键
             $("#changePasswordContent").hide();
+            $("#spanEmailShow").hide();
+            $("#spanCellShow").hide();
             $("#changePasswordButton").click(function () {
                 $("#changePasswordContent").slideToggle("slow");
             });
@@ -53,15 +61,15 @@
                     var jsonDate = JSON.stringify(str);
                     $.ajax({
                         type: 'post',
-                        url: '${pageContext.request.contextPath}/student/updateStudentInfo',
+                        url: '${pageContext.request.contextPath}/student/uploadInfo',
                         dataType: "json",
                         data: jsonDate,
                         contentType: 'application/json',
                         success: function (data) {
                             if (data.isSuccess) {
-                                alert("更新成功");
+                                swal("更新成功", "", "success");
                             } else {
-                                alert("更新失败");
+                                swal("enmmmmun....", "土豆服务器可能又坏了", "error");
                             }
                         }
                     })
@@ -95,14 +103,22 @@
                         </select>
                     </label>
                 </p>
-                <p>&nbsp;&nbsp;邮箱：<label>
-                    <input class="form-control" type="text" id="email" name="email" onchange="validate_email()"
-                           value="${studentInfo.email}">
-                </label></p>
-                <p>&nbsp;&nbsp;号码：<label>
-                    <input class="form-control" type="text" id="cellphone" name="cellphone" onchange="validate_cellphone()"
-                           value="${studentInfo.cellphone}">
-                </label></p>
+                <p>&nbsp;&nbsp;邮箱：
+                    <label>
+                        <input class="form-control" type="text" id="email" name="email"
+                               onchange="validate_email()"
+                               value="${studentInfo.email}">
+                    </label>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true" id="spanEmailShow"></span>
+                </p>
+                <p>&nbsp;&nbsp;号码：
+                    <label>
+                        <input class="form-control" type="text" id="cellphone" name="cellphone"
+                               onchange="validate_cellphone()"
+                               value="${studentInfo.cellphone}">
+                    </label>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true" id="spanCellShow"></span>
+                </p>
                 <hr>
                 <button class="btn btn-primary" type="button" id="changePasswordButton">
                     修改密码

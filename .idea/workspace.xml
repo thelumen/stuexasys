@@ -2,32 +2,88 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="教师端判断题显示页">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/common/mycss/mycss.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/showSingleProxy.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/showSingle_content.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/showTfProxy.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/showTf_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/common/example/上传学生表样表.xls" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/enums/DeleteType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/StudentKit.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/QuestionMapper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/dto/Specialty2Course.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/QuestionServiceImp.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/QuestionService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/teacher/QuestionMapper.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/editQuestion/editQuestionProxy.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/editQuestion/editQuestion_content.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/SpringTest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/TypeValidateKit.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/FileTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/ManagerTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/ShiroTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/StudentTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/TeacherTest.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/stuexasys_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/stuexasys_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/a328ed2e-7ec9-4467-bf91-0dc516389e89.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/a328ed2e-7ec9-4467-bf91-0dc516389e89.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/enums/UserTypeEnum.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/enums/UserTypeEnum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/CommonKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/CommonKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ManagerKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ManagerKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ShiroKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ShiroKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/TeacherKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/TeacherKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/realm/MyRealm.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/realm/MyRealm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/ShiroController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/ShiroController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/common/CommonController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/common/CommonController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/ManagerController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/ManagerController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/CourseController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/CourseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/QuestionController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/QuestionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Specialty2CourseMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Specialty2CourseMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Teacher2QuestionMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Teacher2QuestionMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/TfQuestion.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/TfQuestion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Specialty2CourseServiceImp.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Specialty2CourseServiceImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Teacher2QuestionServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Teacher2QuestionServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/manager/CourseService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/manager/CourseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Specialty2CourseService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Specialty2CourseService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Teacher2QuestionService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Teacher2QuestionService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/jdbc/jdbc.properties" afterPath="$PROJECT_DIR$/src/main/resources/config/jdbc/jdbc.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/ExamController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/ExamController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/GradeController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/GradeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/ResourceController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/ResourceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/TeacherController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/TeacherController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/AdminStudentMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/AdminStudentMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/shiro/RoleMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/shiro/RoleMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Student2ExamMapper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/mapper/teacher/Student2ExamMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/manager/Manager.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/manager/Manager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/Specialty.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/Specialty.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/Student.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/school/Student.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentInfo.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/teacher/ExamTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/teacher/ExamTaken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/common/CommonService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/common/CommonService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/shiro/RoleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/shiro/RoleServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Student2ExamServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/teacher/Student2ExamServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/manager/AdminStudentService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/manager/AdminStudentService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/shiro/RoleService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/shiro/RoleService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/student/StudentService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/student/StudentService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Student2ExamService.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/teacher/Student2ExamService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/cache/ehcache.xml" afterPath="$PROJECT_DIR$/src/main/resources/config/cache/ehcache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/log/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/config/log/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/manager/AdminStudentMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/manager/AdminStudentMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/shiro/RoleMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/shiro/RoleMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Specialty2CourseMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Specialty2CourseMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Teacher2QuestionMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Teacher2QuestionMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/main/main_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/main/main_content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/question/question_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/question/question_content.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Student2ExamMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/teacher/Student2ExamMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" afterPath="$PROJECT_DIR$/src/main/resources/sql/stuexasys.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/common/inc/head.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/common/inc/head.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/common/user/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/common/user/login.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/display/display_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/display/display_content.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/nav/nav.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/nav/nav.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/resourcesDownload/resourcesDownloadProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/resourcesDownload/resourcesDownloadProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/teacher/exam/exam_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/teacher/exam/exam_content.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/OrdinaryTest.java" afterPath="$PROJECT_DIR$/src/test/OrdinaryTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stuexasys.iml" afterPath="$PROJECT_DIR$/stuexasys.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/webapp/common/jslib/editable/clear.png" afterPath="$PROJECT_DIR$/src/main/webapp/common/jslib/img/clear.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/webapp/common/jslib/editable/loading.gif" afterPath="$PROJECT_DIR$/src/main/webapp/common/jslib/img/loading.gif" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -73,16 +129,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="QuestionController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="QuestionController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/teacher/QuestionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6870">
-              <caret line="249" column="51" lean-forward="false" selection-start-line="249" selection-start-column="51" selection-end-line="249" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1022#1023#0" expanded="false" />
-                <element signature="e#1078#1079#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="720">
+              <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -110,6 +162,10 @@
                 <element signature="e#1349#1350#0" expanded="false" />
                 <element signature="e#1412#1413#0" expanded="false" />
                 <element signature="e#1480#1481#0" expanded="false" />
+                <element signature="e#2271#2272#0" expanded="false" />
+                <element signature="e#2341#2342#0" expanded="false" />
+                <element signature="e#2413#2414#0" expanded="false" />
+                <element signature="e#2483#2484#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -146,11 +202,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showTf_content.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="showTf_content.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/showTf_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+            <state relative-caret-position="510">
+              <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -222,7 +278,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3090">
               <caret line="118" column="6" lean-forward="false" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#960#961#0" expanded="false" />
+                <element signature="e#1012#1013#0" expanded="false" />
+                <element signature="e#4122#4123#0" expanded="false" />
+                <element signature="e#4161#4162#0" expanded="false" />
+                <element signature="e#6264#6279#0" expanded="false" />
+                <element signature="e#6687#6688#0" expanded="false" />
+                <element signature="e#6730#6731#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -395,7 +460,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -881,6 +945,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1577,6 +1642,7 @@
       <workItem from="1504761833636" duration="3740000" />
       <workItem from="1504769589412" duration="6109000" />
       <workItem from="1504786519707" duration="669000" />
+      <workItem from="1504876923857" duration="657000" />
     </task>
     <task id="LOCAL-00001" summary="异常处理&#10;学生考试页面的组题逻辑部分">
       <created>1503504898615</created>
@@ -1726,7 +1792,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169945000" />
+    <option name="totallyTimeSpent" value="170602000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1739,6 +1805,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="-9" width="1860" height="1098" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1762,7 +1829,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33654878" sideWeight="0.7099664" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22228444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2256439" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1840,20 +1907,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/TeacherKit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/questionProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Program Files/Java/jdk1.8.0_121/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -2121,7 +2174,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3090">
           <caret line="118" column="6" lean-forward="false" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#960#961#0" expanded="false" />
+            <element signature="e#1012#1013#0" expanded="false" />
+            <element signature="e#4122#4123#0" expanded="false" />
+            <element signature="e#4161#4162#0" expanded="false" />
+            <element signature="e#6264#6279#0" expanded="false" />
+            <element signature="e#6687#6688#0" expanded="false" />
+            <element signature="e#6730#6731#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2205,18 +2267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/teacher/QuestionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6870">
-          <caret line="249" column="51" lean-forward="false" selection-start-line="249" selection-start-column="51" selection-end-line="249" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1022#1023#0" expanded="false" />
-            <element signature="e#1078#1079#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/teacher/Teacher2QuestionService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1770">
@@ -2237,6 +2287,10 @@
             <element signature="e#1349#1350#0" expanded="false" />
             <element signature="e#1412#1413#0" expanded="false" />
             <element signature="e#1480#1481#0" expanded="false" />
+            <element signature="e#2271#2272#0" expanded="false" />
+            <element signature="e#2341#2342#0" expanded="false" />
+            <element signature="e#2413#2414#0" expanded="false" />
+            <element signature="e#2483#2484#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2270,8 +2324,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/showTf_content.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="19" column="37" lean-forward="true" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+        <state relative-caret-position="510">
+          <caret line="20" column="38" lean-forward="true" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/TeacherKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/teacher/QuestionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="89" column="5" lean-forward="true" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
           <folding />
         </state>
       </provider>

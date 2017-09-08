@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sunday.common.enums.DeleteType;
 import sunday.common.enums.NumberDifficultyEnum;
 import sunday.common.kit.EncryptKit;
 import sunday.common.kit.MakeTestPaperKit;
@@ -383,9 +384,14 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    public boolean delete(StudentInfo studentInfo) {
-        return studentMapper.delete(new HashMap<String, Object>() {{
-            put("studentId", studentInfo.getStudentId());
-        }}) > 0;
+    public boolean delete(Map<String, Object> params) {
+        switch ((DeleteType) params.get("deleteType")) {
+            case DeleteWithStudentId:
+                return studentMapper.delete(params) > 0;
+            case DeleteWithSpecialtyId:
+                return studentMapper.selectStudentInfo(params).size() <= 0 || studentMapper.delete(params) > 0;
+            default:
+                return false;
+        }
     }
 }

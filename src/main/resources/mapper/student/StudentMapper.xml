@@ -132,7 +132,7 @@
     </insert>
 
     <!--插入学生与权限的关联-->
-    <insert id="insertStudentRole" parameterType="sunday.pojo.school.Student">
+    <insert id="insertStudentRole" parameterType="java.util.Map">
         INSERT INTO stuexasys.com_studnet_l_role (studentId, roleId)
         VALUES (#{studentId,jdbcType=INTEGER}, 4)
     </insert>
@@ -216,7 +216,18 @@
 
     <!--删除学生信息-->
     <delete id="delete" parameterType="java.util.Map">
-        DELETE FROM com_student
-        WHERE studentId = #{studentId,jdbcType=INTEGER}
+        DELETE FROM stuexasys.com_student
+        <where>
+            <if test="studentId != null">
+                AND studentId = #{studentId ,jdbcType=INTEGER}
+            </if>
+            <if test="specialtyId != null">
+                AND specialtyId IN
+                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                    #{specialtyItem}
+                </foreach>
+            </if>
+        </where>
     </delete>
+
 </mapper>

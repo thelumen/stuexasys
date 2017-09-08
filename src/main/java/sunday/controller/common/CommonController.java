@@ -1,6 +1,6 @@
 package sunday.controller.common;
 
-import sunday.pojo.school.Specialty;
+import org.springframework.beans.factory.annotation.Autowired;
 import sunday.service.manager.AdminStudentService;
 import sunday.service.manager.CourseService;
 import sunday.service.manager.ManagerService;
@@ -15,39 +15,42 @@ import sunday.service.teacher.*;
  * At 9:52
  */
 public class CommonController {
-    @javax.annotation.Resource(name = "teacherService")
+    @Autowired
     protected TeacherService teacherService;
 
-    @javax.annotation.Resource(name = "specialty2CourseService")
+    @Autowired
     protected Specialty2CourseService specialty2CourseService;
 
-    @javax.annotation.Resource(name = "student2GradeService")
+    @Autowired
     protected Student2GradeService student2GradeService;
 
-    @javax.annotation.Resource(name = "student2ExamService")
+    @Autowired
     protected Student2ExamService student2ExamService;
 
-    @javax.annotation.Resource(name = "teacher2QuestionService")
+    @Autowired
     protected Teacher2QuestionService teacher2QuestionService;
 
-    @javax.annotation.Resource(name = "studentService")
+    @Autowired
     protected StudentService studentService;
 
-    @javax.annotation.Resource(name = "managerService")
+    @Autowired
     protected ManagerService managerService;
 
-    @javax.annotation.Resource(name = "roleService")
+    @Autowired
     protected RoleService roleService;
 
-    @javax.annotation.Resource(name = "resourceService")
+    @Autowired
     protected ResourceService resourceService;
 
-    @javax.annotation.Resource(name = "adminStudentService")
+    @Autowired
     protected AdminStudentService adminStudentService;
 
-    @javax.annotation.Resource(name = "courseService")
+    @Autowired
     protected CourseService courseService;
 
-    @javax.annotation.Resource(name = "specialtyService")
+    @Autowired
     protected SpecialtyService specialtyService;
+
+    @Autowired
+    protected QuestionService questionService;
 }

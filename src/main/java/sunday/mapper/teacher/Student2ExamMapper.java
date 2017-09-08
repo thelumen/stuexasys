@@ -42,14 +42,15 @@ public interface Student2ExamMapper {
      * @param id
      * @return
      */
-    int deleteExamInfo(String id);
+    int deleteExamInfo(Map<String, Object> id);
 
     /**
      * 获取modal中table的考试信息
      *
      * @return
+     * @param params
      */
-    List<ExamTaken> selectTableExamInfo();
+    List<ExamTaken> selectTableExamInfo(Map<String, Object> params);
 
     /**
      * 开启考试

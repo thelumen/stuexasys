@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>学生测试</title>
-    <%@include file="/common/inc/head.jsp"%>
+    <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
         $(document).ready(function () {
             var examInfo =${testPaper.anotherQuestionTaken.courseId};

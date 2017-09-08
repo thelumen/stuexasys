@@ -12,7 +12,8 @@
 <html>
 <head>
     <title>学生测试</title>
-    <%@include file="/common/inc/head.jsp"%>
+    <jsp:include
+            page="/common/inc/head.jsp"></jsp:include>
     <script>
         $(document).ready(function () {
             $("button.btn-success").click(function () {
@@ -27,9 +28,13 @@
                 } else if (s[2] === "测试三") {
                     testNum = 3;
                 } else testNum = 4;
-                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum};
+                var examInfo = {
+                    "courseId": s[0],
+                    "content": s[1],
+                    "testNum": testNum
+                };
                 var jsonDate = JSON.stringify(examInfo);
-                var myUrl = '${pageContext.request.contextPath}/student/readyTest';
+                var myUrl = '${pageContext.request.contextPath}/student/test/ready';
                 $.ajax({
                     type: 'post',
                     url: myUrl,
@@ -38,8 +43,8 @@
                     data: jsonDate,
                     success: function (data) {
                         if (data.generalTest) {
-                            window.location.href = '${pageContext.request.contextPath}/student/startTest?examInfo=' + data.examInfo;
-                        } else window.location.href = '${pageContext.request.contextPath}/student/startTestAnother?examInfo=' + data.examInfo;
+                            window.location.href = '${pageContext.request.contextPath}/student/test/start/' + data.examInfo;
+                        } else window.location.href = '${pageContext.request.contextPath}/student/test/startAnother/' + data.examInfo;
                     }
                 });
             })
@@ -47,7 +52,7 @@
     </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
-<%@include file="/student/nav/nav.jsp"%>
+<%@include file="/student/nav/nav.jsp" %>
 <br>
 <div class="container" style="background: #BCD2EE">
     <div class="row">
@@ -64,21 +69,26 @@
                 </thead>
                 <tbody>
                 <c:if test="${!empty studentExamInfo}">
-                    <c:forEach items="${studentExamInfo}" var="Info" varStatus="status">
+                    <c:forEach items="${studentExamInfo}" var="Info"
+                               varStatus="status">
                         <tr class="rowId">
                             <td>${Info.courseName}</td>
                             <td>${Info.testNum}</td>
                             <td>${Info.content}</td>
-                            <td><fum:formatDate value="${Info.date}" pattern="yyyy-MM-dd"/></td>
+                            <td><fum:formatDate value="${Info.date}"
+                                                pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <c:if test="${Info.test==1}">
-                                    <button type="button" class="btn btn-success"
+                                    <button type="button"
+                                            class="btn btn-success"
                                             value="${Info.courseId}_${Info.content}_${Info.testNum}">
                                         <label>开始考试</label>
                                     </button>
                                 </c:if>
                                 <c:if test="${!(Info.test==1)}">
-                                    <button type="button" class="btn btn-primary" disabled="disabled">
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            disabled="disabled">
                                         <label>等待开始</label>
                                     </button>
                                 </c:if>

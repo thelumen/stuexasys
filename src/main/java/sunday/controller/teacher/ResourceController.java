@@ -1,10 +1,10 @@
 package sunday.controller.teacher;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sunday.common.kit.CommonKit;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/resource")
-public class ResourceController extends CommonController{
+public class ResourceController extends CommonController {
 
     /**
      * 转到资源上传页
@@ -31,7 +31,6 @@ public class ResourceController extends CommonController{
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String resourcePage() {
         return "/teacher/resource/resourceProxy";
@@ -46,12 +45,7 @@ public class ResourceController extends CommonController{
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
         List<String> directories = ResourceFileKit.getHomeDirectories();
-        if (null != directories) {
-            List<Map<String, Object>> target = new ArrayList<>();
-            TeacherKit.getSelectInfo(directories, target);
-            return target;
-        }
-        return null;
+        return null != directories ? TeacherKit.getSelectInfo(directories) : null;
     }
 
     /**
@@ -63,14 +57,13 @@ public class ResourceController extends CommonController{
      * @throws IOException
      */
     @RequestMapping(value = "/{directoryName}/upload", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean uploadFiles(@PathVariable("directoryName") String directoryName,
                                @RequestParam("files") List<MultipartFile> files) {
         String directory;
         try {
-            directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
+            directory = CommonKit.string2Chinese(directoryName);
             //HOME主目录下的某一directory
             String realPath = ResourceFileKit.getHome() + File.separator + directory;
             File child = new File(realPath);
@@ -102,15 +95,9 @@ public class ResourceController extends CommonController{
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) {
-        String directory;
-        try {
-            directory = new String(directoryName.getBytes("iso8859-1"), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
-
+        String directory = CommonKit.string2Chinese(directoryName);
         String deepPath = ResourceFileKit.getHome() + File.separator + directory;
+
         File home = new File(deepPath);
         if (home.exists() && home.isDirectory()) {
             File[] children = home.listFiles();

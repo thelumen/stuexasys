@@ -1,6 +1,5 @@
 package sunday.controller.manager;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +29,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = {"shiro:sys:manager"})
     public String retTeacher() {
         return "/manager/teacher/teacherProxy";
@@ -55,7 +53,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     public String insert(Model model) {
         model.addAttribute("action", "insert");
@@ -69,7 +66,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     public String insert(Teacher teacher) {
         Map<String, Object> teacherParams = new HashMap<String, Object>() {{
@@ -100,7 +96,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/delete/{teacherId}", method = RequestMethod.DELETE)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean delete(@PathVariable(value = "teacherId") int teacherId) {
@@ -115,7 +110,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/edit/{teacherId}", method = RequestMethod.GET)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Model model, @PathVariable(value = "teacherId") Integer teacherId) {
         getTeacherInfo(model, teacherId);
@@ -146,7 +140,6 @@ public class TeacherInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    @RequiresAuthentication
     @RequiresPermissions(value = "shiro:sys:manager")
     public String edit(Teacher teacher) {
         Map<String, Object> params = new HashMap<String, Object>() {{

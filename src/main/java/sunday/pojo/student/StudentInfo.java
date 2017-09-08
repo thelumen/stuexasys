@@ -1,5 +1,6 @@
 package sunday.pojo.student;
 
+import sunday.common.enums.DeleteType;
 import sunday.common.enums.UpdateType;
 
 /**
@@ -18,6 +19,15 @@ public final class StudentInfo{
     private String cellphone;
     private String email;
     private UpdateType updateType;
+    private DeleteType deleteType;
+
+    public DeleteType getDeleteType() {
+        return deleteType;
+    }
+
+    public void setDeleteType(DeleteType deleteType) {
+        this.deleteType = deleteType;
+    }
 
     public String getName() {
         return name;

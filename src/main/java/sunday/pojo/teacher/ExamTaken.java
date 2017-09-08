@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public final class ExamTaken {
     private int id;
+    private Integer teacherId;
 
     private Integer courseId;
     private String courseName;
@@ -44,7 +45,7 @@ public final class ExamTaken {
     @Override
     public String toString() {
         return "ExamTaken{" +
-                "id=" + id +
+                "teacherId=" + teacherId +
                 ", courseId=" + courseId +
                 ", courseName='" + courseName + '\'' +
                 ", specialtyId=" + specialtyId +
@@ -71,6 +72,14 @@ public final class ExamTaken {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Integer getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
     public Integer getCourseId() {

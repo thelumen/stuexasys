@@ -7,7 +7,8 @@ import sunday.pojo.manager.Manager;
  * At 21:53
  */
 public final class ManagerKit {
-    private ManagerKit(){}
+    private ManagerKit() {
+    }
 
     /**
      * 获取当前管理员身份id
@@ -17,6 +18,15 @@ public final class ManagerKit {
     public static Integer getCurrentManagerId() {
 
         return ((Manager) ShiroKit.getSession().getAttribute("currentManager")).getManagerId();
+    }
+
+    /**
+     * 获取当前登录管理员信息
+     *
+     * @return
+     */
+    public static Manager getCurrentManager() {
+        return ((Manager) ShiroKit.getSession().getAttribute("currentManager"));
     }
 
 }
