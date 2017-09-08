@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-    <mapper namespace="sunday.mapper.teacher.Specialty2CourseMapper">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sunday.mapper.teacher.Specialty2CourseMapper">
 
     <!--新增专业-->
     <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
@@ -88,8 +88,7 @@
 
     <!--删除选课信息-->
     <delete id="deleteTakenInfo" parameterType="java.util.Map">
-        DELETE l FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
-        WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND l.specialtyId=s.specialtyId
-        AND t.teacherId=#{teacherId,jdbcType=INTEGER} AND c.name=#{courseName,jdbcType=VARCHAR} AND s.name=#{specialtyName,jdbcType=VARCHAR}
+        DELETE FROM com_teacher_l_course
+        WHERE teacherId=#{teacherId,jdbcType=INTEGER} AND courseId=#{courseId,jdbcType=INTEGER} AND specialtyId=#{specialtyId,jdbcType=INTEGER}
     </delete>
 </mapper>

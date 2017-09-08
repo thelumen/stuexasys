@@ -94,14 +94,13 @@ public class CourseController extends CommonController {
         if (Objects.equals(content, "")) {
             return false;
         }
-        String targetStr = new String(content.getBytes("iso8859-1"), "utf-8");
-        //此数组有三个数值，teacherId+courseName+specialtyName
-        String[] target = targetStr.split("&");
+        //此数组有三个数值，teacherId+courseId+specialtyId
+        String[] target = content.split("&");
         if (target.length == 3) {
             Map<String, Object> params = new HashMap<String, Object>() {{
                 put("teacherId", target[0]);
-                put("courseName", target[1]);
-                put("specialtyName", target[2]);
+                put("courseId", target[1]);
+                put("specialtyId", target[2]);
             }};
 
             return specialty2CourseService.deleteTakenInfo(params);
