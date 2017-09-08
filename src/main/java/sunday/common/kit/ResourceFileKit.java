@@ -15,7 +15,7 @@ public final class ResourceFileKit {
     //必须给定一个主目录
     //如果不存在的话，则自动创建
     //假定在Windows系统
-    private static final String HOME = "E:\\搬移文件\\Desktop\\考核";
+    private static final String HOME = File.separator + "home" + File.separator + "stuexasys";
 
     private ResourceFileKit() {
     }

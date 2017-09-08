@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>测试</title>
-    <jsp:include page="${pageContext.request.contextPath}/common/inc/head.jsp"></jsp:include>
+    <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
         $(document).ready(function () {
             var ans = '${testPaper.singleTakenList[0].courseId},';
