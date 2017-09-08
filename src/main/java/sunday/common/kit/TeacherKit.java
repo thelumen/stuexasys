@@ -2,6 +2,7 @@ package sunday.common.kit;
 
 import sunday.pojo.teacher.Teacher;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +26,20 @@ public final class TeacherKit {
 
     /**
      * 设置select2所需要的数据格式
+     * (针对文件资源的上传和下载)
      *
      * @param target
-     * @param father
+     * @return
      */
-    public static void getSelectInfo(List<String> target, List<Map<String, Object>> father) {
+    public static List<Map<String, Object>> getSelectInfo(List<String> target) {
+        List<Map<String, Object>> father = new ArrayList<>();
         for (String chapterName : target) {
             Map<String, Object> child = new HashMap<String, Object>() {{
-                put("id", chapterName);
+                put("id", CommonKit.chinese2CharNumber(chapterName));
                 put("text", chapterName);
             }};
             father.add(child);
         }
+        return father;
     }
 }

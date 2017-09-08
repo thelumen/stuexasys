@@ -128,9 +128,8 @@ public class QuestionController extends CommonController {
         if (null != questions) {
             //按章节排序
             List<String> target = ChapterKit.bubbleSort(questions);
-            List<Map<String, Object>> father = new ArrayList<>();
-            TeacherKit.getSelectInfo(target, father);
-            return father;
+
+            return TeacherKit.getSelectInfo(target);
         }
         return null;
     }

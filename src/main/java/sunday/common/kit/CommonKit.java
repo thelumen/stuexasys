@@ -2,6 +2,7 @@ package sunday.common.kit;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,47 @@ import java.util.Map;
  * At 22:38
  */
 public final class CommonKit {
+
+    private static final Logger LOGGER = LogKit.getLogger();
+
     private CommonKit() {
+    }
+
+    /**
+     * 全中文转换成char数字的伪加密
+     *
+     * @param target
+     * @return
+     */
+    public static String chinese2CharNumber(String target) {
+        char[] srcChars = target.toCharArray();
+        StringBuilder store = new StringBuilder();
+        for (int i : srcChars) {
+            store.append(i).append("&");
+        }
+        store.deleteCharAt(store.length() - 1);
+        return store.toString();
+    }
+
+    /**
+     * 对应chinese2CharNumber方法的伪解密
+     *
+     * @param target
+     * @return
+     */
+    public static String string2Chinese(String target) {
+        String[] array = target.split("&");
+        StringBuilder last = new StringBuilder();
+        try {
+            for (String s : array) {
+                int temp = Integer.parseInt(s);
+                last.append((char) temp);
+            }
+        } catch (NumberFormatException e) {
+            LOGGER.error("String转换Number时发生错误，发生在类：{}。输入String值为：{}", ClassKit.getClassName(), target);
+        }
+
+        return last.toString();
     }
 
     /**
