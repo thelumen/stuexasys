@@ -7,12 +7,12 @@
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
-    <schema id="4" parent="1" name="jiangrijiu"/>
-    <schema id="5" parent="1" name="mysql"/>
-    <schema id="6" parent="1" name="performance_schema"/>
-    <schema id="7" parent="1" name="sys"/>
-    <schema id="8" parent="1" name="test"/>
-    <schema id="9" parent="1" name="yangxuyue"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <schema id="7" parent="1" name="comleasys"/>
+    <schema id="8" parent="1" name="testdb"/>
+    <schema id="9" parent="1" name="zheng"/>
     <table id="10" parent="2" name="com_another_question">
       <Comment>附加题表</Comment>
     </table>
@@ -52,7 +52,9 @@
     <table id="22" parent="2" name="com_student_l_another_question">
       <Comment>学生附加题答题内容存储表</Comment>
     </table>
-    <table id="23" parent="2" name="com_studnet_l_role"/>
+    <table id="23" parent="2" name="com_studnet_l_role">
+      <Comment>学生角色连接表</Comment>
+    </table>
     <table id="24" parent="2" name="com_teacher">
       <Comment>教师表</Comment>
     </table>
@@ -135,760 +137,754 @@
       <ColNames>courseId</ColNames>
       <UnderlyingIndexName>com_course</UnderlyingIndexName>
     </key>
-    <column id="41" parent="12" name="id">
-      <Position>1</Position>
-      <Comment>主键</Comment>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="42" parent="12" name="specialtyId">
+    <column id="41" parent="12" name="specialtyId">
       <Position>2</Position>
       <Comment>班级id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="43" parent="12" name="courseId">
+    <column id="42" parent="12" name="courseId">
       <Position>3</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="44" parent="12" name="content1">
+    <column id="43" parent="12" name="content1">
       <Position>4</Position>
       <Comment>考察章节一</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="45" parent="12" name="date1">
+    <column id="44" parent="12" name="date1">
       <Position>5</Position>
       <Comment>考察时间一</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="46" parent="12" name="sign1">
+    <column id="45" parent="12" name="sign1">
       <Position>6</Position>
       <Comment>考察1，0为关闭，1为开启</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="47" parent="12" name="content2">
+    <column id="46" parent="12" name="content2">
       <Position>7</Position>
       <Comment>考察章节二</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="48" parent="12" name="date2">
+    <column id="47" parent="12" name="date2">
       <Position>8</Position>
       <Comment>考察时间二</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="49" parent="12" name="sign2">
+    <column id="48" parent="12" name="sign2">
       <Position>9</Position>
       <Comment>考察2，0为关闭，1为开启</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="50" parent="12" name="content3">
+    <column id="49" parent="12" name="content3">
       <Position>10</Position>
       <Comment>考察章节三</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="51" parent="12" name="date3">
+    <column id="50" parent="12" name="date3">
       <Position>11</Position>
       <Comment>考察时间三</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="52" parent="12" name="sign3">
+    <column id="51" parent="12" name="sign3">
       <Position>12</Position>
       <Comment>考察3，0为关闭，1为开启</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="53" parent="12" name="date4">
+    <column id="52" parent="12" name="date4">
       <Position>13</Position>
       <Comment>附加题考察时间</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="54" parent="12" name="sign4">
+    <column id="53" parent="12" name="sign4">
       <Position>14</Position>
       <Comment>考察4，0为关闭，1为开启</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="55" parent="12" name="test">
+    <column id="54" parent="12" name="test">
       <Position>15</Position>
       <Comment>是否可以测试，0不可，1可以</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="56" parent="12" name="started">
+    <column id="55" parent="12" name="started">
       <Position>16</Position>
       <Comment>考试是否开启，0未开启，1开启</Comment>
       <DataType>int(1)|0</DataType>
     </column>
-    <key id="57" parent="12" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="58" parent="13" name="studentId">
+    <column id="56" parent="12" name="teacherId">
+      <Position>1</Position>
+      <Comment>教师id</Comment>
+      <DataType>int(6)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="13" name="studentId">
       <Position>1</Position>
       <Comment>学号</Comment>
       <DataType>int(9)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="59" parent="13" name="courseId">
+    <column id="58" parent="13" name="courseId">
       <Position>2</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="60" parent="13" name="grade1">
+    <column id="59" parent="13" name="grade1">
       <Position>3</Position>
       <Comment>成绩一</Comment>
       <DataType>int(3)|0</DataType>
     </column>
-    <column id="61" parent="13" name="grade2">
+    <column id="60" parent="13" name="grade2">
       <Position>4</Position>
       <Comment>成绩二</Comment>
       <DataType>int(3)|0</DataType>
     </column>
-    <column id="62" parent="13" name="grade3">
+    <column id="61" parent="13" name="grade3">
       <Position>5</Position>
       <Comment>成绩三</Comment>
       <DataType>int(3)|0</DataType>
     </column>
-    <column id="63" parent="13" name="grade4">
+    <column id="62" parent="13" name="grade4">
       <Position>6</Position>
       <Comment>附加题</Comment>
       <DataType>int(3)|0</DataType>
     </column>
-    <column id="64" parent="13" name="total">
+    <column id="63" parent="13" name="total">
       <Position>7</Position>
       <Comment>总成绩</Comment>
       <DataType>int(3)|0</DataType>
     </column>
-    <key id="65" parent="13" name="PRIMARY">
+    <key id="64" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>studentId
 courseId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="66" parent="14" name="id">
+    <column id="65" parent="14" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="67" parent="14" name="managerId">
+    <column id="66" parent="14" name="managerId">
       <Position>2</Position>
       <Comment>管理员id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="68" parent="14" name="password">
+    <column id="67" parent="14" name="password">
       <Position>3</Position>
       <Comment>登录密码</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="69" parent="14" name="name">
+    <column id="68" parent="14" name="name">
       <Position>4</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(50)|0</DataType>
       <DefaultExpression>&apos;管理员&apos;</DefaultExpression>
     </column>
-    <column id="70" parent="14" name="logintime">
+    <column id="69" parent="14" name="logintime">
       <Position>5</Position>
       <Comment>登录时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="71" parent="14" name="ip">
+    <column id="70" parent="14" name="ip">
       <Position>6</Position>
       <Comment>登录ip</Comment>
       <DataType>varchar(15)|0</DataType>
     </column>
-    <index id="72" parent="14" name="managerId">
+    <index id="71" parent="14" name="managerId">
       <ColNames>managerId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="73" parent="14" name="PRIMARY">
+    <key id="72" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="74" parent="14" name="managerId">
+    <key id="73" parent="14" name="managerId">
       <ColNames>managerId</ColNames>
       <UnderlyingIndexName>managerId</UnderlyingIndexName>
     </key>
-    <column id="75" parent="15" name="managerId">
+    <column id="74" parent="15" name="managerId">
       <Position>1</Position>
       <Comment>管理员id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="76" parent="15" name="roleId">
+    <column id="75" parent="15" name="roleId">
       <Position>2</Position>
       <Comment>角色id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="77" parent="15" name="managerId">
+    <index id="76" parent="15" name="managerId">
       <ColNames>managerId</ColNames>
     </index>
-    <index id="78" parent="15" name="roleId">
+    <index id="77" parent="15" name="roleId">
       <ColNames>roleId</ColNames>
     </index>
-    <key id="79" parent="15" name="PRIMARY">
+    <key id="78" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>managerId
 roleId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="80" parent="15" name="com_manager_l_role_fk1">
+    <foreign-key id="79" parent="15" name="com_manager_l_role_fk1">
       <ColNames>managerId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_manager</RefTableName>
       <RefColNames>managerId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="81" parent="15" name="com_manager_l_role_fk2">
+    <foreign-key id="80" parent="15" name="com_manager_l_role_fk2">
       <ColNames>roleId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_role</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="82" parent="16" name="id">
+    <column id="81" parent="16" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="83" parent="16" name="name">
+    <column id="82" parent="16" name="name">
       <Position>2</Position>
       <Comment>资源名称</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="84" parent="16" name="remark">
+    <column id="83" parent="16" name="remark">
       <Position>3</Position>
       <Comment>备注</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="85" parent="16" name="permission">
+    <column id="84" parent="16" name="permission">
       <Position>4</Position>
       <Comment>permission许可编码</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="86" parent="16" name="url">
+    <column id="85" parent="16" name="url">
       <Position>5</Position>
       <Comment>资源地址</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <index id="87" parent="16" name="permission">
+    <index id="86" parent="16" name="permission">
       <ColNames>permission</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="88" parent="16" name="PRIMARY">
+    <key id="87" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="89" parent="16" name="permission">
+    <key id="88" parent="16" name="permission">
       <ColNames>permission</ColNames>
       <UnderlyingIndexName>permission</UnderlyingIndexName>
     </key>
-    <column id="90" parent="17" name="id">
+    <column id="89" parent="17" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="91" parent="17" name="name">
+    <column id="90" parent="17" name="name">
       <Position>2</Position>
       <Comment>角色名称</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="92" parent="17" name="remark">
+    <column id="91" parent="17" name="remark">
       <Position>3</Position>
       <Comment>备注</Comment>
       <DataType>varchar(250)|0</DataType>
     </column>
-    <index id="93" parent="17" name="name">
+    <index id="92" parent="17" name="name">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="94" parent="17" name="PRIMARY">
+    <key id="93" parent="17" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="95" parent="17" name="name">
+    <key id="94" parent="17" name="name">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
-    <column id="96" parent="18" name="roleId">
+    <column id="95" parent="18" name="roleId">
       <Position>1</Position>
       <Comment>角色id</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="97" parent="18" name="resourceId">
+    <column id="96" parent="18" name="resourceId">
       <Position>2</Position>
       <Comment>资源id</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="98" parent="18" name="resourceId">
+    <index id="97" parent="18" name="resourceId">
       <ColNames>resourceId</ColNames>
     </index>
-    <index id="99" parent="18" name="roleId">
+    <index id="98" parent="18" name="roleId">
       <ColNames>roleId</ColNames>
     </index>
-    <key id="100" parent="18" name="PRIMARY">
+    <key id="99" parent="18" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>roleId
 resourceId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="101" parent="18" name="com_role_l_resource_fk1">
+    <foreign-key id="100" parent="18" name="com_role_l_resource_fk1">
       <ColNames>roleId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_role</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="102" parent="18" name="com_role_l_resource_fk2">
+    <foreign-key id="101" parent="18" name="com_role_l_resource_fk2">
       <ColNames>resourceId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_resource</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="103" parent="19" name="id">
+    <column id="102" parent="19" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>bigint(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="104" parent="19" name="courseId">
+    <column id="103" parent="19" name="courseId">
       <Position>2</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="105" parent="19" name="section">
+    <column id="104" parent="19" name="section">
       <Position>3</Position>
       <Comment>章节</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="106" parent="19" name="levels">
+    <column id="105" parent="19" name="levels">
       <Position>4</Position>
       <Comment>难度等级</Comment>
       <DataType>int(1)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="107" parent="19" name="content">
+    <column id="106" parent="19" name="content">
       <Position>5</Position>
       <Comment>题目正文</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="108" parent="19" name="que1">
+    <column id="107" parent="19" name="que1">
       <Position>6</Position>
       <Comment>选项1</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="109" parent="19" name="que2">
+    <column id="108" parent="19" name="que2">
       <Position>7</Position>
       <Comment>选项2</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="110" parent="19" name="que3">
+    <column id="109" parent="19" name="que3">
       <Position>8</Position>
       <Comment>选项3</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="111" parent="19" name="que4">
+    <column id="110" parent="19" name="que4">
       <Position>9</Position>
       <Comment>选项4</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="112" parent="19" name="result">
+    <column id="111" parent="19" name="result">
       <Position>10</Position>
       <Comment>答案</Comment>
       <DataType>char(1)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="113" parent="19" name="PRIMARY">
+    <key id="112" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="114" parent="20" name="id">
+    <column id="113" parent="20" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="115" parent="20" name="specialtyId">
+    <column id="114" parent="20" name="specialtyId">
       <Position>2</Position>
       <Comment>专业id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="116" parent="20" name="name">
+    <column id="115" parent="20" name="name">
       <Position>3</Position>
       <Comment>专业名称</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="117" parent="20" name="com_specialty">
+    <index id="116" parent="20" name="com_specialty">
       <ColNames>specialtyId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="118" parent="20" name="PRIMARY">
+    <key id="117" parent="20" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="119" parent="20" name="com_specialty">
+    <key id="118" parent="20" name="com_specialty">
       <ColNames>specialtyId</ColNames>
       <UnderlyingIndexName>com_specialty</UnderlyingIndexName>
     </key>
-    <column id="120" parent="21" name="id">
+    <column id="119" parent="21" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>bigint(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="121" parent="21" name="studentId">
+    <column id="120" parent="21" name="studentId">
       <Position>2</Position>
       <Comment>学号</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="122" parent="21" name="password">
+    <column id="121" parent="21" name="password">
       <Position>3</Position>
       <Comment>登录密码</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="123" parent="21" name="name">
+    <column id="122" parent="21" name="name">
       <Position>4</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(50)|0</DataType>
       <DefaultExpression>&apos;辽工学子&apos;</DefaultExpression>
     </column>
-    <column id="124" parent="21" name="specialtyId">
+    <column id="123" parent="21" name="specialtyId">
       <Position>5</Position>
       <Comment>班级id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="125" parent="21" name="gender">
+    <column id="124" parent="21" name="gender">
       <Position>6</Position>
       <Comment>性别</Comment>
       <DataType>char(2)|0</DataType>
     </column>
-    <column id="126" parent="21" name="cellphone">
+    <column id="125" parent="21" name="cellphone">
       <Position>7</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(11)|0</DataType>
     </column>
-    <column id="127" parent="21" name="email">
+    <column id="126" parent="21" name="email">
       <Position>8</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <index id="128" parent="21" name="com_student">
+    <index id="127" parent="21" name="com_student">
       <ColNames>studentId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="129" parent="21" name="PRIMARY">
+    <key id="128" parent="21" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="130" parent="21" name="com_student">
+    <key id="129" parent="21" name="com_student">
       <ColNames>studentId</ColNames>
       <UnderlyingIndexName>com_student</UnderlyingIndexName>
     </key>
-    <column id="131" parent="22" name="id">
+    <column id="130" parent="22" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>bigint(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="132" parent="22" name="studentId">
+    <column id="131" parent="22" name="studentId">
       <Position>2</Position>
       <Comment>学生id</Comment>
       <DataType>int(9)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="133" parent="22" name="courseId">
+    <column id="132" parent="22" name="courseId">
       <Position>3</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="134" parent="22" name="result">
+    <column id="133" parent="22" name="result">
       <Position>4</Position>
       <Comment>学生答案</Comment>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="135" parent="22" name="PRIMARY">
+    <key id="134" parent="22" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>studentId
 courseId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="136" parent="23" name="studentId">
+    <column id="135" parent="23" name="studentId">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="137" parent="23" name="roleId">
+    <column id="136" parent="23" name="roleId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="138" parent="23" name="roleId">
+    <index id="137" parent="23" name="roleId">
       <ColNames>roleId</ColNames>
     </index>
-    <key id="139" parent="23" name="PRIMARY">
+    <key id="138" parent="23" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>studentId
 roleId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="140" parent="23" name="com_studnet_l_role_ibfk_1">
+    <foreign-key id="139" parent="23" name="com_studnet_l_role_ibfk_1">
       <ColNames>studentId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_student</RefTableName>
       <RefColNames>studentId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="141" parent="23" name="com_studnet_l_role_ibfk_2">
+    <foreign-key id="140" parent="23" name="com_studnet_l_role_ibfk_2">
       <ColNames>roleId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_role</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="142" parent="24" name="id">
+    <column id="141" parent="24" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="143" parent="24" name="teacherId">
+    <column id="142" parent="24" name="teacherId">
       <Position>2</Position>
       <Comment>教师id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="144" parent="24" name="password">
+    <column id="143" parent="24" name="password">
       <Position>3</Position>
       <Comment>登录密码</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="145" parent="24" name="name">
+    <column id="144" parent="24" name="name">
       <Position>4</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(50)|0</DataType>
       <DefaultExpression>&apos;辽工教师&apos;</DefaultExpression>
     </column>
-    <column id="146" parent="24" name="gender">
+    <column id="145" parent="24" name="gender">
       <Position>5</Position>
       <Comment>性别</Comment>
       <DataType>char(2)|0</DataType>
     </column>
-    <column id="147" parent="24" name="position">
+    <column id="146" parent="24" name="position">
       <Position>6</Position>
       <Comment>职务</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="148" parent="24" name="office">
+    <column id="147" parent="24" name="office">
       <Position>7</Position>
       <Comment>教研室</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="149" parent="24" name="logintime">
+    <column id="148" parent="24" name="logintime">
       <Position>8</Position>
       <Comment>登录时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="150" parent="24" name="ip">
+    <column id="149" parent="24" name="ip">
       <Position>9</Position>
       <Comment>登录ip</Comment>
       <DataType>char(15)|0</DataType>
     </column>
-    <index id="151" parent="24" name="com_teacher">
+    <index id="150" parent="24" name="com_teacher">
       <ColNames>teacherId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="152" parent="24" name="PRIMARY">
+    <key id="151" parent="24" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="153" parent="24" name="com_teacher">
+    <key id="152" parent="24" name="com_teacher">
       <ColNames>teacherId</ColNames>
       <UnderlyingIndexName>com_teacher</UnderlyingIndexName>
     </key>
-    <column id="154" parent="25" name="teacherId">
+    <column id="153" parent="25" name="teacherId">
       <Position>1</Position>
       <Comment>教师id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="155" parent="25" name="courseId">
+    <column id="154" parent="25" name="courseId">
       <Position>2</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="156" parent="25" name="specialtyId">
+    <column id="155" parent="25" name="specialtyId">
       <Position>3</Position>
       <Comment>专业id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="157" parent="25" name="starttime">
+    <column id="156" parent="25" name="starttime">
       <Position>4</Position>
       <Comment>课程开始时间</Comment>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="158" parent="25" name="endtime">
+    <column id="157" parent="25" name="endtime">
       <Position>5</Position>
       <Comment>课程结束时间</Comment>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="159" parent="25" name="courseId">
+    <index id="158" parent="25" name="courseId">
       <ColNames>courseId</ColNames>
     </index>
-    <index id="160" parent="25" name="specialtyId">
+    <index id="159" parent="25" name="specialtyId">
       <ColNames>specialtyId</ColNames>
     </index>
-    <index id="161" parent="25" name="teacherId">
+    <index id="160" parent="25" name="teacherId">
       <ColNames>teacherId</ColNames>
     </index>
-    <key id="162" parent="25" name="PRIMARY">
+    <key id="161" parent="25" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>teacherId
 courseId
 specialtyId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="163" parent="25" name="com_teacher_l_course_fk1">
+    <foreign-key id="162" parent="25" name="com_teacher_l_course_fk1">
       <ColNames>teacherId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_teacher</RefTableName>
       <RefColNames>teacherId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="164" parent="25" name="com_teacher_l_course_fk2">
+    <foreign-key id="163" parent="25" name="com_teacher_l_course_fk2">
       <ColNames>courseId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_course</RefTableName>
       <RefColNames>courseId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="165" parent="25" name="com_teacher_l_course_fk3">
+    <foreign-key id="164" parent="25" name="com_teacher_l_course_fk3">
       <ColNames>specialtyId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_specialty</RefTableName>
       <RefColNames>specialtyId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="166" parent="26" name="teacherId">
+    <column id="165" parent="26" name="teacherId">
       <Position>1</Position>
       <Comment>教师id</Comment>
       <DataType>int(6)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="167" parent="26" name="roleId">
+    <column id="166" parent="26" name="roleId">
       <Position>2</Position>
       <Comment>角色id</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="168" parent="26" name="roleId">
+    <index id="167" parent="26" name="roleId">
       <ColNames>roleId</ColNames>
     </index>
-    <index id="169" parent="26" name="teacherId">
+    <index id="168" parent="26" name="teacherId">
       <ColNames>teacherId</ColNames>
     </index>
-    <key id="170" parent="26" name="PRIMARY">
+    <key id="169" parent="26" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>teacherId
 roleId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="171" parent="26" name="com_user_l_role_fk1">
+    <foreign-key id="170" parent="26" name="com_teacher_l_role_fk1">
       <ColNames>teacherId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_teacher</RefTableName>
       <RefColNames>teacherId</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="172" parent="26" name="com_user_l_role_fk2">
+    <foreign-key id="171" parent="26" name="com_user_l_role_fk2">
       <ColNames>roleId</ColNames>
       <RefSchemaName>stuexasys</RefSchemaName>
       <RefTableName>com_role</RefTableName>
       <RefColNames>id</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="173" parent="27" name="id">
+    <column id="172" parent="27" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>bigint(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="174" parent="27" name="courseId">
+    <column id="173" parent="27" name="courseId">
       <Position>2</Position>
       <Comment>课程id</Comment>
       <DataType>int(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="175" parent="27" name="section">
+    <column id="174" parent="27" name="section">
       <Position>3</Position>
       <Comment>章节</Comment>
       <DataType>varchar(10)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="176" parent="27" name="levels">
+    <column id="175" parent="27" name="levels">
       <Position>4</Position>
       <Comment>难度等级</Comment>
       <DataType>int(1)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="177" parent="27" name="content">
+    <column id="176" parent="27" name="content">
       <Position>5</Position>
       <Comment>题目正文</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="178" parent="27" name="result">
+    <column id="177" parent="27" name="result">
       <Position>6</Position>
       <Comment>答案</Comment>
       <DataType>int(1)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="179" parent="27" name="PRIMARY">
+    <key id="178" parent="27" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

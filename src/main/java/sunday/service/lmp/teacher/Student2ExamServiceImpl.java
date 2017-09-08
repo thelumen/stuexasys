@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.teacher.Student2ExamMapper;
 import sunday.pojo.teacher.ExamTaken;
 import sunday.service.common.CommonService;
 import sunday.service.teacher.Student2ExamService;
@@ -44,17 +43,13 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
 
     @Override
     @Transactional
-    public boolean deleteExamInfo(String id) {
-        boolean result = false;
-        if (student2ExamMapper.deleteExamInfo(id) > 0) {
-            result = true;
-        }
-        return result;
+    public boolean deleteExamInfo(Map<String, Object> params) {
+        return student2ExamMapper.deleteExamInfo(params) > 0;
     }
 
     @Override
-    public List<ExamTaken> selectTableExamInfo() {
-        List<ExamTaken> examTakens = student2ExamMapper.selectTableExamInfo();
+    public List<ExamTaken> selectTableExamInfo(Map<String, Object> params) {
+        List<ExamTaken> examTakens = student2ExamMapper.selectTableExamInfo(params);
         if (null != examTakens && examTakens.size() > 0) {
             return examTakens;
         }
@@ -64,10 +59,6 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
     @Override
     @Transactional
     public boolean startOrCloseExam(Map<String, Object> params) {
-        boolean result = false;
-        if (student2ExamMapper.startOrCloseExam(params) > 0) {
-            result = true;
-        }
-        return result;
+        return student2ExamMapper.startOrCloseExam(params) > 0;
     }
 }
