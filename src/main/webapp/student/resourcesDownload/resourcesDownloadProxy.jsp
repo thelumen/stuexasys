@@ -62,7 +62,7 @@
                         <div class="panel-collapse collapse" id=${statue.count}>
                             </c:if>
                             <c:forEach items="${Info.directory}" var="FileInfo">
-                                <div class="panel-body">
+                                <div class="panel-body" style="background: #BCD2EE">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-5">

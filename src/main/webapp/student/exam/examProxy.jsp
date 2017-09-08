@@ -12,11 +12,10 @@
 <html>
 <head>
     <title>学生测试</title>
-    <%@include file="/common/inc/head.jsp"%>
+    <%@include file="/common/inc/head.jsp" %>
     <script>
-        $(document).ready(function () {
+        $(function () {
             $("button.btn-success").click(function () {
-//                var modelTitle=this.parent().prev().prev().value;
                 var rows = this.value;
                 var s = rows.split("_");
                 var testNum = 0;
@@ -47,7 +46,7 @@
     </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
-<%@include file="/student/nav/nav.jsp"%>
+<%@include file="/student/nav/nav.jsp" %>
 <br>
 <div class="container" style="background: #BCD2EE">
     <div class="row">

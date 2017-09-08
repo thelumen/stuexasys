@@ -141,14 +141,25 @@
     <insert id="insertGrade" parameterType="java.util.Map">
         INSERT INTO stuexasys.com_grade (studentId, courseId, grade1)
         VALUES (
-            #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
-            #{grade1,jdbcType=INTEGER})
+        #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
+        <if test="grade1!=null">
+            #{grade1,jdbcType=INTEGER}
+        </if>
+        <if test="grade2!=null">
+            #{grade2,jdbcType=INTEGER}
+        </if>
+        <if test="grade3!=null">
+            #{grade3,jdbcType=INTEGER}
+        </if>
     </insert>
 
-    <!--更新学生成绩（除测试一和测试四）-->
+    <!--更新学生成绩（除测试四）-->
     <update id="updateGrade" parameterType="java.util.Map">
         UPDATE stuexasys.com_grade
         <set>
+            <if test="grade1!=null">
+                grade1 = #{grade1,jdbcType=INTEGER}
+            </if>
             <if test="grade2!=null">
                 grade2 = #{grade2,jdbcType=INTEGER}
             </if>

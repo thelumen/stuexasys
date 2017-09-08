@@ -12,7 +12,7 @@
 <%@ page language="java" contentType="application/x-msdownload" pageEncoding="UTF-8" %>
 <%
     //关于文件下载时采用文件流输出的方式处理：
-    String bath = request.getSession().getServletContext().getRealPath("");
+//    String bath = request.getSession().getServletContext().getRealPath("");
     String localPath = "C:/搬移文件/Desktop/资源文件/";
     response.setContentType("application/x-download");
     String fileDownloadName = localPath + request.getParameter("fileDownloadName"); // 下载的文件的物理路径＋文件名
