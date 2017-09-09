@@ -12,6 +12,7 @@
     //初始化
     $(function () {
 
+        $('#specialty').select2();
         initSelect();//初始化下拉框
 
         var selectOption = 1;//默认加载预留专业的学生
@@ -314,10 +315,11 @@
 </script>
 <br>
 <div class="container">
-    <div class="row">
+    <div class="row" id="student_admin_bar">
         <div class="col-md-3">
             <label style="display: block">
-                <select multiple="multiple" class="form-control " id="specialty"></select>
+                <select multiple="multiple" class="form-control "
+                        id="specialty"></select>
             </label>
         </div>
         <div class="col-md-3">
@@ -328,9 +330,8 @@
         <div class="col-md-6">
             <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
             &nbsp;&nbsp;
-            <%--<button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>--%>
-            <%--&nbsp;&nbsp;--%>
-            <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
+            <button class="btn btn-success" type="button" id="uploadStudent"
+                    href="#modal-container-uploadStudent"
                     data-toggle="modal">上传学生
             </button>
         </div>
@@ -342,13 +343,16 @@
     </div>
 
     <%--学生信息上传模态框--%>
-    <div class="modal fade" id="modal-container-uploadStudent" aria-hidden="true" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="modal-container-uploadStudent"
+         aria-hidden="true" aria-labelledby="myModalLabel">
         <form enctype="multipart/form-data" id="uploadForm" method="post">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+                        <button class="close" aria-hidden="true" type="button"
+                                data-dismiss="modal">×
+                        </button>
                         <h4 class="modal-title" id="myModalLabel">
                             上传学生信息
                         </h4>
@@ -358,11 +362,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <br>
-                                <label>&nbsp;&nbsp;请选择需要上传的<strong style="color: #985f0d">学生信息表</strong>：</label>
+                                <label>&nbsp;&nbsp;请选择需要上传的<strong
+                                        style="color: #985f0d">学生信息表</strong>：</label>
                                 <div class="form-group">
                                     <br>
                                     <label>
-                                        <input id="studentExcelFile" multiple type="file" class="file-loading"
+                                        <input id="studentExcelFile" multiple
+                                               type="file" class="file-loading"
                                                name="files">
                                     </label>
                                 </div>
@@ -374,7 +380,9 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
+                        <button class="btn btn-default" type="button"
+                                data-dismiss="modal">关闭
+                        </button>
                     </div>
 
                 </div>
