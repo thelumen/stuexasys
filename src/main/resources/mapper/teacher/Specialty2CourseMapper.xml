@@ -24,15 +24,25 @@
         </if>
     </select>
 
-    <!--查询某科课程的所有章节-->
-    <select id="selectSection" parameterType="java.util.Map" resultType="java.lang.String">
-        SELECT DISTINCT
-        section
-        FROM stuexasys.com_tf_question
-        where
-        <if test="courseId != null">
-             courseId =#{courseId,jdbcType=INTEGER}
-        </if>
+    <!--查询某科课程的所有选择题章节-->
+    <select id="selectSection" parameterType="java.util.Map"
+            resultType="java.lang.String">
+        SELECT DISTINCT section
+        FROM com_tf_question
+        <where>
+            <if test="courseId != null">
+                courseId =#{courseId,jdbcType=INTEGER}
+            </if>
+        </where>
+        UNION SELECT section
+        FROM com_single_question
+        <where>
+            <if test="courseId != null">
+                courseId =#{courseId,jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY
+        field(`section`,"第一章","第二章","第三章","第四章","第五章","第六章","第七章","第八章","第九章","第十章","第十一章","第十二章")
     </select>
 
     <!--查询全部专业-->

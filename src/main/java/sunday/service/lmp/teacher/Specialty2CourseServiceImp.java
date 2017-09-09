@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sunday.mapper.teacher.Specialty2CourseMapper;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
 import sunday.pojo.teacher.CourseTaken;

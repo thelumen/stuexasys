@@ -97,10 +97,8 @@ public class ExamController extends CommonController {
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
         List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo(params);
-        if (null != examTakens) {
-            return CommonKit.getTakenInfo(examTakens);
-        }
-        return null;
+
+        return CommonKit.getTakenInfo(examTakens);
     }
 
     /**
@@ -136,16 +134,17 @@ public class ExamController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean deleteExamInfo(@PathVariable("info") String info) {
-
         String[] strArray = info.split("&");
         if (strArray.length != 3) {
             return false;
         }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", strArray[0]);
             put("courseId", strArray[1]);
             put("specialtyId", strArray[2]);
         }};
+
         return student2ExamService.deleteExamInfo(params);
     }
 
@@ -159,10 +158,6 @@ public class ExamController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examStart(@PathVariable("id") Integer id) {
-
-        if (id == null || Objects.equals(id.toString(), "")) {
-            return false;
-        }
 
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
@@ -182,10 +177,6 @@ public class ExamController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examClose(@PathVariable("id") Integer id) {
-
-        if (id == null || Objects.equals(id.toString(), "")) {
-            return false;
-        }
 
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);

@@ -49,6 +49,10 @@
                 <h4 class="modal-title">开启/关闭考试通道</h4>
             </div>
             <div class="modal-body">
+                <ul>
+                    <li>开启考试的记录行为<strong style="color: red">红色</strong></li>
+                    <li>未开启考试的记录行为<strong>白色</strong></li>
+                </ul>
                 <table id="teacher_exam_modal_table"
                        data-toggle="table"
                        data-height="299"
@@ -56,6 +60,7 @@
                        data-show-refresh="true"
                        data-side-pagination="server"
                        data-row-style="modalRowStyle"
+                       data-query-params="$.fn.bootstrapTable.queryParams"
                        data-url="${pageContext.request.contextPath}/exam/modal/list">
                     <thead>
                     <tr>

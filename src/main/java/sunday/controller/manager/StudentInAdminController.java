@@ -32,7 +32,7 @@ public class StudentInAdminController extends CommonController {
     /**
      * 返回学生编辑页面
      *
-     * @return .
+     * @return
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:manager")
@@ -58,10 +58,8 @@ public class StudentInAdminController extends CommonController {
             }});
         }
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
-        if (null != studentTakenList && studentTakenList.size() != 0) {
-            return CommonKit.getTakenInfo(studentTakenList);
-        }
-        return null;
+
+        return CommonKit.getTakenInfo(studentTakenList);
     }
 
     /**
@@ -101,15 +99,16 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/specialtyDel/{specialtyId}", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteStudentWithSpecialty(@PathVariable(value = "specialtyId") String specialtyId) {
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("deleteType", DeleteType.DeleteWithSpecialtyId);
             put("specialtyId", Arrays.asList(specialtyId.split(",")));
         }};
-        boolean successDelStudent = studentService.delete(params);
-        boolean successDelSpecialty = adminStudentService.deleteSpecialty(params);
-        return (successDelSpecialty && successDelStudent);
+
+        return studentService.delete(params) && adminStudentService.deleteSpecialty(params);
     }
 
     /**
@@ -137,20 +136,18 @@ public class StudentInAdminController extends CommonController {
             @RequestBody Map<String, Object> params,
             @PathVariable(value = "specialtyId") String specialtyId,
             @PathVariable(value = "studentId") String studentId) {
+
         Map<String, Object> selectOption = new HashMap<>();
-        if ("0".equals(specialtyId)) {
-            selectOption.put("specialtyId", null);
-        } else {
+        if (!"0".equals(specialtyId)) {
             selectOption.put("specialtyId", Arrays.asList(specialtyId.split(",")));
         }
-        if ("0".equals(studentId)) {
-            selectOption.put("studentId", null);
-        } else {
+        if (!"0".equals(studentId)) {
             selectOption.put("studentId", studentId);
         }
-        return CommonKit.getTakenInfo(studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption));
-    }
+        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption);
 
+        return CommonKit.getTakenInfo(studentInfos);
+    }
 
     /**
      * 上传学生表处理
@@ -159,56 +156,59 @@ public class StudentInAdminController extends CommonController {
      * @return .
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public int uploadStudentHandle(@RequestParam("files") MultipartFile files) {
-        if (null != files) {
-            try {
-                InputStream input = files.getInputStream();//IOException
-                Workbook workbook = Workbook.getWorkbook(input);//BiffException
-                Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
+        if (null == files) {
+            return MessageInfo.OperationFailed.getMessageId();
+        }
+        try {
+            InputStream input = files.getInputStream();//IOException
+            Workbook workbook = Workbook.getWorkbook(input);//BiffException
+            Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
 
-                int rows = sheet_0.getRows();//获取总行数
-                if (!(Objects.equals(sheet_0.getCell(0, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(1, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(2, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(3, rows).getContents(), ""))
-                        ) {
-                    Set<String> specialtySet = new HashSet<>();
-                    List<Specialty> specialtyList = new ArrayList<>();
-                    List<StudentTaken> studentUploadList = new ArrayList<>();
-
-                    for (int k = 1; k < rows; k++) {
-                        //专业处理
-                        int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
-                        specialtySet.add(sheet_0.getCell(3, k).getContents());
-                        Integer specialtyId = Integer.valueOf(sheet_0.getCell(0, k).getContents().substring(0, 6));//截取学号前六位
-                        if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
-                            Specialty specialty = new Specialty();
-                            specialty.setSpecialtyId(specialtyId);
-                            specialty.setName(specialtyId.toString().substring(0, 2) + specialtySet.toArray()[0]);//在专业前拼接学号前两位
-                            specialtyList.add(specialty);
-                        }
-                        //学生信息处理
-                        StudentTaken studentTaken = new StudentTaken();
-                        studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, k).getContents()));
-                        studentTaken.setName(sheet_0.getCell(1, k).getContents());
-                        studentTaken.setGender(sheet_0.getCell(2, k).getContents());
-                        studentTaken.setSpecialtyId(specialtyId);
-                        studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, k).getContents()));//初始密码为学号
-                        studentUploadList.add(studentTaken);
-                    }
-
-                    Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
-                        put("specialtyInfo", specialtyList);
-                        put("studentUploadList", studentUploadList);
-                    }};
-                    return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
-                }
-            } catch (IOException | BiffException e) {
-                e.printStackTrace();
+            int rows = sheet_0.getRows();//获取总行数
+            if (Objects.equals(sheet_0.getCell(0, rows - 1).getContents(), "") ||
+                    Objects.equals(sheet_0.getCell(1, rows - 1).getContents(), "") ||
+                    Objects.equals(sheet_0.getCell(2, rows - 1).getContents(), "") ||
+                    Objects.equals(sheet_0.getCell(3, rows - 1).getContents(), "")
+                    ) {
                 return MessageInfo.OperationFailed.getMessageId();
             }
+
+            Set<String> specialtySet = new HashSet<>();
+            List<Specialty> specialtyList = new ArrayList<>();
+            List<StudentTaken> studentUploadList = new ArrayList<>();
+
+            for (int k = 1; k < rows; k++) {
+                //专业处理
+                int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
+                specialtySet.add(sheet_0.getCell(3, k).getContents());
+                Integer specialtyId = Integer.valueOf(sheet_0.getCell(0, k).getContents().substring(0, 6));//截取学号前六位
+                if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
+                    Specialty specialty = new Specialty();
+                    specialty.setSpecialtyId(specialtyId);
+                    specialty.setName(specialtyId.toString().substring(0, 2) + specialtySet.toArray()[0]);//在专业前拼接学号前两位
+                    specialtyList.add(specialty);
+                }
+                //新建学生
+                StudentTaken studentTaken = new StudentTaken();
+                studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, k).getContents()));
+                studentTaken.setName(sheet_0.getCell(1, k).getContents());
+                studentTaken.setGender(sheet_0.getCell(2, k).getContents());
+                studentTaken.setSpecialtyId(specialtyId);
+                studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, k).getContents()));//初始密码为学号
+                studentUploadList.add(studentTaken);
+            }
+
+            Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
+                put("specialtyInfo", specialtyList);
+                put("studentUploadList", studentUploadList);
+            }};
+            return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
+        } catch (IOException | BiffException e) {
+            LOGGER.error(e.toString());
+            return MessageInfo.OperationFailed.getMessageId();
         }
-        return MessageInfo.OperationFailed.getMessageId();
     }
 }

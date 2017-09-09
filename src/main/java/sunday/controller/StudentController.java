@@ -171,7 +171,8 @@ public class StudentController extends CommonController {
         if (null != testPaper) {
             model.addAttribute("testPaper", testPaper);
             return "/student/exam/testProxy";
-        } else return "/common/error/error";
+        }
+        return "/common/error/error";
     }
 
     /**
@@ -196,13 +197,16 @@ public class StudentController extends CommonController {
      * @return Map
      */
     @RequestMapping(value = "/uploadGrade", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
         gradeInfo.setStudentId(getStudentIdWithInt());
         if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
-        } else info.put("issuccess", false);
+        } else {
+            info.put("issuccess", false);
+        }
         return info;
     }
 }

@@ -23,35 +23,40 @@
                 total = #{total,jdbcType=INTEGER},
             </if>
         </set>
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =#{courseId,jdbcType=INTEGER}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId
+        =#{courseId,jdbcType=INTEGER}
     </update>
 
     <!--查询学生成绩-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.GradeTaken">
-        SELECT DISTINCT g.studentId AS studentId,s.name AS studentName,c.name AS
-        courseName, g.grade1 AS grade1,g.grade2 AS grade2,g.grade3 AS
-        grade3,g.grade4 AS grade4,g.total AS total,p.name AS
-        specialtyName,p.specialtyId AS specialtyId ,c.courseId AS courseId
-        FROM com_teacher_l_course l,com_teacher t,com_course c,com_grade
-        g,com_student s,com_specialty p
+        SELECT
+        s.studentId,
+        s.name AS studentName,
+        c.courseId,
+        c.name AS courseName,
+        p.name AS specialtyName,
+        p.specialtyId,
+        g.grade1,
+        g.grade2,
+        g.grade3,
+        g.grade4,
+        g.total
+        FROM com_teacher_l_course l,com_grade g,com_student s,com_specialty
+        p,com_course c
         WHERE l.courseId=c.courseId AND l.specialtyId=p.specialtyId AND
-        l.teacherId=t.teacherId
-        AND g.courseId=c.courseId AND g.studentId=s.studentId AND
-        s.specialtyId=p.specialtyId
+        p.specialtyId=s.specialtyId AND s.studentId=g.studentId
+        AND g.courseId=c.courseId
         <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
-        </if>
-        <if test="specialtyName != null">
-            AND p.name=#{specialtyName,jdbcType=VARCHAR}
+            AND l.teacherId=#{teacherId,jdbcType=INTEGER}
         </if>
         <if test="specialtyId != null">
-            AND p.specialtyId=#{specialtyId,jdbcType=INTEGER}
+            AND l.specialtyId=#{specialtyId,jdbcType=INTEGER}
         </if>
         <if test="courseId != null">
-            AND c.courseId=#{courseId,jdbcType=INTEGER}
+            AND l.courseId=#{courseId,jdbcType=INTEGER}
         </if>
-        ORDER BY p.specialtyId ASC
+        ORDER BY l.specialtyId ASC
     </select>
 
     <!--更新附加题成绩-->

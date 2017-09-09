@@ -24,13 +24,11 @@
                 name="section"
                 id="question_tf_section"
                 style="width: 200px">
-
         </select></label>
         <button id="query_tf" class="btn btn-primary"
                 type="button">
             查询
         </button>
-
     </div>
     <table id="tfTable">
     </table>
@@ -67,8 +65,6 @@
             });
         });
 
-
-        var selectOption = 1;//默认加载预留课程的题目
         //格式化表格
         $("#tfTable").bootstrapTable({
             method: "post",
@@ -77,22 +73,20 @@
             idField: "id",
             showRefresh: "true",
             pagination: "true",
+            toolbar: "#tf_select_clause",
             showColumns: "true",
             showExport: "true",
             columns: [{
                 field: 'id',
                 title: '题号',
-                class:"col-md-1",
                 sortable: true
             },{
                 field: 'courseId',
                 title: '课号',
-                class:"col-md-1",
                 sortable: true
             }, {
                 field: 'section',
                 title: '章节',
-                class:"col-md-1",
                 editable: {
                     type: 'text',
                     validate: function (value) {
@@ -104,7 +98,6 @@
             }, {
                 field: 'levels',
                 title: '难度级别',
-                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "简单"}, {value: '2', text: "中等"}, {value: '3', text: "困难"}],
@@ -119,7 +112,6 @@
             }, {
                 field: 'content',
                 title: '题干',
-                class:"col-md-6",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -133,7 +125,6 @@
             }, {
                 field: 'result',
                 title: '答案',
-                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "正确"}, {value: '0', text: "错误"}],
@@ -148,7 +139,6 @@
             }, {
                 field: 'edit',
                 title: '操作',
-                class:"col-md-1",
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]

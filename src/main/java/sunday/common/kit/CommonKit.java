@@ -79,6 +79,30 @@ public final class CommonKit {
     }
 
     /**
+     * 从原始bootstrap-table-map中获取page信息
+     *
+     * @param params
+     * @return
+     */
+    public static Page getOrginMapInfo2Page(Map<String, Object> params) {
+        Page page = new Page();
+        int limit = 1;
+        int offset = 1;
+        if (null != params.get("limit")) {
+            limit = Integer.parseInt(params.get("limit").toString());
+            page.setPageSize(limit);
+        }
+        if (null != params.get("offset")) {
+            offset = Integer.parseInt(params.get("offset").toString()) / limit + 1;
+            page.setPageNum(offset);
+        }
+        if (null != params.get("sort")) {
+            page.setOrderBy(params.get("sort") + " " + params.get("order"));
+        }
+        return page;
+    }
+
+    /**
      * 获取table所需格式
      *
      * @param target

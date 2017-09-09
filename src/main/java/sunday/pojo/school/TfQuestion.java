@@ -14,8 +14,6 @@ public final class TfQuestion implements Serializable{
     private String content;
     private int result;
 
-
-
     @Override
     public String toString() {
         return "TfQuestion{" +
@@ -28,12 +26,12 @@ public final class TfQuestion implements Serializable{
                 '}';
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Integer getCourseId() {

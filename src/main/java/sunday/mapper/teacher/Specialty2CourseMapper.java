@@ -87,4 +87,5 @@ public interface Specialty2CourseMapper {
     List<CourseTaken> selectCourseTaken(Map<String, Object> params);
 
     List<String> selectSection(Map<String, Object> params);
+
 }

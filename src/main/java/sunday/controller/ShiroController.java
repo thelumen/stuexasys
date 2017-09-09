@@ -8,6 +8,7 @@ import sunday.common.enums.UserTypeEnum;
 import sunday.common.kit.EncryptKit;
 import sunday.common.kit.ShiroKit;
 import sunday.common.kit.StringKit;
+import sunday.controller.common.CommonController;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/shiro")
-public class ShiroController {
+public class ShiroController extends CommonController{
 
     /**
      * 转至登录页面
@@ -51,14 +52,7 @@ public class ShiroController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(String account, String password, String type, Model model) {
-
-        if (Objects.equals(account, "") || Objects.equals(password, "") || Objects.equals(type, "")) {
-            model.addAttribute("exception", "请填写完整参数");
-            return "/common/error/error";
-        }
-
         String realAccount = StringKit.trim(account) + type;
-
         String url = "";
         if (ShiroKit.login(realAccount, EncryptKit.md5(password))) {
             for (UserTypeEnum user : UserTypeEnum.values()) {

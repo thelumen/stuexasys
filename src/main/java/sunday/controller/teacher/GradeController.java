@@ -8,10 +8,8 @@ import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.dto.GradePercent;
 import sunday.pojo.teacher.AnotherTaken;
-import sunday.pojo.teacher.CourseTaken;
 import sunday.pojo.teacher.GradeTaken;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +62,10 @@ public class GradeController extends CommonController {
             put("courseId", percentInfo.getCourseId());
         }};
         List<GradeTaken> studentGrades = student2GradeService.selectGradeTaken(null, params);
+        if (null == studentGrades) {
+            return "/teacher/grade/gradeProxy";
+        }
+
         for (GradeTaken studentGrade : studentGrades) {
             float total;
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
@@ -95,10 +97,8 @@ public class GradeController extends CommonController {
             put("courseId", courseId);
         }};
         List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(null, params);
-        if (null != gradeTakens) {
-            return CommonKit.getTakenInfo(gradeTakens);
-        }
-        return null;
+
+        return CommonKit.getTakenInfo(gradeTakens);
     }
 
     /**
@@ -109,28 +109,12 @@ public class GradeController extends CommonController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
-        //封装list
-        List<GradeTaken> target = new ArrayList<>();
-
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
-        List<CourseTaken> courseTakens = specialty2CourseService.selectCourseTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
-        if (null == courseTakens) {
-            return null;
-        }
-        for (CourseTaken course : courseTakens) {
-            teacherInfo.put("specialtyName", course.getSpecialtyName());
-            teacherInfo.put("courseId", course.getCourseId());
-            List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(null, teacherInfo);
-            //本可不用，但是没有学生-专业表数据导致出现java.lang.NullPointerException
-            if (null == gradeTakens) {
-                continue;
-            }
-            target.addAll(gradeTakens);
-        }
+        List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
 
-        return CommonKit.getTakenInfo(target);
+        return CommonKit.getTakenInfo(gradeTakens);
     }
 
     /**
@@ -177,18 +161,17 @@ public class GradeController extends CommonController {
     public AnotherTaken getStudentResult(@PathVariable("content") String content) {
         String[] ele = content.split("&");
         //只有三个值
-        if (ele.length == 3) {
-            Map<String, Object> params = new HashMap<String, Object>() {{
-                put("id", Long.valueOf(ele[0]));
-                put("courseId", ele[1]);
-                put("studentId", ele[2]);
-            }};
-            List<AnotherTaken> takens = teacher2QuestionService.selectAnother(params);
-            if (null != takens) {
-                return takens.get(0);
-            }
+        if (ele.length != 3) {
+            return null;
         }
-        return null;
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("id", Long.valueOf(ele[0]));
+            put("courseId", ele[1]);
+            put("studentId", ele[2]);
+        }};
+        List<AnotherTaken> takens = teacher2QuestionService.selectAnother(params);
+
+        return null != takens ? takens.get(0) : null;
     }
 
     /**
@@ -205,7 +188,6 @@ public class GradeController extends CommonController {
     public boolean recordGrade4(@PathVariable("studentId") Integer studentId,
                                 @PathVariable("courseId") Integer courseId,
                                 @PathVariable("score") int score) {
-
         if (null == studentId || null == courseId) {
             return false;
         }
@@ -213,7 +195,6 @@ public class GradeController extends CommonController {
         if (score > 100) {
             score = 100;
         }
-
         return student2GradeService.updateAnother(studentId, courseId, score);
     }
 }

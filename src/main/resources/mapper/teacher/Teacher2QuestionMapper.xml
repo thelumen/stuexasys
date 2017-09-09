@@ -2,51 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.teacher.Teacher2QuestionMapper">
+
     <!--查询选择题-->
     <select id="selectSingleQuestion" parameterType="java.util.Map"
             resultType="sunday.pojo.school.SingleQuestion">
-        SELECT DISTINCT sq.*
-        FROM com_single_question sq
+        SELECT *
+        FROM com_single_question
         <where>
             <if test="courseId != null">
-                AND sq.courseId=#{courseId,jdbcType=INTEGER}
+                 courseId=#{courseId,jdbcType=INTEGER}
             </if>
-
         </where>
     </select>
 
     <!--按照课程和章节查询选择题-->
-    <select id="selectSingleInfo" parameterType="java.util.Map" resultType="sunday.pojo.school.SingleQuestion">
-        SELECT sq.*
-        from com_single_question sq
+    <select id="selectSingleInfo" parameterType="java.util.Map"
+            resultType="sunday.pojo.school.SingleQuestion">
+        SELECT *
+        FROM com_single_question
         <where>
             <if test="courseId != null">
-                sq.courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId,jdbcType=INTEGER}
             </if>
             <if test="section != null">
-                AND sq.section IN
-                <foreach collection="section" index="index" item="sectionItem" open="(" separator="," close=")">
-                    #{sectionItem,jdbcType=VARCHAR}
-                </foreach>
+                AND section=#{section,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
 
-
     <!--查询判断题-->
     <select id="selectTfInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.school.TfQuestion">
-        SELECT DISTINCT tq.*
-        FROM com_tf_question tq
+        SELECT *
+        FROM com_tf_question
         <where>
             <if test="courseId != null">
-                tq.courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId,jdbcType=INTEGER}
             </if>
             <if test="section != null">
-                AND tq.section IN
-                <foreach collection="section" index="index" item="sectionItem" open="(" separator="," close=")">
-                    #{sectionItem,jdbcType=VARCHAR}
-                </foreach>
+                AND section=#{section,jdbcType=VARCHAR}
             </if>
         </where>
     </select>
@@ -65,7 +59,8 @@
 
 
     <!--更新选择题-->
-    <update id="updateSingleInfo" parameterType="sunday.pojo.school.SingleQuestion">
+    <update id="updateSingleInfo"
+            parameterType="sunday.pojo.school.SingleQuestion">
         UPDATE stuexasys.com_single_question
         <set>
             section=#{section,jdbcType=VARCHAR},
@@ -80,16 +75,15 @@
         where id=#{id,jdbcType=INTEGER}
     </update>
 
-
     <!--删除判断题信息-->
     <delete id="deleteTfInfo" parameterType="sunday.pojo.school.TfQuestion">
         DELETE FROM com_tf_question
         where id=#{id,jdbcType=INTEGER}
     </delete>
 
-
     <!--删除选择题信息-->
-    <delete id="deleteSingleInfo" parameterType="sunday.pojo.school.SingleQuestion">
+    <delete id="deleteSingleInfo"
+            parameterType="sunday.pojo.school.SingleQuestion">
         DELETE FROM com_single_question
         where id=#{id,jdbcType=INTEGER}
     </delete>

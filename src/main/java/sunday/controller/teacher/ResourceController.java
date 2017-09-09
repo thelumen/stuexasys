@@ -77,11 +77,9 @@ public class ResourceController extends CommonController {
                 return true;
             }
         } catch (IOException e) {
-            //这里做日志写入
-            e.printStackTrace();
+            LOGGER.error(e.toString());
             return false;
         }
-
         return false;
     }
 

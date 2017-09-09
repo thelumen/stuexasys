@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.enums.DeleteType;
+import sunday.common.kit.ValidateKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.school.Course;
 import sunday.pojo.school.Specialty;
@@ -67,15 +68,11 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean insertCourse(Course course) {
-        if (course.getCourseId() < 10000000 || course.getCourseId() > 99999999) {
+        //校验
+        if (!ValidateKit.validateCourse(course)) {
             return false;
         }
-        if (Objects.equals(course.getName(), "")) {
-            return false;
-        }
-        if (course.getPeriod() < 0 || course.getPeriod() > 99 || course.getCredit() < 0 || course.getCredit() > 99) {
-            return false;
-        }
+        //课程id不能重复
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", course.getCourseId());
         }};
@@ -94,7 +91,7 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean deleteCourse(@PathVariable("courseId") Integer courseId) {
-        return !(courseId < 10000000 || courseId > 99999999) && courseService.delete(courseId);
+        return courseService.delete(courseId);
     }
 
     /**
@@ -106,14 +103,13 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/course/{courseId}", method = RequestMethod.GET)
     @ResponseBody
     public Course getRowInCourse(@PathVariable("courseId") String courseId) {
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
         List<Course> courses = courseService.select(params);
-        if (null != courses) {
-            return courses.get(0);
-        }
-        return null;
+
+        return null != courses ? courses.get(0) : null;
     }
 
     /**
@@ -126,16 +122,8 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean updateCourse(@RequestBody Course course) {
-        if (course.getCourseId() < 10000000 || course.getCourseId() > 99999999) {
-            return false;
-        }
-        if (Objects.equals(course.getName(), "")) {
-            return false;
-        }
-        if (course.getPeriod() < 0 || course.getPeriod() > 99 || course.getCredit() < 0 || course.getCredit() > 99) {
-            return false;
-        }
-        return courseService.update(course);
+        //通过校验就更新
+        return ValidateKit.validateCourse(course) && courseService.update(course);
     }
 
     /**
@@ -152,12 +140,14 @@ public class SchoolInAdminController extends CommonController {
     public boolean insertSpecialty(@RequestParam(value = "specialtyId") Integer specialtyId,
                                    @RequestParam(value = "year") String year,
                                    @RequestParam(value = "specialtyName") String specialtyName) {
+        //校验
         if (specialtyId < 100000 || specialtyId > 999999) {
             return false;
         }
         if (Objects.equals(year, "") || Objects.equals(specialtyName, "")) {
             return false;
         }
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
         }};
@@ -189,9 +179,7 @@ public class SchoolInAdminController extends CommonController {
                 add(specialtyId.toString());
             }});
         }};
-        boolean successDelStudent = studentService.delete(params);
-        boolean successDelSpecialty = adminStudentService.deleteSpecialty(params);
-        return !(specialtyId < 100000 || specialtyId > 999999) && (successDelSpecialty && successDelStudent);
+        return studentService.delete(params) && adminStudentService.deleteSpecialty(params);
     }
 
     /**
@@ -203,14 +191,13 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/specialty/{specialtyId}", method = RequestMethod.GET)
     @ResponseBody
     public Specialty getRowInSpecialty(@PathVariable("specialtyId") String specialtyId) {
+
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
         }};
         List<Specialty> specialties = specialtyService.select(params);
-        if (null != specialties) {
-            return specialties.get(0);
-        }
-        return null;
+
+        return null != specialties ? specialties.get(0) : null;
     }
 
     /**
@@ -223,14 +210,8 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean updateSpecialty(@RequestBody Specialty specialty) {
-        if (specialty.getSpecialtyId() < 100000 || specialty.getSpecialtyId() > 999999) {
-            return false;
-        }
-        if (Objects.equals(specialty.getName(), "")) {
-            return false;
-        }
-
-        return specialtyService.update(specialty);
+        //校验通过则更新
+        return ValidateKit.validateSpecialty(specialty) && specialtyService.update(specialty);
     }
 
 }

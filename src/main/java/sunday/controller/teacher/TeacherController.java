@@ -47,7 +47,6 @@ public class TeacherController extends CommonController {
             put("teacherId", teacher.getTeacherId());
         }};
         List<Teacher> teachers = teacherService.select(null, params);
-
         if (null != teachers) {
             Teacher t = teachers.get(0);
             //后台接收的密码是加密了的
@@ -57,7 +56,6 @@ public class TeacherController extends CommonController {
             } else {
                 teacher.setPassword(null);
             }
-
             return teacherService.update(teacher);
         }
         return false;

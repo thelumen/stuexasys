@@ -11,11 +11,8 @@
 <script>
     //初始化
     $(function () {
-
         initSelect();//初始化下拉框
-
         var selectOption = 1;//默认加载预留专业的学生
-
         //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
@@ -243,7 +240,6 @@
     //点击事件处理
     window.editBtnEvent = {
         'click .saveChanged': function (e, value, row, index) {
-            alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/admin/student/infoSave',
@@ -261,7 +257,6 @@
             });
         },
         'click .delStu': function (e, value, row, index) {
-            alert('You click like action, row: ' + JSON.stringify(row));
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/admin/student/infoDel',
@@ -297,8 +292,6 @@
         <div class="col-md-6">
             <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
             &nbsp;&nbsp;
-            <%--<button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>--%>
-            <%--&nbsp;&nbsp;--%>
             <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
                     data-toggle="modal">上传学生
             </button>

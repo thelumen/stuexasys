@@ -178,15 +178,14 @@
         var que4 = $("[name='que4']").val();
         if (course.val() !== '' && section.val() !== '' && textarea !== '' && que1 !== '' && que2 !== '' && que3 !== '' && que4 !== '') {
             var formdata = $('#teacher_question_single_form').serializeObject();
-            var data = JSON.stringify(formdata);
             $.ajax({
                 url: '${pageContext.request.contextPath}/question/single/insert',
-                data: data,
+                data: JSON.stringify(formdata),
                 dataType: 'json',
                 type: 'post',
                 contentType: 'application/json',
                 success: function (data) {
-                    if (data === true) {
+                    if (data) {
                         swal("year..", "录入成功！", "success");
                         $("#single_content").val('');
                         $("[name='que1']").val('');
@@ -207,8 +206,6 @@
     function saveTfQuestion() {
         var textarea = $('#tf_content').val();
         if (tfcourse.val() !== '' && tfsection.val() !== '' && textarea !== '') {
-            var formdata = $('#teacher_question_tf_form').serializeObject();
-          //  var data = JSON.stringify(formdata);
             var data=$('#teacher_question_tf_form').serializeArray();
             $.ajax({
                 url: '${pageContext.request.contextPath}/question/tfQuestion/insert',
