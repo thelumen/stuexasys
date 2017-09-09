@@ -8,12 +8,20 @@ public final class SingleTaken {
     private Integer courseId;
     private String section;
     private Integer levels;
-    private String name;
+    private String content;
     private String que1;
     private String que2;
     private String que3;
     private String que4;
     private String result;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public Long getId() {
         return Id;
@@ -29,14 +37,6 @@ public final class SingleTaken {
 
     public void setSection(String section) {
         this.section = section;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getQue1() {

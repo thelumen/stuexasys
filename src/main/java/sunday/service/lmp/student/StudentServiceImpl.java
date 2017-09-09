@@ -2,6 +2,7 @@ package sunday.service.lmp.student;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sunday.common.enums.DeleteType;
@@ -94,30 +95,24 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }};
         String[] strArray = examInfo.getContent().split(",");
         List<String> sectionInfo = new ArrayList<>();
-        /*
-        拼接 章节(sectionInfo) 字符串用于查询
-        */
+        //拼接 章节(sectionInfo) 字符串用于查询
         for (int i = 0; i < strArray.length; i++) {
             strArray[i] = changed.get(strArray[i]);
             sectionInfo.add(strArray[i]);
         }
-        /*
-        将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
-        返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
-        */
+        //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
+        //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
             put("courseId", examInfo.getCourseId());
             put("sectionList", sectionInfo);
         }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
-        //判断返回值不为空 且 选择题数量大于配置枚举中最小数量 判断题数量大于配置枚举最小数量
+        //判断返回值不为空 且 题目数量要大于配置枚举中的题目最小数量
         if (null != singleTakenList && null != tfTakenList) {
             if (singleTakenList.size() >= NumberDifficultyEnum.Total_Single.getNumbers() && tfTakenList.size() >= NumberDifficultyEnum.Total_Tf.getNumbers()) {
-                /*
-                用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
-                传入选择题列表
-                */
+                //用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
+                //传入选择题列表
                 Map<String, Integer> single_1 = new HashMap<>();
                 Map<String, Integer> single_2 = new HashMap<>();
                 Map<String, Integer> single_3 = new HashMap<>();
@@ -126,9 +121,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 Map<String, Integer> tf_2 = new HashMap<>();
                 Map<String, Integer> tf_3 = new HashMap<>();
                 MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3);
-                /*
-                按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
-                */
+                //按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
                 HashSet<Integer> set_s_1 = new HashSet<>();
                 HashSet<Integer> set_s_2 = new HashSet<>();
                 HashSet<Integer> set_s_3 = new HashSet<>();
@@ -141,9 +134,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set_t_1);
                 RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set_t_2);
                 RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set_t_3);
-                /*
-                按上述得到的随机数组从全部列表中得到返回列表
-                */
+                //按上述得到的随机数组从全部列表中得到返回列表
                 List<SingleTaken> testSingleList = new ArrayList<>();
                 List<TfTaken> testTfList = new ArrayList<>();
                 for (Integer aQuestion : set_s_1) {
@@ -164,9 +155,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 for (Integer aQuestion : set_t_3) {
                     testTfList.add(tfTakenList.get(aQuestion));
                 }
-                /*
-                将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
-                */
+                //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
                 TestPaper testPaper = new TestPaper();
                 testPaper.setSingleTakenList(testSingleList);
                 testPaper.setTfTakenList(testTfList);
@@ -189,7 +178,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }};
         AnotherTestTaken anotherTestTaken = studentMapper.selectStudentAnotherQuestionInfo(testInfo);
         List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
-
+        //判断此学生之前有无作答，有就加载同一题并加载其之前作答的答案
         if (null != anotherTestTaken) {
             long anotherQuestionId = anotherTestTaken.getId();
             String studentLastAnswer = anotherTestTaken.getResult();
@@ -199,7 +188,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                     testPaper.setAnotherQuestionTaken(anotherTestTaken1);
                 }
             }
-        } else {
+        } else {//没有就从题库中随机加载一题
             testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random() * anotherTestTakens.size())));
         }
         testPaper.setTestNum(examInfo.getTestNum());
@@ -226,19 +215,19 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 examInfo.setCourseId(examTaken.getCourseId());
                 examInfo.setCourseName(examTaken.getCourseName());
                 examInfo.setTest(examTaken.getTest());
-                if (1 == examTaken.getSign4()) {
+                if (null != examTaken.getSign4() && 1 == examTaken.getSign4()) {
                     examInfo.setContent("0");//附加题章节数设为0
                     examInfo.setDate(examTaken.getDate4());
                     examInfo.setTestNum("测试四");
-                } else if (1 == examTaken.getSign3()) {
+                } else if (null != examTaken.getSign3() && 1 == examTaken.getSign3()) {
                     examInfo.setContent(examTaken.getContent3());
                     examInfo.setDate(examTaken.getDate3());
                     examInfo.setTestNum("测试三");
-                } else if (1 == examTaken.getSign2()) {
+                } else if (null != examTaken.getSign2() && 1 == examTaken.getSign2()) {
                     examInfo.setContent(examTaken.getContent2());
                     examInfo.setDate(examTaken.getDate2());
                     examInfo.setTestNum("测试二");
-                } else if (1 == examTaken.getSign1()) {
+                } else if (null != examTaken.getSign1() && 1 == examTaken.getSign1()) {
                     examInfo.setContent(examTaken.getContent1());
                     examInfo.setDate(examTaken.getDate1());
                     examInfo.setTestNum("测试一");
@@ -286,32 +275,39 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         switch (gradeInfo.getTestNum()) {
             case "1":
                 uploadGrade.put("grade1", gradeInfo.getGrade());
-                if (studentMapper.insertGrade(uploadGrade) == 0) {
-                    studentMapper.updateGrade(uploadGrade);
+                //insert 抛出异常后 执行 catch 块中的 update 并返回成功与否
+                try {
+                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
+                } catch (DataAccessException e) {
+                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
-                changedRow = true;
                 break;
             case "2":
                 uploadGrade.put("grade2", gradeInfo.getGrade());
-                if (studentMapper.updateGrade(uploadGrade) == 0) {
-                    studentMapper.insertGrade(uploadGrade);
+                try {
+                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
+                } catch (DataAccessException e) {
+                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
-                changedRow = true;
                 break;
             case "3":
                 uploadGrade.put("grade3", gradeInfo.getGrade());
-                if (studentMapper.updateGrade(uploadGrade) == 0) {
-                    studentMapper.insertGrade(uploadGrade);
+                try {
+                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
+                } catch (DataAccessException e) {
+                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
-                changedRow = true;
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
-                if (studentMapper.insertAnotherResult(uploadGrade) > 0) {
-                    studentMapper.updateAnotherResult(uploadGrade);
-                    changedRow = true;
+                try {
+                    changedRow = studentMapper.insertAnotherResult(uploadGrade) > 0;
+                } catch (DataAccessException e) {
+                    changedRow = studentMapper.updateAnotherResult(uploadGrade) > 0;
                 }
                 break;
+            default:
+                return false;
         }
         return changedRow;
     }
@@ -323,14 +319,14 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             put("studentId", studentInfo.getStudentId());
         }};
 
-        List<StudentTaken> studentTakens = studentMapper.selectStudentInfo(params);
+        List<StudentTaken> studentTaken = studentMapper.selectStudentInfo(params);
 
         switch (studentInfo.getUpdateType()) {
             case StuSet://学生设置密码处理
                 if (null != studentInfo.getOldPassword()) {//判断旧密码是否填写
                     if (!studentInfo.getOldPassword().equals(studentInfo.getNewPassword())) {//判断填写的新旧密码是否不同
                         if (EncryptKit.md5(studentInfo.getOldPassword()).equals
-                                (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据是否相同
+                                (studentTaken.get(0).getPassword())) {//判断输入的旧密码与数据库中的数据是否相同
                             params.put("password", EncryptKit.md5(studentInfo.getNewPassword()));
                             count++;
                         }
@@ -341,7 +337,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 break;
             case AdminSet://管理员设置密码处理
                 if (!EncryptKit.md5(studentInfo.getPassword()).equals
-                        (studentTakens.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据是否相同
+                        (studentTaken.get(0).getPassword())) {//判断输入的旧密码是否与数据库中的数据相同
                     params.put("password", EncryptKit.md5(studentInfo.getPassword()));
                     count++;
                 }
@@ -351,28 +347,28 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }
         //判断专业是否更改
         if (null != studentInfo.getSpecialtyId()) {
-            if (!studentInfo.getSpecialtyId().equals(studentTakens.get(0).getSpecialtyId())) {
+            if (!studentInfo.getSpecialtyId().equals(studentTaken.get(0).getSpecialtyId())) {
                 params.put("specialtyId", studentInfo.getSpecialtyId());
                 count++;
             }
         }
         //判断号码是否更改
         if (null != studentInfo.getCellphone()) {
-            if (!studentInfo.getCellphone().equals(studentTakens.get(0).getCellphone())) {
+            if (!studentInfo.getCellphone().equals(studentTaken.get(0).getCellphone())) {
                 params.put("cellphone", studentInfo.getCellphone());
                 count++;
             }
         }
         //判断性别是否更改
         if (null != studentInfo.getGender()) {
-            if (!studentInfo.getGender().equals(studentTakens.get(0).getGender())) {
+            if (!studentInfo.getGender().equals(studentTaken.get(0).getGender())) {
                 params.put("gender", studentInfo.getGender());
                 count++;
             }
         }
         //判断邮箱是否更改
         if (null != studentInfo.getEmail()) {
-            if (!studentInfo.getEmail().equals(studentTakens.get(0).getEmail())) {
+            if (!studentInfo.getEmail().equals(studentTaken.get(0).getEmail())) {
                 params.put("email", studentInfo.getEmail());
                 count++;
             }

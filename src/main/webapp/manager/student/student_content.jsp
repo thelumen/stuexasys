@@ -11,8 +11,11 @@
 <script>
     //初始化
     $(function () {
+
         initSelect();//初始化下拉框
+
         var selectOption = 1;//默认加载预留专业的学生
+
         //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
@@ -135,14 +138,14 @@
             allowedFileExtensions: ['xls']
         }).on("fileuploaded", function (event, data, previewId, index) {
             var result = data.response;
-            if (result===0) {
+            if (result === 0) {
                 $("#modal-container-uploadStudent").modal("hide");
-                alert("成功上传");
+                swal("成功上传", "学生们已被录入", "success");
                 location.reload();
-            } else if(result===1){
-                alert("上传失败了，请检查后重试");
-            }else if(result===2){
-                alert("你上传了一张重复的表呢");
+            } else if (result === 1) {
+                swal("上传失败了", "请检查上传表，保证其中的规范", "error");
+            } else if (result === 2) {
+                swal("上传失败了", "你上传了一张重复的表呢", "error");
             }
         });
 
@@ -164,7 +167,7 @@
                             silent: true
                         })
                 } else {
-                    alert("请输入正确的学号");
+                    swal("无法进行查找", "你可能输入了一个错误的学号", "error");
                 }
             } else {
                 $("#studentTable").bootstrapTable("refresh",
@@ -175,7 +178,7 @@
             }
         });
 
-        //专业删除按钮的点击事件
+        //专业删除按钮的点击事件（外部按钮已不再显示）
         $("#deleteSpecialty").click(function () {
             var specialtyId = $("#specialty").val();
             if (specialtyId === null) {
@@ -240,38 +243,71 @@
     //点击事件处理
     window.editBtnEvent = {
         'click .saveChanged': function (e, value, row, index) {
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/infoSave',
-                dataType: "json",
-                data: JSON.stringify(row),
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("更新成功");
-                        $("#studentTable").bootstrapTable("refresh")
-                    } else {
-                        alert("更新失败");
+//            alert('You click like action, row: ' + JSON.stringify(row));
+            swal({
+                    title: "Are you sure?",
+                    text: "Your will be able to recover this Student!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, recover it!",
+                    cancelButtonText: "No, cancel!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: 'post',
+                            url: '${pageContext.request.contextPath}/admin/student/infoSave',
+                            dataType: "json",
+                            data: JSON.stringify(row),
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data) {
+                                    swal("成功的更新", "", "success");
+                                    $("#studentTable").bootstrapTable("refresh")
+                                } else {
+                                    swal("更新失败", "请找服务器背锅", "error");
+                                }
+                            }
+                        });
                     }
                 }
-            });
+            );
         },
         'click .delStu': function (e, value, row, index) {
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/admin/student/infoDel',
-                dataType: "json",
-                data: JSON.stringify(row),
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("成功删除");
-                        $("#studentTable").bootstrapTable("refresh")
-                    } else {
-                        alert("删除失败");
+//            alert('You click like action, row: ' + JSON.stringify(row));
+            swal({
+                    title: "Are you sure?",
+                    text: "Your will be able to delete this Student!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: 'post',
+                            url: '${pageContext.request.contextPath}/admin/student/infoDel',
+                            dataType: "json",
+                            data: JSON.stringify(row),
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data) {
+                                    swal("成功的删除", "", "success");
+                                    $("#studentTable").bootstrapTable("refresh")
+                                } else {
+                                    swal("删除失败", "请找服务器背锅", "error");
+                                }
+                            }
+                        });
                     }
                 }
-            });
+            );
+
         }
     }
 
@@ -292,6 +328,8 @@
         <div class="col-md-6">
             <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
             &nbsp;&nbsp;
+            <%--<button class="btn btn-danger" type="button" id="deleteSpecialty">删除专业</button>--%>
+            <%--&nbsp;&nbsp;--%>
             <button class="btn btn-success" type="button" id="uploadStudent" href="#modal-container-uploadStudent"
                     data-toggle="modal">上传学生
             </button>
@@ -344,3 +382,4 @@
         </form>
     </div>
 </div>
+

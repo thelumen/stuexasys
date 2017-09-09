@@ -49,8 +49,17 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
         if (adminStudentMapper.selectSpecialty(params).size() > 0 || adminStudentMapper.insertSpecialty(params) > 0) {
             List<StudentTaken> studentTakenList = adminStudentMapper.selectStudentInfo(params);
             if (studentTakenList.size() > 0) {
-                List<StudentTaken> resultStudentList = (List<StudentTaken>) params.get("studentUploadList");
-                resultStudentList.removeAll(studentTakenList);
+                Map<String, Object> compareMap = new HashMap<>();
+                List<StudentTaken> resultStudentList = new ArrayList<>();
+                for (StudentTaken studentTaken : studentTakenList) {
+                    compareMap.put(studentTaken.getStudentId().toString(), 1);
+                }
+                List<StudentTaken> studentUploadList = (List<StudentTaken>) params.get("studentUploadList");
+                for (StudentTaken studentTaken : studentUploadList) {
+                    if (compareMap.get(studentTaken.getStudentId().toString()) == null) {
+                        resultStudentList.add(studentTaken);
+                    }
+                }
                 if (resultStudentList.size() == 0) {
                     return MessageInfo.NeedlessOperation;//完全重复的学生表上传
                 } else {

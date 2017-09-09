@@ -12,12 +12,10 @@
 <html>
 <head>
     <title>学生测试</title>
-    <jsp:include
-            page="/common/inc/head.jsp"></jsp:include>
+    <%@include file="/common/inc/head.jsp" %>
     <script>
-        $(document).ready(function () {
+        $(function () {
             $("button.btn-success").click(function () {
-//                var modelTitle=this.parent().prev().prev().value;
                 var rows = this.value;
                 var s = rows.split("_");
                 var testNum = 0;
@@ -28,11 +26,7 @@
                 } else if (s[2] === "测试三") {
                     testNum = 3;
                 } else testNum = 4;
-                var examInfo = {
-                    "courseId": s[0],
-                    "content": s[1],
-                    "testNum": testNum
-                };
+                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum};
                 var jsonDate = JSON.stringify(examInfo);
                 var myUrl = '${pageContext.request.contextPath}/student/test/ready';
                 $.ajax({
@@ -69,26 +63,21 @@
                 </thead>
                 <tbody>
                 <c:if test="${!empty studentExamInfo}">
-                    <c:forEach items="${studentExamInfo}" var="Info"
-                               varStatus="status">
+                    <c:forEach items="${studentExamInfo}" var="Info" varStatus="status">
                         <tr class="rowId">
                             <td>${Info.courseName}</td>
                             <td>${Info.testNum}</td>
                             <td>${Info.content}</td>
-                            <td><fum:formatDate value="${Info.date}"
-                                                pattern="yyyy-MM-dd"/></td>
+                            <td><fum:formatDate value="${Info.date}" pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <c:if test="${Info.test==1}">
-                                    <button type="button"
-                                            class="btn btn-success"
+                                    <button type="button" class="btn btn-success"
                                             value="${Info.courseId}_${Info.content}_${Info.testNum}">
                                         <label>开始考试</label>
                                     </button>
                                 </c:if>
                                 <c:if test="${!(Info.test==1)}">
-                                    <button type="button"
-                                            class="btn btn-primary"
-                                            disabled="disabled">
+                                    <button type="button" class="btn btn-primary" disabled="disabled">
                                         <label>等待开始</label>
                                     </button>
                                 </c:if>

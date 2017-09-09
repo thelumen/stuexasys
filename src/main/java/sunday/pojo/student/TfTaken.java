@@ -10,7 +10,7 @@ public final class TfTaken {
     private Integer courseId;
     private String section;
     private Integer levels;
-    private String name;
+    private String content;
     private Integer result;
 
     public Long getId() {
@@ -29,12 +29,12 @@ public final class TfTaken {
         this.section = section;
     }
 
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getCourseId() {
