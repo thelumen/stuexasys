@@ -144,7 +144,7 @@ public class StudentInAdminController extends CommonController {
         if (!"0".equals(studentId)) {
             selectOption.put("studentId", studentId);
         }
-        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOption);
+        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
 
         return CommonKit.getTakenInfo(studentInfos);
     }
