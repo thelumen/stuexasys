@@ -428,13 +428,13 @@
     //删除专业
     function deleteSpecialty(id) {
         swal({
-                title: "您确定要删除这条记录？",
-                text: "",
+                title: "您确定要删除这个专业吗？",
+                text: "包括此专业下的学生和教师对此专业选课信息都将被删除",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "删除",
-                cancelButtonText: "取消",
+                confirmButtonText: "再见了，同学们",
+                cancelButtonText: "我再想想",
                 closeOnConfirm: false,
                 showLoaderOnConfirm: true
             },

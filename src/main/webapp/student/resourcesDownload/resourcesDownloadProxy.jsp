@@ -11,10 +11,10 @@
 <head>
     <title>资源下载</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <%@include file="/common/inc/head.jsp"%>
+    <%@include file="/common/inc/head.jsp" %>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
-<%@include file="/student/nav/nav.jsp"%>
+<%@include file="/student/nav/nav.jsp" %>
 <br>
 <div class="container">
     <div class="row">
@@ -73,7 +73,8 @@
                                             </div>
                                             <div class="col-md-4">
                                                     <%--<a href="${FileInfo.path}">下载链接</a>--%>
-                                                <a href="${pageContext.request.contextPath}/student/resourcesDownload/downloadService.jsp?fileDownloadName=${FileInfo.path}&fileDisplayName=${FileInfo.name}">下载链接</a>
+                                                <%--<a href="${pageContext.request.contextPath}/student/resources/download/${FileInfo.path}">下载链接</a>--%>
+                                                <a href="${pageContext.request.contextPath}/student/resources/download/${FileInfo.path}">下载链接</a>
                                             </div>
                                         </div>
                                     </div>

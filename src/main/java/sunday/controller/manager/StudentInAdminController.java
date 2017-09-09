@@ -168,10 +168,10 @@ public class StudentInAdminController extends CommonController {
                 Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
 
                 int rows = sheet_0.getRows();//获取总行数
-                if (!(Objects.equals(sheet_0.getCell(0, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(1, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(2, rows).getContents(), "") ||
-                        Objects.equals(sheet_0.getCell(3, rows).getContents(), ""))
+                if (!(Objects.equals(sheet_0.getCell(0, rows - 1).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(1, rows - 1).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(2, rows - 1).getContents(), "") ||
+                        Objects.equals(sheet_0.getCell(3, rows - 1).getContents(), ""))
                         ) {
                     Set<String> specialtySet = new HashSet<>();
                     List<Specialty> specialtyList = new ArrayList<>();

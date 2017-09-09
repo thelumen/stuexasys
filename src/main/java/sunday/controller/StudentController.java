@@ -14,6 +14,12 @@ import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
 import sunday.pojo.student.TestPaper;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -204,5 +210,48 @@ public class StudentController extends CommonController {
             info.put("issuccess", true);
         } else info.put("issuccess", false);
         return info;
+    }
+
+    @RequestMapping(value = "/resources/download/{fileDownloadPath}", method = RequestMethod.GET)
+    public void download(@PathVariable(value = "fileDownloadPath") String path,
+                         HttpServletResponse response) throws IOException {
+        //分解索引号
+        String[] fileNum = path.split(",");
+        //获取文件信息
+        Map<String, Object> fileInfo = ResourceFileKit.selectWithFileNum(Integer.valueOf(fileNum[0]), Integer.valueOf(fileNum[1]));
+        //获取绝对路径
+        String realPath = (String) fileInfo.get("realPath");
+        //通过绝对路径获取 file
+        File filePath = new File(realPath);
+        //获取得文件名
+        String fileName = (String) fileInfo.get("fileName");
+        String fileDisplayName = URLEncoder.encode(fileName, "UTF-8");
+
+        //初始化
+        response.reset();
+        response.setContentType("application/x-download");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + fileDisplayName + "\"");
+        ServletOutputStream outp = null;
+        FileInputStream in = null;
+        try {
+            outp = response.getOutputStream();
+            in = new FileInputStream(filePath);
+            byte[] b = new byte[1024];
+            int i;
+            while ((i = in.read(b)) > 0) {
+                outp.write(b, 0, i);
+            }
+            outp.flush();
+        } catch (Exception e) {
+            System.out.println("文件下载失败!");
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+            if (outp != null) {
+                outp.close();
+            }
+        }
     }
 }
