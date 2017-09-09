@@ -82,19 +82,21 @@ public final class ResourceFileKit {
         List<String> filePackagerNames = getHomeDirectories();//获取主目录下的文件夹名
         List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
         if (filePackagerNames != null) {
+            int i = 0;
+            int j = 0;
             for (String fileName : filePackagerNames) {
                 File fileNameInfo = new File(HOME + "/" + fileName);//拼接绝对路径并创建file类
                 File[] children = fileNameInfo.listFiles();
                 List<Map<String, Object>> father = new ArrayList<>();
                 if (children != null && children.length > 0) {
                     for (File file : children) {
-                        String path = ResourceFileKit.getRelativePath(fileName, file.getPath()).replaceAll("\\\\", "%2F");
                         Map<String, Object> fileInfo = new HashMap<String, Object>() {{
                             put("name", file.getName());
-                            put("path", path);
                             put("lastUpdateTime", DateKit.date2String(file.lastModified()));
                         }};
+                        fileInfo.put("path", i + "," + j);
                         father.add(fileInfo);
+                        j++;
                     }
                     //按最后更新时间对目录下的文件进行排序
                     father.sort((o1, o2) -> {
@@ -114,6 +116,7 @@ public final class ResourceFileKit {
                     put("directory", father);
                 }};
                 target.add(filePackageInfo);
+                i++;
             }//end for
             return target;
         }//end if

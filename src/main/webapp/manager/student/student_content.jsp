@@ -254,25 +254,23 @@
                     confirmButtonText: "Yes, recover it!",
                     cancelButtonText: "No, cancel!",
                     closeOnConfirm: false,
-                    closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            type: 'post',
-                            url: '${pageContext.request.contextPath}/admin/student/infoSave',
-                            dataType: "json",
-                            data: JSON.stringify(row),
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data) {
-                                    swal("成功的更新", "", "success");
-                                    $("#studentTable").bootstrapTable("refresh")
-                                } else {
-                                    swal("更新失败", "请找服务器背锅", "error");
-                                }
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '${pageContext.request.contextPath}/admin/student/infoSave',
+                        dataType: "json",
+                        data: JSON.stringify(row),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data) {
+                                swal("成功的更新", "", "success");
+                                $("#studentTable").bootstrapTable("refresh")
+                            } else {
+                                swal("更新失败", "请找服务器背锅", "error");
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             );
         },
@@ -287,25 +285,23 @@
                     confirmButtonText: "Yes, delete it!",
                     cancelButtonText: "No, cancel!",
                     closeOnConfirm: false,
-                    closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            type: 'post',
-                            url: '${pageContext.request.contextPath}/admin/student/infoDel',
-                            dataType: "json",
-                            data: JSON.stringify(row),
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data) {
-                                    swal("成功的删除", "", "success");
-                                    $("#studentTable").bootstrapTable("refresh")
-                                } else {
-                                    swal("删除失败", "请找服务器背锅", "error");
-                                }
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '${pageContext.request.contextPath}/admin/student/infoDel',
+                        dataType: "json",
+                        data: JSON.stringify(row),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data) {
+                                swal("成功的删除", "", "success");
+                                $("#studentTable").bootstrapTable("refresh")
+                            } else {
+                                swal("删除失败", "请找服务器背锅", "error");
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             );
 
@@ -328,7 +324,7 @@
             </label>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
+            <button class="btn btn-primary" type="button" id="selectStudent">查找</button>
             &nbsp;&nbsp;
             <button class="btn btn-success" type="button" id="uploadStudent"
                     href="#modal-container-uploadStudent"
