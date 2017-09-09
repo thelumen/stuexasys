@@ -42,6 +42,8 @@ public class CommonController {
     protected CourseService courseService;
     @Autowired
     protected SpecialtyService specialtyService;
+    @Autowired
+    protected QuestionService questionService;
 
     /**
      * 统一异常处理

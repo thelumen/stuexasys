@@ -31,6 +31,7 @@
                 sidePagination: "server",
                 idField: "questionId",
                 showRefresh: "true",
+                toolbar: "#editQ_toolbar",
                 pagination: "true",
                 showColumns: "true",
                 showExport: "true",
@@ -129,20 +130,15 @@
 <body>
 <br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <label style="display: block">
-                <select class="form-control " id="course"></select>
-            </label>
-        </div>
-        <div class="col-md-6">
-            <button class="btn btn-primary" type="button" id="selectQuestion">查找</button>
-        </div>
+    <div id="editQ_toolbar">
+        <select class="form-control " id="course"></select>
+        <button class="btn btn-primary" type="button"
+                id="selectQuestion">查找
+        </button>
     </div>
-    <div class="row">
+    <div class="container">
         <table id="editQuestionTable">
         </table>
     </div>
-</div>
 </body>
 </html>

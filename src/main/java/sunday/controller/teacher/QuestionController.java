@@ -8,9 +8,12 @@ import sunday.common.kit.StringKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.school.Another;
+import sunday.pojo.school.Course;
 import sunday.pojo.school.SingleQuestion;
 import sunday.pojo.school.TfQuestion;
+import sunday.pojo.teacher.AnotherTaken;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,79 @@ public class QuestionController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String questionPage() {
         return "/teacher/question/questionProxy";
+    }
+
+    /**
+     * 转到题目编辑界面
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/editQuestion", method = RequestMethod.GET)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String editQuestion() {
+        return "/teacher/editQuestion/editQuestionProxy";
+    }
+
+    /**
+     * 获取课程列表
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/courseGet", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getCourse() {
+        List<Course> courses = specialty2CourseService.selectAllCourses();
+        if (null != courses) {
+            List<Map<String, Object>> father = new ArrayList<>();
+            for (Course course : courses) {
+                Map<String, Object> child = new HashMap<String, Object>() {{
+                    put("id", course.getCourseId());
+                    put("text", course.getName());
+                }};
+                father.add(child);
+            }
+            return father;
+        }
+        return null;
+    }
+
+    /**
+     * 根据课程查询简答题
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionLoad/{courseId}", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId) {
+        return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String, Object>() {{
+            put("courseId", courseId);
+        }}));
+    }
+
+    /**
+     * 保存题目更改
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionSave", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public boolean saveQuestion(@RequestBody AnotherTaken anotherTaken) {
+        return questionService.saveQuestion(anotherTaken);
+    }
+
+    /**
+     * 删除题目
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/questionDel", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public boolean delQuestion(@RequestBody AnotherTaken anotherTaken) {
+        return questionService.delQuestion(new HashMap<String, Object>() {{
+            put("id", anotherTaken.getId());
+        }});
     }
 
     /**

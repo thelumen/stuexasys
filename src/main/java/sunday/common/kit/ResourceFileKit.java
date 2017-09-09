@@ -119,4 +119,27 @@ public final class ResourceFileKit {
         }//end if
         return null;
     }
+
+    /**
+     * 根据下载索引码返回绝对路径
+     *
+     * @param folderNum 文件夹号.
+     * @param fileNum   文佳号.
+     * @return 文件信息.
+     */
+    public static Map<String, Object> selectWithFileNum(Integer folderNum, Integer fileNum) {
+        Map<String, Object> fileInfoWithMap = new HashMap<>();
+        List<String> filePackagerNames = getHomeDirectories();//获取主目录下的文件夹名
+        if (null != filePackagerNames && filePackagerNames.size() > 0) {
+            String fileName = filePackagerNames.get(folderNum);
+            File fileNameInfo = new File(HOME + "/" + fileName);//拼接绝对路径并创建file类
+            File[] children = fileNameInfo.listFiles();
+            if (null != children && children.length > 0) {
+                String path = ResourceFileKit.getRelativePath(fileName, children[fileNum].getPath());
+                fileInfoWithMap.put("fileName", children[fileNum].getName());
+                fileInfoWithMap.put("realPath", HOME + "/" + path);
+            }
+        }
+        return fileInfoWithMap;
+    }
 }

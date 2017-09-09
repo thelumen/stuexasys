@@ -255,7 +255,7 @@
                     title: 'id',
                     align: 'center',
                     valign: 'middle'
-                },{
+                }, {
                     field: 'courseName',
                     title: '课程名称',
                     align: 'center',
