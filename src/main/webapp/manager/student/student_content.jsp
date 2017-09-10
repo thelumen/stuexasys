@@ -139,14 +139,24 @@
             allowedFileExtensions: ['xls']
         }).on("fileuploaded", function (event, data, previewId, index) {
             var result = data.response;
-            if (result === 0) {
-                $("#modal-container-uploadStudent").modal("hide");
-                swal("成功上传", "学生们已被录入", "success");
-                location.reload();
-            } else if (result === 1) {
+            if (result === 1) {
                 swal("上传失败了", "请检查上传表，保证其中的规范", "error");
             } else if (result === 2) {
                 swal("上传失败了", "你上传了一张重复的表呢", "error");
+            } else {
+                swal({
+                    title: "成功上传",
+                    text: "学生们已被录入",
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "好的，我知道了",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $("#modal-container-uploadStudent").modal("hide");
+                    location.reload();
+                });
             }
         });
 

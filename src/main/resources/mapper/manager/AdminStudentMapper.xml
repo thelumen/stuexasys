@@ -70,13 +70,19 @@
         </where>
     </delete>
 
-    <!--插入新专业-->
-    <insert id="insertSpecialty" parameterType="java.util.Map">
+    <!--插入新专业(批量)-->
+    <insert id="insertSpecialtyList" parameterType="java.util.Map">
         INSERT INTO stuexasys.com_specialty (specialtyId, name)
         VALUES
         <foreach collection="specialtyInfo" index="index" item="specialtyItem" open="(" separator="," close=")">
-            (#{specialtyItem.specialtyId,jdbcType=INTEGER}, #{specialtyItem.specialtyName,jdbcType=VARCHAR})
+            (#{specialtyItem.specialtyId,jdbcType=INTEGER}, #{specialtyItem.name,jdbcType=VARCHAR})
         </foreach>
+    </insert>
+
+    <!--插入新专业(单个)-->
+    <insert id="insertSpecialty" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_specialty (specialtyId, name)
+        VALUES (#{specialtyId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
     </insert>
 
     <!--批量插入学生-->
