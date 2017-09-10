@@ -86,7 +86,7 @@
                     type: 'delete',
                     dataType: 'json',
                     success: function (data) {
-                        if (data === true) {
+                        if (data ) {
                             swal("Success", "该教师信息删除成功！", "success");
                             //location.reload();
                             $('#manager_teacher_table').bootstrapTable("refresh");
