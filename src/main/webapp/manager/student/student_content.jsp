@@ -139,14 +139,24 @@
             allowedFileExtensions: ['xls']
         }).on("fileuploaded", function (event, data, previewId, index) {
             var result = data.response;
-            if (result === 0) {
-                $("#modal-container-uploadStudent").modal("hide");
-                swal("成功上传", "学生们已被录入", "success");
-                location.reload();
-            } else if (result === 1) {
+            if (result === 1) {
                 swal("上传失败了", "请检查上传表，保证其中的规范", "error");
             } else if (result === 2) {
                 swal("上传失败了", "你上传了一张重复的表呢", "error");
+            } else {
+                swal({
+                    title: "成功上传",
+                    text: "学生们已被录入",
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "好的，我知道了",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $("#modal-container-uploadStudent").modal("hide");
+                    location.reload();
+                });
             }
         });
 
@@ -161,12 +171,15 @@
                 studentId = 0;//未选中时的默认值
             }
             if (studentId !== 0) {
+                var validate = /^[0-9]*$/;
                 if (studentId.length === 9) {
-                    $("#studentTable").bootstrapTable("refresh",
-                        {
-                            url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
-                            silent: true
-                        })
+                    if (!validate.test(studentId)) {
+                        $("#studentTable").bootstrapTable("refresh",
+                            {
+                                url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                                silent: true
+                            })
+                    }
                 } else {
                     swal("无法进行查找", "你可能输入了一个错误的学号", "error");
                 }
@@ -254,25 +267,23 @@
                     confirmButtonText: "Yes, recover it!",
                     cancelButtonText: "No, cancel!",
                     closeOnConfirm: false,
-                    closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            type: 'post',
-                            url: '${pageContext.request.contextPath}/admin/student/infoSave',
-                            dataType: "json",
-                            data: JSON.stringify(row),
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data) {
-                                    swal("成功的更新", "", "success");
-                                    $("#studentTable").bootstrapTable("refresh")
-                                } else {
-                                    swal("更新失败", "请找服务器背锅", "error");
-                                }
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '${pageContext.request.contextPath}/admin/student/infoSave',
+                        dataType: "json",
+                        data: JSON.stringify(row),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data) {
+                                swal("成功的更新", "", "success");
+                                $("#studentTable").bootstrapTable("refresh")
+                            } else {
+                                swal("更新失败", "请找服务器背锅", "error");
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             );
         },
@@ -287,25 +298,23 @@
                     confirmButtonText: "Yes, delete it!",
                     cancelButtonText: "No, cancel!",
                     closeOnConfirm: false,
-                    closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            type: 'post',
-                            url: '${pageContext.request.contextPath}/admin/student/infoDel',
-                            dataType: "json",
-                            data: JSON.stringify(row),
-                            contentType: 'application/json',
-                            success: function (data) {
-                                if (data) {
-                                    swal("成功的删除", "", "success");
-                                    $("#studentTable").bootstrapTable("refresh")
-                                } else {
-                                    swal("删除失败", "请找服务器背锅", "error");
-                                }
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.ajax({
+                        type: 'post',
+                        url: '${pageContext.request.contextPath}/admin/student/infoDel',
+                        dataType: "json",
+                        data: JSON.stringify(row),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data) {
+                                swal("成功的删除", "", "success");
+                                $("#studentTable").bootstrapTable("refresh")
+                            } else {
+                                swal("删除失败", "请找服务器背锅", "error");
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             );
 
@@ -333,7 +342,7 @@
             </label>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-primary" type="button" id="selectStudent">查&nbsp;&nbsp;找</button>
+            <button class="btn btn-primary" type="button" id="selectStudent">查找</button>
             &nbsp;&nbsp;
             <button class="btn btn-success" type="button" id="uploadStudent"
                     href="#modal-container-uploadStudent"

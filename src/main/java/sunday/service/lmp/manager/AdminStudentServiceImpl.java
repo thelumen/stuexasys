@@ -46,7 +46,48 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
     @Override
     @SuppressWarnings("unchecked")
     public MessageInfo uploadStudentHandle(Map<String, Object> params) {
-        if (adminStudentMapper.selectSpecialty(params).size() > 0 || adminStudentMapper.insertSpecialty(params) > 0) {
+        List<Specialty> specialtyList = (List<Specialty>) params.get("specialtyInfo");
+        boolean insertSpecialty;
+        if (specialtyList.size() > 0) {//针对单个和批量进行不同的操作
+            if (specialtyList.size() < 2) {
+                if (adminStudentMapper.selectSpecialty(params).size() == 0) {
+                    Map<String, Object> resultMap = new HashMap<>();
+                    resultMap.put("specialtyId", specialtyList.get(0).getSpecialtyId());
+                    resultMap.put("name", specialtyList.get(0).getName());
+                    insertSpecialty = (adminStudentMapper.insertSpecialty(resultMap) > 0);
+                } else {
+                    insertSpecialty = true;
+                }
+            } else {
+                List<Specialty> specialtyListInDB = adminStudentMapper.selectSpecialty(params);
+                if (specialtyListInDB.size() < specialtyList.size()) {
+                    Map<String, Object> compareMap = new HashMap<>();
+                    List<Specialty> resultSpecialtyList = new ArrayList<>();
+                    for (Specialty specialty : specialtyListInDB) {
+                        compareMap.put(specialty.getSpecialtyId().toString(), 1);
+                    }
+                    for (Specialty specialty : specialtyList) {
+                        if (compareMap.get(specialty.getSpecialtyId().toString()) == null) {
+                            resultSpecialtyList.add(specialty);
+                        }
+                    }
+                    if (resultSpecialtyList.size() == 1) {
+                        Map<String, Object> resultMap = new HashMap<>();
+                        resultMap.put("specialtyId", resultSpecialtyList.get(0).getSpecialtyId());
+                        resultMap.put("name", resultSpecialtyList.get(0).getName());
+                        insertSpecialty = (adminStudentMapper.insertSpecialty(resultMap) > 0);
+                    } else {
+                        params.put("specialtyInfo", resultSpecialtyList);
+                        insertSpecialty = adminStudentMapper.insertSpecialtyList(params) > 0;
+                    }
+                } else {
+                    insertSpecialty = true;
+                }
+            }
+        } else {
+            return MessageInfo.OperationFailed;
+        }
+        if (insertSpecialty) {
             List<StudentTaken> studentTakenList = adminStudentMapper.selectStudentInfo(params);
             if (studentTakenList.size() > 0) {
                 Map<String, Object> compareMap = new HashMap<>();
