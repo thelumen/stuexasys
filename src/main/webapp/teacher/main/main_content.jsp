@@ -113,35 +113,35 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown">其他<span
+                           data-toggle="dropdown">资源管理<span
                                 class="caret"></span></a>
-
-
+                        <ul class="dropdown-menu multi-level" role="menu"
+                            aria-labelledby="dropdownMenu">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/resource/main">上传资料</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown">题目管理<span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu multi-level" role="menu"
                             aria-labelledby="dropdownMenu">
                             <li>
                                 <a href="${pageContext.request.contextPath}/question/main">题目录入</a>
                             </li>
                             <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="javascript:;">题目查看</a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/question/showSingle">选择题</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/question/showTf">判断题</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/question/editQuestion">附加题</a>
-                                    </li>
-                                </ul>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/question/showSingle">选择题管理</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/resource/main">上传资料</a>
+                                <a href="${pageContext.request.contextPath}/question/showTf">判断题管理</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/question/editQuestion">附加题管理</a>
                             </li>
                         </ul>
                     </li>

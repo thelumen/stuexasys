@@ -49,35 +49,14 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown">教师管理<span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/admin/teacher/main">查看教师</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/teacher/main">教师管理</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown">学生管理<span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/admin/student/main">查看学生</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/student/main">学生管理</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown">其他<span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

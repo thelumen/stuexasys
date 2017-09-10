@@ -42,7 +42,10 @@ public class CourseController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean takeCourse(@RequestBody CourseTaken courseTaken) {
-
+        //选课结束日期需要比开始日期大
+        if (courseTaken.getStarttime().compareTo(courseTaken.getEndtime()) >= 0) {
+            return false;
+        }
         courseTaken.setTeacherId(TeacherKit.getCurrentTeacherId());
         return specialty2CourseService.insertCourseTaken(courseTaken) > 0;
     }

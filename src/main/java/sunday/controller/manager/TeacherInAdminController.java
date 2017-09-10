@@ -80,6 +80,9 @@ public class TeacherInAdminController extends CommonController {
             if (Objects.equals(teacher.getOffice(), "")) {
                 teacher.setOffice("Nothing To Show");
             }
+            if (Objects.equals(teacher.getName(), "")) {
+                teacher.setName("Teacher X");
+            }
             if (teacherService.insert(teacher) > 0) {
                 //添加权限
                 roleService.link2Teacher(teacher.getTeacherId(), RoleEnum.TEACHER.getRoleId());

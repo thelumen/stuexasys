@@ -104,7 +104,8 @@
                                      placeholder="请输入判断题正文..."></textarea></label><br>
                     <label>请选择正确选择：</label>
                     <label><strong style="color: #985f0d">正确：</strong>
-                        <input  type="radio" name="result" checked  value="1"></label>
+                        <input type="radio" name="result" checked
+                               value="1"></label>
                     <label><strong style="color: #2b542c">错误：</strong>
                         <input type="radio" name="result" value="0"></label><br>
                     <label>
@@ -206,10 +207,10 @@
     function saveTfQuestion() {
         var textarea = $('#tf_content').val();
         if (tfcourse.val() !== '' && tfsection.val() !== '' && textarea !== '') {
-            var data=$('#teacher_question_tf_form').serializeArray();
+            var data = $('#teacher_question_tf_form').serializeArray();
             $.ajax({
                 url: '${pageContext.request.contextPath}/question/tfQuestion/insert',
-                data:data,
+                data: data,
                 dataType: 'json',
                 type: 'post',
                 success: function (data) {
@@ -256,6 +257,9 @@
     }
     $(function () {
 //        预加载
+        course.select2();
+        tfcourse.select2();
+        anocourse.select2();
         section.select2();
         tfsection.select2();
         $('#teacher_question_single_select_result').select2();

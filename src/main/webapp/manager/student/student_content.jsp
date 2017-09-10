@@ -315,6 +315,11 @@
 </script>
 <br>
 <div class="container">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
+        </li>
+        <li class="active">学生管理</li>
+    </ol>
     <div class="row" id="student_admin_bar">
         <div class="col-md-3">
             <label style="display: block">

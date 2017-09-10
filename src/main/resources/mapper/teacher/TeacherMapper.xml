@@ -10,8 +10,8 @@
 
     <!--新增教师-->
     <insert id="insert" parameterType="sunday.pojo.teacher.Teacher">
-        INSERT INTO com_teacher(teacherId, password, gender, position, office)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{password,jdbcType=VARCHAR},#{gender,jdbcType=CHAR},
+        INSERT INTO com_teacher(teacherId, name,password, gender, position, office)
+        VALUES (#{teacherId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{gender,jdbcType=CHAR},
         #{position,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR})
     </insert>
 

@@ -11,7 +11,7 @@
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
         </li>
-        <li class="active">查看选择题</li>
+        <li class="active">选择题管理</li>
     </ol>
     <div id="single_select_clause">
         <label>选择 <strong style="color: #985f0d">授课课程</strong>：<select
@@ -35,7 +35,9 @@
 </div>
 
 <script>
+    var singleCourse = $('#question_single_course');
     $(function () {
+        singleCourse.select2();
         $('#question_single_section').select2();
         //初始化下拉框数据。
         $.ajax({
@@ -43,14 +45,14 @@
             url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
-                $('#question_single_course').select2({
+                singleCourse.select2({
                     data: data
                 });
             }
         });
         //        级联：选择课程后筛选出修这门课的所有章节
-        $('#question_single_course').on("select2:select", function (e) {
-            var courseId = $('#question_single_course').val();
+        singleCourse.on("select2:select", function (e) {
+            var courseId = singleCourse.val();
             $.ajax({
                 url: '${pageContext.request.contextPath}/course/section/' + courseId,
                 dataType: 'json',

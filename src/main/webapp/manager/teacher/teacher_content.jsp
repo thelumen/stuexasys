@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
         </li>
-        <li class="active">查看教师</li>
+        <li class="active">教师管理</li>
     </ol>
     <hr class="divider"/>
     <br><br>
@@ -69,24 +69,37 @@
 
     //删除
     function del(id) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/teacher/delete/' + id,
-            type: 'delete',
-            dataType: 'json',
-            success: function (data) {
-                if (data === true) {
-                    swal("Success", "该教师信息删除成功！", "success");
-                    //location.reload();
-                    $('#manager_teacher_table').bootstrapTable("refresh");
-                }
-                else {
-                    swal("Error", "该教师信息删除失败...", "error");
-                }
+        swal({
+                title: "您确定要要删除这位老师的信息吗？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
             },
-            error: function () {
-                swal("Error", "您没有权限！", "error");
-            }
-        })
+            function () {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/admin/teacher/delete/' + id,
+                    type: 'delete',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data === true) {
+                            swal("Success", "该教师信息删除成功！", "success");
+                            //location.reload();
+                            $('#manager_teacher_table').bootstrapTable("refresh");
+                        }
+                        else {
+                            swal("Error", "该教师信息删除失败...", "error");
+                        }
+                    },
+                    error: function () {
+                        swal("Error", "您没有权限！", "error");
+                    }
+                })
+            });
     }
 
     //操作
