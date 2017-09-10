@@ -105,7 +105,12 @@ public class CourseController extends CommonController {
                 put("specialtyId", target[2]);
             }};
 
-            return specialty2CourseService.deleteTakenInfo(params);
+            //删除选课信息成功，将删除相应考试信息
+            if (specialty2CourseService.deleteTakenInfo(params)) {
+                student2ExamService.deleteExamInfo(params);
+            }
+
+            return true;
         }
         return false;
     }

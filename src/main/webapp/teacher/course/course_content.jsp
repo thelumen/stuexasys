@@ -140,7 +140,7 @@
                         swal("恭喜..", "添加新课程成功！ :)", "success");
                         $('#teacher_course_table').bootstrapTable("refresh");
                     } else {
-                        swal("Sorry", "起始日期应小于结课日期！", "success");
+                        swal("Sorry", "起始日期应小于结课日期！", "error");
                     }
                 },
                 error: function () {
@@ -161,7 +161,7 @@
     function deleteCourseTaken(content) {
         swal({
                 title: "Are you sure?",
-                text: "Your will be able to recover this Question!",
+                text: "删除成功后将会同时删除相应的考试信息，您确定吗？",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
