@@ -45,7 +45,7 @@
             url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
-                $shortCourse.select2({
+                shortCourse.select2({
                     data: data
                 });
             }

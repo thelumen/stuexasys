@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -16,9 +17,11 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span6">
-                <button class="btn-primary" style="text-align: right"
-                        onclick="showAddSpecialty()">新增专业
-                </button>
+                <shiro:hasPermission name="shiro:sys:admin">
+                    <button class="btn-primary" style="text-align: right"
+                            onclick="showAddSpecialty()">新增专业
+                    </button>
+                </shiro:hasPermission>
                 <br><br>
                 <%--选择题--%>
                 <div class="table-responsive">
@@ -42,10 +45,12 @@
                                             onclick="showModifySpecialty('${specialty.specialtyId}')">
                                         修改
                                     </button>
-                                    <button class="btn-warning"
-                                            onclick="deleteSpecialty('${specialty.specialtyId}')">
-                                        删除
-                                    </button>
+                                    <shiro:hasPermission name="shiro:sys:admin">
+                                        <button class="btn-warning"
+                                                onclick="deleteSpecialty('${specialty.specialtyId}')">
+                                            删除
+                                        </button>
+                                    </shiro:hasPermission>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -54,9 +59,11 @@
                 </div>
             </div>
             <div class="span6">
-                <button class="btn-primary" style="text-align: right"
-                        onclick="showAddCourse()">新增课程
-                </button>
+                <shiro:hasPermission name="shiro:sys:admin">
+                    <button class="btn-primary" style="text-align: right"
+                            onclick="showAddCourse()">新增课程
+                    </button>
+                </shiro:hasPermission>
                 <br><br>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover"
@@ -67,6 +74,7 @@
                             <th>课程名称</th>
                             <th>学时</th>
                             <th>学分</th>
+                            <th>总章节数</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -77,15 +85,18 @@
                                 <td>${course.name}</td>
                                 <td>${course.period}</td>
                                 <td>${course.credit}</td>
+                                <td>${course.chapterNum}</td>
                                 <td>
                                     <button class="btn-primary"
                                             onclick="showModifyCourse('${course.courseId}')">
                                         修改
                                     </button>
-                                    <button class="btn-warning"
-                                            onclick="deleteCourse('${course.courseId}')">
-                                        删除
-                                    </button>
+                                    <shiro:hasPermission name="shiro:sys:admin">
+                                        <button class="btn-warning"
+                                                onclick="deleteCourse('${course.courseId}')">
+                                            删除
+                                        </button>
+                                    </shiro:hasPermission>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -97,7 +108,7 @@
     </div>
     <hr class="divider"/>
 </div>
-<%--课程modal--%>
+<%--新增课程--%>
 <div id="school_course_modal" class="modal fade" tabindex="-1"
      role="dialog"
      aria-labelledby="myModalLabel">
@@ -128,6 +139,10 @@
                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                            class="form-control" maxlength="2"
                            onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                    <input name="chapterNum" placeholder="请填写总章节数"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           class="form-control" maxlength="2"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     <button type="button" onclick="addCourse()">添加</button>
                 </form>
             </div>
@@ -154,7 +169,7 @@
                            name="courseId" id="modify_c_cId"
                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                            onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="8" minlength="8"
+                           maxlength="8" minlength="8" readonly
                            placeholder="请填写课程Id，8位数值">
                     <input name="name" placeholder="请填写课程名称" id="modify_c_name"
                            class="form-control">
@@ -165,6 +180,10 @@
                     <input name="credit" placeholder="请填写学分" id="modify_c_c"
                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                            class="form-control" maxlength="2"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                    <input name="chapterNum" placeholder="请填写总章节数"
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           class="form-control" maxlength="2" id="modify_c_cn"
                            onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     <button type="button" onclick="modifyCourse()">修改</button>
                 </form>
@@ -226,7 +245,7 @@
                            name="specialtyId" id="modify_s_id"
                            onkeyup="this.value=this.value.replace(/\D/g,'')"
                            onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="6" minlength="6"
+                           maxlength="6" minlength="6" readonly
                            placeholder="专业Id，如：14届计算机，请填写“140401”">
                     <input name="name" type="text"
                            class="form-control" id="modify_s_name"
@@ -249,7 +268,8 @@
         var name = $('[name="name"]').val();
         var period = $('[name="period"]').val();
         var credit = $('[name="credit"]').val();
-        if (courseId === "" || name === "" || period === "" || credit === "") {
+        var chapterNum = $('[name="chapterNum"]').val();
+        if (courseId === "" || name === "" || period === "" || credit === "" || chapterNum === "") {
             alert("请填写完整数据！");
             return false;
         }
@@ -261,16 +281,15 @@
             alert("学分范围在0-25之间!");
             return false;
         }
+        if (chapterNum < 1 || chapterNum > 16) {
+            alert("章节数范围在1-16之间!");
+            return false;
+        }
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/school/course/insert',
             type: 'post',
             dataType: 'json',
-            data: {
-                courseId: courseId,
-                name: name,
-                period: period,
-                credit: credit
-            },
+            data: $('#school_course_form').serializeArray(),
             success: function (data) {
                 if (data) {
                     location.reload();
@@ -324,6 +343,7 @@
                 $('#modify_c_name').val(data.name);
                 $('#modify_c_p').val(data.period);
                 $('#modify_c_c').val(data.credit);
+                $('#modify_c_cn').val(data.chapterNum);
             }
         });
         $('#school_course_modify_modal').modal('show');
@@ -346,7 +366,7 @@
                 }
             },
             error: function () {
-                alert("出错！可能原因：1.您没有权限；2.该课程Id被其他事务所关联;3.课程Id重复");
+                alert("出错！可能原因：1.您没有权限；2.该课程Id被其他事务所关联;3.课程Id重复;4.属性设置超出范围");
                 location.reload();
             }
         })

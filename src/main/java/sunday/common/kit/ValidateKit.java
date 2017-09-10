@@ -29,6 +29,9 @@ public final class ValidateKit {
         if (course.getPeriod() < 0 || course.getPeriod() > 99 || course.getCredit() < 0 || course.getCredit() > 99) {
             return false;
         }
+        if (course.getChapterNum() < 1 || course.getChapterNum() > 16) {
+            return false;
+        }
         return true;
     }
 

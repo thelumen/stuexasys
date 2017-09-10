@@ -4,9 +4,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sunday.common.kit.ChapterKit;
 import sunday.common.kit.CommonKit;
 import sunday.common.kit.ResourceFileKit;
-import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
 
 import java.io.File;
@@ -45,7 +45,7 @@ public class ResourceController extends CommonController {
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
         List<String> directories = ResourceFileKit.getHomeDirectories();
-        return null != directories ? TeacherKit.getSelectInfo(directories) : null;
+        return null != directories ? ChapterKit.getChapterInSelect((String[]) directories.toArray()) : null;
     }
 
     /**

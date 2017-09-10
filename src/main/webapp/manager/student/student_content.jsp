@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 花间一壶酒
@@ -233,7 +234,9 @@
         var html = [];
         html.push('<button class="btn btn-primary saveChanged" type="button">保存</button>');
         html.push('&nbsp;&nbsp;');
+        <shiro:hasPermission name="shiro:sys:admin">
         html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
+        </shiro:hasPermission>
         return html.join('');
     }
 
@@ -341,12 +344,16 @@
             </label>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-primary" type="button" id="selectStudent">查找</button>
-            &nbsp;&nbsp;
-            <button class="btn btn-success" type="button" id="uploadStudent"
-                    href="#modal-container-uploadStudent"
-                    data-toggle="modal">上传学生
+            <button class="btn btn-primary" type="button" id="selectStudent">
+                查找
             </button>
+            &nbsp;&nbsp;
+            <shiro:hasPermission name="shiro:sys:admin">
+                <button class="btn btn-success" type="button" id="uploadStudent"
+                        href="#modal-container-uploadStudent"
+                        data-toggle="modal">上传学生
+                </button>
+            </shiro:hasPermission>
         </div>
     </div>
 

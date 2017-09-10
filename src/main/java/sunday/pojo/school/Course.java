@@ -11,6 +11,7 @@ public final class Course {
     private String name;
     private int period;
     private int credit;
+    private int chapterNum;
 
     @Override
     public String toString() {
@@ -20,15 +21,16 @@ public final class Course {
                 ", name='" + name + '\'' +
                 ", period=" + period +
                 ", credit=" + credit +
+                ", chapterNum=" + chapterNum +
                 '}';
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Integer getCourseId() {
@@ -61,5 +63,13 @@ public final class Course {
 
     public void setCredit(int credit) {
         this.credit = credit;
+    }
+
+    public int getChapterNum() {
+        return chapterNum;
+    }
+
+    public void setChapterNum(int chapterNum) {
+        this.chapterNum = chapterNum;
     }
 }

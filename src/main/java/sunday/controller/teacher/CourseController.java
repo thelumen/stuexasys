@@ -3,6 +3,7 @@ package sunday.controller.teacher;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sunday.common.kit.ChapterKit;
 import sunday.common.kit.CommonKit;
 import sunday.common.kit.TeacherKit;
 import sunday.controller.common.CommonController;
@@ -195,9 +196,14 @@ public class CourseController extends CommonController {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
-        List<String> sections = specialty2CourseService.selectSection(params);
+        List<Course> courses = courseService.select(params);
+        if (null != courses) {
+            int chapterNum = courses.get(0).getChapterNum();
+            String[] target = ChapterKit.getLimitedChapters(chapterNum);
 
-        return null != sections ? TeacherKit.getSelectInfo(sections) : null;
+            return ChapterKit.getChapterInSelect(target);
+        }
+        return null;
     }
 
     /**

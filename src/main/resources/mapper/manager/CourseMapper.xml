@@ -16,13 +16,11 @@
         ORDER BY courseId ASC
     </select>
 
-
-
-
     <!--新增课程-->
     <insert id="insert" parameterType="sunday.pojo.school.Course">
-        INSERT INTO com_course(courseId, name, period, credit)
-         VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER})
+        INSERT INTO com_course(courseId, name, period, credit,chapterNum)
+         VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},
+         #{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER},#{chapterNum,jdbcType=INTEGER})
     </insert>
 
     <!--删除课程-->
