@@ -125,6 +125,7 @@
     </div>
 </div>
 <script>
+    var course=$('#teacher_grade_select_course');
     //    成绩分配
     function outOfGrade() {
 //        alert(Number($("[name='percent1']").val()));
@@ -158,6 +159,7 @@
     }
 
     $(function () {
+        course.select2();
 //        重置
         $('#teacher_grade_reset_btn').click(function () {
             $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/list"});

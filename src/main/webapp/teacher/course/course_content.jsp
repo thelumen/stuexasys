@@ -81,6 +81,8 @@
     </div>
 </div>
 <script>
+    var $course=$('#teacher_course_select_course');
+    var $specialty=$('#teacher_course_select_specialty');
     //    样式
     function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
@@ -99,6 +101,8 @@
     }
     //    预加载
     $(function () {
+        $course.select2();
+        $specialty.select2();
 //        全部课程
         $.ajax({
             url: '${pageContext.request.contextPath}/course/all',
@@ -132,11 +136,11 @@
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (d) {
-                    if (d === true) {
+                    if (d) {
                         swal("恭喜..", "添加新课程成功！ :)", "success");
                         $('#teacher_course_table').bootstrapTable("refresh");
                     } else {
-                        swal("Sorry", "课程添加失败！", "success");
+                        swal("Sorry", "起始日期应小于结课日期！", "error");
                     }
                 },
                 error: function () {
@@ -157,7 +161,7 @@
     function deleteCourseTaken(content) {
         swal({
                 title: "Are you sure?",
-                text: "Your will be able to recover this Question!",
+                text: "删除成功后将会同时删除相应的考试信息，您确定吗？",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

@@ -42,7 +42,10 @@ public class CourseController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean takeCourse(@RequestBody CourseTaken courseTaken) {
-
+        //选课结束日期需要比开始日期大
+        if (courseTaken.getStarttime().compareTo(courseTaken.getEndtime()) >= 0) {
+            return false;
+        }
         courseTaken.setTeacherId(TeacherKit.getCurrentTeacherId());
         return specialty2CourseService.insertCourseTaken(courseTaken) > 0;
     }
@@ -102,7 +105,12 @@ public class CourseController extends CommonController {
                 put("specialtyId", target[2]);
             }};
 
-            return specialty2CourseService.deleteTakenInfo(params);
+            //删除选课信息成功，将删除相应考试信息
+            if (specialty2CourseService.deleteTakenInfo(params)) {
+                student2ExamService.deleteExamInfo(params);
+            }
+
+            return true;
         }
         return false;
     }

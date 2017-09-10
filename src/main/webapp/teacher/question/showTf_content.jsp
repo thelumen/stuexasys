@@ -11,16 +11,16 @@
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/teacher/main">首页</a>
         </li>
-        <li class="active">判断题查看</li>
+        <li class="active">判断题管理</li>
     </ol>
     <div id="tf_select_clause">
-        <label>添加 <strong style="color: #985f0d">授课课程</strong>：<select
+        <label>选择 <strong style="color: #985f0d">授课课程</strong>：<select
                 name="courseId"
                 id="question_tf_course"
                 style="width: 200px">
             <option selected></option>
         </select></label>
-        <label>添加 <strong style="color: #985f0d">课程章节</strong>：<select
+        <label>选择 <strong style="color: #985f0d">课程章节</strong>：<select
                 name="section"
                 id="question_tf_section"
                 style="width: 200px">
@@ -35,7 +35,9 @@
 </div>
 
 <script>
+    var shortCourse = $('#question_tf_course');
     $(function () {
+        shortCourse.select2();
         $('#question_tf_section').select2();
         //初始化下拉框数据。
         $.ajax({
@@ -43,14 +45,14 @@
             url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
-                $('#question_tf_course').select2({
+                $shortCourse.select2({
                     data: data
                 });
             }
         });
         //        级联：选择课程后筛选出修这门课的所有章节
-        $('#question_tf_course').on("select2:select", function (e) {
-            var courseId = $('#question_tf_course').val();
+        shortCourse.on("select2:select", function (e) {
+            var courseId = shortCourse.val();
             $.ajax({
                 url: '${pageContext.request.contextPath}/course/section/' + courseId,
                 dataType: 'json',
@@ -80,7 +82,7 @@
                 field: 'id',
                 title: '题号',
                 sortable: true
-            },{
+            }, {
                 field: 'courseId',
                 title: '课号',
                 sortable: true
@@ -100,7 +102,10 @@
                 title: '难度级别',
                 editable: {
                     type: 'select',
-                    source: [{value: '1', text: "简单"}, {value: '2', text: "中等"}, {value: '3', text: "困难"}],
+                    source: [{value: '1', text: "简单"}, {
+                        value: '2',
+                        text: "中等"
+                    }, {value: '3', text: "困难"}],
                     disabled: false,    //是否禁用编辑
                     emptyText: "未录入",   //空值的默认文本
                     validate: function (value) {
@@ -127,7 +132,10 @@
                 title: '答案',
                 editable: {
                     type: 'select',
-                    source: [{value: '1', text: "正确"}, {value: '0', text: "错误"}],
+                    source: [{value: '1', text: "正确"}, {
+                        value: '0',
+                        text: "错误"
+                    }],
                     disabled: false,    //是否禁用编辑
                     emptyText: "未录入",   //空值的默认文本
                     validate: function (value) {
@@ -146,7 +154,7 @@
 
         //查找按钮点击事件
         $("#query_tf").click(function () {
-            var courseId = $("#question_tf_course").val();
+            var courseId = shortCourse.val();
             var section = $("#question_tf_section").val();
             if (courseId === null) {
                 courseId = 0;//未选中时的默认值
@@ -177,8 +185,8 @@
                 type: 'post',
                 url: '${pageContext.request.contextPath}/question/tf/update',
                 dataType: "json",
-               data: JSON.stringify(row),
-               contentType: 'application/json',
+                data: JSON.stringify(row),
+                contentType: 'application/json',
                 success: function (data) {
                     if (data) {
                         alert("更新成功");

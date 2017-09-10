@@ -257,6 +257,10 @@
             alert("课程Id长度为8！");
             return false;
         }
+        if (credit < 0 || credit > 25) {
+            alert("学分范围在0-25之间!");
+            return false;
+        }
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/school/course/insert',
             type: 'post',

@@ -171,12 +171,15 @@
                 studentId = 0;//未选中时的默认值
             }
             if (studentId !== 0) {
+                var validate = /^[0-9]*$/;
                 if (studentId.length === 9) {
-                    $("#studentTable").bootstrapTable("refresh",
-                        {
-                            url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
-                            silent: true
-                        })
+                    if (!validate.test(studentId)) {
+                        $("#studentTable").bootstrapTable("refresh",
+                            {
+                                url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                                silent: true
+                            })
+                    }
                 } else {
                     swal("无法进行查找", "你可能输入了一个错误的学号", "error");
                 }
@@ -321,6 +324,11 @@
 </script>
 <br>
 <div class="container">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
+        </li>
+        <li class="active">学生管理</li>
+    </ol>
     <div class="row" id="student_admin_bar">
         <div class="col-md-3">
             <label style="display: block">
