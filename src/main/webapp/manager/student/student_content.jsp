@@ -172,14 +172,13 @@
             }
             if (studentId !== 0) {
                 var validate = /^[0-9]*$/;
-                if (studentId.length === 9) {
-                    if (!validate.test(studentId)) {
-                        $("#studentTable").bootstrapTable("refresh",
-                            {
-                                url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
-                                silent: true
-                            })
-                    }
+                if (studentId.length === 9 && validate.test(studentId)) {
+                    $("#studentTable").bootstrapTable("refresh",
+                        {
+                            url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                            silent: true
+                        })
+
                 } else {
                     swal("无法进行查找", "你可能输入了一个错误的学号", "error");
                 }
