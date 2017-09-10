@@ -105,6 +105,9 @@
     <update id="update" parameterType="java.util.Map">
         UPDATE stuexasys.com_student
         <set>
+            <if test="name !=null">
+                name=#{name,jdbcType=VARCHAR},
+            </if>
             <if test="password !=null">
                 password=#{password,jdbcType=VARCHAR},
             </if>

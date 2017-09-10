@@ -345,6 +345,13 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             default:
                 break;
         }
+        //判断姓名是否更改
+        if (null != studentInfo.getName()) {
+            if (!studentInfo.getName().equals(studentTaken.get(0).getName())) {
+                params.put("name", studentInfo.getName());
+                count++;
+            }
+        }
         //判断专业是否更改
         if (null != studentInfo.getSpecialtyId()) {
             if (!studentInfo.getSpecialtyId().equals(studentTaken.get(0).getSpecialtyId())) {
