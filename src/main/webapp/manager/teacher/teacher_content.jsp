@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -14,10 +15,12 @@
     </ol>
     <hr class="divider"/>
     <br><br>
-    <div id="admin_teacher_tool">
-        <button type="button" class="btn-primary" onclick="insert()">添加教师
-        </button>
-    </div>
+    <shiro:hasPermission name="shiro:sys:admin">
+        <div id="admin_teacher_tool">
+            <button type="button" class="btn-primary" onclick="insert()">添加教师
+            </button>
+        </div>
+    </shiro:hasPermission>
     <div class="table-responsive">
         <table
                 id="manager_teacher_table"
@@ -86,7 +89,7 @@
                     type: 'delete',
                     dataType: 'json',
                     success: function (data) {
-                        if (data ) {
+                        if (data) {
                             swal("Success", "该教师信息删除成功！", "success");
                             //location.reload();
                             $('#manager_teacher_table').bootstrapTable("refresh");
@@ -106,7 +109,9 @@
     function operateTeacher(value, row) {
         var html = [];
         html.push('<button class="btn btn-primary" onclick="edit(\'{0}\')">编辑</button>'.replace('{0}', row.teacherId));
+        <shiro:hasPermission name="shiro:sys:admin">
         html.push('<button class="btn btn-danger pull-right" onclick="del(\'{0}\');">删除</button>'.replace('{0}', row.teacherId));
+        </shiro:hasPermission>
         return html.join("");
     }
 </script>

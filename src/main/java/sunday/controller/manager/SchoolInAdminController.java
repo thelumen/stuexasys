@@ -119,7 +119,7 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/course/update", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public boolean updateCourse(@RequestBody Course course) {
         //通过校验就更新
@@ -207,7 +207,7 @@ public class SchoolInAdminController extends CommonController {
      * @return
      */
     @RequestMapping(value = "/specialty/update", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:admin")
+    @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public boolean updateSpecialty(@RequestBody Specialty specialty) {
         //校验通过则更新
