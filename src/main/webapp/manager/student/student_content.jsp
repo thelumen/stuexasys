@@ -132,7 +132,7 @@
             showUpload: true,
             showRemove: true,
             uploadAsync: true,
-            showPreview: true,
+            showPreview: false,
             showCancel: false,
             dropZoneEnabled: false,
             enctype: 'multipart/form-data',
