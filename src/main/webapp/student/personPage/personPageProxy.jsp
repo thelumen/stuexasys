@@ -176,6 +176,7 @@
                             </c:if>
                             </tbody>
                         </table>
+                        <p style="color: #002a80">(学分请以教务处数据为准)</p>
                     </div>
                     <div class="tab-pane active table-responsive" id="panel-282388">
                         <table class="table table-hover">

@@ -48,44 +48,33 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
     public MessageInfo uploadStudentHandle(Map<String, Object> params) {
         List<Specialty> specialtyList = (List<Specialty>) params.get("specialtyInfo");
         boolean insertSpecialty;
-        if (specialtyList.size() > 0) {//针对单个和批量进行不同的操作
-            if (specialtyList.size() < 2) {
-                if (adminStudentMapper.selectSpecialty(params).size() == 0) {
-                    Map<String, Object> resultMap = new HashMap<>();
-                    resultMap.put("specialtyId", specialtyList.get(0).getSpecialtyId());
-                    resultMap.put("name", specialtyList.get(0).getName());
-                    insertSpecialty = (adminStudentMapper.insertSpecialty(resultMap) > 0);
+        if (specialtyList.size() == 0) {
+            return MessageInfo.OperationFailed;
+        }
+        if (specialtyList.size() == 1) { //如果专业列表中只有一个值
+            insertSpecialty = adminStudentMapper.selectSpecialty(params).size() != 0 || (adminStudentMapper.insertSpecialty(swapList2Map(specialtyList)) > 0);
+        } else { //专业列表中有多个值
+            List<Specialty> specialtyListInDB = adminStudentMapper.selectSpecialty(params);
+            if (specialtyListInDB.size() < specialtyList.size()) { //判断多个值是否都存在于数据库中
+                Map<String, Object> compareMap = new HashMap<>();
+                List<Specialty> resultSpecialtyList = new ArrayList<>();
+                for (Specialty specialty : specialtyListInDB) { //通过 Map 进行剔除
+                    compareMap.put(specialty.getSpecialtyId().toString(), 1);
+                }
+                for (Specialty specialty : specialtyList) {
+                    if (compareMap.get(specialty.getSpecialtyId().toString()) == null) {
+                        resultSpecialtyList.add(specialty);
+                    }
+                }
+                if (resultSpecialtyList.size() == 1) { //判断剔除后的列表是否只含一个值
+                    insertSpecialty = (adminStudentMapper.insertSpecialty(swapList2Map(resultSpecialtyList)) > 0);
                 } else {
-                    insertSpecialty = true;
+                    params.put("specialtyInfo", resultSpecialtyList);
+                    insertSpecialty = adminStudentMapper.insertSpecialtyList(params) > 0; //使用批量录入
                 }
             } else {
-                List<Specialty> specialtyListInDB = adminStudentMapper.selectSpecialty(params);
-                if (specialtyListInDB.size() < specialtyList.size()) {
-                    Map<String, Object> compareMap = new HashMap<>();
-                    List<Specialty> resultSpecialtyList = new ArrayList<>();
-                    for (Specialty specialty : specialtyListInDB) {
-                        compareMap.put(specialty.getSpecialtyId().toString(), 1);
-                    }
-                    for (Specialty specialty : specialtyList) {
-                        if (compareMap.get(specialty.getSpecialtyId().toString()) == null) {
-                            resultSpecialtyList.add(specialty);
-                        }
-                    }
-                    if (resultSpecialtyList.size() == 1) {
-                        Map<String, Object> resultMap = new HashMap<>();
-                        resultMap.put("specialtyId", resultSpecialtyList.get(0).getSpecialtyId());
-                        resultMap.put("name", resultSpecialtyList.get(0).getName());
-                        insertSpecialty = (adminStudentMapper.insertSpecialty(resultMap) > 0);
-                    } else {
-                        params.put("specialtyInfo", resultSpecialtyList);
-                        insertSpecialty = adminStudentMapper.insertSpecialtyList(params) > 0;
-                    }
-                } else {
-                    insertSpecialty = true;
-                }
+                insertSpecialty = true;
             }
-        } else {
-            return MessageInfo.OperationFailed;
         }
         if (insertSpecialty) {
             List<StudentTaken> studentTakenList = adminStudentMapper.selectStudentInfo(params);
@@ -115,5 +104,18 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
         } else {
             return MessageInfo.OperationFailed;
         }
+    }
+
+    /**
+     * 转换数据结构
+     *
+     * @param swapList .
+     * @return .
+     */
+    private Map<String, Object> swapList2Map(List<Specialty> swapList) {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("specialtyId", swapList.get(0).getSpecialtyId());
+        resultMap.put("name", swapList.get(0).getName());
+        return resultMap;
     }
 }
