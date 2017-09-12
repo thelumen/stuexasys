@@ -121,6 +121,22 @@
             <form id="testForm">
                 <h2>&nbsp;&nbsp;一，选择题（共20题）</h2>
                 <hr>
+                <c:if test="${empty testPaper}">
+                    <script>
+                        swal({
+                            title: "组题失败",
+                            text: "请向教师反映题库内对应题目数不足",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "好的，我这就去",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            window.location.href = ('${pageContext.request.contextPath}/student/exam');
+                        });
+                    </script>
+                </c:if>
                 <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
                     <p style="word-break: break-all">
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusSingle.count}.${testPaperSingle.content}</p>

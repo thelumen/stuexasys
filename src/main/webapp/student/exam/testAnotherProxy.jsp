@@ -102,6 +102,22 @@
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron" style="background: #BCD2EE">
+                <c:if test="${empty testPaper}">
+                    <script>
+                        swal({
+                            title: "组题失败",
+                            text: "请向教师反映题库内对应题目数不足",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "好的，我这就去",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            window.location.href = ('${pageContext.request.contextPath}/student/exam');
+                        });
+                    </script>
+                </c:if>
                 <h4 id="countDownTxt">测试剩余时间:</h4>
                 <P>${testPaper.anotherQuestionTaken.content}</P>
                 <div class="form-group">

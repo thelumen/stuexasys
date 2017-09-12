@@ -12,7 +12,6 @@ import sunday.pojo.shiro.ShiroInfo;
 import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
-import sunday.pojo.student.TestPaper;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -172,13 +171,8 @@ public class StudentController extends CommonController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        TestPaper testPaper = studentService.selectTestPaper(null, examInfo);
-        model.addAttribute("exception", "后台数据异常");
-        if (null != testPaper) {
-            model.addAttribute("testPaper", testPaper);
-            return "/student/exam/testProxy";
-        }
-        return "/common/error/error";
+        model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
+        return "/student/exam/testProxy";
     }
 
     /**

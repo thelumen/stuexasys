@@ -109,64 +109,64 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
         //判断返回值不为空 且 题目数量要大于配置枚举中的题目最小数量
-        if (null != singleTakenList && null != tfTakenList) {
-            if (singleTakenList.size() >= NumberDifficultyEnum.Total_Single.getNumbers() && tfTakenList.size() >= NumberDifficultyEnum.Total_Tf.getNumbers()) {
-                //用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
-                //传入选择题列表
-                Map<String, Integer> single_1 = new HashMap<>();
-                Map<String, Integer> single_2 = new HashMap<>();
-                Map<String, Integer> single_3 = new HashMap<>();
-                MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3);
-                Map<String, Integer> tf_1 = new HashMap<>();
-                Map<String, Integer> tf_2 = new HashMap<>();
-                Map<String, Integer> tf_3 = new HashMap<>();
-                MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3);
-                //按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
-                HashSet<Integer> set_s_1 = new HashSet<>();
-                HashSet<Integer> set_s_2 = new HashSet<>();
-                HashSet<Integer> set_s_3 = new HashSet<>();
-                HashSet<Integer> set_t_1 = new HashSet<>();
-                HashSet<Integer> set_t_2 = new HashSet<>();
-                HashSet<Integer> set_t_3 = new HashSet<>();
-                RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set_s_1);
-                RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set_s_2);
-                RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set_s_3);
-                RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set_t_1);
-                RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set_t_2);
-                RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set_t_3);
-                //按上述得到的随机数组从全部列表中得到返回列表
-                List<SingleTaken> testSingleList = new ArrayList<>();
-                List<TfTaken> testTfList = new ArrayList<>();
-                for (Integer aQuestion : set_s_1) {
-                    testSingleList.add(singleTakenList.get(aQuestion));
-                }
-                for (Integer aQuestion : set_s_2) {
-                    testSingleList.add(singleTakenList.get(aQuestion));
-                }
-                for (Integer aQuestion : set_s_3) {
-                    testSingleList.add(singleTakenList.get(aQuestion));
-                }
-                for (Integer aQuestion : set_t_1) {
-                    testTfList.add(tfTakenList.get(aQuestion));
-                }
-                for (Integer aQuestion : set_t_2) {
-                    testTfList.add(tfTakenList.get(aQuestion));
-                }
-                for (Integer aQuestion : set_t_3) {
-                    testTfList.add(tfTakenList.get(aQuestion));
-                }
-                //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
-                TestPaper testPaper = new TestPaper();
-                testPaper.setSingleTakenList(testSingleList);
-                testPaper.setTfTakenList(testTfList);
-                testPaper.setTestNum(examInfo.getTestNum());
-                return testPaper;
-            }
+        if (null == singleTakenList || null == tfTakenList) {
+            System.out.println("选择题或判断题List返回值为空");
+            return null;
+        }
+        if (singleTakenList.size() < NumberDifficultyEnum.Total_Single.getNumbers() || tfTakenList.size() < NumberDifficultyEnum.Total_Tf.getNumbers()) {
             System.out.println("选择题或判断题List返回值长度小于最小长度");
             return null;
         }
-        System.out.println("选择题或判断题List返回值为空");
-        return null;
+        //用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
+        //传入选择题列表
+        Map<String, Integer> single_1 = new HashMap<>();
+        Map<String, Integer> single_2 = new HashMap<>();
+        Map<String, Integer> single_3 = new HashMap<>();
+        MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3);
+        Map<String, Integer> tf_1 = new HashMap<>();
+        Map<String, Integer> tf_2 = new HashMap<>();
+        Map<String, Integer> tf_3 = new HashMap<>();
+        MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3);
+        //按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
+        HashSet<Integer> set_s_1 = new HashSet<>();
+        HashSet<Integer> set_s_2 = new HashSet<>();
+        HashSet<Integer> set_s_3 = new HashSet<>();
+        HashSet<Integer> set_t_1 = new HashSet<>();
+        HashSet<Integer> set_t_2 = new HashSet<>();
+        HashSet<Integer> set_t_3 = new HashSet<>();
+        RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set_s_1);
+        RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set_s_2);
+        RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set_s_3);
+        RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set_t_1);
+        RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set_t_2);
+        RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set_t_3);
+        //按上述得到的随机数组从全部列表中得到返回列表
+        List<SingleTaken> testSingleList = new ArrayList<>();
+        List<TfTaken> testTfList = new ArrayList<>();
+        for (Integer aQuestion : set_s_1) {
+            testSingleList.add(singleTakenList.get(aQuestion));
+        }
+        for (Integer aQuestion : set_s_2) {
+            testSingleList.add(singleTakenList.get(aQuestion));
+        }
+        for (Integer aQuestion : set_s_3) {
+            testSingleList.add(singleTakenList.get(aQuestion));
+        }
+        for (Integer aQuestion : set_t_1) {
+            testTfList.add(tfTakenList.get(aQuestion));
+        }
+        for (Integer aQuestion : set_t_2) {
+            testTfList.add(tfTakenList.get(aQuestion));
+        }
+        for (Integer aQuestion : set_t_3) {
+            testTfList.add(tfTakenList.get(aQuestion));
+        }
+        //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
+        TestPaper testPaper = new TestPaper();
+        testPaper.setSingleTakenList(testSingleList);
+        testPaper.setTfTakenList(testTfList);
+        testPaper.setTestNum(examInfo.getTestNum());
+        return testPaper;
     }
 
     @Override
