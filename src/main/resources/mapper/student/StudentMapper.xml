@@ -101,6 +101,48 @@
         WHERE a.courseId = #{courseId,jdbcType=INTEGER}
     </select>
 
+    <!--查询学生附加题信息-->
+    <select id="selectStudentAnotherQuestionInfo" parameterType="java.util.Map"
+            resultType="sunday.pojo.student.AnotherTestTaken">
+        SELECT *
+        FROM stuexasys.com_student_l_another_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND studentId = #{studentId,jdbcType=INTEGER}
+    </select>
+
+    <!--查询学生成绩以及信息-->
+    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
+        SELECT DISTINCT
+        g.studentId  AS studentId,
+        s.name       AS studentName,
+        c.name       AS courseName,
+        g.grade1     AS grade1,
+        g.grade2     AS grade2,
+        g.grade3     AS grade3,
+        g.grade4     AS grade4,
+        g.total      AS total,
+        tc.starttime AS startTime,
+        tc.endtime   AS endtime
+        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
+        WHERE
+        g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
+        s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
+    </select>
+
+    <!--查询学生课程-->
+    <select id="selectCourse" parameterType="java.util.Map" resultType="sunday.pojo.student.CourseTaken">
+        SELECT DISTINCT
+        c.name       AS courseName,
+        c.credit     AS credit,
+        c.period     AS period,
+        tc.starttime AS startTime,
+        tc.endtime   AS endtime
+        FROM stuexasys.com_course c, stuexasys.com_teacher_l_course tc, stuexasys.com_student s
+        WHERE
+        c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
+    </select>
+
+    <!--分割线——更新————————————————————————————————————————————————————————————————————-->
+
     <!--更新学生信息-->
     <update id="update" parameterType="java.util.Map">
         UPDATE stuexasys.com_student
@@ -127,35 +169,6 @@
         where studentId=#{studentId,jdbcType=INTEGER}
     </update>
 
-    <!--插入学生-->
-    <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
-        INSERT INTO stuexasys.com_student (studentId, password, specialtyId)
-        VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
-                #{specialtyId,jdbcType=INTEGER})
-    </insert>
-
-    <!--插入学生与权限的关联-->
-    <insert id="insertStudentRole" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_studnet_l_role (studentId, roleId)
-        VALUES (#{studentId,jdbcType=INTEGER}, 4)
-    </insert>
-
-    <!--插入学生成绩(首次测试)-->
-    <insert id="insertGrade" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_grade (studentId, courseId, grade1)
-        VALUES (
-        #{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER},
-        <if test="grade1!=null">
-            #{grade1,jdbcType=INTEGER}
-        </if>
-        <if test="grade2!=null">
-            #{grade2,jdbcType=INTEGER}
-        </if>
-        <if test="grade3!=null">
-            #{grade3,jdbcType=INTEGER}
-        </if>
-    </insert>
-
     <!--更新学生成绩（除测试四）-->
     <update id="updateGrade" parameterType="java.util.Map">
         UPDATE stuexasys.com_grade
@@ -173,13 +186,34 @@
         WHERE studentId=#{studentId,jdbcType=INTEGER} AND courseId= #{courseId,jdbcType=INTEGER}
     </update>
 
-    <!--查询学生附加题信息-->
-    <select id="selectStudentAnotherQuestionInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.student.AnotherTestTaken">
-        SELECT *
-        FROM stuexasys.com_student_l_another_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND studentId = #{studentId,jdbcType=INTEGER}
-    </select>
+    <!--更新学生附加题的答案-->
+    <update id="updateAnotherResult" parameterType="java.util.Map">
+        UPDATE stuexasys.com_student_l_another_question
+        SET result = #{result,jdbcType=VARCHAR}
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER} AND
+        Id = #{Id,jdbcType=BIGINT}
+    </update>
+
+    <!--分割线——插入————————————————————————————————————————————————————————————————————-->
+
+    <!--插入学生-->
+    <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
+        INSERT INTO stuexasys.com_student (studentId, password, specialtyId)
+        VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
+                #{specialtyId,jdbcType=INTEGER})
+    </insert>
+
+    <!--插入学生与权限的关联-->
+    <insert id="insertStudentRole" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_studnet_l_role (studentId, roleId)
+        VALUES (#{studentId,jdbcType=INTEGER}, 4)
+    </insert>
+
+    <!--插入学生成绩关联行-->
+    <insert id="insertGrade" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_grade (studentId, courseId)
+        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER})
+    </insert>
 
     <!--插入学生附加题的答案-->
     <insert id="insertAnotherResult" parameterType="java.util.Map">
@@ -188,45 +222,7 @@
                 #{Id,jdbcType=BIGINT})
     </insert>
 
-    <!--更新学生附加题的答案-->
-    <update id="updateAnotherResult" parameterType="java.util.Map">
-        UPDATE stuexasys.com_student_l_another_question
-        SET result = #{result,jdbcType=VARCHAR}
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER} AND
-              Id = #{Id,jdbcType=BIGINT}
-    </update>
-
-    <!--查询学生成绩以及信息-->
-    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
-        SELECT DISTINCT
-            g.studentId  AS studentId,
-            s.name       AS studentName,
-            c.name       AS courseName,
-            g.grade1     AS grade1,
-            g.grade2     AS grade2,
-            g.grade3     AS grade3,
-            g.grade4     AS grade4,
-            g.total      AS total,
-            tc.starttime AS startTime,
-            tc.endtime   AS endtime
-        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
-        WHERE
-            g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
-            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
-    </select>
-
-    <!--查询学生课程-->
-    <select id="selectCourse" parameterType="java.util.Map" resultType="sunday.pojo.student.CourseTaken">
-        SELECT DISTINCT
-            c.name       AS courseName,
-            c.credit     AS credit,
-            c.period     AS period,
-            tc.starttime AS startTime,
-            tc.endtime   AS endtime
-        FROM stuexasys.com_course c, stuexasys.com_teacher_l_course tc, stuexasys.com_student s
-        WHERE
-            c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
-    </select>
+    <!--分割线——删除————————————————————————————————————————————————————————————————————-->
 
     <!--删除学生信息-->
     <delete id="delete" parameterType="java.util.Map">

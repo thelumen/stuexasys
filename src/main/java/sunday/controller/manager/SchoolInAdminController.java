@@ -113,7 +113,7 @@ public class SchoolInAdminController extends CommonController {
     }
 
     /**
-     * 更新专业
+     * 更新课程
      *
      * @param course
      * @return

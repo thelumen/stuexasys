@@ -122,11 +122,15 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         Map<String, Integer> single_1 = new HashMap<>();
         Map<String, Integer> single_2 = new HashMap<>();
         Map<String, Integer> single_3 = new HashMap<>();
-        MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3);
+        if(!MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3)){
+            return null;
+        }
         Map<String, Integer> tf_1 = new HashMap<>();
         Map<String, Integer> tf_2 = new HashMap<>();
         Map<String, Integer> tf_3 = new HashMap<>();
-        MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3);
+        if(!MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3)){
+            return null;
+        }
         //按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
         HashSet<Integer> set_s_1 = new HashSet<>();
         HashSet<Integer> set_s_2 = new HashSet<>();
@@ -160,6 +164,12 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }
         for (Integer aQuestion : set_t_3) {
             testTfList.add(tfTakenList.get(aQuestion));
+        }
+        //判断返回题目数是否足够
+        if (testSingleList.size() < NumberDifficultyEnum.Total_Single.getNumbers()
+                || testTfList.size() < NumberDifficultyEnum.Total_Tf.getNumbers()) {
+            System.out.println("组题出现异常");
+            return null;
         }
         //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
         TestPaper testPaper = new TestPaper();
@@ -266,7 +276,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public boolean insertGrade(GradeInfo gradeInfo) {
-        boolean changedRow = false;
+        boolean changedRow;
         Map<String, Object> uploadGrade = new HashMap<String, Object>() {{
             put("Id", gradeInfo.getId());
             put("courseId", gradeInfo.getCourseId());
@@ -277,24 +287,24 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 uploadGrade.put("grade1", gradeInfo.getGrade());
                 //insert 抛出异常后 执行 catch 块中的 update 并返回成功与否
                 try {
-                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
-                } catch (DataAccessException e) {
+                    studentMapper.insertGrade(uploadGrade);
+                }finally {
                     changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
                 break;
             case "2":
                 uploadGrade.put("grade2", gradeInfo.getGrade());
                 try {
-                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
-                } catch (DataAccessException e) {
+                    studentMapper.insertGrade(uploadGrade);
+                }finally {
                     changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
                 break;
             case "3":
                 uploadGrade.put("grade3", gradeInfo.getGrade());
                 try {
-                    changedRow = studentMapper.insertGrade(uploadGrade) > 0;
-                } catch (DataAccessException e) {
+                    studentMapper.insertGrade(uploadGrade);
+                }finally {
                     changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 }
                 break;

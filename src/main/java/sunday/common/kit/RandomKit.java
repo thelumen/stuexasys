@@ -22,6 +22,7 @@ public final class RandomKit {
     public static void randomSet(int min, int max, int n, HashSet<Integer> set) {
         //判断传入值的合法性
         if (n > (max - min + 1) || max < min) {
+            System.out.println("非法的参数");
             return;
         }
         //循环将随机数填入 set 直到达到数量 n

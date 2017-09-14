@@ -1,5 +1,6 @@
 package sunday.common.kit;
 
+import sunday.common.enums.NumberDifficultyEnum;
 import sunday.pojo.student.SingleTaken;
 import sunday.pojo.student.TfTaken;
 
@@ -16,15 +17,16 @@ public final class MakeTestPaperKit {
 
     /**
      * 传入一个按难度排序的 singleTakenList 和三个用来存储难度区间的 map
+     *
      * @param testList   singleTakenList .
      * @param Question_1 简单 难度区间.
      * @param Question_2 中等 难度区间.
      * @param Question_3 困难 难度区间.
      */
-    public static void makeStartEndMap_s(List<SingleTaken> testList,
-                                       Map<String, Integer> Question_1,
-                                       Map<String, Integer> Question_2,
-                                       Map<String, Integer> Question_3) {
+    public static boolean makeStartEndMap_s(List<SingleTaken> testList,
+                                            Map<String, Integer> Question_1,
+                                            Map<String, Integer> Question_2,
+                                            Map<String, Integer> Question_3) {
         /*
         用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
         */
@@ -42,25 +44,39 @@ public final class MakeTestPaperKit {
             }
             count_s++;
         }
-        //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
+        //各个难度题数是否足够
+        if (Question_2.get("start") < NumberDifficultyEnum.Single_1.getNumbers()){
+            System.out.println("选择题简单难度题目不足");
+            return false;
+        }
+        if((Question_2.get("end") - Question_2.get("start") + 1) < NumberDifficultyEnum.Single_2.getNumbers()){
+            System.out.println("选择题中等难度题目不足");
+            return false;
+        }
+        if((testList.size() - Question_2.get("end") - 1) < NumberDifficultyEnum.Single_3.getNumbers()){
+            System.out.println("选择题困难难度题目不足");
+            return false;
+        }
         Question_1.put("start", 0);
         Question_1.put("end", Question_2.get("start") - 1);
         //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
         Question_3.put("start", (Question_2.get("end") + 1));
         Question_3.put("end", testList.size() - 1);
+        return true;
     }
 
     /**
      * 传入一个按难度排序的 TftakenList 和三个用来存储难度区间的 map
+     *
      * @param testList   TftakenList .
      * @param Question_1 简单 难度区间.
      * @param Question_2 中等 难度区间.
      * @param Question_3 困难 难度区间.
      */
-    public static void makeStartEndMap_t(List<TfTaken> testList,
-                                         Map<String, Integer> Question_1,
-                                         Map<String, Integer> Question_2,
-                                         Map<String, Integer> Question_3) {
+    public static boolean makeStartEndMap_t(List<TfTaken> testList,
+                                            Map<String, Integer> Question_1,
+                                            Map<String, Integer> Question_2,
+                                            Map<String, Integer> Question_3) {
         /*
         用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
         */
@@ -78,11 +94,25 @@ public final class MakeTestPaperKit {
             }
             count_s++;
         }
+        //各个难度题数是否足够
+        if (Question_2.get("start") < NumberDifficultyEnum.Tf_1.getNumbers()){
+            System.out.println("判断题简单难度题目不足");
+            return false;
+        }
+        if((Question_2.get("end") - Question_2.get("start") + 1) < NumberDifficultyEnum.Tf_2.getNumbers()){
+            System.out.println("判断题中等难度题目不足");
+            return false;
+        }
+        if((testList.size() - Question_2.get("end") - 1) < NumberDifficultyEnum.Tf_3.getNumbers()){
+            System.out.println("判断题困难难度题目不足");
+            return false;
+        }
         //简单难度的起始值为 0 , 结束值 等于 中等难度的起始值-1
         Question_1.put("start", 0);
         Question_1.put("end", Question_2.get("start") - 1);
         //困难难度的结束值为 列表长度-1, 起始值 等于 中等难度的结束值+1
         Question_3.put("start", (Question_2.get("end") + 1));
         Question_3.put("end", testList.size() - 1);
+        return true;
     }
 }
