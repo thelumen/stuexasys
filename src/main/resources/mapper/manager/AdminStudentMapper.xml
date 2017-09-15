@@ -7,9 +7,9 @@
     <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
         SELECT *
         FROM stuexasys.com_student
-        where specialtyId IN
-        <foreach collection="specialtyInfo" index="index" item="specialtyItem" open="(" separator="," close=")">
-            #{specialtyItem.specialtyId}
+        where com_student.studentId IN
+        <foreach collection="studentUploadList" index="index" item="studentItem" open="(" separator="," close=")">
+            #{studentItem.studentId}
         </foreach>
     </select>
 

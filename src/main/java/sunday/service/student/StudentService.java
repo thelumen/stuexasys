@@ -33,64 +33,36 @@ public interface StudentService {
     /**
      * 查询学生成绩信息
      *
-     * @param page   .
      * @param params .
      * @return List<GradeTaken>
      */
-    List<GradeTaken> selectGrade(Page page, Map<String, Object> params);
+    List<GradeTaken> selectGrade(Map<String, Object> params);
 
     /**
      * 查询学生课程信息
      *
-     * @param page   .
      * @param params .
      * @return List<GradeTaken>
      */
-    List<CourseTaken> selectCourse(Page page, Map<String, Object> params);
+    List<CourseTaken> selectCourse(Map<String, Object> params);
 
     /**
      * 查询学生考试信息
      *
-     * @param page   .
      * @param params .
      * @return List<ExamInfo>
      */
-    List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params);
-
-    /**
-     * 通过 courseId, content 组卷并返回集合对象( 普通 )
-     *
-     * @param page     .
-     * @param examInfo .
-     * @return TestPaper
-     */
-    TestPaper selectTestPaper(Page page, ExamInfo examInfo);
+    List<ExamInfo> selectExamInfo(Map<String, Object> params);
 
     /**
      * 通过 courseId 组卷并返回集合对象( 附加 )
      *
      *@param studentId .
-     * @param page     .
      * @param examInfo .
      * @return TestPaper
      */
-    TestPaper selectTestPaperAnother(Page page, int studentId, ExamInfo examInfo);
+    TestPaper selectTestPaperAnother(int studentId, ExamInfo examInfo);
 
-    /**
-     * 新增学生
-     *
-     * @param student .
-     * @return int
-     */
-    int insertStudent(Student student);
-
-    /**
-     * 插入学生与权限关系
-     *
-     * @param student .
-     * @return int
-     */
-    int insertStudentRole(Student student);
     /**
      * 插入学生成绩
      *
@@ -114,4 +86,12 @@ public interface StudentService {
      * @return .
      */
     boolean delete(Map<String, Object> params);
+
+    /**
+     * 通过 courseId, content 组卷并返回集合对象( 普通 )
+     *
+     * @param examInfo .
+     * @return .
+     */
+    TestPaper selectQuestion(ExamInfo examInfo);
 }

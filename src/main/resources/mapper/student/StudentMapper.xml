@@ -3,6 +3,67 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sunday.mapper.student.StudentMapper">
 
+    <!--查询选择题题库-->
+    <select id="selectQuestionOfSingle" resultType="sunday.pojo.student.SingleTaken" parameterType="java.util.Map">
+        (SELECT *
+        FROM com_single_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 4)
+        UNION
+        (SELECT *
+        FROM com_single_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 2 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 14)
+        UNION
+        (SELECT *
+        FROM com_single_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 3 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 2)
+    </select>
+
+    <!--查询判断题题库-->
+    <select id="selectQuestionOfTf" resultType="sunday.pojo.student.TfTaken" parameterType="java.util.Map">
+        (SELECT *
+        FROM com_tf_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 1)
+        UNION
+        (SELECT *
+        FROM com_tf_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 2 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 3)
+        UNION
+        (SELECT *
+        FROM com_tf_question
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 3 AND section IN
+        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+            #{sectionItem}
+        </foreach>
+        ORDER BY rand() LIMIT 1)
+    </select>
+
+    <!--查询成绩信息-->
+    <select id="selectGradeInfo" resultType="sunday.pojo.student.GradeInfo" parameterType="java.util.Map">
+        SELECT *
+        FROM com_grade
+        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER}
+    </select>
+
     <!--查询学生-->
     <select id="select" parameterType="java.util.Map"
             resultType="sunday.pojo.school.Student">
@@ -68,28 +129,6 @@
               s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
-    <!--查询题库（选择题）-->
-    <select id="selectQuestionBaseSingle" parameterType="java.util.Map" resultType="sunday.pojo.student.SingleTaken">
-        SELECT *
-        FROM stuexasys.com_single_question s
-        WHERE s.courseId = #{courseId,jdbcType=INTEGER} AND s.section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
-            #{sectionItem}
-        </foreach>
-        ORDER BY s.levels
-    </select>
-
-    <!--查询题库（判断题）-->
-    <select id="selectQuestionBaseTf" parameterType="java.util.Map" resultType="sunday.pojo.student.TfTaken">
-        SELECT *
-        FROM stuexasys.com_tf_question t
-        WHERE t.courseId = #{courseId,jdbcType=INTEGER} AND t.section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
-            #{sectionItem}
-        </foreach>
-        ORDER BY t.levels
-    </select>
-
     <!--查询题库（附加题）-->
     <select id="selectQuestionBaseAnother" parameterType="java.util.Map"
             resultType="sunday.pojo.student.AnotherTestTaken">
@@ -112,33 +151,33 @@
     <!--查询学生成绩以及信息-->
     <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
         SELECT DISTINCT
-        g.studentId  AS studentId,
-        s.name       AS studentName,
-        c.name       AS courseName,
-        g.grade1     AS grade1,
-        g.grade2     AS grade2,
-        g.grade3     AS grade3,
-        g.grade4     AS grade4,
-        g.total      AS total,
-        tc.starttime AS startTime,
-        tc.endtime   AS endtime
+            g.studentId  AS studentId,
+            s.name       AS studentName,
+            c.name       AS courseName,
+            g.grade1     AS grade1,
+            g.grade2     AS grade2,
+            g.grade3     AS grade3,
+            g.grade4     AS grade4,
+            g.total      AS total,
+            tc.starttime AS startTime,
+            tc.endtime   AS endtime
         FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
         WHERE
-        g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
-        s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
+            g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
+            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生课程-->
     <select id="selectCourse" parameterType="java.util.Map" resultType="sunday.pojo.student.CourseTaken">
         SELECT DISTINCT
-        c.name       AS courseName,
-        c.credit     AS credit,
-        c.period     AS period,
-        tc.starttime AS startTime,
-        tc.endtime   AS endtime
+            c.name       AS courseName,
+            c.credit     AS credit,
+            c.period     AS period,
+            tc.starttime AS startTime,
+            tc.endtime   AS endtime
         FROM stuexasys.com_course c, stuexasys.com_teacher_l_course tc, stuexasys.com_student s
         WHERE
-        c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
+            c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--分割线——更新————————————————————————————————————————————————————————————————————-->
@@ -191,16 +230,16 @@
         UPDATE stuexasys.com_student_l_another_question
         SET result = #{result,jdbcType=VARCHAR}
         WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER} AND
-        Id = #{Id,jdbcType=BIGINT}
+              Id = #{Id,jdbcType=BIGINT}
     </update>
 
     <!--分割线——插入————————————————————————————————————————————————————————————————————-->
 
     <!--插入学生-->
-    <insert id="insertStudent" parameterType="sunday.pojo.school.Student">
-        INSERT INTO stuexasys.com_student (studentId, password, specialtyId)
+    <insert id="insertStudent" parameterType="java.util.Map">
+        INSERT INTO stuexasys.com_student (studentId, password, specialtyId, gender, name)
         VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
-                #{specialtyId,jdbcType=INTEGER})
+                #{specialtyId,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
     </insert>
 
     <!--插入学生与权限的关联-->

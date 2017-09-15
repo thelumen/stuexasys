@@ -4,12 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import sunday.common.enums.DeleteType;
-import sunday.common.enums.NumberDifficultyEnum;
 import sunday.common.kit.EncryptKit;
-import sunday.common.kit.MakeTestPaperKit;
-import sunday.common.kit.RandomKit;
 import sunday.pojo.school.Student;
 import sunday.pojo.student.*;
 import sunday.service.common.CommonService;
@@ -49,10 +45,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    public List<GradeTaken> selectGrade(Page page, Map<String, Object> params) {
-        if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        }
+    public List<GradeTaken> selectGrade(Map<String, Object> params) {
         List<GradeTaken> gradeTakens = studentMapper.selectGrade(params);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;
@@ -61,10 +54,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    public List<CourseTaken> selectCourse(Page page, Map<String, Object> params) {
-        if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        }
+    public List<CourseTaken> selectCourse(Map<String, Object> params) {
         List<CourseTaken> courseTakens = studentMapper.selectCourse(params);
         if (null != courseTakens && courseTakens.size() > 0) {
             return courseTakens;
@@ -73,114 +63,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    public TestPaper selectTestPaper(Page page, ExamInfo examInfo) {
-        if (examInfo == null) return null;
-        Map<String, String> changed = new HashMap<String, String>() {{
-            put("1", "第一章");
-            put("2", "第二章");
-            put("3", "第三章");
-            put("4", "第四章");
-            put("5", "第五章");
-            put("6", "第六章");
-            put("7", "第七章");
-            put("8", "第八章");
-            put("9", "第九章");
-            put("10", "第十章");
-            put("11", "第十一章");
-            put("12", "第十二章");
-            put("13", "第十三章");
-            put("14", "第十四章");
-            put("15", "第十五章");
-            put("16", "第十六章");
-        }};
-        String[] strArray = examInfo.getContent().split(",");
-        List<String> sectionInfo = new ArrayList<>();
-        //拼接 章节(sectionInfo) 字符串用于查询
-        for (int i = 0; i < strArray.length; i++) {
-            strArray[i] = changed.get(strArray[i]);
-            sectionInfo.add(strArray[i]);
-        }
-        //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
-        //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
-        Map<String, Object> testInfo = new HashMap<String, Object>() {{
-            put("courseId", examInfo.getCourseId());
-            put("sectionList", sectionInfo);
-        }};
-        List<SingleTaken> singleTakenList = studentMapper.selectQuestionBaseSingle(testInfo);
-        List<TfTaken> tfTakenList = studentMapper.selectQuestionBaseTf(testInfo);
-        //判断返回值不为空 且 题目数量要大于配置枚举中的题目最小数量
-        if (null == singleTakenList || null == tfTakenList) {
-            System.out.println("选择题或判断题List返回值为空");
-            return null;
-        }
-        if (singleTakenList.size() < NumberDifficultyEnum.Total_Single.getNumbers() || tfTakenList.size() < NumberDifficultyEnum.Total_Tf.getNumbers()) {
-            System.out.println("选择题或判断题List返回值长度小于最小长度");
-            return null;
-        }
-        //用三个Map将不同难度的题的标号的 起始(start) 与 结束(end) 位置标出
-        //传入选择题列表
-        Map<String, Integer> single_1 = new HashMap<>();
-        Map<String, Integer> single_2 = new HashMap<>();
-        Map<String, Integer> single_3 = new HashMap<>();
-        if(!MakeTestPaperKit.makeStartEndMap_s(singleTakenList, single_1, single_2, single_3)){
-            return null;
-        }
-        Map<String, Integer> tf_1 = new HashMap<>();
-        Map<String, Integer> tf_2 = new HashMap<>();
-        Map<String, Integer> tf_3 = new HashMap<>();
-        if(!MakeTestPaperKit.makeStartEndMap_t(tfTakenList, tf_1, tf_2, tf_3)){
-            return null;
-        }
-        //按难度分别通过对应的 方法(randomSet) 与 map(single_1) 产生 随机数组(set_s_1)
-        HashSet<Integer> set_s_1 = new HashSet<>();
-        HashSet<Integer> set_s_2 = new HashSet<>();
-        HashSet<Integer> set_s_3 = new HashSet<>();
-        HashSet<Integer> set_t_1 = new HashSet<>();
-        HashSet<Integer> set_t_2 = new HashSet<>();
-        HashSet<Integer> set_t_3 = new HashSet<>();
-        RandomKit.randomSet(single_1.get("start"), single_1.get("end"), NumberDifficultyEnum.Single_1.getNumbers(), set_s_1);
-        RandomKit.randomSet(single_2.get("start"), single_2.get("end"), NumberDifficultyEnum.Single_2.getNumbers(), set_s_2);
-        RandomKit.randomSet(single_3.get("start"), single_3.get("end"), NumberDifficultyEnum.Single_3.getNumbers(), set_s_3);
-        RandomKit.randomSet(tf_1.get("start"), tf_1.get("end"), NumberDifficultyEnum.Tf_1.getNumbers(), set_t_1);
-        RandomKit.randomSet(tf_2.get("start"), tf_2.get("end"), NumberDifficultyEnum.Tf_2.getNumbers(), set_t_2);
-        RandomKit.randomSet(tf_3.get("start"), tf_3.get("end"), NumberDifficultyEnum.Tf_3.getNumbers(), set_t_3);
-        //按上述得到的随机数组从全部列表中得到返回列表
-        List<SingleTaken> testSingleList = new ArrayList<>();
-        List<TfTaken> testTfList = new ArrayList<>();
-        for (Integer aQuestion : set_s_1) {
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        for (Integer aQuestion : set_s_2) {
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        for (Integer aQuestion : set_s_3) {
-            testSingleList.add(singleTakenList.get(aQuestion));
-        }
-        for (Integer aQuestion : set_t_1) {
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
-        for (Integer aQuestion : set_t_2) {
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
-        for (Integer aQuestion : set_t_3) {
-            testTfList.add(tfTakenList.get(aQuestion));
-        }
-        //判断返回题目数是否足够
-        if (testSingleList.size() < NumberDifficultyEnum.Total_Single.getNumbers()
-                || testTfList.size() < NumberDifficultyEnum.Total_Tf.getNumbers()) {
-            System.out.println("组题出现异常");
-            return null;
-        }
-        //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
-        TestPaper testPaper = new TestPaper();
-        testPaper.setSingleTakenList(testSingleList);
-        testPaper.setTfTakenList(testTfList);
-        testPaper.setTestNum(examInfo.getTestNum());
-        return testPaper;
-    }
-
-    @Override
-    public TestPaper selectTestPaperAnother(Page page, int studentId, ExamInfo examInfo) {
+    public TestPaper selectTestPaperAnother(int studentId, ExamInfo examInfo) {
         TestPaper testPaper = new TestPaper();
         Map<String, Object> testInfo = new HashMap<String, Object>() {{
             put("studentId", studentId);
@@ -209,10 +92,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    public List<ExamInfo> selectExamInfo(Page page, Map<String, Object> params) {
-        if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        }
+    public List<ExamInfo> selectExamInfo(Map<String, Object> params) {
         List<ExamTaken> examTakens = studentMapper.selectExamInfo(params);
         if (null != examTakens && examTakens.size() > 0) {
             List<ExamInfo> examInfoList = new ArrayList<>();
@@ -264,17 +144,6 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
-    @Transactional
-    public int insertStudent(Student student) {
-        return studentMapper.insertStudent(student);
-    }
-
-    @Override
-    public int insertStudentRole(Student student) {
-        return studentMapper.insertStudentRole(student);
-    }
-
-    @Override
     public boolean insertGrade(GradeInfo gradeInfo) {
         boolean changedRow;
         Map<String, Object> uploadGrade = new HashMap<String, Object>() {{
@@ -285,28 +154,30 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         switch (gradeInfo.getTestNum()) {
             case "1":
                 uploadGrade.put("grade1", gradeInfo.getGrade());
-                //insert 抛出异常后 执行 catch 块中的 update 并返回成功与否
-                try {
-                    studentMapper.insertGrade(uploadGrade);
-                }finally {
-                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                        System.out.println("学生课程与成绩关联数据添加失败");
+                    }
                 }
+                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 break;
             case "2":
                 uploadGrade.put("grade2", gradeInfo.getGrade());
-                try {
-                    studentMapper.insertGrade(uploadGrade);
-                }finally {
-                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                        System.out.println("学生课程与成绩关联数据添加失败");
+                    }
                 }
+                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 break;
             case "3":
                 uploadGrade.put("grade3", gradeInfo.getGrade());
-                try {
-                    studentMapper.insertGrade(uploadGrade);
-                }finally {
-                    changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                        System.out.println("学生课程与成绩关联数据添加失败");
+                    }
                 }
+                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
@@ -406,5 +277,54 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             default:
                 return false;
         }
+    }
+
+    @Override
+    public TestPaper selectQuestion(ExamInfo examInfo) {
+        if (examInfo == null) return null;
+        Map<String, String> changed = new HashMap<String, String>() {{
+            put("1", "第一章");
+            put("2", "第二章");
+            put("3", "第三章");
+            put("4", "第四章");
+            put("5", "第五章");
+            put("6", "第六章");
+            put("7", "第七章");
+            put("8", "第八章");
+            put("9", "第九章");
+            put("10", "第十章");
+            put("11", "第十一章");
+            put("12", "第十二章");
+            put("13", "第十三章");
+            put("14", "第十四章");
+            put("15", "第十五章");
+            put("16", "第十六章");
+        }};
+        String[] strArray = examInfo.getContent().split(",");
+        List<String> sectionInfo = new ArrayList<>();
+        //拼接 章节(sectionInfo) 字符串用于查询
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = changed.get(strArray[i]);
+            sectionInfo.add(strArray[i]);
+        }
+        //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
+        //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
+        Map<String, Object> testInfo = new HashMap<String, Object>() {{
+            put("courseId", examInfo.getCourseId());
+            put("sectionList", sectionInfo);
+        }};
+        List<SingleTaken> singleTakenList = studentMapper.selectQuestionOfSingle(testInfo);
+        List<TfTaken> tfTakenList = studentMapper.selectQuestionOfTf(testInfo);
+        //判断返回题目数是否足够
+        if (singleTakenList.size() != 20 || tfTakenList.size() != 5) {
+            System.out.println("组题出现异常");
+            return null;
+        }
+        //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
+        TestPaper testPaper = new TestPaper();
+        testPaper.setSingleTakenList(singleTakenList);
+        testPaper.setTfTakenList(tfTakenList);
+        testPaper.setTestNum(examInfo.getTestNum());
+        return testPaper;
     }
 }

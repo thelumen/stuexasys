@@ -16,6 +16,30 @@ import java.util.Map;
 public interface StudentMapper {
 
     /**
+     * 查询选择题题库
+     *
+     * @param params .
+     * @return List<SingleTaken> .
+     */
+    List<SingleTaken> selectQuestionOfSingle(Map<String, Object> params);
+
+    /**
+     * 查询学生课程与成绩关联数据是否存在
+     *
+     * @param params .
+     * @return .
+     */
+    List<GradeInfo> selectGradeInfo(Map<String, Object> params);
+
+    /**
+     * 查询判断题题库
+     *
+     * @param params .
+     * @return List<TfTaken> .
+     */
+    List<TfTaken> selectQuestionOfTf(Map<String, Object> params);
+
+    /**
      * 查询学生
      *
      * @param params .
@@ -48,22 +72,6 @@ public interface StudentMapper {
     List<ExamTaken> selectExamInfo(Map<String, Object> params);
 
     /**
-     * 查询题库（选择题）
-     *
-     * @param params .
-     * @return List<SingleTaken>
-     */
-    List<SingleTaken> selectQuestionBaseSingle(Map<String, Object> params);
-
-    /**
-     * 查询题库（判断题）
-     *
-     * @param params .
-     * @return List<TfTaken>
-     */
-    List<TfTaken> selectQuestionBaseTf(Map<String, Object> params);
-
-    /**
      * 查询题库（附加题）
      *
      * @param params .
@@ -80,23 +88,25 @@ public interface StudentMapper {
     List<CourseTaken> selectCourse(Map<String, Object> params);
 
     /**
-     * 新增学生
+     * 新增学生(单个)
      *
-     * @param student .
+     * @param params .
      * @return int
      */
-    int insertStudent(Student student);
+    int insertStudent(Map<String, Object> params);
 
     /**
-     * 增加学生与权限关联
+     * 增加学生与权限关联(单个)
      *
-     * @param student .
+     * @param params .
      * @return int
      */
-    int insertStudentRole(Student student);
+    int insertStudentRole(Map<String, Object> params);
+
     /**
      * 新增学生成绩
      * 针对测试一
+     *
      * @param params .
      * @return int
      */
@@ -105,6 +115,7 @@ public interface StudentMapper {
     /**
      * 更新学生成绩
      * 针对测试二和三
+     *
      * @param params .
      * @return int
      */
@@ -120,7 +131,8 @@ public interface StudentMapper {
 
     /**
      * 插入学生附加题答案
-     *  针对测试四
+     * 针对测试四
+     *
      * @param params .
      * @return int
      */
@@ -128,6 +140,7 @@ public interface StudentMapper {
 
     /**
      * 更新学生附加题答案
+     *
      * @param params .
      * @return int
      */

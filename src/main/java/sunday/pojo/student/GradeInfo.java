@@ -8,8 +8,44 @@ public class GradeInfo {
     private Integer studentId;
     private Integer courseId;
     private Integer grade;
+    private Integer grade1;
+    private Integer grade2;
+    private Integer grade3;
+    private Integer grade4;
     private String testNum;
     private String result;
+
+    public Integer getGrade1() {
+        return grade1;
+    }
+
+    public void setGrade1(Integer grade1) {
+        this.grade1 = grade1;
+    }
+
+    public Integer getGrade2() {
+        return grade2;
+    }
+
+    public void setGrade2(Integer grade2) {
+        this.grade2 = grade2;
+    }
+
+    public Integer getGrade3() {
+        return grade3;
+    }
+
+    public void setGrade3(Integer grade3) {
+        this.grade3 = grade3;
+    }
+
+    public Integer getGrade4() {
+        return grade4;
+    }
+
+    public void setGrade4(Integer grade4) {
+        this.grade4 = grade4;
+    }
 
     public Long getId() {
         return Id;

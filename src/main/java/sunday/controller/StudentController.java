@@ -86,8 +86,8 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/personPage", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
-        model.addAttribute("studentCourse", studentService.selectCourse(null, getStudentIdWithMap()));
-        model.addAttribute("studentGrade", studentService.selectGrade(null, getStudentIdWithMap()));
+        model.addAttribute("studentCourse", studentService.selectCourse(getStudentIdWithMap()));
+        model.addAttribute("studentGrade", studentService.selectGrade(getStudentIdWithMap()));
         model.addAttribute("studentInfo", studentService.selectStudentInfo(null, getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
     }
@@ -101,7 +101,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
-        model.addAttribute("studentExamInfo", studentService.selectExamInfo(null, getStudentIdWithMap()));
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(getStudentIdWithMap()));
         return "/student/exam/examProxy";
     }
 
@@ -171,7 +171,7 @@ public class StudentController extends CommonController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        model.addAttribute("testPaper", studentService.selectTestPaper(null, examInfo));
+        model.addAttribute("testPaper", studentService.selectQuestion(examInfo));
         return "/student/exam/testProxy";
     }
 
@@ -186,7 +186,7 @@ public class StudentController extends CommonController {
         String[] s = examInfoInPath.split("_");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
-        model.addAttribute("testPaper", studentService.selectTestPaperAnother(null, getStudentIdWithInt(), examInfo));
+        model.addAttribute("testPaper", studentService.selectTestPaperAnother(getStudentIdWithInt(), examInfo));
         return "/student/exam/testAnotherProxy";
     }
 

@@ -15,6 +15,22 @@ public final class SingleTaken {
     private String que4;
     private String result;
 
+    @Override
+    public String toString() {
+        return "SingleTaken{" +
+                "Id=" + Id +
+                ", courseId=" + courseId +
+                ", section='" + section + '\'' +
+                ", levels=" + levels +
+                ", content='" + content + '\'' +
+                ", que1='" + que1 + '\'' +
+                ", que2='" + que2 + '\'' +
+                ", que3='" + que3 + '\'' +
+                ", que4='" + que4 + '\'' +
+                ", result='" + result + '\'' +
+                '}';
+    }
+
     public String getContent() {
         return content;
     }

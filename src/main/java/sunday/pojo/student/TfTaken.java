@@ -1,7 +1,5 @@
 package sunday.pojo.student;
 
-import java.io.Serializable;
-
 /**
  * Created by 花间一壶酒 on 2017/6/4.
  */
@@ -12,6 +10,18 @@ public final class TfTaken {
     private Integer levels;
     private String content;
     private Integer result;
+
+    @Override
+    public String toString() {
+        return "TfTaken{" +
+                "Id=" + Id +
+                ", courseId=" + courseId +
+                ", section='" + section + '\'' +
+                ", levels=" + levels +
+                ", content='" + content + '\'' +
+                ", result=" + result +
+                '}';
+    }
 
     public Long getId() {
         return Id;
