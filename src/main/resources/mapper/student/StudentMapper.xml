@@ -158,13 +158,10 @@
             g.grade2     AS grade2,
             g.grade3     AS grade3,
             g.grade4     AS grade4,
-            g.total      AS total,
-            tc.starttime AS startTime,
-            tc.endtime   AS endtime
-        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
+            g.total      AS total
+        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s
         WHERE
-            g.studentId = s.studentId AND g.courseId = c.courseId AND c.courseId = tc.courseId AND
-            s.specialtyId = tc.specialtyId AND g.studentId = #{studentId,jdbcType=INTEGER}
+            g.studentId = s.studentId AND g.courseId = c.courseId AND g.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生课程-->
