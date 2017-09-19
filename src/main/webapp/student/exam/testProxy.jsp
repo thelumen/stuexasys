@@ -13,6 +13,15 @@
     <%@include file="/common/inc/head.jsp" %>
     <script>
         $(function () {
+            if (window.history && window.history.pushState) {
+                $(window).on('popstate', function () {
+                    window.history.pushState('forward', null, '#');
+                    window.history.forward(1);
+                });
+            }
+            window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+            window.history.forward(1);
+
             var ans = '${testPaper.singleTakenList[0].courseId},';
             <c:forEach items="${testPaper.singleTakenList}" var="Ans">
             ans += '${Ans.result},';
@@ -26,7 +35,7 @@
 //            alert($("#hideArea").val());
 
             //计时器实现
-            var timeS = 40;
+            var timeS = 40;//测试时间,单位秒
             var setI = setInterval(countDown, 1000);
 
             function countDown() {
@@ -107,6 +116,7 @@
                         } else swal("提交失败", "请向老师反映", "error");
                     }
                 })
+
             }
         })
     </script>

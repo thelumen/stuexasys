@@ -151,17 +151,18 @@
     <!--查询学生成绩以及信息-->
     <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
         SELECT DISTINCT
-            g.studentId  AS studentId,
-            s.name       AS studentName,
-            c.name       AS courseName,
-            g.grade1     AS grade1,
-            g.grade2     AS grade2,
-            g.grade3     AS grade3,
-            g.grade4     AS grade4,
-            g.total      AS total
-        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s
+            g.studentId AS studentId,
+            s.name      AS studentName,
+            c.name      AS courseName,
+            g.grade1    AS grade1,
+            g.grade2    AS grade2,
+            g.grade3    AS grade3,
+            g.grade4    AS grade4,
+            g.total     AS total
+        FROM stuexasys.com_course c, stuexasys.com_grade g, stuexasys.com_student s, stuexasys.com_teacher_l_course tc
         WHERE
-            g.studentId = s.studentId AND g.courseId = c.courseId AND g.studentId = #{studentId,jdbcType=INTEGER}
+            g.studentId = s.studentId AND g.courseId = c.courseId AND tc.specialtyId = s.specialtyId AND
+            tc.courseId = c.courseId AND g.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生课程-->

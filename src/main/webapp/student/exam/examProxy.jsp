@@ -37,6 +37,7 @@
                     data: jsonDate,
                     success: function (data) {
                         if (data.generalTest) {
+                            <%--window.open('${pageContext.request.contextPath}/student/test/start/' + data.examInfo);--%>
                             window.location.href = '${pageContext.request.contextPath}/student/test/start/' + data.examInfo;
                         } else window.location.href = '${pageContext.request.contextPath}/student/test/startAnother/' + data.examInfo;
                     }

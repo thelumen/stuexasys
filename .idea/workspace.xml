@@ -4,6 +4,9 @@
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,34 +93,66 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StudentMapper.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StudentMapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="282">
-              <caret line="163" column="113" lean-forward="true" selection-start-line="163" selection-start-column="113" selection-end-line="163" selection-end-column="113" />
+              <caret line="164" column="84" lean-forward="false" selection-start-line="164" selection-start-column="84" selection-end-line="164" selection-end-column="84" />
               <folding>
-                <marker date="1505799489922" expanded="true" signature="358:1347" ph="(SELECT * FR... " />
-                <marker date="1505799489922" expanded="true" signature="359:671" ph="SELECT * FRO... com_single_question" />
-                <marker date="1505799489922" expanded="true" signature="696:1009" ph="SELECT * FRO... com_single_question" />
-                <marker date="1505799489922" expanded="true" signature="1034:1346" ph="SELECT * FRO... com_single_question" />
-                <marker date="1505799489922" expanded="true" signature="1498:2474" ph="(SELECT * FR... " />
-                <marker date="1505799489922" expanded="true" signature="1499:1807" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1505799489922" expanded="true" signature="1832:2140" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1505799489922" expanded="true" signature="2165:2473" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1505799489922" expanded="true" signature="2623:2754" ph="SELECT * FRO... com_grade" />
-                <marker date="1505799489922" expanded="true" signature="4368:5134" ph="SELECT DISTI... com_examinfo" />
-                <marker date="1505799489922" expanded="true" signature="5315:5532" ph="SELECT DISTI... com_another_question" />
-                <marker date="1505799489922" expanded="true" signature="5720:5882" ph="SELECT * FRO... com_student_l_another_question" />
-                <marker date="1505799489922" expanded="true" signature="6032:6557" ph="SELECT DISTI... com_course" />
-                <marker date="1505799489922" expanded="true" signature="6705:7137" ph="SELECT DISTI... com_course" />
-                <marker date="1505799489922" expanded="true" signature="7322:8092" ph="UPDATE stuex... " />
-                <marker date="1505799489922" expanded="true" signature="8200:8673" ph="UPDATE stuex... " />
-                <marker date="1505799489922" expanded="true" signature="8787:9027" ph="UPDATE stuex... " />
-                <marker date="1505799489922" expanded="true" signature="9217:9479" ph="INSERT INTO stuexasys.com_student... " />
-                <marker date="1505799489922" expanded="true" signature="9591:9701" ph="INSERT INTO stuexasys.com_studnet_l_role... " />
-                <marker date="1505799489922" expanded="true" signature="9806:9936" ph="INSERT INTO stuexasys.com_grade... " />
-                <marker date="1505799489922" expanded="true" signature="10050:10280" ph="INSERT INTO stuexasys.com_student_l_another_question... " />
+                <marker date="1505819212770" expanded="true" signature="358:1347" ph="(SELECT * FR... " />
+                <marker date="1505819212770" expanded="true" signature="359:671" ph="SELECT * FRO... com_single_question" />
+                <marker date="1505819212770" expanded="true" signature="696:1009" ph="SELECT * FRO... com_single_question" />
+                <marker date="1505819212770" expanded="true" signature="1034:1346" ph="SELECT * FRO... com_single_question" />
+                <marker date="1505819212770" expanded="true" signature="1498:2474" ph="(SELECT * FR... " />
+                <marker date="1505819212770" expanded="true" signature="1499:1807" ph="SELECT * FRO... com_tf_question" />
+                <marker date="1505819212770" expanded="true" signature="1832:2140" ph="SELECT * FRO... com_tf_question" />
+                <marker date="1505819212770" expanded="true" signature="2165:2473" ph="SELECT * FRO... com_tf_question" />
+                <marker date="1505819212770" expanded="true" signature="2623:2754" ph="SELECT * FRO... com_grade" />
+                <marker date="1505819212770" expanded="true" signature="4368:5134" ph="SELECT DISTI... com_examinfo" />
+                <marker date="1505819212770" expanded="true" signature="5315:5532" ph="SELECT DISTI... com_another_question" />
+                <marker date="1505819212770" expanded="true" signature="5720:5882" ph="SELECT * FRO... com_student_l_another_question" />
+                <marker date="1505819212770" expanded="true" signature="6032:6660" ph="SELECT DISTI... com_course" />
+                <marker date="1505819212770" expanded="true" signature="6808:7240" ph="SELECT DISTI... com_course" />
+                <marker date="1505819212770" expanded="true" signature="7425:8195" ph="UPDATE stuex... " />
+                <marker date="1505819212770" expanded="true" signature="8303:8776" ph="UPDATE stuex... " />
+                <marker date="1505819212770" expanded="true" signature="8890:9130" ph="UPDATE stuex... " />
+                <marker date="1505819212770" expanded="true" signature="9320:9582" ph="INSERT INTO stuexasys.com_student... " />
+                <marker date="1505819212770" expanded="true" signature="9694:9804" ph="INSERT INTO stuexasys.com_studnet_l_role... " />
+                <marker date="1505819212770" expanded="true" signature="9909:10039" ph="INSERT INTO stuexasys.com_grade... " />
+                <marker date="1505819212770" expanded="true" signature="10153:10383" ph="INSERT INTO stuexasys.com_student_l_another_question... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="examProxy.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="41" column="123" lean-forward="true" selection-start-line="41" selection-start-column="123" selection-end-line="41" selection-end-column="123" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testProxy.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+              <folding>
+                <element signature="e#3384#4529#0#HTML" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testAnotherProxy.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -218,7 +253,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/ManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/common/CommonService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/teacher/course/course_content.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/teacher/CourseController.java" />
@@ -251,12 +285,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/RandomKit.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/MakeTestPaperKit.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/SingleTaken.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" />
         <option value="$PROJECT_DIR$/src/test/SpringTest.java" />
@@ -269,6 +301,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/AdminStudentMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
       </list>
     </option>
   </component>
@@ -415,6 +450,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="student" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="student" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="exam" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1246,7 +1337,7 @@
       <workItem from="1505626530211" duration="3203000" />
       <workItem from="1505642186952" duration="3817000" />
       <workItem from="1505702910865" duration="3429000" />
-      <workItem from="1505799375888" duration="109000" />
+      <workItem from="1505799375888" duration="2861000" />
     </task>
     <task id="LOCAL-00001" summary="异常处理&#10;学生考试页面的组题逻辑部分">
       <created>1503504898615</created>
@@ -1521,7 +1612,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505472735759</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="优化:学生成绩表显示">
+      <created>1505799537382</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1505799537382</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1557,7 +1655,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317624000" />
+    <option name="totallyTimeSpent" value="320376000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1585,6 +1683,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7217538" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3244496" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288364" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -1601,7 +1700,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3244496" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="91" y="91" width="1738" height="860" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
@@ -1635,7 +1733,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="管理员端：完成课程的更新功能" />
     <MESSAGE value="管理员端：修正用户没有权限卡在对话框的问题" />
     <MESSAGE value="管理员端：查看学生界面，删除专业完成" />
     <MESSAGE value="管理员端：修改了删除专业的逻辑防止漏删，上传学生信息窗体建立" />
@@ -1660,7 +1757,8 @@
     <MESSAGE value="优化：当学生测试时，题库数据错误时的提示" />
     <MESSAGE value="优化:组题逻辑添加额外的判断:各题型的各难度的题数是否足够&#10;优化:成绩上传逻辑更改,由 try-insert catch-update 改为 try-insert finally-update" />
     <MESSAGE value="优化:组题通过SQL实现&#10;优化:成绩上传逻辑更改,先查询，后决定&#10;优化:上传学生逻辑优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化:组题通过SQL实现&#10;优化:成绩上传逻辑更改,先查询，后决定&#10;优化:上传学生逻辑优化" />
+    <MESSAGE value="优化:学生成绩表显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化:学生成绩表显示" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1740,19 +1838,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/nav/nav.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-50">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-627">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
@@ -1775,13 +1867,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="27" column="74" lean-forward="true" selection-start-line="27" selection-start-column="74" selection-end-line="27" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="119" column="23" lean-forward="false" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1810,13 +1895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1045">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1918,6 +1996,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1925,6 +2004,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
           <caret line="84" column="14" lean-forward="true" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2029,30 +2109,56 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="282">
-          <caret line="163" column="113" lean-forward="true" selection-start-line="163" selection-start-column="113" selection-end-line="163" selection-end-column="113" />
+          <caret line="164" column="84" lean-forward="false" selection-start-line="164" selection-start-column="84" selection-end-line="164" selection-end-column="84" />
           <folding>
-            <marker date="1505799489922" expanded="true" signature="358:1347" ph="(SELECT * FR... " />
-            <marker date="1505799489922" expanded="true" signature="359:671" ph="SELECT * FRO... com_single_question" />
-            <marker date="1505799489922" expanded="true" signature="696:1009" ph="SELECT * FRO... com_single_question" />
-            <marker date="1505799489922" expanded="true" signature="1034:1346" ph="SELECT * FRO... com_single_question" />
-            <marker date="1505799489922" expanded="true" signature="1498:2474" ph="(SELECT * FR... " />
-            <marker date="1505799489922" expanded="true" signature="1499:1807" ph="SELECT * FRO... com_tf_question" />
-            <marker date="1505799489922" expanded="true" signature="1832:2140" ph="SELECT * FRO... com_tf_question" />
-            <marker date="1505799489922" expanded="true" signature="2165:2473" ph="SELECT * FRO... com_tf_question" />
-            <marker date="1505799489922" expanded="true" signature="2623:2754" ph="SELECT * FRO... com_grade" />
-            <marker date="1505799489922" expanded="true" signature="4368:5134" ph="SELECT DISTI... com_examinfo" />
-            <marker date="1505799489922" expanded="true" signature="5315:5532" ph="SELECT DISTI... com_another_question" />
-            <marker date="1505799489922" expanded="true" signature="5720:5882" ph="SELECT * FRO... com_student_l_another_question" />
-            <marker date="1505799489922" expanded="true" signature="6032:6557" ph="SELECT DISTI... com_course" />
-            <marker date="1505799489922" expanded="true" signature="6705:7137" ph="SELECT DISTI... com_course" />
-            <marker date="1505799489922" expanded="true" signature="7322:8092" ph="UPDATE stuex... " />
-            <marker date="1505799489922" expanded="true" signature="8200:8673" ph="UPDATE stuex... " />
-            <marker date="1505799489922" expanded="true" signature="8787:9027" ph="UPDATE stuex... " />
-            <marker date="1505799489922" expanded="true" signature="9217:9479" ph="INSERT INTO stuexasys.com_student... " />
-            <marker date="1505799489922" expanded="true" signature="9591:9701" ph="INSERT INTO stuexasys.com_studnet_l_role... " />
-            <marker date="1505799489922" expanded="true" signature="9806:9936" ph="INSERT INTO stuexasys.com_grade... " />
-            <marker date="1505799489922" expanded="true" signature="10050:10280" ph="INSERT INTO stuexasys.com_student_l_another_question... " />
+            <marker date="1505819212770" expanded="true" signature="358:1347" ph="(SELECT * FR... " />
+            <marker date="1505819212770" expanded="true" signature="359:671" ph="SELECT * FRO... com_single_question" />
+            <marker date="1505819212770" expanded="true" signature="696:1009" ph="SELECT * FRO... com_single_question" />
+            <marker date="1505819212770" expanded="true" signature="1034:1346" ph="SELECT * FRO... com_single_question" />
+            <marker date="1505819212770" expanded="true" signature="1498:2474" ph="(SELECT * FR... " />
+            <marker date="1505819212770" expanded="true" signature="1499:1807" ph="SELECT * FRO... com_tf_question" />
+            <marker date="1505819212770" expanded="true" signature="1832:2140" ph="SELECT * FRO... com_tf_question" />
+            <marker date="1505819212770" expanded="true" signature="2165:2473" ph="SELECT * FRO... com_tf_question" />
+            <marker date="1505819212770" expanded="true" signature="2623:2754" ph="SELECT * FRO... com_grade" />
+            <marker date="1505819212770" expanded="true" signature="4368:5134" ph="SELECT DISTI... com_examinfo" />
+            <marker date="1505819212770" expanded="true" signature="5315:5532" ph="SELECT DISTI... com_another_question" />
+            <marker date="1505819212770" expanded="true" signature="5720:5882" ph="SELECT * FRO... com_student_l_another_question" />
+            <marker date="1505819212770" expanded="true" signature="6032:6660" ph="SELECT DISTI... com_course" />
+            <marker date="1505819212770" expanded="true" signature="6808:7240" ph="SELECT DISTI... com_course" />
+            <marker date="1505819212770" expanded="true" signature="7425:8195" ph="UPDATE stuex... " />
+            <marker date="1505819212770" expanded="true" signature="8303:8776" ph="UPDATE stuex... " />
+            <marker date="1505819212770" expanded="true" signature="8890:9130" ph="UPDATE stuex... " />
+            <marker date="1505819212770" expanded="true" signature="9320:9582" ph="INSERT INTO stuexasys.com_student... " />
+            <marker date="1505819212770" expanded="true" signature="9694:9804" ph="INSERT INTO stuexasys.com_studnet_l_role... " />
+            <marker date="1505819212770" expanded="true" signature="9909:10039" ph="INSERT INTO stuexasys.com_grade... " />
+            <marker date="1505819212770" expanded="true" signature="10153:10383" ph="INSERT INTO stuexasys.com_student_l_another_question... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="41" column="123" lean-forward="true" selection-start-line="41" selection-start-column="123" selection-end-line="41" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <folding>
+            <element signature="e#3384#4529#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
