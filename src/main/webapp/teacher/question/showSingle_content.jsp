@@ -80,14 +80,17 @@
             columns: [{
                 field: 'id',
                 title: '题号',
-                sortable: true
+                sortable: true,
+                visible:false
             }, {
                 field: 'courseId',
                 title: '课号',
-                sortable: true
+                sortable: true,
+                visible:false
             }, {
                 field: 'section',
                 title: '章节',
+                visible:false,
                 editable: {
                     type: 'text',
                     validate: function (value) {
@@ -116,6 +119,7 @@
             }, {
                 field: 'content',
                 title: '题干',
+                width:500,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -129,6 +133,7 @@
             }, {
                 field: 'que1',
                 title: 'A',
+                width:150,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -142,6 +147,7 @@
             }, {
                 field: 'que2',
                 title: 'B',
+                width:150,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -155,6 +161,7 @@
             }, {
                 field: 'que3',
                 title: 'C',
+                width:150,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -168,6 +175,7 @@
             }, {
                 field: 'que4',
                 title: 'D',
+                width:150,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -181,6 +189,7 @@
             }, {
                 field: 'result',
                 title: '答案',
+                width:50,
                 editable: {
                     type: 'select',
                     source: [{value: 'A', text: "A"}, {
@@ -198,6 +207,7 @@
             }, {
                 field: 'edit',
                 title: '操作',
+                width:150,
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]
