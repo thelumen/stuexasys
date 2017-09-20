@@ -28,7 +28,7 @@
                 <a href="${pageContext.request.contextPath}/student/personPage">前往</a>
             </p>
         </div>
-        <div class="jumbotron" style="background: url(${pageContext.request.contextPath}/common/image/bg-科技辐射.jpg)">
+        <div class="jumbotron" style="background: url(${pageContext.request.contextPath}/common/image/Image-4.jpg)">
             <h1>
                 测试
             </h1>
