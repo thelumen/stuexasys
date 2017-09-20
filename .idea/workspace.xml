@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/common/image/Image-4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/common/image/bg-login.jpg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/common/image/background-tree.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/common/image/bg-古树线条.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/common/image/bg-科技辐射.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/common/user/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/common/user/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -145,15 +140,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainProxy.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testProxy.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="37" column="39" lean-forward="true" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mainProxy.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="30" column="116" lean-forward="true" selection-start-line="30" selection-start-column="116" selection-end-line="30" selection-end-column="116" />
+            <state relative-caret-position="855">
+              <caret line="45" column="17" lean-forward="true" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testAnotherProxy.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="37" column="27" lean-forward="false" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -290,11 +305,11 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/common/user/login.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
       </list>
     </option>
   </component>
@@ -494,6 +509,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="student" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="exam" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1416,7 +1461,7 @@
       <workItem from="1505642186952" duration="3817000" />
       <workItem from="1505702910865" duration="3429000" />
       <workItem from="1505799375888" duration="4112000" />
-      <workItem from="1505874207737" duration="10232000" />
+      <workItem from="1505874207737" duration="10474000" />
     </task>
     <task id="LOCAL-00001" summary="异常处理&#10;学生考试页面的组题逻辑部分">
       <created>1503504898615</created>
@@ -1712,7 +1757,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505875063067</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="优化:登录界面&#10;优化:图片大小">
+      <created>1505894735721</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1505894735721</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1748,7 +1800,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="331859000" />
+    <option name="totallyTimeSpent" value="332101000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1774,7 +1826,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4198988" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4198988" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3244496" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1826,7 +1878,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="管理员端：修改了删除专业的逻辑防止漏删，上传学生信息窗体建立" />
     <MESSAGE value="管理员端：上传学生功能完成" />
     <MESSAGE value="管理员端：上传学生功能完善&#10;--&gt;重复表上传的排除&#10;--&gt;从表中读取新的学生数据&#10;--&gt;返回信息的完善" />
     <MESSAGE value="教师端：完成简答题修改需求&#10;--&gt;按照课程查找&#10;--&gt;对表中的数据进行编辑&#10;--&gt;保存或者删除简答题" />
@@ -1851,7 +1902,8 @@
     <MESSAGE value="优化:学生成绩表显示" />
     <MESSAGE value="优化:学生考试界面禁用后退&#10;优化:学生成绩表显示" />
     <MESSAGE value="优化:学生个人信息界面禁用后退" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化:学生个人信息界面禁用后退" />
+    <MESSAGE value="优化:登录界面&#10;优化:图片大小" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化:登录界面&#10;优化:图片大小" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2181,22 +2233,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="54" lean-forward="false" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -2250,12 +2286,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="30" column="116" lean-forward="true" selection-start-line="30" selection-start-column="116" selection-end-line="30" selection-end-column="116" />
+        <state relative-caret-position="855">
+          <caret line="45" column="17" lean-forward="true" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="37" column="27" lean-forward="false" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="37" column="39" lean-forward="true" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>

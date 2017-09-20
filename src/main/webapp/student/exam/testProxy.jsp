@@ -35,7 +35,7 @@
 //            alert($("#hideArea").val());
 
             //计时器实现
-            var timeS = 40;//测试时间,单位秒
+            var timeS = 1800;//测试时间,单位秒
             var setI = setInterval(countDown, 1000);
 
             function countDown() {
