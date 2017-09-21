@@ -152,22 +152,22 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusSingle.count}.${testPaperSingle.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A.
-                            <input type="radio" name="single-${statusSingle.count}" value="1">${testPaperSingle.que1}
+                            <input type="radio" name="single-${statusSingle.count}" value="A">${testPaperSingle.que1}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B.
-                            <input type="radio" name="single-${statusSingle.count}" value="2">${testPaperSingle.que2}
+                            <input type="radio" name="single-${statusSingle.count}" value="B">${testPaperSingle.que2}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C.
-                            <input type="radio" name="single-${statusSingle.count}" value="3">${testPaperSingle.que3}
+                            <input type="radio" name="single-${statusSingle.count}" value="C">${testPaperSingle.que3}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.
-                            <input type="radio" name="single-${statusSingle.count}" value="4">${testPaperSingle.que4}
+                            <input type="radio" name="single-${statusSingle.count}" value="D">${testPaperSingle.que4}
                         </label>
                     </p>
                     <hr>
