@@ -28,7 +28,7 @@
         ans += '${testPaper.testNum},';
         document.getElementById("hideArea").value = ans;
 
-        alert($("#hideArea").val());
+//        alert($("#hideArea").val());
 
         //计时器实现
         var timeS = 1800;//测试时间,单位秒

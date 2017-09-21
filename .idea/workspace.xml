@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,7 +92,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testProxy.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testProxy.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
@@ -106,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap-judge.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bootstrap-judge.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="91" column="21" lean-forward="true" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
+            <state relative-caret-position="285">
+              <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -276,8 +274,8 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/EncryptKit.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.js" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" />
       </list>
     </option>
   </component>
@@ -1641,7 +1639,7 @@
       <workItem from="1505799375888" duration="4112000" />
       <workItem from="1505874207737" duration="11866000" />
       <workItem from="1505971891214" duration="2836000" />
-      <workItem from="1505985978630" duration="8252000" />
+      <workItem from="1505985978630" duration="8318000" />
     </task>
     <task id="LOCAL-00001" summary="异常处理&#10;学生考试页面的组题逻辑部分">
       <created>1503504898615</created>
@@ -1958,7 +1956,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505975058917</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="优化:考试界面答案加密">
+      <created>1505996911442</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1505996911442</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1994,7 +1999,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="344581000" />
+    <option name="totallyTimeSpent" value="344647000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2072,7 +2077,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="教师端：完成简答题修改需求&#10;--&gt;按照课程查找&#10;--&gt;对表中的数据进行编辑&#10;--&gt;保存或者删除简答题" />
     <MESSAGE value="管理端：修复学生上传&#10;--&gt;修复学生权限&#10;--&gt;修复学生初始密码格式" />
     <MESSAGE value="--&gt;修改了学生上传&#10;--&gt;修改了部分url" />
     <MESSAGE value="整理shiro注解" />
@@ -2097,7 +2101,8 @@
     <MESSAGE value="优化:登录界面&#10;优化:图片大小" />
     <MESSAGE value="优化:延长考试时间" />
     <MESSAGE value="优化:登录界面禁止返回&#10;优化:登录的异常提示" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化:登录界面禁止返回&#10;优化:登录的异常提示" />
+    <MESSAGE value="优化:考试界面答案加密" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化:考试界面答案加密" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2429,14 +2434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/showSingle_content.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="196" column="17" lean-forward="true" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1001">
@@ -2475,14 +2472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="91" column="21" lean-forward="true" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -2490,6 +2479,22 @@
           <folding>
             <element signature="n#c:if#0;n#jsp:root#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/showSingle_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="196" column="17" lean-forward="true" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="38" lean-forward="true" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
