@@ -45,4 +45,11 @@
           depends-on="lifecycleBeanPostProcessor">
         <property name="proxyTargetClass" value="true"/>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/common/inc/*"/>
+            <bean class="sunday.common.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>  

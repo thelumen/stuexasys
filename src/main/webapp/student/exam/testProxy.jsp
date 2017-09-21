@@ -91,7 +91,11 @@
 //                    console.log($(this).val());　　// 选中框中的值
                 });
                 var grade = testRight * 4;
-                var gradeInfo = {'courseId': an[0], 'grade': grade, 'testNum': an[26]};
+                var gradeInfo = {
+                    'courseId': an[0],
+                    'grade': grade,
+                    'testNum': an[26]
+                };
                 var jsonData = JSON.stringify(gradeInfo);
                 $.ajax({
                     type: 'post',
@@ -127,7 +131,8 @@
 <div class="container" style="background: #BCD2EE">
     <div class="row">
         <div class="col-md-12">
-            <h4>&nbsp;&nbsp;&nbsp;&nbsp;测试剩余时间:<label id="countDownTxt"></label></h4>
+            <h4>&nbsp;&nbsp;&nbsp;&nbsp;测试剩余时间:<label id="countDownTxt"></label>
+            </h4>
             <form id="testForm">
                 <h2>&nbsp;&nbsp;一，选择题（共20题）</h2>
                 <hr>
@@ -147,49 +152,76 @@
                         });
                     </script>
                 </c:if>
-                <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
+                <c:forEach items="${testPaper.singleTakenList}"
+                           var="testPaperSingle" varStatus="statusSingle">
                     <p style="word-break: break-all">
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusSingle.count}.${testPaperSingle.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A.
-                            <input type="radio" name="single-${statusSingle.count}" value="A">${testPaperSingle.que1}
+                            <input type="radio"
+                                   name="single-${statusSingle.count}"
+                                   value="A">${testPaperSingle.que1}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B.
-                            <input type="radio" name="single-${statusSingle.count}" value="B">${testPaperSingle.que2}
+                            <input type="radio"
+                                   name="single-${statusSingle.count}"
+                                   value="B">${testPaperSingle.que2}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C.
-                            <input type="radio" name="single-${statusSingle.count}" value="C">${testPaperSingle.que3}
+                            <input type="radio"
+                                   name="single-${statusSingle.count}"
+                                   value="C">${testPaperSingle.que3}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.
-                            <input type="radio" name="single-${statusSingle.count}" value="D">${testPaperSingle.que4}
+                            <input type="radio"
+                                   name="single-${statusSingle.count}"
+                                   value="D">${testPaperSingle.que4}
+                        </label>
+                    </p>
+                    <p hidden>
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.
+                            <input type="radio" checked
+                                   name="single-${statusSingle.count}"
+                                   value="E">${testPaperSingle.que4}
                         </label>
                     </p>
                     <hr>
                 </c:forEach>
                 <h2>&nbsp;&nbsp;二，判断题（共5题）</h2>
-                <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
-                    <p style="word-break: break-all">&nbsp;&nbsp;&nbsp;&nbsp;${statusTf.count}.${testPaperTf.content}</p>
+                <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf"
+                           varStatus="statusTf">
+                    <p style="word-break: break-all">
+                        &nbsp;&nbsp;&nbsp;&nbsp;${statusTf.count}.${testPaperTf.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}" value="1">正确
+                            <input type="radio" name="tf-${statusTf.count}"
+                                   value="1">正确
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}" value="2">错误
+                            <input type="radio" name="tf-${statusTf.count}"
+                                   value="2">错误
+                        </label>
+                    </p>
+                    <p hidden>
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="tf-${statusTf.count}"
+                                   value="3" checked>错误
                         </label>
                     </p>
                     <hr>
                 </c:forEach>
                 <p>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" id="submitTestPaper" class="btn btn-primary">
+                    <button type="button" id="submitTestPaper"
+                            class="btn btn-primary">
                         <label>提交试卷</label>
                     </button>
                 </p>

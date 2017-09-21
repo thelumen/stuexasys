@@ -93,6 +93,7 @@ public class GradeController extends CommonController {
             return null;
         }
         Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", TeacherKit.getCurrentTeacherId());
             put("specialtyId", specialtyId);
             put("courseId", courseId);
         }};
