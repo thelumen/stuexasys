@@ -11,7 +11,107 @@
 <head>
     <title>测试</title>
     <%@include file="/common/inc/head.jsp" %>
-    <%@include file="/common/inc/bootstrap-judge.jsp" %>
+    <script src="/common/inc/bootstrap-judge.js" type="text/javascript"></script>
+    <script>
+        $(function () {
+            if (window.history && window.history.pushState) {
+                $(window).on('popstate', function () {
+                    window.history.pushState('forward', null, '#');
+                    window.history.forward(1);
+                });
+            }
+            window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+            window.history.forward(1);
+
+            var ans = '${testPaper.singleTakenList[0].courseId},';
+            <c:forEach items="${testPaper.singleTakenList}" var="Ans">
+            ans += '${Ans.result},';
+            </c:forEach>
+            <c:forEach items="${testPaper.tfTakenList}" var="Ant">
+            ans += '${Ant.result},';
+            </c:forEach>
+            ans += '${testPaper.testNum},';
+            document.getElementById("hideArea").value = ans;
+
+//        alert($("#hideArea").val());
+
+            //计时器实现
+            var timeS = 1800;//测试时间,单位秒
+            var setI = setInterval(countDown, 1000);
+
+            function countDown() {
+                timeS = timeS - 1;
+                var m = Math.floor(timeS / 60);
+                var s = timeS % 60;
+                if (s < 10) {
+                    s = '0' + s;
+                }
+                m += ':';
+                m += s;
+                $("#countDownTxt").text(m);
+                if (timeS === 0) {
+                    clearInterval(setI);//结束计时器
+                    submitTest();
+                }
+            }
+
+            //提交按钮
+            $("#submitTestPaper").click(function () {
+                swal({
+                    title: "确定要提交吗？",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "提交",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    clearInterval(setI);//结束计时器
+                    submitTest();
+                });
+            });
+        });
+        //提交到服务器
+        function submitTest() {
+            var an = $("#hideArea").val().split(",");
+            var i = 1;
+            var stuResult = "";
+            $('input:radio:checked').each(function () {
+                var checkValue = $(this).val();
+                stuResult += checkValue;
+                stuResult += ",";
+                i++;
+// console.log($(this).val());　　// 选中框中的值
+            });
+            var gradeInfo = {'courseId': an[0], 'answer': an, 'testNum': an[26], 'result': stuResult};
+            var jsonData = JSON.stringify(gradeInfo);
+            $.ajax({
+                type: 'post',
+                url: '/student/uploadGrade',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: jsonData,
+                success: function (data) {
+                    if (data.issuccess) {
+                        swal({
+                            title: "得分" + data.grade,
+                            text: "选择题:" + data.single + "/20 " + "判断:" + data.tf + "/5",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "确定",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            window.location.href = ('/student/personPage');
+                        });
+                    } else swal("提交失败", "请向老师反映", "error");
+                }
+            })
+        }
+    </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
 <%@include file="/student/nav/nav.jsp" %>
@@ -64,7 +164,7 @@
                     </p>
                     <p hidden>
                         <label>
-                            <input type="radio" value="E" checked>
+                            <input type="radio" name="single-${statusSingle.count}" value="E" checked>
                         </label>
                     </p>
                     <hr>
@@ -85,7 +185,7 @@
                     </p>
                     <p hidden>
                         <label>
-                            <input type="radio" value="3" checked>
+                            <input type="radio" name="tf-${statusTf.count}" value="3" checked>
                         </label>
                     </p>
                     <hr>

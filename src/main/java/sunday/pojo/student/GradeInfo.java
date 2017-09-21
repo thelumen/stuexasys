@@ -14,6 +14,15 @@ public class GradeInfo {
     private Integer grade4;
     private String testNum;
     private String result;
+    private String[] answer;
+
+    public String[] getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String[] answer) {
+        this.answer = answer;
+    }
 
     public Integer getGrade1() {
         return grade1;
