@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/interceptor/MyInterceptor.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/spring/springMVC.xml" afterPath="$PROJECT_DIR$/src/main/resources/config/spring/springMVC.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -1313,14 +1312,7 @@
       <workItem from="1505971891214" duration="2179000" />
       <workItem from="1505982789818" duration="302000" />
       <workItem from="1505983792161" duration="4628000" />
-      <workItem from="1505994520903" duration="6127000" />
-    </task>
-    <task id="LOCAL-00003" summary="重整manager端">
-      <created>1503963356965</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1503963356965</updated>
+      <workItem from="1505994520903" duration="6677000" />
     </task>
     <task id="LOCAL-00004" summary="添加教师修改，删除功能">
       <created>1503989064315</created>
@@ -1658,7 +1650,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505999599607</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="去他丫的拦截器">
+      <created>1506000886904</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1506000886904</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1694,7 +1693,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="346729000" />
+    <option name="totallyTimeSpent" value="347279000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1772,7 +1771,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="优化登录操作" />
     <MESSAGE value="Merge branch 'jiang'" />
     <MESSAGE value="新增附加题管理功能" />
     <MESSAGE value="管理员端：解决学生查询无法分页问题" />
@@ -1797,7 +1795,8 @@
     <MESSAGE value="优化静态资源权限" />
     <MESSAGE value="解决：查询学生成绩，出现重复对象" />
     <MESSAGE value="解决：查询学生成绩，出现重复对象；测试拦截器" />
-    <option name="LAST_COMMIT_MESSAGE" value="解决：查询学生成绩，出现重复对象；测试拦截器" />
+    <MESSAGE value="去他丫的拦截器" />
+    <option name="LAST_COMMIT_MESSAGE" value="去他丫的拦截器" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1818,13 +1817,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="329" column="1" lean-forward="false" selection-start-line="329" selection-start-column="1" selection-end-line="329" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/mapper/student/StudentMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1653">
@@ -2129,14 +2121,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.5.RELEASE/spring-webmvc-4.3.5.RELEASE.jar!/org/springframework/web/servlet/HandlerInterceptor.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -2193,6 +2177,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/bootstrap-judge.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/common/inc/head.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
