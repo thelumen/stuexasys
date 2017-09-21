@@ -10,8 +10,6 @@ import sunday.common.kit.ShiroKit;
 import sunday.common.kit.StringKit;
 import sunday.controller.common.CommonController;
 
-import java.util.Objects;
-
 /**
  * Created by yang on 2017/5/22.
  * At 13:55
@@ -62,7 +60,7 @@ public class ShiroController extends CommonController{
             }
         } else {
             model.addAttribute("exception", "登入失败，可能原因：1.账号信息错误；2.身份类型错误（管理员？教师？学生？）；3.不存在该账号.");
-            url = "/common/error/error";
+            url = "/common/user/login";
         }
         return url;
     }

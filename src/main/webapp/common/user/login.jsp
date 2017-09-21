@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: wade
@@ -11,8 +12,25 @@
     <title>登录</title>
     <jsp:include
             page="/common/inc/head.jsp"></jsp:include>
+    <script>
+        $(function () {
+            if (window.history && window.history.pushState) {
+                $(window).on('popstate', function () {
+                    window.history.pushState('forward', null, '#');
+                    window.history.forward(1);
+                });
+            }
+            window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+            window.history.forward(1);
+        })
+    </script>
 </head>
 <body>
+<c:if test="${!empty exception}">
+    <script>
+        swal("登入失败", "可能原因：1.账号信息错误；2.身份类型错误（管理员？教师？学生？）；3.不存在该账号.", "error");
+    </script>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-md-7">
@@ -53,20 +71,11 @@
                                   value="0" checked/>学生</label>
                 </div>
                 <div class="form-group">
-                    <div class="main-checkbox">
-                        <label> <input type="checkbox"
-                                       value="None"/></label>
-                    </div>
-                    <span class="text">Remember me</span>
                     <button type="submit"
                             class="btn btn-default">登录
                     </button>
                 </div>
                 <hr class="divider">
-                <div class="form-group">
-                    <label class="pull-right"
-                           style="color: #00b4ef">忘记密码</label>
-                </div>
             </form>
         </div>
     </div>
