@@ -49,7 +49,7 @@ public class ExamController extends CommonController {
         }
 
         Map<String, Object> specouInfo = new HashMap<String, Object>() {{
-            put("specialtyId", TeacherKit.getCurrentTeacherId());
+            put("teacherId", TeacherKit.getCurrentTeacherId());
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
@@ -62,7 +62,8 @@ public class ExamController extends CommonController {
         exam.setTeacherId(TeacherKit.getCurrentTeacherId());
         exam.setCourseId(courseId);
         exam.setSpecialtyId(specialtyId);
-        exam.setStarted(1);
+        exam.setTest(1);
+        exam.setStarted(0);
 
         return student2ExamService.insertExamInfo(exam) > 0;
     }
