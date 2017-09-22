@@ -94,4 +94,12 @@ public interface StudentService {
      * @return .
      */
     TestPaper selectQuestion(ExamInfo examInfo);
+
+    /**
+     * 检查考试是否为开启状态
+     *
+     * @param gradeInfo 成绩信息.
+     * @return 开启状态.
+     */
+    boolean checkTestStart(GradeInfo gradeInfo);
 }

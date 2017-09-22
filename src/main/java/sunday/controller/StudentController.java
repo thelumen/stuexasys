@@ -200,6 +200,12 @@ public class StudentController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
+        Map<String, Object> info = new HashMap<>();
+        gradeInfo.setStudentId(getStudentIdWithInt());
+        if (!studentService.checkTestStart(gradeInfo)) {
+            info.put("overtime", true);//教师端考试关闭
+            return info;
+        }
         String[] an = gradeInfo.getAnswer();
         String[] result = gradeInfo.getResult().split(",");
         int testRight = 0;
@@ -217,8 +223,7 @@ public class StudentController extends CommonController {
                 } else if (Integer.valueOf(an[i]) % 5 == 3) {
                     realAnS = "D";
                 }
-
-                if (realAnS.equals(result[i-1])) {
+                if (realAnS.equals(result[i - 1])) {
                     testRight++;
                     single++;
                 }
@@ -229,7 +234,7 @@ public class StudentController extends CommonController {
                 } else if (Integer.valueOf(an[i]) % 3 == 2) {
                     realAnT = "2";
                 }
-                if (realAnT.equals(result[i-1])) {
+                if (realAnT.equals(result[i - 1])) {
                     testRight++;
                     tf++;
                 }
@@ -237,8 +242,6 @@ public class StudentController extends CommonController {
         }
         int totalGrade = testRight * 4;
         gradeInfo.setGrade(totalGrade);
-        Map<String, Object> info = new HashMap<>();
-        gradeInfo.setStudentId(getStudentIdWithInt());
         if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
             info.put("grade", totalGrade);

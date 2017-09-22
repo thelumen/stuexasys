@@ -30,9 +30,38 @@ public final class ExamTaken {
     private Date date4;
     private Integer sign4;
     //是否可以开始考试
-    private Integer test;
+    private int test;
     //是否有考试信息
     private Integer started;
+
+    @Override
+    public String toString() {
+        return "ExamTaken{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", content1='" + content1 + '\'' +
+                ", date1=" + date1 +
+                ", sign1=" + sign1 +
+                ", content2='" + content2 + '\'' +
+                ", date2=" + date2 +
+                ", sign2=" + sign2 +
+                ", content3='" + content3 + '\'' +
+                ", date3=" + date3 +
+                ", sign3=" + sign3 +
+                ", date4=" + date4 +
+                ", sign4=" + sign4 +
+                ", test=" + test +
+                ", started=" + started +
+                '}';
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
 
     public String getCourseName() {
         return courseName;
@@ -58,6 +87,14 @@ public final class ExamTaken {
         this.date1 = date1;
     }
 
+    public Integer getSign1() {
+        return sign1;
+    }
+
+    public void setSign1(Integer sign1) {
+        this.sign1 = sign1;
+    }
+
     public String getContent2() {
         return content2;
     }
@@ -72,6 +109,14 @@ public final class ExamTaken {
 
     public void setDate2(Date date2) {
         this.date2 = date2;
+    }
+
+    public Integer getSign2() {
+        return sign2;
+    }
+
+    public void setSign2(Integer sign2) {
+        this.sign2 = sign2;
     }
 
     public String getContent3() {
@@ -90,44 +135,20 @@ public final class ExamTaken {
         this.date3 = date3;
     }
 
-    public Date getDate4() {
-        return date4;
-    }
-
-    public void setDate4(Date date4) {
-        this.date4 = date4;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getSign1() {
-        return sign1;
-    }
-
-    public void setSign1(Integer sign1) {
-        this.sign1 = sign1;
-    }
-
-    public Integer getSign2() {
-        return sign2;
-    }
-
-    public void setSign2(Integer sign2) {
-        this.sign2 = sign2;
-    }
-
     public Integer getSign3() {
         return sign3;
     }
 
     public void setSign3(Integer sign3) {
         this.sign3 = sign3;
+    }
+
+    public Date getDate4() {
+        return date4;
+    }
+
+    public void setDate4(Date date4) {
+        this.date4 = date4;
     }
 
     public Integer getSign4() {
@@ -138,11 +159,11 @@ public final class ExamTaken {
         this.sign4 = sign4;
     }
 
-    public Integer getTest() {
+    public int getTest() {
         return test;
     }
 
-    public void setTest(Integer test) {
+    public void setTest(int test) {
         this.test = test;
     }
 
@@ -152,26 +173,5 @@ public final class ExamTaken {
 
     public void setStarted(Integer started) {
         this.started = started;
-    }
-
-    @Override
-    public String toString() {
-        return "ExamTaken{" +
-                "courseId='" + courseId + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", content1='" + content1 + '\'' +
-                ", date1=" + date1 +
-                ", sign1=" + sign1 +
-                ", content2='" + content2 + '\'' +
-                ", date2=" + date2 +
-                ", sign2=" + sign2 +
-                ", content3='" + content3 + '\'' +
-                ", date3=" + date3 +
-                ", sign3=" + sign3 +
-                ", date4=" + date4 +
-                ", sign4=" + sign4 +
-                ", test=" + test +
-                ", started=" + started +
-                '}';
     }
 }

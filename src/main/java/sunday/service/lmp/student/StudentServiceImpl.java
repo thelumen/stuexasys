@@ -126,12 +126,12 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             }
             examInfoList.sort((o1, o2) -> {
                 if (o1.getTest() > o2.getTest()) {
-                    return 1;
+                    return -1;
                 }
                 if (Objects.equals(o1.getTest(), o2.getTest())) {
                     return 0;
                 }
-                return -1;
+                return 1;
             });
             long i = 0;
             for (ExamInfo examInfo : examInfoList) {
@@ -369,5 +369,14 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         testPaper.setTfTakenList(tfTakenList);
         testPaper.setTestNum(examInfo.getTestNum());
         return testPaper;
+    }
+
+    @Override
+    public boolean checkTestStart(GradeInfo gradeInfo) {
+        Map<String,Object> params=new HashMap<String,Object>(){{
+            put("courseId",gradeInfo.getCourseId());
+            put("specialtyId",gradeInfo.getStudentId().toString().substring(0,6));
+        }};
+        return studentMapper.selectExamInfoStart(params).size()>0;
     }
 }

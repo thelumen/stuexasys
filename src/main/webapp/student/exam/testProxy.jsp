@@ -107,7 +107,11 @@
                         }, function () {
                             window.location.href = ('/student/personPage');
                         });
-                    } else swal("提交失败", "请向老师反映", "error");
+                    } else if(data.overtime){
+                        swal("提交失败", "考试已结束", "error");
+                    }else {
+                        swal("提交失败", "请向老师反映", "error");
+                    }
                 }
             })
         }

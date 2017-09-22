@@ -88,6 +88,14 @@ public interface StudentMapper {
     List<CourseTaken> selectCourse(Map<String, Object> params);
 
     /**
+     * 查询考试信息
+     *
+     * @param params .
+     * @return .
+     */
+    List<ExamTaken> selectExamInfoStart(Map<String, Object> params);
+
+    /**
      * 新增学生(单个)
      *
      * @param params .

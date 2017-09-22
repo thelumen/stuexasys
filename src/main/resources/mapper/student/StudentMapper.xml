@@ -178,6 +178,12 @@
             c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
+    <!--查询考试信息-->
+    <select id="selectExamInfoStart" parameterType="java.util.Map" resultType="sunday.pojo.student.ExamTaken">
+        SELECT started
+        FROM stuexasys.com_examinfo
+        WHERE courseId = #{courseId,jdbcType=INTEGER} AND specialtyId = #{specialtyId,jdbcType=INTEGER} AND started = 1
+    </select>
     <!--分割线——更新————————————————————————————————————————————————————————————————————-->
 
     <!--更新学生信息-->

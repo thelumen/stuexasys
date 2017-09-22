@@ -16,7 +16,20 @@ public final class ExamInfo {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     //是否有考试信息
-    private Integer test;
+    private int test;
+
+    @Override
+    public String toString() {
+        return "ExamInfo{" +
+                "Id=" + Id +
+                ", courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", content='" + content + '\'' +
+                ", testNum='" + testNum + '\'' +
+                ", date=" + date +
+                ", test=" + test +
+                '}';
+    }
 
     public Long getId() {
         return Id;
@@ -24,6 +37,14 @@ public final class ExamInfo {
 
     public void setId(Long id) {
         Id = id;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public String getCourseName() {
@@ -42,30 +63,6 @@ public final class ExamInfo {
         this.content = content;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getTest() {
-        return test;
-    }
-
-    public void setTest(Integer test) {
-        this.test = test;
-    }
-
     public String getTestNum() {
         return testNum;
     }
@@ -74,15 +71,19 @@ public final class ExamInfo {
         this.testNum = testNum;
     }
 
-    @Override
-    public String toString() {
-        return "ExamInfo{" +
-                "courseId='" + courseId + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", content='" + content + '\'' +
-                ", testNum='" + testNum + '\'' +
-                ", date=" + date +
-                ", test=" + test +
-                '}';
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public int getTest() {
+        return test;
+    }
+
+    public void setTest(int test) {
+        this.test = test;
     }
 }
