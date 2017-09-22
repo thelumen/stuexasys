@@ -50,8 +50,8 @@
                 </th>
                 <th data-field="position" data-width="350">职位</th>
                 <th data-field="office" data-width="500">教研室</th>
-                <th data-field="logintime" data-width="200">登录时间</th>
-                <th data-field="ip" data-width="200">登录Ip</th>
+                <%--<th data-field="logintime" data-width="200">登录时间</th>--%>
+                <%--<th data-field="ip" data-width="200">登录Ip</th>--%>
                 <th data-formatter="operateTeacher" data-width="200">操作
                 </th>
             </tr>

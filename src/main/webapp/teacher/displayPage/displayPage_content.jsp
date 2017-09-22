@@ -8,4 +8,3 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="/teacher/displayPage/displayPage.css"
       charset="utf-8">
-666

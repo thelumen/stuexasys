@@ -127,7 +127,6 @@
     <column id="38" parent="11" name="chapterNum">
       <Position>6</Position>
       <DataType>int(2)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <index id="39" parent="11" name="com_course">
       <ColNames>courseId</ColNames>

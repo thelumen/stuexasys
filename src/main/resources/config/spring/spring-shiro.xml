@@ -60,7 +60,14 @@
         <!--<property name="unauthorizedUrl" value="/shiro/error/unauthorized"/>-->
         <property name="filterChainDefinitions">
             <value>
-                /common/**=anon
+                /common/error/*=anon
+                /common/example/*=authc
+                /common/image/*=anon
+                /common/inc/head.jsp=anon
+                /common/inc/bootstrap-judge.jsp=authc
+                /common/jslib/*=anon
+                /common/mycss/*=anon
+                /common/user/*=anon
                 /manager/**=authc
                 /teacher/**=authc
                 /student/**=anon

@@ -45,4 +45,5 @@
           depends-on="lifecycleBeanPostProcessor">
         <property name="proxyTargetClass" value="true"/>
     </bean>
+
 </beans>  
