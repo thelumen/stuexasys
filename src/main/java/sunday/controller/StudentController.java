@@ -200,10 +200,50 @@ public class StudentController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
+        String[] an = gradeInfo.getAnswer();
+        String[] result = gradeInfo.getResult().split(",");
+        int testRight = 0;
+        int single = 0;
+        int tf = 0;
+        for (int i = 1; i < 26; i++) {
+            if (i <= 20) {
+                String realAnS = "j";
+                if (Integer.valueOf(an[i]) % 5 == 0) {
+                    realAnS = "A";
+                } else if (Integer.valueOf(an[i]) % 5 == 1) {
+                    realAnS = "B";
+                } else if (Integer.valueOf(an[i]) % 5 == 2) {
+                    realAnS = "C";
+                } else if (Integer.valueOf(an[i]) % 5 == 3) {
+                    realAnS = "D";
+                }
+
+                if (realAnS.equals(result[i-1])) {
+                    testRight++;
+                    single++;
+                }
+            } else {
+                String realAnT = "j";
+                if (Integer.valueOf(an[i]) % 3 == 1) {
+                    realAnT = "1";
+                } else if (Integer.valueOf(an[i]) % 3 == 2) {
+                    realAnT = "2";
+                }
+                if (realAnT.equals(result[i-1])) {
+                    testRight++;
+                    tf++;
+                }
+            }
+        }
+        int totalGrade = testRight * 4;
+        gradeInfo.setGrade(totalGrade);
         Map<String, Object> info = new HashMap<>();
         gradeInfo.setStudentId(getStudentIdWithInt());
         if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
+            info.put("grade", totalGrade);
+            info.put("single", single);
+            info.put("tf", tf);
         } else {
             info.put("issuccess", false);
         }

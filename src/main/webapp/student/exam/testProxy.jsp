@@ -11,6 +11,7 @@
 <head>
     <title>测试</title>
     <%@include file="/common/inc/head.jsp" %>
+    <script src="/common/inc/bootstrap-judge.js" type="text/javascript"></script>
     <script>
         $(function () {
             if (window.history && window.history.pushState) {
@@ -32,7 +33,7 @@
             ans += '${testPaper.testNum},';
             document.getElementById("hideArea").value = ans;
 
-//            alert($("#hideArea").val());
+//        alert($("#hideArea").val());
 
             //计时器实现
             var timeS = 1800;//测试时间,单位秒
@@ -49,6 +50,7 @@
                 m += s;
                 $("#countDownTxt").text(m);
                 if (timeS === 0) {
+                    clearInterval(setI);//结束计时器
                     submitTest();
                 }
             }
@@ -66,63 +68,49 @@
                     closeOnConfirm: false,
                     showLoaderOnConfirm: true
                 }, function () {
+                    clearInterval(setI);//结束计时器
                     submitTest();
                 });
             });
-            //提交到服务器
-            function submitTest() {
-                clearInterval(setI);
-                var an = $("#hideArea").val().split(",");
-                var i = 1;//迭代器
-                var single = 0;//选择题正确数
-                var tf = 0;//判断题正确数
-                var testRight = 0;//正确数
-                $('input:radio:checked').each(function () {
-                    var checkValue = $(this).val();
-                    if (an[i] === checkValue) {
-                        testRight++;
-                        if (i <= 20) {
-                            single++;
-                        } else {
-                            tf++;
-                        }
-                    }
-                    i++;
-//                    console.log($(this).val());　　// 选中框中的值
-                });
-                var grade = testRight * 4;
-                var gradeInfo = {
-                    'courseId': an[0],
-                    'grade': grade,
-                    'testNum': an[26]
-                };
-                var jsonData = JSON.stringify(gradeInfo);
-                $.ajax({
-                    type: 'post',
-                    url: '${pageContext.request.contextPath}/student/uploadGrade',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: jsonData,
-                    success: function (data) {
-                        if (data.issuccess) {
-                            swal({
-                                title: "得分" + grade,
-                                text: "选择题:" + single + "/20  " + "判断:" + tf + "/5",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "确定",
-                                closeOnConfirm: false,
-                                showLoaderOnConfirm: true
-                            }, function () {
-                                window.location.href = ('${pageContext.request.contextPath}/student/personPage');
-                            });
-                        } else swal("提交失败", "请向老师反映", "error");
-                    }
-                })
-
-            }
-        })
+        });
+        //提交到服务器
+        function submitTest() {
+            var an = $("#hideArea").val().split(",");
+            var i = 1;
+            var stuResult = "";
+            $('input:radio:checked').each(function () {
+                var checkValue = $(this).val();
+                stuResult += checkValue;
+                stuResult += ",";
+                i++;
+// console.log($(this).val());　　// 选中框中的值
+            });
+            var gradeInfo = {'courseId': an[0], 'answer': an, 'testNum': an[26], 'result': stuResult};
+            var jsonData = JSON.stringify(gradeInfo);
+            $.ajax({
+                type: 'post',
+                url: '/student/uploadGrade',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: jsonData,
+                success: function (data) {
+                    if (data.issuccess) {
+                        swal({
+                            title: "得分" + data.grade,
+                            text: "选择题:" + data.single + "/20 " + "判断:" + data.tf + "/5",
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "确定",
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            window.location.href = ('/student/personPage');
+                        });
+                    } else swal("提交失败", "请向老师反映", "error");
+                }
+            })
+        }
     </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
@@ -131,8 +119,7 @@
 <div class="container" style="background: #BCD2EE">
     <div class="row">
         <div class="col-md-12">
-            <h4>&nbsp;&nbsp;&nbsp;&nbsp;测试剩余时间:<label id="countDownTxt"></label>
-            </h4>
+            <h4>&nbsp;&nbsp;&nbsp;&nbsp;测试剩余时间:<label id="countDownTxt"></label></h4>
             <form id="testForm">
                 <h2>&nbsp;&nbsp;一，选择题（共20题）</h2>
                 <hr>
@@ -152,76 +139,60 @@
                         });
                     </script>
                 </c:if>
-                <c:forEach items="${testPaper.singleTakenList}"
-                           var="testPaperSingle" varStatus="statusSingle">
+                <c:forEach items="${testPaper.singleTakenList}" var="testPaperSingle" varStatus="statusSingle">
                     <p style="word-break: break-all">
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusSingle.count}.${testPaperSingle.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A.
-                            <input type="radio"
-                                   name="single-${statusSingle.count}"
-                                   value="A">${testPaperSingle.que1}
+                            <input type="radio" name="single-${statusSingle.count}" value="A">${testPaperSingle.que1}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B.
-                            <input type="radio"
-                                   name="single-${statusSingle.count}"
-                                   value="B">${testPaperSingle.que2}
+                            <input type="radio" name="single-${statusSingle.count}" value="B">${testPaperSingle.que2}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C.
-                            <input type="radio"
-                                   name="single-${statusSingle.count}"
-                                   value="C">${testPaperSingle.que3}
+                            <input type="radio" name="single-${statusSingle.count}" value="C">${testPaperSingle.que3}
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.
-                            <input type="radio"
-                                   name="single-${statusSingle.count}"
-                                   value="D">${testPaperSingle.que4}
+                            <input type="radio" name="single-${statusSingle.count}" value="D">${testPaperSingle.que4}
                         </label>
                     </p>
                     <p hidden>
-                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.
-                            <input type="radio" checked
-                                   name="single-${statusSingle.count}"
-                                   value="E">${testPaperSingle.que4}
+                        <label>
+                            <input type="radio" name="single-${statusSingle.count}" value="E" checked>
                         </label>
                     </p>
                     <hr>
                 </c:forEach>
                 <h2>&nbsp;&nbsp;二，判断题（共5题）</h2>
-                <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf"
-                           varStatus="statusTf">
+                <c:forEach items="${testPaper.tfTakenList}" var="testPaperTf" varStatus="statusTf">
                     <p style="word-break: break-all">
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusTf.count}.${testPaperTf.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}"
-                                   value="1">正确
+                            <input type="radio" name="tf-${statusTf.count}" value="1">正确
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}"
-                                   value="2">错误
+                            <input type="radio" name="tf-${statusTf.count}" value="2">错误
                         </label>
                     </p>
                     <p hidden>
-                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}"
-                                   value="3" checked>错误
+                        <label>
+                            <input type="radio" name="tf-${statusTf.count}" value="3" checked>
                         </label>
                     </p>
                     <hr>
                 </c:forEach>
                 <p>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" id="submitTestPaper"
-                            class="btn btn-primary">
+                    <button type="button" id="submitTestPaper" class="btn btn-primary">
                         <label>提交试卷</label>
                     </button>
                 </p>

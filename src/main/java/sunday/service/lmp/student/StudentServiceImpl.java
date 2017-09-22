@@ -320,6 +320,49 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             System.out.println("组题出现异常");
             return null;
         }
+        //对返回的答案进行加密
+        int a = 35;
+        int b = 36;
+        int c = 37;
+        int d = 38;
+        int t = 7;
+        int f = 5;
+        for (SingleTaken singleTaken : singleTakenList) {
+            switch (singleTaken.getResult()) {
+                case "A":
+                    singleTaken.setResult("" + a);
+                    a += 5;
+                    break;
+                case "B":
+                    singleTaken.setResult("" + b);
+                    b += 5;
+                    break;
+                case "C":
+                    singleTaken.setResult("" + c);
+                    c += 5;
+                    break;
+                case "D":
+                    singleTaken.setResult("" + d);
+                    d += 5;
+                    break;
+                default:
+                    break;
+            }
+        }
+        for (TfTaken tfTaken : tfTakenList) {
+            switch (tfTaken.getResult()) {
+                case (1):
+                    tfTaken.setResult(t);
+                    t += 3;
+                    break;
+                case (2):
+                    tfTaken.setResult(f);
+                    f += 3;
+                    break;
+                default:
+                    break;
+            }
+        }
         //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
         TestPaper testPaper = new TestPaper();
         testPaper.setSingleTakenList(singleTakenList);
