@@ -168,10 +168,10 @@ public class StudentInAdminController extends CommonController {
             Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
 
             int rows = sheet_0.getRows();//获取总行数
-            if (Objects.equals(sheet_0.getCell(0, rows - 1).getContents(), "") ||
-                    Objects.equals(sheet_0.getCell(1, rows - 1).getContents(), "") ||
-                    Objects.equals(sheet_0.getCell(2, rows - 1).getContents(), "") ||
-                    Objects.equals(sheet_0.getCell(3, rows - 1).getContents(), "")
+            if (Objects.equals(sheet_0.getCell(0, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet_0.getCell(1, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet_0.getCell(2, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet_0.getCell(3, rows - 1).getContents().trim(), "")
                     ) {
                 return MessageInfo.OperationFailed.getMessageId();
             }
@@ -181,23 +181,33 @@ public class StudentInAdminController extends CommonController {
             List<StudentTaken> studentUploadList = new ArrayList<>();
 
             for (int k = 1; k < rows; k++) {
+                String line_studentId = sheet_0.getCell(0, k).getContents().trim();
+                String line_studentName = sheet_0.getCell(1, k).getContents().trim();
+                String line_studentGender = sheet_0.getCell(2, k).getContents().trim();
+                String line_specialtyName = sheet_0.getCell(3, k).getContents().trim();
+                if (line_studentId.equals("")
+                        || line_specialtyName.equals("")
+                        || line_studentGender.equals("")
+                        || line_studentName.equals("")) {
+                    return MessageInfo.OperationFailed.getMessageId();
+                }
                 //专业处理
+                String specialtyId = line_studentId.substring(0, 6);//截取学号前六位
                 int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
-                specialtySet.add(sheet_0.getCell(3, k).getContents());
-                Integer specialtyId = Integer.valueOf(sheet_0.getCell(0, k).getContents().substring(0, 6));//截取学号前六位
+                specialtySet.add(specialtyId);
                 if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
                     Specialty specialty = new Specialty();
-                    specialty.setSpecialtyId(specialtyId);
-                    specialty.setName(specialtyId.toString().substring(0, 2) + specialtySet.toArray()[0]);//在专业前拼接学号前两位
+                    specialty.setSpecialtyId(Integer.valueOf(specialtyId));
+                    specialty.setName(specialtyId.substring(0, 2) + line_specialtyName);//在专业前拼接学号前两位
                     specialtyList.add(specialty);
                 }
                 //新建学生
                 StudentTaken studentTaken = new StudentTaken();
-                studentTaken.setStudentId(Integer.valueOf(sheet_0.getCell(0, k).getContents()));
-                studentTaken.setName(sheet_0.getCell(1, k).getContents());
-                studentTaken.setGender(sheet_0.getCell(2, k).getContents());
-                studentTaken.setSpecialtyId(specialtyId);
-                studentTaken.setPassword(EncryptKit.md5(sheet_0.getCell(0, k).getContents()));//初始密码为学号
+                studentTaken.setStudentId(Integer.valueOf(line_studentId));
+                studentTaken.setName(line_studentName);
+                studentTaken.setGender(line_studentGender);
+                studentTaken.setSpecialtyId(Integer.valueOf(specialtyId));
+                studentTaken.setPassword(EncryptKit.md5(line_studentId));//初始密码为学号
                 studentUploadList.add(studentTaken);
             }
 
