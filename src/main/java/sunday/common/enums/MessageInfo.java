@@ -7,7 +7,8 @@ public enum MessageInfo {
 
     SuccessOperation("操作成功",0),
     OperationFailed("执行失败",1),
-    NeedlessOperation("多余的执行",2)
+    NeedlessOperation("多余的执行",2),
+    ServiceFailed("service执行失败",3)
     ;
 
     private String messageContent;

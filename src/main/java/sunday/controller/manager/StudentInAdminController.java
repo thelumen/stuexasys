@@ -158,9 +158,11 @@ public class StudentInAdminController extends CommonController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public int uploadStudentHandle(@RequestParam("files") MultipartFile files) {
+    public Map<String,Object> uploadStudentHandle(@RequestParam("files") MultipartFile files) {
+        Map<String, Object> info = new HashMap<>();
         if (null == files) {
-            return MessageInfo.OperationFailed.getMessageId();
+            info.put("message",MessageInfo.OperationFailed.getMessageId());
+            return info;
         }
         try {
             InputStream input = files.getInputStream();//IOException
@@ -173,7 +175,8 @@ public class StudentInAdminController extends CommonController {
                     Objects.equals(sheet_0.getCell(2, rows - 1).getContents().trim(), "") ||
                     Objects.equals(sheet_0.getCell(3, rows - 1).getContents().trim(), "")
                     ) {
-                return MessageInfo.OperationFailed.getMessageId();
+                info.put("message",MessageInfo.OperationFailed.getMessageId());
+                return info;
             }
 
             Set<String> specialtySet = new HashSet<>();
@@ -189,7 +192,9 @@ public class StudentInAdminController extends CommonController {
                         || line_specialtyName.equals("")
                         || line_studentGender.equals("")
                         || line_studentName.equals("")) {
-                    return MessageInfo.OperationFailed.getMessageId();
+                    info.put("msg",MessageInfo.OperationFailed.getMessageId());
+                    info.put("failedRows", (k+1));
+                    return info;
                 }
                 //专业处理
                 String specialtyId = line_studentId.substring(0, 6);//截取学号前六位
@@ -215,10 +220,12 @@ public class StudentInAdminController extends CommonController {
                 put("specialtyInfo", specialtyList);
                 put("studentUploadList", studentUploadList);
             }};
-            return adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId();
+            info.put("message",adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId());
+            return info;
         } catch (IOException | BiffException e) {
             LOGGER.error(e.toString());
-            return MessageInfo.OperationFailed.getMessageId();
+            info.put("message",MessageInfo.OperationFailed.getMessageId());
+            return info;
         }
     }
 }

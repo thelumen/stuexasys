@@ -47,7 +47,7 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
         List<StudentTaken> studentUploadList = (List<StudentTaken>) params.get("studentUploadList");
         boolean insertSpecialty;
         if (specialtyList.size() == 0 || studentUploadList.size() == 0) {
-            return MessageInfo.OperationFailed;
+            return MessageInfo.ServiceFailed;
         }
         List<Specialty> specialtyListInDB = adminStudentMapper.selectSpecialty(params);
         if (!(specialtyListInDB.size() < specialtyList.size())) { //判断上传表中的专业是否都存在于数据库中
@@ -71,7 +71,7 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
             }
         }
         if (!insertSpecialty) {
-            return MessageInfo.OperationFailed;
+            return MessageInfo.ServiceFailed;
         }
         List<StudentTaken> studentTakenList = adminStudentMapper.selectStudentInfo(params);
         if (!(studentTakenList.size() < studentUploadList.size())) {//判断上传表中的学生是否都存在于数据库
@@ -92,14 +92,14 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
                     studentMapper.insertStudentRole(swapList2MapStudentTaken(resultStudentList)) > 0) {
                 return MessageInfo.SuccessOperation;
             } else {
-                return MessageInfo.OperationFailed;
+                return MessageInfo.ServiceFailed;
             }
         } else {
             params.put("studentUploadList", resultStudentList);
             if (adminStudentMapper.insertStudent(params) > 0 && adminStudentMapper.insertStudentRole(params) > 0) {
                 return MessageInfo.SuccessOperation;
             } else {
-                return MessageInfo.OperationFailed;
+                return MessageInfo.ServiceFailed;
             }
         }
     }

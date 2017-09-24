@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -160,24 +163,9 @@
       <file leaf-file-name="AdminStudentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="52" column="77" lean-forward="false" selection-start-line="52" selection-start-column="77" selection-end-line="52" selection-end-column="77" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="showSingle_content.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/teacher/question/showSingle_content.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3895">
-              <caret line="205" column="17" lean-forward="false" selection-start-line="205" selection-start-column="17" selection-end-line="205" selection-end-column="17" />
-              <folding>
-                <marker date="1506068460759" expanded="true" signature="2672:2762" ph="{&quot;field&quot;: 'id'...}" />
-                <marker date="1506068460759" expanded="true" signature="7118:7214" ph="{&quot;field&quot;: 'edit'...}" />
-              </folding>
+            <state relative-caret-position="114">
+              <caret line="49" column="45" lean-forward="true" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -185,10 +173,9 @@
       <file leaf-file-name="StudentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2318">
+            <state relative-caret-position="451">
               <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
               <folding>
-                <element signature="imports" expanded="false" />
                 <element signature="initializer##0;class#11418:11934" expanded="false" />
               </folding>
             </state>
@@ -225,62 +212,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Student2ExamMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/teacher/Student2ExamMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="35" column="57" lean-forward="false" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
-              <folding>
-                <marker date="1506175939993" expanded="true" signature="324:524" ph="INSERT INTO com_examinfo... " />
-                <marker date="1506175939993" expanded="true" signature="1631:3026" ph="UPDATE com_e... " />
-                <marker date="1506175939993" expanded="true" signature="3134:3302" ph="DELETE FROM " />
-                <marker date="1506175939993" expanded="true" signature="3885:4077" ph="UPDATE com_e... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StudentInAdminController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StudentInAdminController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="678">
-              <caret line="210" column="52" lean-forward="true" selection-start-line="210" selection-start-column="52" selection-end-line="210" selection-end-column="52" />
+            <state relative-caret-position="-176">
+              <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StudentMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml">
+      <file leaf-file-name="student_content.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3496">
-              <caret line="184" column="119" lean-forward="false" selection-start-line="184" selection-start-column="119" selection-end-line="184" selection-end-column="119" />
-              <folding>
-                <marker date="1506067703665" expanded="true" signature="358:1347" ph="(SELECT * FR... " />
-                <marker date="1506067703665" expanded="true" signature="359:671" ph="SELECT * FRO... com_single_question" />
-                <marker date="1506067703665" expanded="true" signature="696:1009" ph="SELECT * FRO... com_single_question" />
-                <marker date="1506067703665" expanded="true" signature="1034:1346" ph="SELECT * FRO... com_single_question" />
-                <marker date="1506067703665" expanded="true" signature="1498:2474" ph="(SELECT * FR... " />
-                <marker date="1506067703665" expanded="true" signature="1499:1807" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1506067703665" expanded="true" signature="1832:2140" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1506067703665" expanded="true" signature="2165:2473" ph="SELECT * FRO... com_tf_question" />
-                <marker date="1506067703665" expanded="true" signature="2623:2754" ph="SELECT * FRO... com_grade" />
-                <marker date="1506067703665" expanded="true" signature="4368:5134" ph="SELECT DISTI... com_examinfo" />
-                <marker date="1506067703665" expanded="true" signature="5315:5532" ph="SELECT DISTI... com_another_question" />
-                <marker date="1506067703665" expanded="true" signature="5720:5882" ph="SELECT * FRO... com_student_l_another_question" />
-                <marker date="1506067703665" expanded="true" signature="6032:6660" ph="SELECT DISTI... com_course" />
-                <marker date="1506067703665" expanded="true" signature="6808:7240" ph="SELECT DISTI... com_course" />
-                <marker date="1506067703665" expanded="true" signature="7393:7497" ph="SELECT start... com_examinfo" />
-                <marker date="1506067703665" expanded="true" signature="7393:7547" ph="SELECT start... com_examinfo" />
-                <marker date="1506067703665" expanded="true" signature="7393:7563" ph="SELECT start... com_examinfo" />
-                <marker date="1506067703665" expanded="true" signature="7747:8517" ph="UPDATE stuex... " />
-                <marker date="1506067703665" expanded="true" signature="8625:9098" ph="UPDATE stuex... " />
-                <marker date="1506067703665" expanded="true" signature="9212:9452" ph="UPDATE stuex... " />
-                <marker date="1506067703665" expanded="true" signature="9642:9904" ph="INSERT INTO stuexasys.com_student... " />
-                <marker date="1506067703665" expanded="true" signature="10016:10126" ph="INSERT INTO stuexasys.com_studnet_l_role... " />
-                <marker date="1506067703665" expanded="true" signature="10231:10361" ph="INSERT INTO stuexasys.com_grade... " />
-                <marker date="1506067703665" expanded="true" signature="10475:10705" ph="INSERT INTO stuexasys.com_student_l_another_question... " />
-              </folding>
+            <state relative-caret-position="254">
+              <caret line="149" column="53" lean-forward="true" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -306,16 +263,6 @@
                 <element signature="e#311#312#0" expanded="false" />
                 <element signature="e#362#363#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testAnotherProxy.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="38" lean-forward="false" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -396,8 +343,6 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/mapper/manager/AdminStudentMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/SchoolInAdminController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/CourseMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/RandomKit.java" />
@@ -406,7 +351,6 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" />
         <option value="$PROJECT_DIR$/src/test/SpringTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/manager/AdminStudentMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/main/mainProxy.jsp" />
@@ -430,6 +374,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/config/jdbc/jdbc.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/config/spring/spring-dao.xml" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp" />
       </list>
     </option>
   </component>
@@ -613,122 +560,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="teacher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resourcesDownload" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stuexasys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="student" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exam" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1231,6 +1062,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stuexasys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sunday" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enums" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1867,14 +1732,7 @@
       <workItem from="1506068579074" duration="7000" />
       <workItem from="1506069012167" duration="502000" />
       <workItem from="1506072770525" duration="1208000" />
-      <workItem from="1506218275455" duration="1214000" />
-    </task>
-    <task id="LOCAL-00002" summary="管理员学生界面添加">
-      <created>1503589633446</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1503589633446</updated>
+      <workItem from="1506218275455" duration="3512000" />
     </task>
     <task id="LOCAL-00003" summary="重整manager端">
       <created>1503963356965</created>
@@ -2212,7 +2070,14 @@
       <option name="project" value="LOCAL" />
       <updated>1506068679724</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="优化:学生上传逻辑和部分错误处理">
+      <created>1506219559730</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1506219559730</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2248,7 +2113,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="362635000" />
+    <option name="totallyTimeSpent" value="364933000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2274,7 +2139,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35581788" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.306914" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3237774" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2285,7 +2150,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3267671" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21028744" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2326,7 +2191,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="教师端：修复删除关联课程时因为乱码而无法执行成功的问题" />
     <MESSAGE value="教师端：解决文件上传时，select标签ID值的乱码问题" />
     <MESSAGE value="优化登录操作" />
     <MESSAGE value="Merge branch 'jiang'" />
@@ -2351,11 +2215,12 @@
     <MESSAGE value="优化:关闭debug" />
     <MESSAGE value="优化:学生端测试成绩判断逻辑搬家" />
     <MESSAGE value="优化:学生端测试关闭后不能提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化:学生端测试关闭后不能提交" />
+    <MESSAGE value="优化:学生上传逻辑和部分错误处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化:学生上传逻辑和部分错误处理" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="182" />
+      <option name="time" value="189" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2364,20 +2229,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="84" column="14" lean-forward="true" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -2467,13 +2318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="59" column="9" lean-forward="false" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="297" column="43" lean-forward="true" selection-start-line="297" selection-start-column="43" selection-end-line="297" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -2638,16 +2482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="52" column="77" lean-forward="false" selection-start-line="52" selection-start-column="77" selection-end-line="52" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/student/StudentService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1862">
@@ -2741,17 +2575,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2318">
-          <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="initializer##0;class#11418:11934" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/teacher/CourseController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-115">
@@ -2819,10 +2642,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/manager/AdminStudentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="31" column="16" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/enums/MessageInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/manager/StudentInAdminController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="210" column="52" lean-forward="true" selection-start-line="210" selection-start-column="52" selection-end-line="210" selection-end-column="52" />
+        <state relative-caret-position="-176">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
+          <folding>
+            <element signature="initializer##0;class#11418:11934" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="49" column="45" lean-forward="true" selection-start-line="49" selection-start-column="45" selection-end-line="49" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/student/student_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="149" column="53" lean-forward="true" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
           <folding />
         </state>
       </provider>
