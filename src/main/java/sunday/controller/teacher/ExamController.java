@@ -81,7 +81,6 @@ public class ExamController extends CommonController {
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
         List<ExamTaken> examTakens = student2ExamService.selectExamTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
-
         return CommonKit.getTakenInfo(examTakens);
     }
 
@@ -97,7 +96,6 @@ public class ExamController extends CommonController {
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
         List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo(params);
-
         return CommonKit.getTakenInfo(examTakens);
     }
 
@@ -107,11 +105,10 @@ public class ExamController extends CommonController {
      * @param examInfo
      * @return
      */
-    @RequestMapping(value = "/exam/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
-
         //sign信号只有一个为1才能被保存
         int[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
         int i = 0;
@@ -120,7 +117,6 @@ public class ExamController extends CommonController {
                 i++;
             }
         }
-
         return i == 1 && student2ExamService.updateExamInfo(examInfo) > 0;
     }
 
@@ -138,7 +134,6 @@ public class ExamController extends CommonController {
         if (strArray.length != 3) {
             return false;
         }
-
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", strArray[0]);
             put("courseId", strArray[1]);
@@ -158,12 +153,10 @@ public class ExamController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examStart(@PathVariable("id") Integer id) {
-
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
-            put("test", 1);
+            put("started", 1);
         }};
-
         return student2ExamService.startOrCloseExam(params);
     }
 
@@ -177,12 +170,10 @@ public class ExamController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean examClose(@PathVariable("id") Integer id) {
-
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
-            put("test", 0);
+            put("started", 0);
         }};
-
         return student2ExamService.startOrCloseExam(params);
     }
 
