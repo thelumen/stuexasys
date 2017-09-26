@@ -192,6 +192,9 @@ public class GradeController extends CommonController {
             return false;
         }
         //前台不做了，后台修改数据
+        if (score < 0) {
+            score = 0;
+        }
         if (score > 100) {
             score = 100;
         }
