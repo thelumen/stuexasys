@@ -370,13 +370,4 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         testPaper.setTestNum(examInfo.getTestNum());
         return testPaper;
     }
-
-    @Override
-    public boolean checkTestStart(GradeInfo gradeInfo) {
-        Map<String,Object> params=new HashMap<String,Object>(){{
-            put("courseId",gradeInfo.getCourseId());
-            put("specialtyId",gradeInfo.getStudentId().toString().substring(0,6));
-        }};
-        return studentMapper.selectExamInfoStart(params).size()>0;
-    }
 }

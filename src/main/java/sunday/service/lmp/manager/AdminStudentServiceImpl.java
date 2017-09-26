@@ -63,12 +63,8 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
                     resultSpecialtyList.add(specialty);
                 }
             }
-            if (resultSpecialtyList.size() == 1) { //判断剔除后的列表是否只含一个值
-                insertSpecialty = (adminStudentMapper.insertSpecialty(swapList2MapSpecialty(resultSpecialtyList)) > 0);
-            } else {
-                params.put("specialtyInfo", resultSpecialtyList);
-                insertSpecialty = adminStudentMapper.insertSpecialtyList(params) > 0;
-            }
+            params.put("specialtyInfo", resultSpecialtyList);
+            insertSpecialty = adminStudentMapper.insertSpecialty(params) > 0;
         }
         if (!insertSpecialty) {
             return MessageInfo.ServiceFailed;
@@ -87,20 +83,11 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
                 resultStudentList.add(studentTaken);
             }
         }
-        if (resultStudentList.size() == 1) {//判断是学生的单个插入还是批量插入
-            if (studentMapper.insertStudent(swapList2MapStudentTaken(resultStudentList)) > 0 &&
-                    studentMapper.insertStudentRole(swapList2MapStudentTaken(resultStudentList)) > 0) {
-                return MessageInfo.SuccessOperation;
-            } else {
-                return MessageInfo.ServiceFailed;
-            }
+        params.put("studentUploadList", resultStudentList);
+        if (adminStudentMapper.insertStudent(params) > 0 && adminStudentMapper.insertStudentRole(params) > 0) {
+            return MessageInfo.SuccessOperation;
         } else {
-            params.put("studentUploadList", resultStudentList);
-            if (adminStudentMapper.insertStudent(params) > 0 && adminStudentMapper.insertStudentRole(params) > 0) {
-                return MessageInfo.SuccessOperation;
-            } else {
-                return MessageInfo.ServiceFailed;
-            }
+            return MessageInfo.ServiceFailed;
         }
     }
 

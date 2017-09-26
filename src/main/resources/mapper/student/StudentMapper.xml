@@ -178,12 +178,6 @@
             c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
-    <!--查询考试信息-->
-    <select id="selectExamInfoStart" parameterType="java.util.Map" resultType="sunday.pojo.student.ExamTaken">
-        SELECT started
-        FROM com_examinfo
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND specialtyId = #{specialtyId,jdbcType=INTEGER} AND started = 1
-    </select>
     <!--分割线——更新————————————————————————————————————————————————————————————————————-->
 
     <!--更新学生信息-->
@@ -238,19 +232,6 @@
     </update>
 
     <!--分割线——插入————————————————————————————————————————————————————————————————————-->
-
-    <!--插入学生-->
-    <insert id="insertStudent" parameterType="java.util.Map">
-        INSERT INTO com_student (studentId, password, specialtyId, gender, name)
-        VALUES (#{studentId,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR},
-                #{specialtyId,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
-    </insert>
-
-    <!--插入学生与权限的关联-->
-    <insert id="insertStudentRole" parameterType="java.util.Map">
-        INSERT INTO com_studnet_l_role (studentId, roleId)
-        VALUES (#{studentId,jdbcType=INTEGER}, 4)
-    </insert>
 
     <!--插入学生成绩关联行-->
     <insert id="insertGrade" parameterType="java.util.Map">

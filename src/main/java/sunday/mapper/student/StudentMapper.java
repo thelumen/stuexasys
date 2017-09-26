@@ -96,22 +96,6 @@ public interface StudentMapper {
     List<ExamTaken> selectExamInfoStart(Map<String, Object> params);
 
     /**
-     * 新增学生(单个)
-     *
-     * @param params .
-     * @return int
-     */
-    int insertStudent(Map<String, Object> params);
-
-    /**
-     * 增加学生与权限关联(单个)
-     *
-     * @param params .
-     * @return int
-     */
-    int insertStudentRole(Map<String, Object> params);
-
-    /**
      * 新增学生成绩
      * 针对测试一
      *

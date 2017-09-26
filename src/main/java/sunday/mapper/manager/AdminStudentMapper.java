@@ -61,15 +61,7 @@ public interface AdminStudentMapper {
     List<Specialty2Course> selectTeacher2Course(Map<String,Object> params);
 
     /**
-     * 插入专业信息(批量)
-     *
-     * @param params .
-     * @return .
-     */
-    int insertSpecialtyList(Map<String,Object> params);
-
-    /**
-     * 插入专业信息(单个)
+     * 插入专业信息
      *
      * @param params .
      * @return .
