@@ -45,7 +45,7 @@ public class ResourceController extends CommonController {
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
         List<String> directories = ResourceFileKit.getHomeDirectories();
-        return null != directories ? ChapterKit.getChapterInSelect((String[]) directories.toArray()) : null;
+        return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
     }
 
     /**

@@ -14,8 +14,7 @@ public final class ResourceFileKit {
     private static final Logger LOGGER = LogKit.getLogger();
     //必须给定一个主目录
     //如果不存在的话，则自动创建
-    //假定在Windows系统
-    private static final String HOME = File.separator + "home" + File.separator+"sunday";
+    private static final String HOME = File.separator + "home" + File.separator + "sunday";
 
     private ResourceFileKit() {
     }
@@ -50,24 +49,17 @@ public final class ResourceFileKit {
     public static List<String> getHomeDirectories() {
         File home = new File(HOME);
         if (!home.exists()) {
-            if (!home.mkdir()) {
-                LOGGER.info("创建文件失败！");
-                return null;
-            }
+            home.mkdir();
         }
-        if (home.isDirectory()) {
-            File[] children = home.listFiles();
-            if (children != null && children.length > 0) {
-                List<String> directories = new ArrayList<>();
-                for (File file : children) {
-                    if (file.isDirectory()) {
-                        directories.add(file.getName());
-                    }
+        File[] children = home.listFiles();
+        if (children != null && children.length > 0) {
+            List<String> directories = new ArrayList<>();
+            for (File file : children) {
+                if (file.isDirectory()) {
+                    directories.add(file.getName());
                 }
-                return directories;
             }
-        } else {
-            LOGGER.info("主文件不是一个目录！");
+            return directories;
         }
         return null;
     }
