@@ -67,7 +67,7 @@
                         <th data-field="id">id</th>
                         <th data-field="courseName">课程名称</th>
                         <th data-field="specialtyName">专业名称</th>
-                        <th data-field="test" data-visible="false">开启/关闭标志</th>
+                        <th data-field="started" data-visible="false">开启/关闭标志</th>
                         <th data-formatter="operateModalExamInfo">操作
                         </th>
                     </tr>
@@ -85,7 +85,7 @@
         var html = [];
         html.push('<button class="btn btn-primary" type="button" onclick="examStart(\'{0}\')">开启</button>'.replace('{0}', row.id));
         html.push('<button class="btn btn-danger" type="button" onclick="examClose(\'{0}\')">关闭</button>'.replace('{0}', row.id));
-        return html.join('');
+        return html.join(' | ');
     }
     //    开启考试
     function examStart(id) {
@@ -94,7 +94,7 @@
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                if (data === true) {
+                if (data) {
                     $('#teacher_exam_modal_table').bootstrapTable("refresh");
                 }
             },
@@ -121,7 +121,7 @@
     }
     //    modalTable中，考试开启row为红色
     function modalRowStyle(row, index) {
-        if (row.test === 1) {
+        if (row.started === 1) {
             return {
                 classes: 'danger'
             };
@@ -130,7 +130,7 @@
     }
     //    考试信息对学生可见时，行颜色为红色
     function rowStyle(row, index) {
-        if (row.started === 1) {
+        if (row.test === 1) {
             return {
                 classes: 'danger'
             };
@@ -142,7 +142,7 @@
         var table = $('#teacher_exam_table');
         var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
-            url: '${pageContext.request.contextPath}/exam/exam/update',
+            url: '${pageContext.request.contextPath}/exam/update',
             data: data,
             contentType: 'application/json',
             type: 'post',
@@ -181,7 +181,7 @@
                         type: 'delete',
                         dataType: 'json',
                         success: function (data) {
-                            if (data === true) {
+                            if (data) {
                                 swal("year..", "删除成功!", "success");
                                 $('#teacher_exam_table').bootstrapTable("refresh");
                                 $('#teacher_exam_modal_table').bootstrapTable("refresh");
@@ -199,16 +199,16 @@
     function operateExamTaken(value, row) {
         var html = [];
         html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
-        html.push('<button style="margin-left: 20px" class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
-        return html.join('');
+        html.push('<button class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
+        return html.join(' | ');
     }
     $(function () {
         $('#teacher_exam_table').bootstrapTable({
             url: '${pageContext.request.contextPath}/exam/examInfos',
             method: 'post',
             sidePagination: 'server',
-            height: 600,
             uniqueId: 'id',
+            pagination: "true",
             showRefresh: true,
             rowStyle: rowStyle,
             toolbar: '#teacher_exam_toolbar',
@@ -246,6 +246,7 @@
                 }, {
                     title: '操作',
                     rowspan: 2,
+                    colspan: 1,
                     align: 'center',
                     valign: 'middle',
                     formatter: operateExamTaken
@@ -485,7 +486,7 @@
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        if (data === true) {
+                        if (data) {
                             swal("Success", "添加考试信息成功！", "success");
                             $('#teacher_exam_table').bootstrapTable("refresh");
                             $('#teacher_exam_modal_table').bootstrapTable("refresh");

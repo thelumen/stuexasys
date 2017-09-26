@@ -82,6 +82,9 @@
             <if test="sign4 != null">
                 sign4 = #{sign4,jdbcType=INTEGER},
             </if>
+            <if test="test != null">
+                test = #{test,jdbcType=INTEGER},
+            </if>
             <if test="started != null">
                 started = #{started,jdbcType=INTEGER},
             </if>
@@ -98,7 +101,7 @@
     <!--获取modal中table的考试信息-->
     <select id="selectTableExamInfo" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.ExamTaken">
-        SELECT e.id,c.name AS courseName,s.name AS specialtyName,e.test
+        SELECT e.id,c.name AS courseName,s.name AS specialtyName,e.started
         FROM com_examinfo e,com_course c,com_specialty s
         WHERE e.courseId=c.courseId AND e.specialtyId=s.specialtyId
         <if test="teacherId != null">
@@ -110,8 +113,8 @@
     <update id="startOrCloseExam" parameterType="java.util.Map">
         UPDATE com_examinfo
         <set>
-            <if test="test != null">
-                test = #{test,jdbcType=INTEGER},
+            <if test="started != null">
+                started = #{started,jdbcType=INTEGER},
             </if>
         </set>
         WHERE id=#{id,jdbcType=INTEGER}
