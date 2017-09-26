@@ -5,13 +5,13 @@
 
     <!--删除简答题-->
     <delete id="deleteAnotherQuestion" parameterType="java.util.Map">
-        DELETE FROM stuexasys.com_another_question
+        DELETE FROM com_another_question
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
 
     <!--更新简答题-->
     <update id="updateAnotherQuestion" parameterType="sunday.pojo.teacher.AnotherTaken">
-        UPDATE stuexasys.com_another_question
+        UPDATE com_another_question
         SET courseId = #{courseId,jdbcType=INTEGER}, content = #{content,jdbcType=VARCHAR},
             result   = #{result,jdbcType=VARCHAR}
         WHERE id = #{id,jdbcType=BIGINT}
@@ -26,7 +26,7 @@
         c.name AS courseName,
         a.content AS content,
         a.result AS result
-        FROM stuexasys.com_another_question a,stuexasys.com_course c
+        FROM com_another_question a,com_course c
         WHERE a.courseId=c.courseId
         <if test="courseId!=null">
             AND a.courseId=#{courseId,jdbcType=INTEGER}

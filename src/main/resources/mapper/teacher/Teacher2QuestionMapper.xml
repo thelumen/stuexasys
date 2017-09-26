@@ -47,7 +47,7 @@
 
     <!--更新判断题-->
     <update id="updateTfInfo" parameterType="sunday.pojo.school.TfQuestion">
-        UPDATE stuexasys.com_tf_question
+        UPDATE com_tf_question
         <set>
             section=#{section,jdbcType=VARCHAR},
             levels=#{levels,jdbcType=INTEGER},
@@ -61,7 +61,7 @@
     <!--更新选择题-->
     <update id="updateSingleInfo"
             parameterType="sunday.pojo.school.SingleQuestion">
-        UPDATE stuexasys.com_single_question
+        UPDATE com_single_question
         <set>
             section=#{section,jdbcType=VARCHAR},
             levels=#{levels,jdbcType=INTEGER},

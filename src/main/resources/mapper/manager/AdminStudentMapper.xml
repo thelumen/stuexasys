@@ -6,7 +6,7 @@
     <!--查询学生详细信息-->
     <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
         SELECT *
-        FROM stuexasys.com_student
+        FROM com_student
         where com_student.studentId IN
         <foreach collection="studentUploadList" index="index" item="studentItem" open="(" separator="," close=")">
             #{studentItem.studentId}
@@ -16,7 +16,7 @@
     <!--查询专业信息-->
     <select id="selectSpecialty" parameterType="java.util.Map" resultType="sunday.pojo.school.Specialty">
         SELECT *
-        FROM stuexasys.com_specialty
+        FROM com_specialty
         <where>
             <if test="specialtyInfo!=null">
                 AND specialtyId IN
@@ -31,7 +31,7 @@
     <select id="selectTeacher2Course" parameterType="java.util.Map"
             resultType="sunday.pojo.dto.Specialty2Course">
         SELECT*
-        FROM stuexasys.com_teacher_l_course
+        FROM com_teacher_l_course
         <where>
             <if test="specialtyId != null">
                 AND specialtyId IN
@@ -45,7 +45,7 @@
 
     <!--删除专业-->
     <delete id="deleteSpecialty" parameterType="java.util.Map">
-        DELETE FROM stuexasys.com_specialty
+        DELETE FROM com_specialty
         <where>
             <if test="specialtyId!=null">
                 AND specialtyId IN
@@ -59,7 +59,7 @@
 
     <!--删除教师选课表中的数据 with specialtyId-->
     <delete id="deleteTeacher2Course" parameterType="java.util.Map">
-        DELETE FROM stuexasys.com_teacher_l_course
+        DELETE FROM com_teacher_l_course
         <where>
             <if test="specialtyId!=null">
                 AND specialtyId IN
@@ -72,7 +72,7 @@
 
     <!--插入新专业(批量)-->
     <insert id="insertSpecialtyList" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_specialty (specialtyId, name)
+        INSERT INTO com_specialty (specialtyId, name)
         VALUES
         <foreach collection="specialtyInfo" index="index" item="specialtyItem" open="(" separator="," close=")">
             (#{specialtyItem.specialtyId,jdbcType=INTEGER}, #{specialtyItem.name,jdbcType=VARCHAR})
@@ -81,13 +81,13 @@
 
     <!--插入新专业(单个)-->
     <insert id="insertSpecialty" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_specialty (specialtyId, name)
+        INSERT INTO com_specialty (specialtyId, name)
         VALUES (#{specialtyId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
     </insert>
 
     <!--批量插入学生-->
     <insert id="insertStudent" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_student(studentId, password, name, specialtyId, gender)
+        INSERT INTO com_student(studentId, password, name, specialtyId, gender)
         VALUES
         <foreach collection="studentUploadList" item="item" index="index" separator=",">
             (#{item.studentId,jdbcType=INTEGER},#{item.password,jdbcType=VARCHAR},
@@ -98,7 +98,7 @@
 
     <!--批量插入学生权限-->
     <insert id="insertStudentRole" parameterType="java.util.Map">
-        INSERT INTO stuexasys.com_studnet_l_role(studentId, roleId)
+        INSERT INTO com_studnet_l_role(studentId, roleId)
         VALUES
         <foreach collection="studentUploadList" item="item" index="index" separator=",">
             (#{item.studentId,jdbcType=INTEGER},4)

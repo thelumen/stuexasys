@@ -8,7 +8,7 @@ import sunday.common.enums.UpdateType;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.controller.common.CommonController;
-import sunday.pojo.shiro.ShiroInfo;
+import sunday.pojo.school.Student;
 import sunday.pojo.student.ExamInfo;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.StudentInfo;
@@ -31,8 +31,8 @@ public class StudentController extends CommonController {
      *
      * @return 当前登录学生的信息
      */
-    private ShiroInfo getCurrentStudent() {
-        return (ShiroInfo) ShiroKit.getSession().getAttribute("currentStudent");
+    private Student getCurrentStudent() {
+        return (Student) ShiroKit.getSession().getAttribute("currentStudent");
     }
 
     /**
@@ -41,7 +41,7 @@ public class StudentController extends CommonController {
      * @return 当前登录学生的id（int）
      */
     private int getStudentIdWithInt() {
-        return getCurrentStudent().getUserId();
+        return getCurrentStudent().getStudentId();
     }
 
     /**
@@ -51,7 +51,7 @@ public class StudentController extends CommonController {
      */
     private Map<String, Object> getStudentIdWithMap() {
         return new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudent().getUserId());
+            put("studentId", getCurrentStudent().getStudentId());
         }};
     }
 
@@ -101,7 +101,10 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
-        model.addAttribute("studentExamInfo", studentService.selectExamInfo(getStudentIdWithMap()));
+        Map<String,Object> params =new HashMap<String,Object>(){{
+            put("specialty",getCurrentStudent().getSpecialtyId());
+        }};
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(params));
         return "/student/exam/examProxy";
     }
 
@@ -202,10 +205,6 @@ public class StudentController extends CommonController {
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
         gradeInfo.setStudentId(getStudentIdWithInt());
-        if (!studentService.checkTestStart(gradeInfo)) {
-            info.put("overtime", true);//教师端考试关闭
-            return info;
-        }
         String[] an = gradeInfo.getAnswer();
         String[] result = gradeInfo.getResult().split(",");
         int testRight = 0;
