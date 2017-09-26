@@ -46,7 +46,7 @@
                 <%--导航栏右侧 通过类选择器动态展示用户状态--%>
                 <li>
                     <a href="${pageContext.request.contextPath}/student/personPage">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;${currentStudent.userName}
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;${currentStudent.name}
                     </a>
                 </li>
                 <li>

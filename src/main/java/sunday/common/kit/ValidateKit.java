@@ -42,7 +42,7 @@ public final class ValidateKit {
      * @return
      */
     public static boolean validateSpecialty(Specialty specialty) {
-        if (specialty.getSpecialtyId() < 100000 || specialty.getSpecialtyId() > 999999) {
+        if (specialty.getSpecialtyId() <= 100000 || specialty.getSpecialtyId() > 999999) {
             return false;
         }
         if (Objects.equals(specialty.getName(), "")) {
