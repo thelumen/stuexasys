@@ -102,7 +102,10 @@ public class TeacherInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public boolean delete(@PathVariable(value = "teacherId") int teacherId) {
-        return teacherService.delete(teacherId);
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("teacherId", teacherId);
+        }};
+        return student2ExamService.deleteExamInfo(params) && courseService.deleteCourseTakenByTeacherId(teacherId) > 0 && teacherService.delete(teacherId);
     }
 
     /**

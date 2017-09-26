@@ -29,6 +29,12 @@
         WHERE courseId = #{courseId,jdbcType=INTEGER}
     </delete>
 
+    <!--以教师ID删除课程-->
+    <delete id="deleteCourseTakenByTeacherId" parameterType="java.lang.Integer">
+        DELETE FROM com_teacher_l_course
+        WHERE teacherId = #{teacherId,jdbcType=INTEGER}
+    </delete>
+
     <!--更新课程-->
     <update id="update" parameterType="sunday.pojo.school.Course">
         UPDATE com_course
