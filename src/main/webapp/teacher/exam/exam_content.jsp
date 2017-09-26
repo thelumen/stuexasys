@@ -172,26 +172,24 @@
                 confirmButtonText: "Yes,it will be!",
                 cancelButtonText: "No, cancel!",
                 closeOnConfirm: false,
-                closeOnCancel: false
+                closeOnCancel: true
             },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
-                        type: 'delete',
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data) {
-                                swal("year..", "删除成功!", "success");
-                                $('#teacher_exam_table').bootstrapTable("refresh");
-                                $('#teacher_exam_modal_table').bootstrapTable("refresh");
-                            }
-                        },
-                        error: function () {
-                            swal("Error", "系统出现错误，请联系管理员!", "error");
+            function () {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
+                    type: 'delete',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            swal("year..", "删除成功!", "success");
+                            $('#teacher_exam_table').bootstrapTable("refresh");
+                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
                         }
-                    });
-                }
+                    },
+                    error: function () {
+                        swal("Error", "系统出现错误，请联系管理员!", "error");
+                    }
+                });
             }
         )
     }

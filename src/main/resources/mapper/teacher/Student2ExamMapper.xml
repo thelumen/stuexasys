@@ -4,9 +4,9 @@
 <mapper namespace="sunday.mapper.teacher.Student2ExamMapper">
     <!--新增考试信息-->
     <insert id="insertExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
-        INSERT INTO com_examinfo(teacherId,specialtyId,courseId,test,started)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},
-        #{courseId,jdbcType=INTEGER},#{test,jdbcType=INTEGER},#{started,jdbcType=INTEGER})
+        INSERT INTO com_examinfo (teacherId, specialtyId, courseId, test, started)
+        VALUES (#{teacherId,jdbcType=INTEGER}, #{specialtyId,jdbcType=INTEGER},
+                #{courseId,jdbcType=INTEGER}, #{test,jdbcType=INTEGER}, #{started,jdbcType=INTEGER})
     </insert>
 
     <!--查询考试信息-->
@@ -93,9 +93,19 @@
     </update>
 
     <!--删除考试信息-->
-    <delete id="deleteExamInfo" parameterType="java.lang.String">
+    <delete id="deleteExamInfo" parameterType="java.util.Map">
         DELETE FROM com_examinfo
-        WHERE teacherId=#{teacherId,jdbcType=INTEGER} AND courseId=#{courseId,jdbcType=INTEGER} AND specialtyId=#{specialtyId,jdbcType=INTEGER}
+        <where>
+            <if test="teacherId != null">
+                teacherId=#{teacherId,jdbcType=INTEGER}
+            </if>
+            <if test="courseId != null">
+                AND courseId=#{courseId,jdbcType=INTEGER}
+            </if>
+            <if test="specialtyId != null">
+                AND specialtyId=#{specialtyId,jdbcType=INTEGER}
+            </if>
+        </where>
     </delete>
 
     <!--获取modal中table的考试信息-->

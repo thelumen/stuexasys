@@ -37,6 +37,14 @@ public interface CourseMapper {
     int delete(Integer courseId);
 
     /**
+     * 按教师号删除选课信息
+     *
+     * @param teacherId
+     * @return
+     */
+    int deleteCourseTakenByTeacherId(Integer teacherId);
+
+    /**
      * 更新课程
      *
      * @param course

@@ -73,7 +73,7 @@
     //删除
     function del(id) {
         swal({
-                title: "您确定要要删除这位老师的信息吗？",
+                title: "您确定要要删除这位老师的信息吗？相关联的课程和考试信息也将被delete！",
                 text: "",
                 type: "warning",
                 showCancelButton: true,

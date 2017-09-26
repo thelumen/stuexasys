@@ -17,6 +17,12 @@ import java.util.Map;
 public class CourseServiceImp extends CommonService implements CourseService {
 
     @Override
+    @Transactional
+    public int deleteCourseTakenByTeacherId(Integer teacherId) {
+        return courseMapper.deleteCourseTakenByTeacherId(teacherId);
+    }
+
+    @Override
     public List<Course> select(Map<String, Object> params) {
         List<Course> courses = courseMapper.select(params);
         if (null != courses && courses.size() > 0) {

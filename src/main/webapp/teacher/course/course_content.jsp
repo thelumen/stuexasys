@@ -81,8 +81,8 @@
     </div>
 </div>
 <script>
-    var $course=$('#teacher_course_select_course');
-    var $specialty=$('#teacher_course_select_specialty');
+    var $course = $('#teacher_course_select_course');
+    var $specialty = $('#teacher_course_select_specialty');
     //    样式
     function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
@@ -168,29 +168,25 @@
                 confirmButtonText: "Yes, delete it!",
                 cancelButtonText: "No, cancel!",
                 closeOnConfirm: false,
-                closeOnCancel: false
+                closeOnCancel: true
             },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: 'delete',
-                        url: '${pageContext.request.contextPath}/course/delete/' + content,
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data === true) {
-                                swal("Deleted!", "此课程成功删除！", "success");
-                                $('#teacher_course_table').bootstrapTable("refresh");
-                            } else {
-                                swal("Sorry", "此课程已结被删除！", "error");
-                            }
-                        },
-                        error: function () {
-                            swal("Sorry!", "系统出错了！.", "error");
+            function () {
+                $.ajax({
+                    type: 'delete',
+                    url: '${pageContext.request.contextPath}/course/delete/' + content,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            swal("Deleted!", "此课程成功删除！", "success");
+                            $('#teacher_course_table').bootstrapTable("refresh");
+                        } else {
+                            swal("Sorry", "此课程已结被删除！", "error");
                         }
-                    });
-                } else {
-                    swal("Cancelled", "This Course Information is safe :)", "error");
-                }
+                    },
+                    error: function () {
+                        swal("Sorry!", "系统出错了！.", "error");
+                    }
+                });
             });
     }
 </script>
