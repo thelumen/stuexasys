@@ -460,16 +460,17 @@
                         }]
                     }
                 }, {
-                    field: 'started',
+                    field: 'test',
                     title: '考试信号',
                     align: 'center',
                     valign: 'middle',
                     editable: {
                         type: 'select',
                         title: '是否开启考试',
-                        source: [{value: "1", text: "开启"}, {
-                            value: "0", text: "关闭"
-                        }]
+                        source: [
+                            {value: "1", text: "开启"},
+                            {value: "0", text: "关闭"}
+                        ]
                     }
                 }]
             ]

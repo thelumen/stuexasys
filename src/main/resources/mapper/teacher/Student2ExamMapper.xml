@@ -4,8 +4,9 @@
 <mapper namespace="sunday.mapper.teacher.Student2ExamMapper">
     <!--新增考试信息-->
     <insert id="insertExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
-        INSERT INTO com_examinfo(teacherId,specialtyId,courseId,started)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{started,jdbcType=INTEGER})
+        INSERT INTO com_examinfo(teacherId,specialtyId,courseId,test,started)
+        VALUES (#{teacherId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},
+        #{courseId,jdbcType=INTEGER},#{test,jdbcType=INTEGER},#{started,jdbcType=INTEGER})
     </insert>
 
     <!--查询考试信息-->
@@ -29,6 +30,7 @@
         e.sign3,
         e.date4,
         e.sign4,
+        e.test,
         e.started
         FROM com_examinfo e, com_course c, com_specialty s
         WHERE e.courseId = c.courseId AND e.specialtyId = s.specialtyId
