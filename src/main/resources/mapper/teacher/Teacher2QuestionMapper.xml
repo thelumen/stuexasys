@@ -10,7 +10,7 @@
         FROM com_single_question
         <where>
             <if test="courseId != null">
-                 courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId,jdbcType=INTEGER}
             </if>
         </where>
     </select>
@@ -111,16 +111,25 @@
     <!--查询附加题-->
     <select id="selectAnother" parameterType="java.util.Map"
             resultType="sunday.pojo.teacher.AnotherTaken">
-        SELECT DISTINCT l.id AS id,c.courseId AS courseId,c.name AS
-        courseName,p.specialtyId AS specialtyId,
-        p.name AS specialtyName,s.studentId AS studentId,s.name AS
-        studentName,a.content AS content,g.grade4 AS score,
-        a.result AS result,l.result AS studentAnswer
+        SELECT
+        l.id AS id,
+        c.courseId AS courseId,
+        c.name AS
+        courseName,
+        p.specialtyId AS specialtyId,
+        p.name AS specialtyName,
+        s.studentId AS studentId,
+        s.name AS
+        studentName,
+        a.content AS content,
+        g.grade4 AS score,
+        a.result AS result,
+        l.result AS studentAnswer
         FROM com_another_question a,com_student s,com_student_l_another_question
         l,com_course c,com_specialty p,com_grade g
-        WHERE l.studentId=s.studentId AND l.courseId=c.courseId AND l.id=a.id
-        AND g.courseId=c.courseId AND g.studentId=s.studentId AND
-        s.specialtyId=p.specialtyId
+        WHERE p.specialtyId=s.specialtyId AND s.studentId=g.studentId AND
+        c.courseId=g.courseId AND l.courseId=c.courseId AND
+        l.studentId=s.studentId AND l.id=a.id
         <if test="id != null">
             AND l.id=#{id,jdbcType=BIGINT}
         </if>

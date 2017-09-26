@@ -143,7 +143,6 @@ public class GradeController extends CommonController {
         if (null == courseId || null == specialtyId) {
             return null;
         }
-
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
             put("specialtyId", specialtyId);

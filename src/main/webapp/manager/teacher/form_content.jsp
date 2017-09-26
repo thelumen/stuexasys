@@ -53,6 +53,7 @@
                 <label class="col-sm-2 control-label">密码（已加密）</label>
                 <div class="col-sm-10">
                     <input class="form-control" name="password" required
+                           minlength="3"
                            value="${teacherInfo.password}" style="width: 500px"
                            placeholder="password write here!"/>
                 </div>
