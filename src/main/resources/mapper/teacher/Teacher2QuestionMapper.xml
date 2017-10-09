@@ -139,5 +139,8 @@
         <if test="specialtyId != null">
             AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
         </if>
+        <if test="studentId != null">
+            AND s.studentId=#{studentId,jdbcType=INTEGER}
+        </if>
     </select>
 </mapper>
