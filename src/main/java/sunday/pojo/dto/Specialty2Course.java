@@ -11,9 +11,9 @@ public final class Specialty2Course {
     private Integer teacherId;
     private Integer courseId;
     private Integer specialtyId;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date starttime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endtime;
 
     @Override

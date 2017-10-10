@@ -12,21 +12,21 @@ public final class ExamTaken {
     private String courseName;
     //测验一
     private String content1;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date1;
     private Integer sign1;
     //测验二
     private String content2;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date2;
     private Integer sign2;
     //测验三
     private String content3;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date3;
     private Integer sign3;
     //测验四
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date4;
     private Integer sign4;
     //是否可以开始考试

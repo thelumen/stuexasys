@@ -15,9 +15,9 @@ public final class GradeTaken {
     private String specialtyId;
     private String specialtyName;
     private String courseName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endTime;
     private Integer grade1;
     private Integer grade2;

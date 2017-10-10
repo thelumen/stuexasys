@@ -19,9 +19,9 @@ public final class CourseTaken {
     private Integer specialtyId;
     private String specialtyName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date starttime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endtime;
 
     //课程结束与否，false：结束了，true：没有

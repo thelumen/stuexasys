@@ -13,7 +13,7 @@ public final class ExamInfo {
     private String courseName;
     private String content;
     private String testNum;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
     //是否有考试信息
     private int test;

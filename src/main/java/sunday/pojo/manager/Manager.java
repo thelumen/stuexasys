@@ -1,5 +1,7 @@
 package sunday.pojo.manager;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,11 +9,12 @@ import java.util.Date;
  * Created by yang on 2017/5/22.
  * At 19:06
  */
-public final class Manager implements Serializable{
+public final class Manager implements Serializable {
     private int id;
     private Integer managerId;
     private String password;
     private String name;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date logintime;
     private String ip;
 
