@@ -104,7 +104,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 ExamInfo examInfo = new ExamInfo();
                 examInfo.setCourseId(examTaken.getCourseId());
                 examInfo.setCourseName(examTaken.getCourseName());
-                examInfo.setTest(examTaken.getTest());
+                examInfo.setTest(examTaken.getStarted());
                 if (null != examTaken.getSign4() && 1 == examTaken.getSign4()) {
                     examInfo.setContent("0");//附加题章节数设为0
                     examInfo.setDate(examTaken.getDate4());

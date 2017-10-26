@@ -102,7 +102,7 @@ public class StudentController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
         Map<String,Object> params =new HashMap<String,Object>(){{
-            put("specialty",getCurrentStudent().getSpecialtyId());
+            put("specialtyId",getCurrentStudent().getSpecialtyId());
         }};
         model.addAttribute("studentExamInfo", studentService.selectExamInfo(params));
         return "/student/exam/examProxy";

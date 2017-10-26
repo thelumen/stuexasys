@@ -1,10 +1,12 @@
 package sunday.pojo.school;
 
+import java.io.Serializable;
+
 /**
  * Created by yang on 2017/5/22.
  * At 19:06
  */
-public final class Student {
+public final class Student implements Serializable{
     //自增
     private long id;
     private Integer studentId;

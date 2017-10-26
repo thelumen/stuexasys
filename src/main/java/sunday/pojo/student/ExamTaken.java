@@ -29,9 +29,9 @@ public final class ExamTaken {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date4;
     private Integer sign4;
-    //是否可以开始考试
-    private int test;
     //是否有考试信息
+    private int test;
+    //是否可以开始考试
     private Integer started;
 
     @Override
