@@ -89,7 +89,7 @@
             var jsonData = JSON.stringify(gradeInfo);
             $.ajax({
                 type: 'post',
-                url: '/student/uploadGrade',
+                url: '${pageContext.request.contextPath}/student/uploadGrade',
                 dataType: 'json',
                 contentType: 'application/json',
                 data: jsonData,
@@ -105,7 +105,7 @@
                             closeOnConfirm: false,
                             showLoaderOnConfirm: true
                         }, function () {
-                            window.location.href = ('/student/personPage');
+                            window.location.href = ('${pageContext.request.contextPath}/student/personPage');
                         });
                     } else if(data.overtime){
                         swal("提交失败", "考试已结束", "error");
