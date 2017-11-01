@@ -149,25 +149,25 @@ public final class ResourceFileKit {
      * @return 成功
      */
     public static boolean backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) {
-        File fileDir = new File(getHome() + File.separator + "backup" + File.separator
-                + specialtyName + File.separator + courseName + File.separator + testPaper.getTestNum());
+        String homePath = getHome() + File.separator + "backup" + File.separator + specialtyName
+                + File.separator + courseName + File.separator + testPaper.getTestNum();
+        File fileDir = new File(homePath);
         if (!fileDir.exists()) {
             if (!fileDir.mkdirs()) {
                 System.out.println("创建备份目录失败");
                 return false;
             }
         }
-        File file = new File(getHome() + File.separator + "backup" + File.separator
-                + specialtyName + File.separator + courseName + File.separator + testPaper.getTestNum()
-                + File.separator + studentId + ".txt");
+        File file = new File(homePath + File.separator + "$" + studentId + ".txt");
         try {
             if (file.exists()) {
                 if (!file.delete()) {
-                    System.out.println("删除备份文件失败");
+                    System.out.println("删除临时文件失败");
+                    return false;
                 }
             }
             if (!file.createNewFile()) {
-                System.out.println("创建备份文件失败");
+                System.out.println("创建临时文件失败");
                 return false;
             }
         } catch (IOException e) {
@@ -225,9 +225,16 @@ public final class ResourceFileKit {
      * @return 成功
      */
     public static boolean backUpExamInfo(GradeInfo gradeInfo, String specialtyName) {
-        File file = new File(getHome() + File.separator + "backup"
-                + File.separator + specialtyName + File.separator + gradeInfo.getCourseName() + File.separator + gradeInfo.getTestNum()
-                + File.separator + gradeInfo.getStudentId() + ".txt");
+        String homePath = getHome() + File.separator + "backup" + File.separator + specialtyName + File.separator
+                + gradeInfo.getCourseName() + File.separator + gradeInfo.getTestNum();
+        File fileBackup = new File(homePath + File.separator + gradeInfo.getStudentId() + ".txt");
+        if (fileBackup.exists()) {
+            if (!fileBackup.delete()) {
+                System.out.println("删除原备份文件失败");
+                return false;
+            }
+        }
+        File file = new File(homePath + File.separator + "$" + gradeInfo.getStudentId() + ".txt");
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(file, true);
@@ -257,7 +264,7 @@ public final class ResourceFileKit {
                     }
                 }
             } else {
-                fileWriter.write(gradeInfo.getResult()+"\r\n");
+                fileWriter.write(gradeInfo.getResult() + "\r\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -268,6 +275,10 @@ public final class ResourceFileKit {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (!file.renameTo(new File(homePath + File.separator + gradeInfo.getStudentId() + ".txt"))) {
+                System.out.println("重命名备份文件失败");
+                return false;
             }
         }
         return true;
