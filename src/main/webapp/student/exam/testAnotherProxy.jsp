@@ -25,6 +25,8 @@
             var examInfo =${testPaper.anotherQuestionTaken.courseId};
             examInfo += "_";
             examInfo +=${testPaper.anotherQuestionTaken.id};
+            examInfo += "_";
+            examInfo +='${testPaper.courseName}';
             document.getElementById("hideArea").value = examInfo;
             //加载上次提交到数据库的答案
             <c:if test="${ !empty testPaper.anotherQuestionTaken.result}">
@@ -75,7 +77,7 @@
                 clearInterval(setI);
                 var QuestionId = $("#hideArea").val().split("_");
                 var result = $("#studentResult").val();
-                var gradeInfo = {'id': QuestionId[1], 'courseId': QuestionId[0], 'result': result, 'testNum': '4', 'courseName': QuestionId[1]};
+                var gradeInfo = {'id': QuestionId[1], 'courseId': QuestionId[0], 'result': result, 'testNum': '4', 'courseName': QuestionId[2]};
                 var jsonData = JSON.stringify(gradeInfo);
                 $.ajax({
                     type: 'post',

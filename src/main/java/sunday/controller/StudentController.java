@@ -173,7 +173,7 @@ public class StudentController extends CommonController {
         examInfo.setTestNum(s[2]);
         examInfo.setCourseName(s[3]);
         TestPaper testPaper = studentService.selectQuestion(examInfo);
-        ResourceFileKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(),getStudentIdWithInt());
+        ResourceFileKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
@@ -190,7 +190,10 @@ public class StudentController extends CommonController {
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setCourseName(s[1]);
-        model.addAttribute("testPaper", studentService.selectTestPaperAnother(getStudentIdWithInt(), examInfo));
+        examInfo.setTestNum("4");
+        TestPaper testPaper = studentService.selectTestPaperAnother(getStudentIdWithInt(), examInfo);
+        ResourceFileKit.backUpExamTaken(testPaper, s[1], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
+        model.addAttribute("testPaper", testPaper);
         return "/student/exam/testAnotherProxy";
     }
 

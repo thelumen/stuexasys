@@ -85,6 +85,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             testPaper.setAnotherQuestionTaken(anotherTestTakens.get((int) (Math.random() * anotherTestTakens.size())));
         }
         testPaper.setTestNum(examInfo.getTestNum());
+        testPaper.setCourseName(examInfo.getCourseName());
         if (testPaper.getAnotherQuestionTaken() != null) {
             return testPaper;
         }

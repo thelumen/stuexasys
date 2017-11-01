@@ -201,7 +201,6 @@ public final class ResourceFileKit {
                 }
             } else {
                 fileWriter.write("题干：" + testPaper.getAnotherQuestionTaken().getContent() + "\r\n");
-                fileWriter.write("参考答案：" + testPaper.getAnotherQuestionTaken().getResult() + "\r\n");
                 fileWriter.write("\r\n");
             }
         } catch (IOException e) {

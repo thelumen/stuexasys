@@ -4,18 +4,9 @@
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/realm/MyRealm.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/realm/MyRealm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/GradeInfo.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/GradeInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/SingleTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/SingleTaken.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TestPaper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TestPaper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/student/StudentMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/examProxy.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -81,8 +72,8 @@
       <file leaf-file-name="testProxy.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1614">
-              <caret line="86" column="53" lean-forward="true" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
+            <state relative-caret-position="-475">
+              <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -91,8 +82,8 @@
       <file leaf-file-name="testAnotherProxy.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="81" column="82" lean-forward="false" selection-start-line="81" selection-start-column="82" selection-end-line="81" selection-end-column="82" />
+            <state relative-caret-position="209">
+              <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -101,8 +92,8 @@
       <file leaf-file-name="ResourceFileKit.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="249" column="45" lean-forward="true" selection-start-line="249" selection-start-column="45" selection-end-line="249" selection-end-column="45" />
+            <state relative-caret-position="153">
+              <caret line="203" column="41" lean-forward="true" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -111,8 +102,8 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="205" column="44" lean-forward="false" selection-start-line="205" selection-start-column="44" selection-end-line="205" selection-end-column="44" />
+            <state relative-caret-position="179">
+              <caret line="210" column="54" lean-forward="true" selection-start-line="210" selection-start-column="54" selection-end-line="210" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,13 +111,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="GradeInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sunday/pojo/student/GradeInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="StudentServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="361" column="30" lean-forward="false" selection-start-line="361" selection-start-column="30" selection-end-line="361" selection-end-column="30" />
+            <state relative-caret-position="304">
+              <caret line="87" column="58" lean-forward="true" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
               <folding>
-                <element signature="initializer##0;class#11421:11937" expanded="false" />
+                <element signature="initializer##0;class#11480:11996" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -304,13 +305,13 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/realm/MyRealm.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TestPaper.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/GradeInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/StudentTaken.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/SingleTaken.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TfTaken.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java" />
       </list>
     </option>
@@ -1718,14 +1719,7 @@
       <workItem from="1509113649935" duration="1126000" />
       <workItem from="1509367789589" duration="262000" />
       <workItem from="1509429109928" duration="18790000" />
-      <workItem from="1509491242675" duration="9190000" />
-    </task>
-    <task id="LOCAL-00013" summary="管理员端：完成专业的查询，添加和删除功能">
-      <created>1504155123203</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1504155123203</updated>
+      <workItem from="1509491242675" duration="11703000" />
     </task>
     <task id="LOCAL-00014" summary="管理员端：完成专业的更新；完成课程的查询，添加和删除">
       <created>1504177743462</created>
@@ -2063,7 +2057,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509114764966</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="备份功能实现">
+      <created>1509519750102</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1509519750102</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2099,7 +2100,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="418354000" />
+    <option name="totallyTimeSpent" value="420867000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2125,7 +2126,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40134907" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5935919" sideWeight="0.49544764" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3237774" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2177,7 +2178,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="合并主支" />
     <MESSAGE value="修复管理员端修改学生名无法保存问题" />
     <MESSAGE value="优化学生上传部分代码以及注解&#10;添加学生端学分显示正确性提示" />
     <MESSAGE value="优化：当学生测试时，题库数据错误时的提示" />
@@ -2202,11 +2202,12 @@
     <MESSAGE value="解决：学生附加题无法展示的问题" />
     <MESSAGE value="解决：考试信息显示错误等问题" />
     <MESSAGE value="解决：考试无法提交的问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="解决：考试无法提交的问题" />
+    <MESSAGE value="备份功能实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="备份功能实现" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="217" />
+      <option name="time" value="225" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2436,14 +2437,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/student/StudentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/personPage/personPageProxy.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-627">
@@ -2538,6 +2531,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2629,54 +2623,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/student/StudentService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="361" column="30" lean-forward="false" selection-start-line="361" selection-start-column="30" selection-end-line="361" selection-end-column="30" />
-          <folding>
-            <element signature="initializer##0;class#11421:11937" expanded="false" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="63" column="14" lean-forward="false" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/pojo/student/GradeInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="114">
+          <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1614">
-          <caret line="86" column="53" lean-forward="true" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
-          <folding />
+        <state relative-caret-position="304">
+          <caret line="87" column="58" lean-forward="true" selection-start-line="87" selection-start-column="58" selection-end-line="87" selection-end-column="58" />
+          <folding>
+            <element signature="initializer##0;class#11480:11996" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="205" column="44" lean-forward="false" selection-start-line="205" selection-start-column="44" selection-end-line="205" selection-end-column="44" />
+        <state relative-caret-position="179">
+          <caret line="210" column="54" lean-forward="true" selection-start-line="210" selection-start-column="54" selection-end-line="210" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testProxy.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-475">
+          <caret line="32" column="46" lean-forward="true" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/student/exam/testAnotherProxy.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="81" column="82" lean-forward="false" selection-start-line="81" selection-start-column="82" selection-end-line="81" selection-end-column="82" />
+        <state relative-caret-position="209">
+          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceFileKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="249" column="45" lean-forward="true" selection-start-line="249" selection-start-column="45" selection-end-line="249" selection-end-column="45" />
+        <state relative-caret-position="153">
+          <caret line="203" column="41" lean-forward="true" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="41" />
           <folding />
         </state>
       </provider>
