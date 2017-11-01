@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sunday.common.enums.UpdateType;
-import sunday.common.kit.ResourceFileKit;
+import sunday.common.kit.ResourceKit;
 import sunday.common.kit.ShiroKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.student.*;
@@ -114,7 +114,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/resources/download", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String resourceDownload(Model model) {
-        model.addAttribute("resourceInfo", ResourceFileKit.getResourceInfo());
+        model.addAttribute("resourceInfo", ResourceKit.getResourceInfo());
         return "/student/resourcesDownload/resourcesDownloadProxy";
     }
 
@@ -173,7 +173,7 @@ public class StudentController extends CommonController {
         examInfo.setTestNum(s[2]);
         examInfo.setCourseName(s[3]);
         TestPaper testPaper = studentService.selectQuestion(examInfo);
-        ResourceFileKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(),getStudentIdWithInt());
+        ResourceKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(),getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
@@ -248,7 +248,7 @@ public class StudentController extends CommonController {
             info.put("single", single);
             info.put("tf", tf);
         }
-        ResourceFileKit.backUpExamInfo(gradeInfo, getCurrentStudent().getSpecialtyName());//备份
+        ResourceKit.backUpExamInfo(gradeInfo, getCurrentStudent().getSpecialtyName());//备份
         if (studentService.insertGrade(gradeInfo)) {
             info.put("issuccess", true);
         } else {
@@ -270,7 +270,7 @@ public class StudentController extends CommonController {
         //分解索引号
         String[] fileNum = path.split(",");
         //获取文件信息
-        Map<String, Object> fileInfo = ResourceFileKit.selectWithFileNum(Integer.valueOf(fileNum[0]), Integer.valueOf(fileNum[1]));
+        Map<String, Object> fileInfo = ResourceKit.selectWithFileNum(Integer.valueOf(fileNum[0]), Integer.valueOf(fileNum[1]));
         //获取绝对路径
         String realPath = (String) fileInfo.get("realPath");
         //通过绝对路径获取 file

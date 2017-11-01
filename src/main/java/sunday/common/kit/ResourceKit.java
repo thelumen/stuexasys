@@ -7,14 +7,19 @@ import sunday.pojo.student.TestPaper;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
  * 资源文件目录工具类
- * Created by yang on 2017/6/4.
+ *
+ * @author yang
+ * @date 2017/6/4
  * At 12:07
  */
-public final class ResourceFileKit {
+public final class ResourceKit {
     private static final Logger LOGGER = LogKit.getLogger();
     /**
      * 如果不存在的话，则自动创建
@@ -25,7 +30,28 @@ public final class ResourceFileKit {
      */
     private static final String BACKUP_HOME = HOME + "/backup";
 
-    private ResourceFileKit() {
+    private ResourceKit() {
+    }
+
+    static {
+        createDirectory(Paths.get(HOME), Paths.get(BACKUP_HOME));
+    }
+
+    /**
+     * 创建文件
+     *
+     * @param paths
+     * @throws IOException
+     */
+    private static void createDirectory(Path... paths) {
+        Objects.requireNonNull(paths);
+        for (Path p : paths) {
+            try {
+                Files.createDirectories(p);
+            } catch (IOException e) {
+                LOGGER.error("创建文件失败！文件名：{}", p.getFileName());
+            }
+        }
     }
 
     /**
@@ -148,7 +174,7 @@ public final class ResourceFileKit {
             File fileNameInfo = new File(HOME + File.separator + fileName);//拼接绝对路径并创建file类
             File[] children = fileNameInfo.listFiles();
             if (null != children && children.length > 0) {
-                String path = ResourceFileKit.getRelativePath(fileName, children[fileNum].getPath());
+                String path = ResourceKit.getRelativePath(fileName, children[fileNum].getPath());
                 fileInfoWithMap.put("fileName", children[fileNum].getName());
                 fileInfoWithMap.put("realPath", HOME + File.separator + path);
             }
