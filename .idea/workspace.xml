@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/manager/FileInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/manager/file/file_content.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -67,8 +67,8 @@
       <file leaf-file-name="file_content.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/file/file_content.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="43" column="14" lean-forward="true" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+            <state relative-caret-position="248">
+              <caret line="35" column="44" lean-forward="true" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
               <folding>
                 <element signature="n#ol#0;n#div#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#strong#0;n#label#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -1146,14 +1146,7 @@
       <workItem from="1507557660426" duration="357000" />
       <workItem from="1507629725859" duration="197000" />
       <workItem from="1509008834776" duration="1592000" />
-      <workItem from="1509519998600" duration="13864000" />
-    </task>
-    <task id="LOCAL-00013" summary="管理员端：完成专业的查询，添加和删除功能">
-      <created>1504155123203</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1504155123203</updated>
+      <workItem from="1509519998600" duration="13935000" />
     </task>
     <task id="LOCAL-00014" summary="管理员端：完成专业的更新；完成课程的查询，添加和删除">
       <created>1504177743462</created>
@@ -1491,7 +1484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509537894633</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="3">
+      <created>1509543010852</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1509543010852</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1527,7 +1527,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="394052000" />
+    <option name="totallyTimeSpent" value="394123000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1540,7 +1540,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3237774" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1606,7 +1605,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="合并主支" />
     <MESSAGE value="修复管理员端修改学生名无法保存问题" />
     <MESSAGE value="优化学生上传部分代码以及注解&#10;添加学生端学分显示正确性提示" />
     <MESSAGE value="优化：当学生测试时，题库数据错误时的提示" />
@@ -1631,7 +1629,8 @@
     <MESSAGE value="解决：学生附加题无法展示的问题" />
     <MESSAGE value="1" />
     <MESSAGE value="2" />
-    <option name="LAST_COMMIT_MESSAGE" value="2" />
+    <MESSAGE value="3" />
+    <option name="LAST_COMMIT_MESSAGE" value="3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2016,8 +2015,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/manager/file/file_content.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="43" column="14" lean-forward="true" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+        <state relative-caret-position="248">
+          <caret line="35" column="44" lean-forward="true" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
           <folding>
             <element signature="n#ol#0;n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#strong#0;n#label#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
