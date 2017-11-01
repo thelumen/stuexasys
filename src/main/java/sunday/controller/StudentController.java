@@ -8,10 +8,7 @@ import sunday.common.enums.UpdateType;
 import sunday.common.kit.ResourceFileKit;
 import sunday.common.kit.ShiroKit;
 import sunday.controller.common.CommonController;
-import sunday.pojo.school.Student;
-import sunday.pojo.student.ExamInfo;
-import sunday.pojo.student.GradeInfo;
-import sunday.pojo.student.StudentInfo;
+import sunday.pojo.student.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +28,8 @@ public class StudentController extends CommonController {
      *
      * @return 当前登录学生的信息
      */
-    private Student getCurrentStudent() {
-        return (Student) ShiroKit.getSession().getAttribute("currentStudent");
+    private StudentTaken getCurrentStudent() {
+        return (StudentTaken) ShiroKit.getSession().getAttribute("currentStudent");
     }
 
     /**
@@ -101,8 +98,8 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
-        Map<String,Object> params =new HashMap<String,Object>(){{
-            put("specialtyId",getCurrentStudent().getSpecialtyId());
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("specialtyId", getCurrentStudent().getSpecialtyId());
         }};
         model.addAttribute("studentExamInfo", studentService.selectExamInfo(params));
         return "/student/exam/examProxy";
@@ -149,14 +146,14 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/test/ready", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo, Model model) {
+    public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo) {
         Map<String, Object> data = new HashMap<>();
         if (!"4".equals(examInfo.getTestNum())) {
             data.put("generalTest", true);
-            data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent() + "_" + examInfo.getTestNum());
+            data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getContent() + "_" + examInfo.getTestNum() + "_" + examInfo.getCourseName());
         } else {
             data.put("generalTest", false);
-            data.put("examInfo", examInfo.getCourseId());
+            data.put("examInfo", examInfo.getCourseId() + "_" + examInfo.getCourseName());
         }
         return data;
     }
@@ -174,7 +171,10 @@ public class StudentController extends CommonController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        model.addAttribute("testPaper", studentService.selectQuestion(examInfo));
+        examInfo.setCourseName(s[3]);
+        TestPaper testPaper = studentService.selectQuestion(examInfo);
+        ResourceFileKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(),getStudentIdWithInt());
+        model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
 
@@ -189,6 +189,7 @@ public class StudentController extends CommonController {
         String[] s = examInfoInPath.split("_");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
+        examInfo.setCourseName(s[1]);
         model.addAttribute("testPaper", studentService.selectTestPaperAnother(getStudentIdWithInt(), examInfo));
         return "/student/exam/testAnotherProxy";
     }
@@ -205,53 +206,64 @@ public class StudentController extends CommonController {
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
         gradeInfo.setStudentId(getStudentIdWithInt());
-        String[] an = gradeInfo.getAnswer();
-        String[] result = gradeInfo.getResult().split(",");
-        int testRight = 0;
-        int single = 0;
-        int tf = 0;
-        for (int i = 1; i < 26; i++) {
-            if (i <= 20) {
-                String realAnS = "j";
-                if (Integer.valueOf(an[i]) % 5 == 0) {
-                    realAnS = "A";
-                } else if (Integer.valueOf(an[i]) % 5 == 1) {
-                    realAnS = "B";
-                } else if (Integer.valueOf(an[i]) % 5 == 2) {
-                    realAnS = "C";
-                } else if (Integer.valueOf(an[i]) % 5 == 3) {
-                    realAnS = "D";
-                }
-                if (realAnS.equals(result[i - 1])) {
-                    testRight++;
-                    single++;
-                }
-            } else {
-                String realAnT = "j";
-                if (Integer.valueOf(an[i]) % 3 == 1) {
-                    realAnT = "1";
-                } else if (Integer.valueOf(an[i]) % 3 == 2) {
-                    realAnT = "2";
-                }
-                if (realAnT.equals(result[i - 1])) {
-                    testRight++;
-                    tf++;
+        if (Integer.valueOf(gradeInfo.getTestNum()) != 4) {
+            String[] an = gradeInfo.getAnswer();
+            String[] result = gradeInfo.getResult().split(",");
+            int testRight = 0;  //测试题总正确数
+            int single = 0;     //选择题总正确数
+            int tf = 0;         //判断题总正确数
+            for (int i = 1; i < 26; i++) {
+                int count = i - 1;
+                if (i <= 20) {
+                    String realAnS = "j";
+                    if (Integer.valueOf(an[i]) % 5 == 0) {
+                        realAnS = "A";
+                    } else if (Integer.valueOf(an[i]) % 5 == 1) {
+                        realAnS = "B";
+                    } else if (Integer.valueOf(an[i]) % 5 == 2) {
+                        realAnS = "C";
+                    } else if (Integer.valueOf(an[i]) % 5 == 3) {
+                        realAnS = "D";
+                    }
+                    if (realAnS.equals(result[count])) {
+                        testRight++;
+                        single++;
+                    }
+                } else {
+                    String realAnT = "j";
+                    if (Integer.valueOf(an[i]) % 3 == 1) {
+                        realAnT = "0";
+                    } else if (Integer.valueOf(an[i]) % 3 == 2) {
+                        realAnT = "1";
+                    }
+                    if (realAnT.equals(result[count])) {
+                        testRight++;
+                        tf++;
+                    }
                 }
             }
-        }
-        int totalGrade = testRight * 4;
-        gradeInfo.setGrade(totalGrade);
-        if (studentService.insertGrade(gradeInfo)) {
-            info.put("issuccess", true);
+            int totalGrade = testRight * 4;
+            gradeInfo.setGrade(totalGrade);
             info.put("grade", totalGrade);
             info.put("single", single);
             info.put("tf", tf);
+        }
+        ResourceFileKit.backUpExamInfo(gradeInfo, getCurrentStudent().getSpecialtyName());//备份
+        if (studentService.insertGrade(gradeInfo)) {
+            info.put("issuccess", true);
         } else {
             info.put("issuccess", false);
         }
         return info;
     }
 
+    /**
+     * 文件下载
+     *
+     * @param path     路径
+     * @param response 返回数据流
+     * @throws IOException 异常
+     */
     @RequestMapping(value = "/resources/download/{fileDownloadPath}", method = RequestMethod.GET)
     public void download(@PathVariable(value = "fileDownloadPath") String path,
                          HttpServletResponse response) throws IOException {

@@ -328,6 +328,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         int t = 7;
         int f = 5;
         for (SingleTaken singleTaken : singleTakenList) {
+            singleTaken.setRealAnswer(singleTaken.getResult());
             switch (singleTaken.getResult()) {
                 case "A":
                     singleTaken.setResult("" + a);
@@ -350,14 +351,15 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             }
         }
         for (TfTaken tfTaken : tfTakenList) {
+            tfTaken.setRealAnswer(tfTaken.getResult());
             switch (tfTaken.getResult()) {
-                case (1):
+                case (0):
                     tfTaken.setResult(t);
-                    t += 3;
+                    t += 3;//1
                     break;
-                case (2):
+                case (1):
                     tfTaken.setResult(f);
-                    f += 3;
+                    f += 3;//2
                     break;
                 default:
                     break;
@@ -365,6 +367,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }
         //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
         TestPaper testPaper = new TestPaper();
+        testPaper.setCourseName(examInfo.getCourseName());
         testPaper.setSingleTakenList(singleTakenList);
         testPaper.setTfTakenList(tfTakenList);
         testPaper.setTestNum(examInfo.getTestNum());

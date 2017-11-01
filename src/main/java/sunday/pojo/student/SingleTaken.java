@@ -14,21 +14,14 @@ public final class SingleTaken {
     private String que3;
     private String que4;
     private String result;
+    private String realAnswer;
 
-    @Override
-    public String toString() {
-        return "SingleTaken{" +
-                "Id=" + Id +
-                ", courseId=" + courseId +
-                ", section='" + section + '\'' +
-                ", levels=" + levels +
-                ", content='" + content + '\'' +
-                ", que1='" + que1 + '\'' +
-                ", que2='" + que2 + '\'' +
-                ", que3='" + que3 + '\'' +
-                ", que4='" + que4 + '\'' +
-                ", result='" + result + '\'' +
-                '}';
+    public String getRealAnswer() {
+        return realAnswer;
+    }
+
+    public void setRealAnswer(String realAnswer) {
+        this.realAnswer = realAnswer;
     }
 
     public String getContent() {

@@ -11,7 +11,6 @@
 <head>
     <title>测试</title>
     <%@include file="/common/inc/head.jsp" %>
-    <script src="/common/inc/bootstrap-judge.js" type="text/javascript"></script>
     <script>
         $(function () {
             if (window.history && window.history.pushState) {
@@ -31,6 +30,7 @@
             ans += '${Ant.result},';
             </c:forEach>
             ans += '${testPaper.testNum},';
+            ans += '${testPaper.courseName},';
             document.getElementById("hideArea").value = ans;
 
 //        alert($("#hideArea").val());
@@ -76,16 +76,14 @@
         //提交到服务器
         function submitTest() {
             var an = $("#hideArea").val().split(",");
-            var i = 1;
             var stuResult = "";
             $('input:radio:checked').each(function () {
                 var checkValue = $(this).val();
                 stuResult += checkValue;
                 stuResult += ",";
-                i++;
-// console.log($(this).val());　　// 选中框中的值
+//                console.log($(this).val());　　// 选中框中的值
             });
-            var gradeInfo = {'courseId': an[0], 'answer': an, 'testNum': an[26], 'result': stuResult};
+            var gradeInfo = {'courseId': an[0], 'answer': an, 'testNum': an[26], 'result': stuResult,'courseName':an[27]};
             var jsonData = JSON.stringify(gradeInfo);
             $.ajax({
                 type: 'post',
@@ -184,7 +182,7 @@
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}" value="2">错误
+                            <input type="radio" name="tf-${statusTf.count}" value="0">错误
                         </label>
                     </p>
                     <p hidden>
