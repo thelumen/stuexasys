@@ -7,9 +7,18 @@ import java.util.List;
  */
 public final class TestPaper {
     private String testNum;
+    private String courseName;
     private List<SingleTaken> singleTakenList;
     private List<TfTaken> tfTakenList;
     private AnotherTestTaken anotherQuestionTaken;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public String getTestNum() {
         return testNum;

@@ -75,7 +75,7 @@
                 clearInterval(setI);
                 var QuestionId = $("#hideArea").val().split("_");
                 var result = $("#studentResult").val();
-                var gradeInfo = {'id': QuestionId[1], 'courseId': QuestionId[0], 'result': result, 'testNum': '4'};
+                var gradeInfo = {'id': QuestionId[1], 'courseId': QuestionId[0], 'result': result, 'testNum': '4', 'courseName': QuestionId[1]};
                 var jsonData = JSON.stringify(gradeInfo);
                 $.ajax({
                     type: 'post',

@@ -8,10 +8,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 import sunday.common.kit.ShiroKit;
 import sunday.pojo.manager.Manager;
-import sunday.pojo.school.Student;
 import sunday.pojo.shiro.Resource;
 import sunday.pojo.shiro.Role;
 import sunday.pojo.shiro.ShiroInfo;
+import sunday.pojo.student.StudentTaken;
 import sunday.pojo.teacher.Teacher;
 import sunday.service.manager.ManagerService;
 import sunday.service.shiro.ResourceService;
@@ -212,9 +212,9 @@ public class MyRealm extends AuthorizingRealm {
             put("studentId", realAccount);
             put("password", password);
         }};
-        List<Student> students = studentService.select(null, params);
+        List<StudentTaken> students = studentService.selectStudentInfo(null, params);
         if (null != students) {
-            Student student = students.get(0);
+            StudentTaken student = students.get(0);
 
             ShiroInfo shiroInfo = new ShiroInfo();
             shiroInfo.setUserId(student.getStudentId());

@@ -10,17 +10,14 @@ public final class TfTaken {
     private Integer levels;
     private String content;
     private Integer result;
+    private Integer realAnswer;
 
-    @Override
-    public String toString() {
-        return "TfTaken{" +
-                "Id=" + Id +
-                ", courseId=" + courseId +
-                ", section='" + section + '\'' +
-                ", levels=" + levels +
-                ", content='" + content + '\'' +
-                ", result=" + result +
-                '}';
+    public Integer getRealAnswer() {
+        return realAnswer;
+    }
+
+    public void setRealAnswer(Integer realAnswer) {
+        this.realAnswer = realAnswer;
     }
 
     public Long getId() {

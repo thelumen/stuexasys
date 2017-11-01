@@ -7,6 +7,7 @@ public class GradeInfo {
     private Long Id;
     private Integer studentId;
     private Integer courseId;
+    private String courseName;
     private Integer grade;
     private Integer grade1;
     private Integer grade2;
@@ -15,6 +16,14 @@ public class GradeInfo {
     private String testNum;
     private String result;
     private String[] answer;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public String[] getAnswer() {
         return answer;

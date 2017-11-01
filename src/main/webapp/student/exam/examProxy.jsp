@@ -26,7 +26,7 @@
                 } else if (s[2] === "测试三") {
                     testNum = 3;
                 } else testNum = 4;
-                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum};
+                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum,"courseName":s[3]};
                 var jsonDate = JSON.stringify(examInfo);
                 var myUrl = '${pageContext.request.contextPath}/student/test/ready';
                 $.ajax({
@@ -73,7 +73,7 @@
                             <td>
                                 <c:if test="${Info.test==1}">
                                     <button type="button" class="btn btn-success"
-                                            value="${Info.courseId}_${Info.content}_${Info.testNum}">
+                                            value="${Info.courseId}_${Info.content}_${Info.testNum}_${Info.courseName}">
                                         <label>开始考试</label>
                                     </button>
                                 </c:if>
