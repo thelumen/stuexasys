@@ -58,12 +58,38 @@ public final class FileKit {
             file = new FileInfo();
 
             file.setFileName(f.getName());
-            file.setPath(f.getPath());
+            file.setPath(splitAndGetLastNodes(f.getPath(), "\\\\", 4));
             file.setNowDate(f.lastModified());
 
             target.add(file);
         }
         return target;
+    }
+
+    /**
+     * 分解字符串，得到指定的后几个节点
+     *
+     * @param src   源字符串
+     * @param flag  分解标志
+     * @param level 节点层数
+     * @return
+     */
+    private static String splitAndGetLastNodes(String src, String flag, int level) {
+        Objects.requireNonNull(src);
+        String[] nodes = src.split(flag);
+        int length = nodes.length;
+        if (length < level) {
+            throw new NullPointerException("没有足够的节点数");
+        } else if (length == level) {
+            return src;
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = length - level; i < length; i++) {
+                sb.append(nodes[i]).append("/");
+            }
+            return sb.substring(0, sb.length() - 1);
+        }
+
     }
 
     /**
