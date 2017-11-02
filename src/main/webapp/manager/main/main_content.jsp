@@ -58,6 +58,9 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/file/main">试卷管理</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="modal"

@@ -80,7 +80,7 @@
         </div>
     </div>
     <hr class="divider"/>
-    <p style="text-align: center">辽宁工业大学 电子与信息工程学院 学生测试平台</p>
+    <p style="text-align: center">辽宁工业大学 电子与信息工程学院 学生考核管理平台</p>
 </div>
 </body>
 </html>

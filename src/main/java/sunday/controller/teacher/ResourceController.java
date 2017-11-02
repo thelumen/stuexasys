@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ChapterKit;
 import sunday.common.kit.CommonKit;
-import sunday.common.kit.ResourceFileKit;
+import sunday.common.kit.ResourceKit;
 import sunday.controller.common.CommonController;
 
 import java.io.File;
@@ -44,7 +44,7 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/directory", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
-        List<String> directories = ResourceFileKit.getHomeDirectories();
+        List<String> directories = ResourceKit.getHomeDirectories();
         return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
     }
 
@@ -65,7 +65,7 @@ public class ResourceController extends CommonController {
         try {
             directory = CommonKit.string2Chinese(directoryName);
             //HOME主目录下的某一directory
-            String realPath = ResourceFileKit.getHome() + File.separator + directory;
+            String realPath = ResourceKit.getHome() + File.separator + directory;
             File child = new File(realPath);
             if (!child.exists()) {
                 child.mkdir();
@@ -94,7 +94,7 @@ public class ResourceController extends CommonController {
     @ResponseBody
     public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) {
         String directory = CommonKit.string2Chinese(directoryName);
-        String deepPath = ResourceFileKit.getHome() + File.separator + directory;
+        String deepPath = ResourceKit.getHome() + File.separator + directory;
 
         File home = new File(deepPath);
         if (home.exists() && home.isDirectory()) {
@@ -105,7 +105,7 @@ public class ResourceController extends CommonController {
                     if (file.isFile()) {
                         Map<String, Object> child = new HashMap<String, Object>() {{
                             put("name", file.getName());
-                            put("path", ResourceFileKit.getRelativePath(directory, file.getPath()));
+                            put("path", ResourceKit.getRelativePath(directory, file.getPath()));
                         }};
                         father.add(child);
                     }
