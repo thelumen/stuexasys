@@ -125,8 +125,12 @@
             e.started  AS started,
             e.test     AS test
         FROM com_examinfo e, com_course c
-        WHERE c.courseId = e.courseId AND (e.test = 1 OR e.started = 1) AND
-              e.specialtyId = #{specialtyId,jdbcType=INTEGER}
+        WHERE c.courseId = e.courseId
+              AND (e.test = 1 OR e.started = 1)
+              AND e.specialtyId = #{specialtyId,jdbcType=INTEGER}
+        <if test="courseId != null">
+            AND c.courseId = #{courseId,jdbcType=INTEGER}
+        </if>
     </select>
 
     <!--查询题库（附加题）-->

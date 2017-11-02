@@ -106,7 +106,7 @@
                             window.location.href = ('${pageContext.request.contextPath}/student/personPage');
                         });
                     } else if(data.overtime){
-                        swal("提交失败", "考试已结束", "error");
+                        swal("提交失败", "教师已关闭考试", "error");
                     }else {
                         swal("提交失败", "请向老师反映", "error");
                     }

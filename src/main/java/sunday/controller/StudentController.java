@@ -13,6 +13,7 @@ import sunday.pojo.student.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -45,6 +46,17 @@ public class StudentController extends CommonController {
     private Map<String, Object> getStudentIdWithMap() {
         return new HashMap<String, Object>() {{
             put("studentId", getCurrentStudent().getStudentId());
+        }};
+    }
+
+    /**
+     * 用于获取学生 Map 类型的专业号
+     *
+     * @return 当前登录学生的专业Id(Map)
+     */
+    private Map<String, Object> getStudentSpecialtyIdWithMap() {
+        return new HashMap<String, Object>() {{
+            put("specialtyId", getCurrentStudent().getSpecialtyId());
         }};
     }
 
@@ -94,10 +106,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("specialtyId", getCurrentStudent().getSpecialtyId());
-        }};
-        model.addAttribute("studentExamInfo", studentService.selectExamInfo(params));
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(getStudentSpecialtyIdWithMap()));
         return "/student/exam/examProxy";
     }
 
@@ -204,6 +213,14 @@ public class StudentController extends CommonController {
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
         Map<String, Object> info = new HashMap<>();
+        Map<String, Object> params = getStudentSpecialtyIdWithMap();
+        params.put("courseId", gradeInfo.getCourseId());
+        List<ExamInfo> examInfos = studentService.selectExamInfo(params);
+        if (examInfos.get(0).getTest() == 0) {
+            info.put("overtime", true);
+            info.put("issuccess", false);
+            return info;
+        }
         gradeInfo.setStudentId(getStudentIdWithInt());
         if (Integer.valueOf(gradeInfo.getTestNum()) != 4) {
             String[] an = gradeInfo.getAnswer();
