@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.TestPaper;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -12,13 +14,13 @@ import java.util.*;
  * Created by yang on 2017/6/4.
  * At 12:07
  */
-public final class ResourceFileKit {
+public final class ResourceKit {
     private static final Logger LOGGER = LogKit.getLogger();
     //必须给定一个主目录
     //如果不存在的话，则自动创建
     private static final String HOME = File.separator + "home" + File.separator + "sunday";
 
-    private ResourceFileKit() {
+    private ResourceKit() {
     }
 
     /**
@@ -132,7 +134,7 @@ public final class ResourceFileKit {
             File fileNameInfo = new File(HOME + File.separator + fileName);//拼接绝对路径并创建file类
             File[] children = fileNameInfo.listFiles();
             if (null != children && children.length > 0) {
-                String path = ResourceFileKit.getRelativePath(fileName, children[fileNum].getPath());
+                String path = ResourceKit.getRelativePath(fileName, children[fileNum].getPath());
                 fileInfoWithMap.put("fileName", children[fileNum].getName());
                 fileInfoWithMap.put("realPath", HOME + File.separator + path);
             }
