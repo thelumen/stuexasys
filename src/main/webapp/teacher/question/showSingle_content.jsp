@@ -81,16 +81,19 @@
                 field: 'id',
                 title: '题号',
                 sortable: true,
+                class:"col-md-1",
                 visible:false
             }, {
                 field: 'courseId',
                 title: '课号',
                 sortable: true,
+                class:"col-md-1",
                 visible:false
             }, {
                 field: 'section',
                 title: '章节',
-                visible:false,
+                class:"col-md-1",
+                visible:true,
                 editable: {
                     type: 'text',
                     validate: function (value) {
@@ -102,6 +105,7 @@
             }, {
                 field: 'levels',
                 title: '难度级别',
+                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "简单"}, {
@@ -119,7 +123,7 @@
             }, {
                 field: 'content',
                 title: '题干',
-                width:500,
+                class:"col-md-2",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -133,7 +137,7 @@
             }, {
                 field: 'que1',
                 title: 'A',
-                width:150,
+                class:"col-md-1",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -147,7 +151,7 @@
             }, {
                 field: 'que2',
                 title: 'B',
-                width:150,
+               class:"col-md-1",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -161,7 +165,7 @@
             }, {
                 field: 'que3',
                 title: 'C',
-                width:150,
+                class:"col-md-1",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -175,7 +179,7 @@
             }, {
                 field: 'que4',
                 title: 'D',
-                width:150,
+                class:"col-md-1",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -189,7 +193,7 @@
             }, {
                 field: 'result',
                 title: '答案',
-                width:50,
+                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: 'A', text: "A"}, {
@@ -207,7 +211,7 @@
             }, {
                 field: 'edit',
                 title: '操作',
-                width:150,
+                class:"col-md-1",
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]
