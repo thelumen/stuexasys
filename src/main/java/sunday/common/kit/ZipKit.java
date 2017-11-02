@@ -39,6 +39,7 @@ public class ZipKit {
         //从文件输出流中获取数据校验和输出流,并设置Adler32
         CheckedOutputStream csum = new CheckedOutputStream(f, new Adler32());
         ZipOutputStream zos = new ZipOutputStream(csum);
+        //OutputStreamWriter osw = new OutputStreamWriter(zos,);
         BufferedOutputStream out = new BufferedOutputStream(zos);
         BufferedReader in;
         for (String file : fileNames) {

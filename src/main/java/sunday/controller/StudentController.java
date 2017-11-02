@@ -10,12 +10,8 @@ import sunday.common.kit.ShiroKit;
 import sunday.controller.common.CommonController;
 import sunday.pojo.student.*;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -276,37 +272,8 @@ public class StudentController extends CommonController {
         Map<String, Object> fileInfo = ResourceKit.selectWithFileNum(Integer.valueOf(fileNum[0]), Integer.valueOf(fileNum[1]));
         //获取绝对路径
         String realPath = (String) fileInfo.get("realPath");
-        //通过绝对路径获取 file
-        File filePath = new File(realPath);
-        //获取得文件名
         String fileName = (String) fileInfo.get("fileName");
-        String fileDisplayName = URLEncoder.encode(fileName, "UTF-8");
 
-        //初始化
-        response.reset();
-        response.setContentType("application/x-download");
-        response.addHeader("Content-Disposition", "attachment; filename=\"" + fileDisplayName + "\"");
-        ServletOutputStream outp = null;
-        FileInputStream in = null;
-        try {
-            outp = response.getOutputStream();
-            in = new FileInputStream(filePath);
-            byte[] b = new byte[1024];
-            int i;
-            while ((i = in.read(b)) > 0) {
-                outp.write(b, 0, i);
-            }
-            outp.flush();
-        } catch (Exception e) {
-            System.out.println("文件下载失败!");
-            e.printStackTrace();
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (outp != null) {
-                outp.close();
-            }
-        }
+        ResourceKit.download(response, realPath, fileName);
     }
 }

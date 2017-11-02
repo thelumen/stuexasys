@@ -33,10 +33,8 @@
             <button class="btn btn-primary" type="button" onclick="check()">
                 <i class="glyphicon glyphicon-search"></i> 查询
             </button>
-            <button class="btn btn-danger" type="button"
-                    onclick="downloadZipFile()">
-                <i class="glyphicon glyphicon-download"></i> 下载
-            </button>
+            <a id="download_button" class="btn btn-danger" href="#"> <i
+                    class="glyphicon glyphicon-download"></i> 下载</a>
         </div>
         <table id="file_table"
                data-toolbar="#toolbar"
@@ -78,9 +76,6 @@
                 specialtyId: $specialty.val(),
                 courseId: $course.val(),
                 test: $test.val()
-            },
-            function (result) {
-
             })
     }
 
@@ -99,6 +94,8 @@
             }, function (result) {
                 $table.bootstrapTable('load', result);
             });
+        $('#download_button').attr("href",
+            "${pageContext.request.contextPath}/admin/file/" + $specialty.val() + "/" + $course.val() + "/" + $test.val() + "/download")
     }
 
     //初始化

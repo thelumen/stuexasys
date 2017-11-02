@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sunday.common.kit.ChapterKit;
 import sunday.common.kit.CommonKit;
+import sunday.common.kit.FileKit;
 import sunday.common.kit.ResourceKit;
 import sunday.controller.common.CommonController;
 
@@ -44,7 +45,7 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/directory", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
-        List<String> directories = ResourceKit.getHomeDirectories();
+        List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getHome(), true);
         return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
     }
 

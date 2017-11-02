@@ -133,6 +133,17 @@ public final class FileKit {
     }
 
     /**
+     * 判断文件是否存在
+     *
+     * @param path
+     * @return
+     */
+    public static boolean exists(String path) {
+        Path p = Paths.get(path);
+        return Files.exists(p);
+    }
+
+    /**
      * 删除文件
      *
      * @param path
@@ -144,14 +155,4 @@ public final class FileKit {
         return Files.deleteIfExists(p);
     }
 
-    /**
-     * 判断文件是否存在
-     *
-     * @param path
-     * @return
-     */
-    public static boolean exists(String path) {
-        Path p = Paths.get(path);
-        return Files.exists(p);
-    }
 }

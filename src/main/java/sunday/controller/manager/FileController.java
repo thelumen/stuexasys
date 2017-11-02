@@ -8,6 +8,7 @@ import sunday.common.kit.FileKit;
 import sunday.common.kit.ResourceKit;
 import sunday.common.kit.ZipKit;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -32,12 +33,13 @@ public class FileController {
         return "/manager/file/fileProxy";
     }
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @RequestMapping(value = "/{specialtyId}/{courseId}/{test}/download", method = RequestMethod.GET)
     @RequiresPermissions(value = {"shiro:sys:manager"})
     @ResponseBody
-    public void zipAndDownload(@RequestParam("specialtyId") String specialtyId,
-                               @RequestParam("courseId") String courseId,
-                               @RequestParam("test") String test) throws IOException {
+    public void zipAndDownload(HttpServletResponse response,
+                               @PathVariable("specialtyId") String specialtyId,
+                               @PathVariable("courseId") String courseId,
+                               @PathVariable("test") String test) throws IOException {
         String dicPath = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
                 + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(dicPath);
@@ -49,9 +51,9 @@ public class FileController {
         //删除原有zip文件
         String zipPath = dicPath + "/" + ZipKit.getZipFilename();
         FileKit.deleteIfExists(zipPath);
-
+        //打包并下载
         ZipKit.zipFiles(zipPath, fileNames);
-
+        ResourceKit.download(response, zipPath, ZipKit.getZipFilename());
     }
 
     /**

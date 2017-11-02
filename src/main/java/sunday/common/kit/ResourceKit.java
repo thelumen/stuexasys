@@ -4,9 +4,10 @@ import org.slf4j.Logger;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.TestPaper;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -20,7 +21,11 @@ public final class ResourceKit {
      * 必须给定一个主目录
      * 如果不存在的话，则自动创建
      */
-    private static final String HOME = File.separator + "home" + File.separator + "sunday";
+    private static final String HOME = "/home/sunday";
+    /**
+     * 资源主目录
+     */
+    private static final String RESOURCE_HOME = HOME + "/resource";
     /**
      * 试卷备份主目录
      */
@@ -48,6 +53,15 @@ public final class ResourceKit {
     }
 
     /**
+     * 返回资源主目录
+     *
+     * @return
+     */
+    public static String getResourceHome() {
+        return RESOURCE_HOME;
+    }
+
+    /**
      * 获取相对路径
      * 如：数据库/xxx.txt
      *
@@ -61,26 +75,44 @@ public final class ResourceKit {
     }
 
     /**
-     * 获取HOME文件夹内所有文件夹名
+     * 文件下载
      *
-     * @return
+     * @param response
+     * @param path
+     * @param fileName
+     * @throws UnsupportedEncodingException
      */
-    public static List<String> getHomeDirectories() {
-        File home = new File(HOME);
-        if (!home.exists()) {
-            home.mkdir();
-        }
-        File[] children = home.listFiles();
-        if (children != null && children.length > 0) {
-            List<String> directories = new ArrayList<>();
-            for (File file : children) {
-                if (file.isDirectory()) {
-                    directories.add(file.getName());
-                }
+    public static void download(HttpServletResponse response, String path, String fileName) throws IOException {
+        File filePath = new File(path);
+        //utf-8编码
+        String realName = URLEncoder.encode(fileName, "UTF-8");
+
+        //初始化并设置参数
+        response.reset();
+        response.setContentType("application/x-download");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + realName + "\"");
+        ServletOutputStream outp = null;
+        FileInputStream in = null;
+        try {
+            outp = response.getOutputStream();
+            in = new FileInputStream(filePath);
+            byte[] b = new byte[1024];
+            int i;
+            while ((i = in.read(b)) > 0) {
+                outp.write(b, 0, i);
             }
-            return directories;
+            outp.flush();
+        } catch (Exception e) {
+            System.out.println("文件下载失败!");
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+            if (outp != null) {
+                outp.close();
+            }
         }
-        return null;
     }
 
     /**
@@ -90,7 +122,7 @@ public final class ResourceKit {
      * @return .
      */
     public static List<Map<String, Object>> getResourceInfo() {
-        List<String> filePackagerNames = getHomeDirectories();//获取主目录下的文件夹名
+        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);//获取主目录下的文件夹名
         List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
         if (filePackagerNames != null) {
             int i = 0;
@@ -143,10 +175,11 @@ public final class ResourceKit {
      */
     public static Map<String, Object> selectWithFileNum(Integer folderNum, Integer fileNum) {
         Map<String, Object> fileInfoWithMap = new HashMap<>();
-        List<String> filePackagerNames = getHomeDirectories();//获取主目录下的文件夹名
-        if (null != filePackagerNames && filePackagerNames.size() > 0) {
+        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);//获取主目录下的文件夹名
+        if (filePackagerNames.size() > 0) {
             String fileName = filePackagerNames.get(folderNum);
-            File fileNameInfo = new File(HOME + File.separator + fileName);//拼接绝对路径并创建file类
+            //拼接绝对路径并创建file类
+            File fileNameInfo = new File(HOME + File.separator + fileName);
             File[] children = fileNameInfo.listFiles();
             if (null != children && children.length > 0) {
                 String path = ResourceKit.getRelativePath(fileName, children[fileNum].getPath());
