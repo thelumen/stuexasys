@@ -1,6 +1,7 @@
 package sunday.common.kit;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
@@ -39,20 +40,20 @@ public class ZipKit {
         //从文件输出流中获取数据校验和输出流,并设置Adler32
         CheckedOutputStream csum = new CheckedOutputStream(f, new Adler32());
         ZipOutputStream zos = new ZipOutputStream(csum);
-        //OutputStreamWriter osw = new OutputStreamWriter(zos,);
-        BufferedOutputStream out = new BufferedOutputStream(zos);
+        OutputStreamWriter osw = new OutputStreamWriter(zos, Charset.forName("utf8"));
+        //BufferedOutputStream out = new BufferedOutputStream(zos);
         BufferedReader in;
         for (String file : fileNames) {
             in = new BufferedReader(new FileReader(file));
             zos.putNextEntry(new ZipEntry(file));
             int c;
             while ((c = in.read()) > 0) {
-                out.write(c);
+                osw.write(c);
             }
             in.close();
-            out.flush();
+            osw.flush();
         }
-        out.close();
+        osw.close();
 
     }
 }
