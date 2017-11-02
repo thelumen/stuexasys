@@ -15,10 +15,10 @@ public final class ExamInfo {
     private String testNum;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date date;
-    //是否有考试信息
+    /**
+     * 是否有考试信息
+     */
     private int test;
-
-    private int start;
 
     @Override
     public String toString() {
@@ -30,16 +30,7 @@ public final class ExamInfo {
                 ", testNum='" + testNum + '\'' +
                 ", date=" + date +
                 ", test=" + test +
-                ", start=" + start +
                 '}';
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public void setStart(int start) {
-        this.start = start;
     }
 
     public Long getId() {
