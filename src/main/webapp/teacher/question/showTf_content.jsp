@@ -81,14 +81,17 @@
             columns: [{
                 field: 'id',
                 title: '题号',
+                class:"col-md-1",
                 sortable: true
             }, {
                 field: 'courseId',
                 title: '课号',
+                class:"col-md-1",
                 sortable: true
             }, {
                 field: 'section',
                 title: '章节',
+                class:"col-md-1",
                 editable: {
                     type: 'text',
                     validate: function (value) {
@@ -100,6 +103,7 @@
             }, {
                 field: 'levels',
                 title: '难度级别',
+                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "简单"}, {
@@ -117,6 +121,7 @@
             }, {
                 field: 'content',
                 title: '题干',
+                class:"col-md-6",
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -130,6 +135,7 @@
             }, {
                 field: 'result',
                 title: '答案',
+                class:"col-md-1",
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "正确"}, {
@@ -147,6 +153,7 @@
             }, {
                 field: 'edit',
                 title: '操作',
+                class:"col-md-1",
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]
