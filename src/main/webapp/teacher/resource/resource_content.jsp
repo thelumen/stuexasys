@@ -24,7 +24,7 @@
                    data-show-upload="false"
                    data-show-caption="true"
                    data-allowed-file-extensions='["jpg","png","gif","txt","xls","xlsx","doc", "docx","ppt"]'
-                   placeholder="仅支持:jpg png gif txt xls xlsx doc docx ppt">
+                   placeholder="仅支持:jpg png gif txt xls xlsx doc docx ppt"><br>
             <button class="btn btn-primary" type="button"
                     onclick="submitFiles()">上传文件
             </button>

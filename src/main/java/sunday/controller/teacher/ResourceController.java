@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/8/24.
+ * @author yang
+ * @date 2017/8/24
  * At 22:44
  */
 @Controller
@@ -45,7 +46,7 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/directory", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
-        List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getHome(), true);
+        List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);
         return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
     }
 
@@ -66,7 +67,7 @@ public class ResourceController extends CommonController {
         try {
             directory = CommonKit.string2Chinese(directoryName);
             //HOME主目录下的某一directory
-            String realPath = ResourceKit.getHome() + File.separator + directory;
+            String realPath = ResourceKit.getResourceHome() + File.separator + directory;
             File child = new File(realPath);
             if (!child.exists()) {
                 child.mkdir();
@@ -95,7 +96,7 @@ public class ResourceController extends CommonController {
     @ResponseBody
     public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) {
         String directory = CommonKit.string2Chinese(directoryName);
-        String deepPath = ResourceKit.getHome() + File.separator + directory;
+        String deepPath = ResourceKit.getResourceHome() + File.separator + directory;
 
         File home = new File(deepPath);
         if (home.exists() && home.isDirectory()) {
