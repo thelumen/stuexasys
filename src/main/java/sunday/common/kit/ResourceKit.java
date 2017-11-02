@@ -16,9 +16,15 @@ import java.util.*;
  */
 public final class ResourceKit {
     private static final Logger LOGGER = LogKit.getLogger();
-    //必须给定一个主目录
-    //如果不存在的话，则自动创建
+    /**
+     * 必须给定一个主目录
+     * 如果不存在的话，则自动创建
+     */
     private static final String HOME = File.separator + "home" + File.separator + "sunday";
+    /**
+     * 试卷备份主目录
+     */
+    private static final String BACKUP_HOME = HOME + "/backup";
 
     private ResourceKit() {
     }
@@ -30,6 +36,15 @@ public final class ResourceKit {
      */
     public static String getHome() {
         return HOME;
+    }
+
+    /**
+     * 获取主目录
+     *
+     * @return
+     */
+    public static String getBackupHome() {
+        return BACKUP_HOME;
     }
 
     /**

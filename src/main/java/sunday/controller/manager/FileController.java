@@ -43,7 +43,7 @@ public class FileController {
     public Object getFile(@RequestParam("specialtyId") String specialtyId,
                           @RequestParam("courseId") String courseId,
                           @RequestParam("test") String test) {
-        String path = ResourceKit.getBackup() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
+        String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
                 + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(path);
         return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
@@ -57,7 +57,7 @@ public class FileController {
     @RequestMapping(value = "/specialty", method = RequestMethod.GET)
     @ResponseBody
     public Object findSpecialty() {
-        List<String> dicNames = FileKit.getFileOrDirectoryNames(ResourceKit.getBackup(), true);
+        List<String> dicNames = FileKit.getFileOrDirectoryNames(ResourceKit.getBackupHome(), true);
         return getFileName2Select(dicNames);
     }
 
@@ -70,7 +70,7 @@ public class FileController {
     @RequestMapping(value = "/{specialtyId}", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> findCourseBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
-        String targetHome = ResourceKit.getBackup() + "/" + CommonKit.string2Chinese(specialtyId);
+        String targetHome = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId);
         List<String> dicNames = FileKit.getFileOrDirectoryNames(targetHome, true);
         return getFileName2Select(dicNames);
     }
@@ -86,7 +86,7 @@ public class FileController {
     @ResponseBody
     public List<Map<String, Object>> findTestBySpecialtyIdAndCourseId(@PathVariable("specialtyId") String specialtyId,
                                                                       @PathVariable("courseId") String courseId) {
-        String targetHome = ResourceKit.getBackup() + "/" + CommonKit.string2Chinese(specialtyId) + "/" + CommonKit.string2Chinese(courseId);
+        String targetHome = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/" + CommonKit.string2Chinese(courseId);
         List<String> dicNames = FileKit.getFileOrDirectoryNames(targetHome, true);
         return getFileName2Select(dicNames);
     }
