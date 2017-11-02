@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import sunday.common.kit.CommonKit;
 import sunday.common.kit.FileKit;
 import sunday.common.kit.ResourceKit;
+import sunday.common.kit.ZipKit;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -28,6 +30,28 @@ public class FileController {
     @RequiresPermissions(value = {"shiro:sys:manager"})
     public String main() {
         return "/manager/file/fileProxy";
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @RequiresPermissions(value = {"shiro:sys:manager"})
+    @ResponseBody
+    public void zipAndDownload(@RequestParam("specialtyId") String specialtyId,
+                               @RequestParam("courseId") String courseId,
+                               @RequestParam("test") String test) throws IOException {
+        String dicPath = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
+                + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
+        List<File> files = FileKit.getFiles(dicPath);
+        Objects.requireNonNull(files);
+        String[] fileNames = new String[files.size()];
+        for (int i = 0; i < files.size(); i++) {
+            fileNames[i] = files.get(i).getAbsolutePath();
+        }
+        //删除原有zip文件
+        String zipPath = dicPath + "/" + ZipKit.getZipFilename();
+        FileKit.deleteIfExists(zipPath);
+
+        ZipKit.zipFiles(zipPath, fileNames);
+
     }
 
     /**

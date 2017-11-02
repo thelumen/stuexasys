@@ -34,12 +34,8 @@
                 <i class="glyphicon glyphicon-search"></i> 查询
             </button>
             <button class="btn btn-danger" type="button"
-                    onclick="downloadFile()">
+                    onclick="downloadZipFile()">
                 <i class="glyphicon glyphicon-download"></i> 下载
-            </button>
-            <button class="btn btn-danger" type="button"
-                    onclick="downloadAllFile()">
-                <i class="glyphicon glyphicon-download"></i> 全部下载
             </button>
         </div>
         <table id="file_table"
@@ -69,6 +65,24 @@
     var $test = $('#test');
     //    table
     var $table = $('#file_table');
+
+    //下载按钮点击事件
+    //下载zip文件
+    function downloadZipFile() {
+        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
+            alert("填写完整信息后方可下载文件！");
+            return false;
+        }
+        $.get("${pageContext.request.contextPath}/admin/file/download",
+            {
+                specialtyId: $specialty.val(),
+                courseId: $course.val(),
+                test: $test.val()
+            },
+            function (result) {
+
+            })
+    }
 
     //    查询学生作业
     function check() {

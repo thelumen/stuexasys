@@ -131,4 +131,27 @@ public final class FileKit {
         }
         return targetNames;
     }
+
+    /**
+     * 删除文件
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static boolean deleteIfExists(String path) throws IOException {
+        Path p = Paths.get(path);
+        return Files.deleteIfExists(p);
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param path
+     * @return
+     */
+    public static boolean exists(String path) {
+        Path p = Paths.get(path);
+        return Files.exists(p);
+    }
 }
