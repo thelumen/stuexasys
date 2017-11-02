@@ -1,6 +1,7 @@
 package sunday.common.kit;
 
 import org.slf4j.Logger;
+import sunday.pojo.manager.FileInfo;
 import sunday.pojo.student.GradeInfo;
 import sunday.pojo.student.TestPaper;
 
@@ -44,7 +45,7 @@ public final class ResourceKit {
     }
 
     /**
-     * 获取主目录
+     * 获取备份目录
      *
      * @return
      */
@@ -122,33 +123,32 @@ public final class ResourceKit {
      * @return .
      */
     public static List<Map<String, Object>> getResourceInfo() {
-        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);//获取主目录下的文件夹名
+        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
         List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
         if (filePackagerNames != null) {
             int i = 0;
             int j = 0;
             for (String fileName : filePackagerNames) {
-                File fileNameInfo = new File(HOME + File.separator + fileName);//拼接绝对路径并创建file类
+                File fileNameInfo = new File(getResourceHome() + File.separator + fileName);//拼接绝对路径并创建file类
                 File[] children = fileNameInfo.listFiles();
-                List<Map<String, Object>> father = new ArrayList<>();
+                List<FileInfo> father = new ArrayList<>();
                 if (children != null && children.length > 0) {
                     for (File file : children) {
-                        Map<String, Object> fileInfo = new HashMap<String, Object>() {{
-                            put("name", file.getName());
-                            put("lastUpdateTime", DateKit.date2String(file.lastModified()));
-                        }};
-                        fileInfo.put("path", i + "," + j);
+                        FileInfo fileInfo = new FileInfo();
+                        fileInfo.setFileName(file.getName());
+                        fileInfo.setLastUpdateTime(file.lastModified());
+                        fileInfo.setPath(i + "," + j);
                         father.add(fileInfo);
                         j++;
                     }
                     //按最后更新时间对目录下的文件进行排序
                     father.sort((o1, o2) -> {
-                        Date d1 = DateKit.string2Date((String) o1.get("lastUpdateTime"));
-                        Date d2 = DateKit.string2Date((String) o2.get("lastUpdateTime"));
-                        if (d1.getTime() > d2.getTime()) {
+                        Long d1 = o1.getLastUpdateTime();
+                        Long d2 = o2.getLastUpdateTime();
+                        if (d1 > d2) {
                             return -1;
                         }
-                        if (d1.getTime() == d2.getTime()) {
+                        if (Objects.equals(d1, d2)) {
                             return 0;
                         }
                         return 1;
@@ -175,16 +175,16 @@ public final class ResourceKit {
      */
     public static Map<String, Object> selectWithFileNum(Integer folderNum, Integer fileNum) {
         Map<String, Object> fileInfoWithMap = new HashMap<>();
-        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);//获取主目录下的文件夹名
+        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
         if (filePackagerNames.size() > 0) {
             String fileName = filePackagerNames.get(folderNum);
             //拼接绝对路径并创建file类
-            File fileNameInfo = new File(HOME + File.separator + fileName);
+            File fileNameInfo = new File(getResourceHome() + File.separator + fileName);
             File[] children = fileNameInfo.listFiles();
             if (null != children && children.length > 0) {
-                String path = ResourceKit.getRelativePath(fileName, children[fileNum].getPath());
+                String path = getRelativePath(fileName, children[fileNum].getPath());
                 fileInfoWithMap.put("fileName", children[fileNum].getName());
-                fileInfoWithMap.put("realPath", HOME + File.separator + path);
+                fileInfoWithMap.put("realPath", getResourceHome() + File.separator + path);
             }
         }
         return fileInfoWithMap;
@@ -199,8 +199,8 @@ public final class ResourceKit {
      * @return 成功
      */
     public static boolean backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) {
-        String homePath = getHome() + File.separator + "backup" + File.separator + specialtyName
-                + File.separator + courseName + File.separator + testPaper.getTestNum();
+        String homePath = getBackupHome() + File.separator + specialtyName + File.separator
+                + courseName + File.separator + testPaper.getTestNum();
         File fileDir = new File(homePath);
         if (!fileDir.exists()) {
             if (!fileDir.mkdirs()) {
@@ -223,9 +223,9 @@ public final class ResourceKit {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FileWriter fileWriter = null;
+        BufferedWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(file);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
             if (!"4".equals(testPaper.getTestNum())) {
                 for (int i = 0; i < 25; i++) {
                     int count = i + 1;
@@ -275,7 +275,7 @@ public final class ResourceKit {
      * @return 成功
      */
     public static boolean backUpExamInfo(GradeInfo gradeInfo, String specialtyName) {
-        String homePath = getHome() + File.separator + "backup" + File.separator + specialtyName + File.separator
+        String homePath = getBackupHome() + File.separator + specialtyName + File.separator
                 + gradeInfo.getCourseName() + File.separator + gradeInfo.getTestNum();
         File fileBackup = new File(homePath + File.separator + gradeInfo.getStudentId() + ".txt");
         if (fileBackup.exists()) {
@@ -285,9 +285,9 @@ public final class ResourceKit {
             }
         }
         File file = new File(homePath + File.separator + "$" + gradeInfo.getStudentId() + ".txt");
-        FileWriter fileWriter = null;
+        BufferedWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter(file, true);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
             fileWriter.write("学生的作答：\r\n");
             if (!"4".equals(gradeInfo.getTestNum())) {
                 String[] result = gradeInfo.getResult().split(",");

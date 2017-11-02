@@ -66,14 +66,12 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <p>${FileInfo.name}</p>
+                                                <p>${FileInfo.fileName}</p>
                                             </div>
                                             <div class="col-md-3">
                                                 <p>${FileInfo.lastUpdateTime}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                    <%--<a href="${FileInfo.path}">下载链接</a>--%>
-                                                <%--<a href="${pageContext.request.contextPath}/student/resources/download/${FileInfo.path}">下载链接</a>--%>
                                                 <a href="${pageContext.request.contextPath}/student/resources/download/${FileInfo.path}">下载链接</a>
                                             </div>
                                         </div>
