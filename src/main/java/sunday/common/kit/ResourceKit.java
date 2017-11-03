@@ -203,7 +203,7 @@ public final class ResourceKit {
         String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + testPaper.getTestNum();
         FileKit.existAndCreateDirectory(homePath);
         //新建临时文件，如果文件已存在，就删除新建
-        String tempFilePath = homePath + "/$" + studentId + ".txt";
+        String tempFilePath = homePath + "/$" + studentId + ".bin";
         FileKit.deleteIfExists(tempFilePath);
         FileKit.existAndCreateFile(tempFilePath);
 
@@ -220,14 +220,14 @@ public final class ResourceKit {
     public static boolean backUpExamInfo(GradeInfo gradeInfo, String specialtyName) {
         String homePath = getBackupHome() + File.separator + specialtyName + File.separator
                 + gradeInfo.getCourseName() + File.separator + gradeInfo.getTestNum();
-        File fileBackup = new File(homePath + File.separator + gradeInfo.getStudentId() + ".txt");
+        File fileBackup = new File(homePath + File.separator + gradeInfo.getStudentId() + ".bin");
         if (fileBackup.exists()) {
             if (!fileBackup.delete()) {
                 System.out.println("删除原备份文件失败");
                 return false;
             }
         }
-        File file = new File(homePath + File.separator + "$" + gradeInfo.getStudentId() + ".txt");
+        File file = new File(homePath + File.separator + "$" + gradeInfo.getStudentId() + ".bin");
         BufferedWriter fileWriter = null;
         try {
             fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
@@ -269,7 +269,7 @@ public final class ResourceKit {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (!file.renameTo(new File(homePath + File.separator + gradeInfo.getStudentId() + ".txt"))) {
+            if (!file.renameTo(new File(homePath + File.separator + gradeInfo.getStudentId() + ".bin"))) {
                 System.out.println("重命名备份文件失败");
                 return false;
             }

@@ -1,8 +1,4 @@
 import org.junit.Test;
-import sunday.common.kit.FileKit;
-import sunday.pojo.student.TestPaper;
-
-import java.io.IOException;
 
 /**
  * @author yangxuyue
