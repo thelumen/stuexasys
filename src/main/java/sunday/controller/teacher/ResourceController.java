@@ -13,8 +13,6 @@ import sunday.controller.common.CommonController;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,28 +92,12 @@ public class ResourceController extends CommonController {
      */
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
-    public List<Map<String, Object>> getFiles(@PathVariable("directoryName") String directoryName) {
+    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) {
         String directory = CommonKit.string2Chinese(directoryName);
-        String deepPath = ResourceKit.getResourceHome() + File.separator + directory;
+        String deepPath = ResourceKit.getResourceHome() + "/" + directory;
+        List<File> files = FileKit.getFiles(deepPath);
 
-        File home = new File(deepPath);
-        if (home.exists() && home.isDirectory()) {
-            File[] children = home.listFiles();
-            if (null != children && children.length > 0) {
-                List<Map<String, Object>> father = new ArrayList<>();
-                for (File file : children) {
-                    if (file.isFile()) {
-                        Map<String, Object> child = new HashMap<String, Object>() {{
-                            put("name", file.getName());
-                            put("path", ResourceKit.getRelativePath(directory, file.getPath()));
-                        }};
-                        father.add(child);
-                    }
-                }
-                return father;
-            }
-        }
-        return null;
+        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
 
 }

@@ -12,11 +12,37 @@
         </li>
         <li class="active">资源上传</li>
     </ol>
-    <label>请选择文件<strong style="color: #985f0d">目录分类</strong>：
-        <select style="width: 200px" id="teacher_resource_home_directory">
-            <option selected></option>
-        </select>
-    </label>
+    <div class="container">
+        <div id="toolbar">
+            <label>请选择文件<strong style="color: #985f0d">目录分类</strong>：
+                <select style="width: 200px"
+                        id="teacher_resource_home_directory">
+                    <option selected></option>
+                </select>
+            </label>
+            <button class="btn btn-primary" type="button" onclick="check()">
+                <i class="glyphicon glyphicon-search"></i> 查询
+            </button>
+        </div>
+        <table id="resource_table"
+               data-toolbar="#toolbar"
+               class="table table-bordered table-hover"
+               data-toggle="table"
+               data-show-refresh="true"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-method="post"
+               data-query-params="$.fn.bootstrapTable.queryParams">
+            <thead>
+            <tr>
+                <th data-field="fileName">文件名</th>
+                <th data-field="path">文件路径</th>
+                <th data-field="nowDate">创建日期</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
     <label>请选择需要<strong style="color: #985f0d">上传的文件</strong>：
         <form id="teacher_resource_form">
             <input id="teacher_resource_form_inp" multiple
@@ -30,41 +56,36 @@
             </button>
         </form>
     </label>
-    <table id="teacher_resource_table">
-    </table>
 </div>
 <script>
-    var table = $('#teacher_resource_table');
+    var $table = $('#resource_table');
+    var $select = $('#teacher_resource_home_directory');
+
+    //    初始化
     $(function () {
+        $select.select2();
 //        展示学科目录
         $.ajax({
             url: '${pageContext.request.contextPath}/resource/directory',
             dateType: 'json',
             success: function (data) {
-                $('#teacher_resource_home_directory').select2({
+                $select.select2({
                     data: data
                 });
             }
         });
-//        选择后触发新的动作——展示该学科目录下所有普通文件的文件名
-        $('#teacher_resource_home_directory').on("select2:select", function (e) {
-            var directoryName = $('#teacher_resource_home_directory').val();
-            $.ajax({
-                url: '${pageContext.request.contextPath}/resource/' + directoryName + '/files',
-                dataType: 'json',
-                type: 'post',
-                success: function (data) {
-                    table.html('');
-                    var html = '';
-                    for (x in data) {
-                        html += data[x].name;
-                        html += '<br>';
-                    }
-                    table.html(html);
-                }
-            });
-        });
     });
+
+    //    查询
+    function check() {
+        var value = $select.val();
+        if (value == undefined || value == "" || value == "null") {
+            alert("请选择一条数据项！");
+            return false;
+        }
+        $table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/resource/" + $select.val() + "/files"});
+    }
+
     //    文件上传
     function submitFiles() {
         var files = $('#teacher_resource_form_inp').val();
@@ -75,7 +96,7 @@
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    if (data === true) {
+                    if (data) {
                         swal("year", "上传成功！", "success");
                     }
                 },
