@@ -1,16 +1,30 @@
 package sunday.pojo.student;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by 花间一壶酒 on 2017/6/4.
+ * @author 花间一壶酒
+ * @date 2017/6/4
  */
-public final class TestPaper {
+public final class TestPaper implements Serializable {
+    private static final long serialVersionUID = 4625063250569149206L;
     private String testNum;
     private String courseName;
     private List<SingleTaken> singleTakenList;
     private List<TfTaken> tfTakenList;
     private AnotherTestTaken anotherQuestionTaken;
+
+    @Override
+    public String toString() {
+        return "TestPaper{" +
+                "testNum='" + testNum + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", singleTakenList=" + singleTakenList +
+                ", tfTakenList=" + tfTakenList +
+                ", anotherQuestionTaken=" + anotherQuestionTaken +
+                '}';
+    }
 
     public String getCourseName() {
         return courseName;

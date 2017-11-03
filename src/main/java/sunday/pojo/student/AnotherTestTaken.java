@@ -1,9 +1,14 @@
 package sunday.pojo.student;
 
+import java.io.Serializable;
+
 /**
- * Created by 花间一壶酒 on 2017/6/6.
+ *
+ * @author 花间一壶酒
+ * @date 2017/6/6
  */
-public final class AnotherTestTaken {
+public final class AnotherTestTaken implements Serializable {
+    private static final long serialVersionUID = 318865977840892546L;
     private Long Id;
     private Integer courseId;
     private String content;

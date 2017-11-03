@@ -170,15 +170,16 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/test/start/{examInfo}", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
-    public String startTest(Model model, @PathVariable(value = "examInfo") String examInfoInPath) {
+    public String startTest(Model model, @PathVariable(value = "examInfo") String examInfoInPath) throws IOException {
         String[] s = examInfoInPath.split("_");
+        String s3 = new String(s[3].getBytes("iso8859-1"), "utf-8");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        examInfo.setCourseName(s[3]);
+        examInfo.setCourseName(s3);
         TestPaper testPaper = studentService.selectQuestion(examInfo);
-        ResourceKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
+        ResourceKit.backUpExamTaken(testPaper, s3, getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
@@ -190,7 +191,7 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/test/startAnother/{examInfo}", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
-    public String startTestAnother(Model model, @PathVariable(value = "examInfo") String examInfoInPath) {
+    public String startTestAnother(Model model, @PathVariable(value = "examInfo") String examInfoInPath) throws IOException {
         String[] s = examInfoInPath.split("_");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));

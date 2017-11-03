@@ -17,6 +17,9 @@ import java.util.*;
  * At 12:07
  */
 public final class ResourceKit {
+    private ResourceKit() {
+    }
+
     private static final Logger LOGGER = LogKit.getLogger();
     /**
      * 必须给定一个主目录
@@ -31,9 +34,6 @@ public final class ResourceKit {
      * 试卷备份主目录
      */
     private static final String BACKUP_HOME = HOME + "/backup";
-
-    private ResourceKit() {
-    }
 
     /**
      * 获取主目录
@@ -191,80 +191,23 @@ public final class ResourceKit {
     }
 
     /**
-     * 备份考试试题信息
+     * 备份学生试卷信息
      *
-     * @param testPaper     试题信息
-     * @param courseName    课程名
-     * @param specialtyName 专业名
-     * @return 成功
+     * @param testPaper
+     * @param courseName
+     * @param specialtyName
+     * @param studentId
+     * @throws IOException
      */
-    public static boolean backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) {
-        String homePath = getBackupHome() + File.separator + specialtyName + File.separator
-                + courseName + File.separator + testPaper.getTestNum();
-        File fileDir = new File(homePath);
-        if (!fileDir.exists()) {
-            if (!fileDir.mkdirs()) {
-                System.out.println("创建备份目录失败");
-                return false;
-            }
-        }
-        File file = new File(homePath + File.separator + "$" + studentId + ".txt");
-        try {
-            if (file.exists()) {
-                if (!file.delete()) {
-                    System.out.println("删除临时文件失败");
-                    return false;
-                }
-            }
-            if (!file.createNewFile()) {
-                System.out.println("创建临时文件失败");
-                return false;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter fileWriter = null;
-        try {
-            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
-            if (!"4".equals(testPaper.getTestNum())) {
-                for (int i = 0; i < 25; i++) {
-                    int count = i + 1;
-                    if (i < 20) {
-                        fileWriter.write(count + "." + testPaper.getSingleTakenList().get(i).getContent() + "\r\n");
-                        fileWriter.write("A:" + testPaper.getSingleTakenList().get(i).getQue1() + "\r\n");
-                        fileWriter.write("B:" + testPaper.getSingleTakenList().get(i).getQue2() + "\r\n");
-                        fileWriter.write("C:" + testPaper.getSingleTakenList().get(i).getQue3() + "\r\n");
-                        fileWriter.write("D:" + testPaper.getSingleTakenList().get(i).getQue4() + "\r\n");
-                        fileWriter.write("正确答案为：" + testPaper.getSingleTakenList().get(i).getRealAnswer() + "\r\n");
-                        fileWriter.write("\r\n");
-                    } else {
-                        int num = i - 20;
-                        fileWriter.write(count + "." + testPaper.getTfTakenList().get(num).getContent() + "\r\n");
-                        if (testPaper.getTfTakenList().get(num).getRealAnswer() == 1) {
-                            fileWriter.write("正确\r\n");
-                            fileWriter.write("\r\n");
-                        } else {
-                            fileWriter.write("错误\r\n");
-                            fileWriter.write("\r\n");
-                        }
-                    }
-                }
-            } else {
-                fileWriter.write("题干：" + testPaper.getAnotherQuestionTaken().getContent() + "\r\n");
-                fileWriter.write("\r\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileWriter != null) {
-                    fileWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return true;
+    public static void backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) throws IOException {
+        String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + testPaper.getTestNum();
+        FileKit.existAndCreateDirectory(homePath);
+        //新建临时文件，如果文件已存在，就删除新建
+        String tempFilePath = homePath + "/$" + studentId + ".txt";
+        FileKit.deleteIfExists(tempFilePath);
+        FileKit.existAndCreateFile(tempFilePath);
+
+        FileKit.writeObject(testPaper, tempFilePath);
     }
 
     /**
