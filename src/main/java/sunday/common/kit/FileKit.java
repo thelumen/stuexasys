@@ -3,8 +3,7 @@ package sunday.common.kit;
 import org.slf4j.Logger;
 import sunday.pojo.manager.FileInfo;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,6 +21,50 @@ public final class FileKit {
     private static final Logger LOGGER = LogKit.getLogger();
 
     private FileKit() {
+    }
+
+    /**
+     * 读取对象
+     *
+     * @param path
+     * @param <T>
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static <T extends Serializable> Object readObject(String path) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            return ois.readObject();
+        }
+    }
+
+    /**
+     * 读取对象
+     *
+     * @param path
+     * @param t
+     * @param <T>
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static <T extends Serializable> T readObject(String path, Class<T> t) throws IOException, ClassNotFoundException {
+        return (T) readObject(path);
+    }
+
+    /**
+     * 将对象写入文件
+     *
+     * @param t
+     * @param path
+     * @param <T>
+     * @throws IOException
+     */
+    public static <T extends Serializable> void writeObject(T t, String path) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(t);
+            oos.flush();
+        }
     }
 
     /**
