@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="禁止学生在教师关闭考试后进行提交">
+    <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="备份考试结果信息优化">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/FileKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/FileKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TestPaper.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/student/TestPaper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/cache/ehcache.xml" afterPath="$PROJECT_DIR$/src/main/resources/config/cache/ehcache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/log/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/config/log/log4j.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -213,8 +208,8 @@
       <file leaf-file-name="ResourceKit.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="226" column="5" lean-forward="false" selection-start-line="226" selection-start-column="5" selection-end-line="226" selection-end-column="5" />
+            <state relative-caret-position="489">
+              <caret line="225" column="84" lean-forward="true" selection-start-line="225" selection-start-column="84" selection-end-line="225" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -2022,14 +2017,7 @@
       <workItem from="1509704324354" duration="1698000" />
       <workItem from="1509706690802" duration="39000" />
       <workItem from="1509707826031" duration="5341000" />
-      <workItem from="1509753512989" duration="103000" />
-    </task>
-    <task id="LOCAL-00021" summary="教师端：完成简答题修改需求&#10;--&gt;按照课程查找&#10;--&gt;对表中的数据进行编辑&#10;--&gt;保存或者删除简答题">
-      <created>1504670139078</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1504670139078</updated>
+      <workItem from="1509753512989" duration="161000" />
     </task>
     <task id="LOCAL-00022" summary="管理端：修复学生上传&#10;--&gt;修复学生权限&#10;--&gt;修复学生初始密码格式">
       <created>1504703316865</created>
@@ -2367,7 +2355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509715965930</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="备份考试结果信息优化">
+      <created>1509753652624</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1509753652625</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2403,7 +2398,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="450355000" />
+    <option name="totallyTimeSpent" value="450413000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2439,7 +2434,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3244496" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2912254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2912254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2481,7 +2476,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="优化:学生考试界面禁用后退&#10;优化:学生成绩表显示" />
     <MESSAGE value="优化:学生个人信息界面禁用后退" />
     <MESSAGE value="优化:登录界面&#10;优化:图片大小" />
     <MESSAGE value="优化:延长考试时间" />
@@ -2506,7 +2500,8 @@
     <MESSAGE value="修正一些错误" />
     <MESSAGE value="添加读写二进制文件的方法" />
     <MESSAGE value="优化备份文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化备份文件" />
+    <MESSAGE value="备份考试结果信息优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="备份考试结果信息优化" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2969,8 +2964,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="226" column="5" lean-forward="false" selection-start-line="226" selection-start-column="5" selection-end-line="226" selection-end-column="5" />
+        <state relative-caret-position="489">
+          <caret line="225" column="84" lean-forward="true" selection-start-line="225" selection-start-column="84" selection-end-line="225" selection-end-column="84" />
           <folding />
         </state>
       </provider>
