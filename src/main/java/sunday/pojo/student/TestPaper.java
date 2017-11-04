@@ -14,16 +14,14 @@ public final class TestPaper implements Serializable {
     private List<SingleTaken> singleTakenList;
     private List<TfTaken> tfTakenList;
     private AnotherTestTaken anotherQuestionTaken;
+    private String studentAnswer;
 
-    @Override
-    public String toString() {
-        return "TestPaper{" +
-                "testNum='" + testNum + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", singleTakenList=" + singleTakenList +
-                ", tfTakenList=" + tfTakenList +
-                ", anotherQuestionTaken=" + anotherQuestionTaken +
-                '}';
+    public String getStudentAnswer() {
+        return studentAnswer;
+    }
+
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
     public String getCourseName() {

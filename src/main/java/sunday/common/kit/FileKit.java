@@ -154,7 +154,7 @@ public final class FileKit {
     /**
      * 文件夹是否存在，不存在就生成
      *
-     * @param d 文件夹路径
+     * @param dicPath 文件夹路径
      */
     public static void existAndCreateDirectory(String dicPath) {
         Path path = Paths.get(dicPath);
