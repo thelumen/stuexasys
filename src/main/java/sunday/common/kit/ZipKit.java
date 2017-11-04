@@ -64,7 +64,7 @@ public class ZipKit {
      * @param paper
      * @return
      */
-    private static String toString(TestPaper paper) {
+    public static String toString(TestPaper paper) {
         StringBuilder sb = new StringBuilder(3 * 1024);
         sb.append("测验：").append(paper.getTestNum()).append("\r\n");
         sb.append("课程：").append(paper.getCourseName()).append("\r\n\r\n");
