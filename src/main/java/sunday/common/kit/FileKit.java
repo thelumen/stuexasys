@@ -93,7 +93,7 @@ public final class FileKit {
      * @param resources
      * @return
      */
-    public static List<FileInfo> wrapFileInfo(List<File> resources) {
+    public static List<FileInfo> wrapFileInfo(List<File> resources,int pathLevels) {
         Objects.requireNonNull(resources);
         List<FileInfo> target = new ArrayList<>();
         FileInfo file;
@@ -101,7 +101,7 @@ public final class FileKit {
             file = new FileInfo();
 
             file.setFileName(f.getName());
-            file.setPath(splitAndGetLastNodes(f.getPath(), "\\\\", 4));
+            file.setPath(splitAndGetLastNodes(f.getPath(), "\\\\", pathLevels));
             file.setNowDate(f.lastModified());
 
             target.add(file);

@@ -33,6 +33,15 @@ public class FileController {
         return "/manager/file/fileProxy";
     }
 
+    /**
+     * zip打包并下载
+     *
+     * @param response
+     * @param specialtyId
+     * @param courseId
+     * @param test
+     * @throws IOException
+     */
     @RequestMapping(value = "/{specialtyId}/{courseId}/{test}/download", method = RequestMethod.GET)
     @RequiresPermissions(value = {"shiro:sys:manager"})
     @ResponseBody
@@ -46,7 +55,7 @@ public class FileController {
         Objects.requireNonNull(files);
         String[] fileNames = new String[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            fileNames[i] = files.get(i).getAbsolutePath();
+            fileNames[i] = files.get(i).getPath();
         }
         //删除原有zip文件
         String zipPath = dicPath + "/" + ZipKit.getZipFilename();
@@ -57,7 +66,7 @@ public class FileController {
     }
 
     /**
-     * 获取试卷文件
+     * 获取试卷文件-table
      *
      * @param specialtyId
      * @param courseId
@@ -72,7 +81,7 @@ public class FileController {
         String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
                 + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(path);
-        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
+        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files, 4));
     }
 
     /**
