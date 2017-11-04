@@ -7,13 +7,18 @@ import sunday.pojo.student.TestPaper;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
 /**
  * 资源文件目录工具类
- * Created by yang on 2017/6/4.
+ *
+ * @author yang
+ * @date 2017/6/4
  * At 12:07
  */
 public final class ResourceKit {
@@ -200,7 +205,8 @@ public final class ResourceKit {
      * @throws IOException
      */
     public static void backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) throws IOException {
-        String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + testPaper.getTestNum();
+        String test = resetTestName(testPaper.getTestNum());
+        String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + test;
         FileKit.existAndCreateDirectory(homePath);
         //新建临时文件，如果文件已存在，就删除新建
         String tempFilePath = homePath + "/$" + studentId + ".bin";
@@ -218,11 +224,40 @@ public final class ResourceKit {
      * @return 成功
      */
     public static void backUpExamInfo(GradeInfo gradeInfo, String specialtyName) throws IOException, ClassNotFoundException {
-        String homePath = getBackupHome() + "/" + specialtyName + "/" + gradeInfo.getCourseName() + "/" + gradeInfo.getTestNum();
-        FileKit.deleteIfExists(homePath + "/" + gradeInfo.getStudentId() + ".bin");
-        TestPaper testPaper = (TestPaper) FileKit.readObject(homePath + "/$" + gradeInfo.getStudentId() + ".bin");
+        String test = resetTestName(gradeInfo.getTestNum());
+        String homePath = getBackupHome() + "/" + specialtyName + "/" + gradeInfo.getCourseName() + "/" + test;
+        String realExamInfo = homePath + "/" + gradeInfo.getStudentId() + ".bin";
+        String tempExamInfo = homePath + "/$" + gradeInfo.getStudentId() + ".bin";
+        //考试信息存在便删除
+        FileKit.deleteIfExists(realExamInfo);
+        //读取临时文件，并设置学生作答信息
+        TestPaper testPaper = (TestPaper) FileKit.readObject(tempExamInfo);
         testPaper.setStudentAnswer(gradeInfo.getResult());
-        FileKit.writeObject(testPaper, homePath+ "/" + gradeInfo.getStudentId() + ".bin");
-        FileKit.deleteIfExists(homePath + "/$" + gradeInfo.getStudentId() + ".bin");
+        //写入
+        FileKit.writeObject(testPaper, realExamInfo);
+        //删除临时文件
+        FileKit.deleteIfExists(tempExamInfo);
+    }
+
+    private static String resetTestName(String testNum) {
+        String test;
+        switch (Integer.valueOf(testNum)) {
+            case 1: {
+                test = "测试一";
+                break;
+            }
+            case 2: {
+                test = "测试二";
+                break;
+            }
+            case 3: {
+                test = "测试三";
+                break;
+            }
+            default: {
+                test = "测试四";
+            }
+        }
+        return test;
     }
 }

@@ -212,7 +212,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/uploadGrade", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
-    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
+    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) throws IOException, ClassNotFoundException {
         Map<String, Object> info = new HashMap<>();
         Map<String, Object> params = getStudentSpecialtyIdWithMap();
         params.put("courseId", gradeInfo.getCourseId());
@@ -266,11 +266,7 @@ public class StudentController extends CommonController {
             info.put("tf", tf);
         }
         ResourceKit.backUpExamInfo(gradeInfo, getCurrentStudent().getSpecialtyName());//备份
-        if (studentService.insertGrade(gradeInfo)) {
-            info.put("issuccess", true);
-        } else {
-            info.put("issuccess", false);
-        }
+        info.put("issuccess", studentService.insertGrade(gradeInfo));
         return info;
     }
 

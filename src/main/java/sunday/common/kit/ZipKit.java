@@ -65,7 +65,7 @@ public class ZipKit {
      * @return
      */
     private static String toString(TestPaper paper) {
-        StringBuilder sb = new StringBuilder(1024);
+        StringBuilder sb = new StringBuilder(3 * 1024);
         sb.append("测验：").append(paper.getTestNum()).append("\r\n");
         sb.append("课程：").append(paper.getCourseName()).append("\r\n\r\n");
         String level;
@@ -99,6 +99,10 @@ public class ZipKit {
             sb.append("附加题：" + "\r\n");
             sb.append("题目：").append(another.getContent()).append("\r\n");
             sb.append("答案:").append(another.getResult()).append("\r\n\r\n");
+        }
+        if (null != paper.getStudentAnswer()) {
+            sb.append("学生作答：" + "\r\n");
+            sb.append("答案:").append(paper.getStudentAnswer());
         }
         return sb.toString();
     }

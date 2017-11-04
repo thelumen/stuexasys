@@ -1,5 +1,7 @@
 package sunday.common.kit;
 
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
 import org.slf4j.Logger;
 import sunday.pojo.manager.FileInfo;
 
@@ -27,12 +29,11 @@ public final class FileKit {
      * 读取对象
      *
      * @param path
-     * @param <T>
      * @return
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public static <T extends Serializable> Object readObject(String path) throws IOException, ClassNotFoundException {
+    public static Object readObject(String path) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
             return ois.readObject();
         }
@@ -48,6 +49,7 @@ public final class FileKit {
      * @throws IOException
      * @throws ClassNotFoundException
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Serializable> T readObject(String path, Class<T> t) throws IOException, ClassNotFoundException {
         return (T) readObject(path);
     }
@@ -61,10 +63,47 @@ public final class FileKit {
      * @throws IOException
      */
     public static <T extends Serializable> void writeObject(T t, String path) throws IOException {
-        try (ObjectOutputStream oos = new MyObjectOutputStream(new FileOutputStream(path))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
             oos.writeObject(t);
             oos.flush();
         }
+    }
+
+    /**
+     * 序列化对象
+     *
+     * @param obj
+     * @return
+     */
+    public static byte[] serialize(Object obj) {
+        try (ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+             FSTObjectOutput fstOut = new FSTObjectOutput(bytesOut);) {
+            fstOut.writeObject(obj);
+            fstOut.flush();
+            return bytesOut.toByteArray();
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+        return null;
+    }
+
+    /**
+     * 反序列化对象
+     *
+     * @param bytes
+     * @return
+     */
+    public static Object deserialize(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) {
+            return null;
+        }
+
+        try (FSTObjectInput fstInput = new FSTObjectInput(new ByteArrayInputStream(bytes));) {
+            return fstInput.readObject();
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+        return null;
     }
 
     /**
