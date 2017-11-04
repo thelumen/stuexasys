@@ -34,6 +34,27 @@ public class FileController {
     }
 
     /**
+     * 删除无用文件
+     *
+     * @param specialtyId
+     * @param courseId
+     * @param test
+     * @return
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequiresPermissions(value = {"shiro:sys:manager"})
+    @ResponseBody
+    public Object deletePartFile(@RequestParam("specialtyId") String specialtyId,
+                                 @RequestParam("courseId") String courseId,
+                                 @RequestParam("test") String test,
+                                 @RequestParam(value = "isAll", required = false, defaultValue = "false") String isAll) {
+        String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
+                + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
+        FileKit.deleteFile(path, Boolean.valueOf(isAll), "$", ".zip");
+        return true;
+    }
+
+    /**
      * zip打包并下载
      *
      * @param response

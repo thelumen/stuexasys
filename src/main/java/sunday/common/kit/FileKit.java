@@ -26,6 +26,30 @@ public final class FileKit {
     }
 
     /**
+     * 删除文件
+     *
+     * @param path
+     * @param isAll
+     * @param flags
+     */
+    public static void deleteFile(String path, boolean isAll, String... flags) {
+        List<File> files = getFiles(path);
+        if (null != files) {
+            for (File f : files) {
+                if (isAll) {
+                    f.delete();
+                } else {
+                    for (String flag : flags) {
+                        if (f.getName().contains(flag)) {
+                            f.delete();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * 写数据
      *
      * @param bytes
