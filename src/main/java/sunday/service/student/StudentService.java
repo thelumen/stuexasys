@@ -1,7 +1,6 @@
 package sunday.service.student;
 
 import com.github.pagehelper.Page;
-import sunday.pojo.school.Student;
 import sunday.pojo.student.*;
 
 import java.util.List;
@@ -12,14 +11,6 @@ import java.util.Map;
  * At 17:35
  */
 public interface StudentService {
-    /**
-     * 查询学生
-     *
-     * @param page   .
-     * @param params .
-     * @return List<Student>
-     */
-    List<Student> select(Page page, Map<String, Object> params);
 
     /**
      * 查询学生详细信息

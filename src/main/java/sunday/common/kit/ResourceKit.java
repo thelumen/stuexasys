@@ -104,7 +104,6 @@ public final class ResourceKit {
             }
             outp.flush();
         } catch (Exception e) {
-            System.out.println("文件下载失败!");
             e.printStackTrace();
         } finally {
             if (in != null) {
@@ -154,7 +153,9 @@ public final class ResourceKit {
                         return 1;
                     });//end sort
                 }//end for
-                Map<String, Object> filePackageInfo = new HashMap<String, Object>() {{
+                Map<String, Object> filePackageInfo = new HashMap<String, Object>() {
+                    private static final long serialVersionUID = 3916909062088302220L;
+                    {
                     put("directoryName", fileName);
                     put("directory", father);
                 }};

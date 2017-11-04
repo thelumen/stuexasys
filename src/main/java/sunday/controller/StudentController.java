@@ -212,7 +212,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/uploadGrade", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
-    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) {
+    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) throws IOException, ClassNotFoundException {
         Map<String, Object> info = new HashMap<>();
         Map<String, Object> params = getStudentSpecialtyIdWithMap();
         params.put("courseId", gradeInfo.getCourseId());

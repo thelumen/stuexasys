@@ -43,13 +43,30 @@ public final class ChapterKit {
     public static List<Map<String, Object>> getChapterInSelect(String... srcArray) {
         List<Map<String, Object>> father = new ArrayList<>();
         for (String chapterName : srcArray) {
-            Map<String, Object> child = new HashMap<String, Object>() {{
-                put("id", CommonKit.chinese2CharNumber(chapterName));
-                put("text", chapterName);
-            }};
+            Map<String, Object> child = new HashMap<String, Object>() {
+                private static final long serialVersionUID = -8907869205729845500L;
+
+                {
+                    put("id", CommonKit.chinese2CharNumber(chapterName));
+                    put("text", chapterName);
+                }
+            };
             father.add(child);
         }
         return father;
     }
 
+    /**
+     * 数字型章节格式转中文型
+     *
+     * @param StringArray 数字型章节的集合
+     * @return .
+     */
+    public static List<String> getChapterTransport(String... StringArray) {
+        List<String> transportList = new ArrayList<>();
+        for (String numOfStringArray : StringArray) {
+            transportList.add(CHAPTERS[Integer.valueOf(numOfStringArray)]);
+        }
+        return transportList;
+    }
 }

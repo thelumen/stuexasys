@@ -2,11 +2,13 @@ package sunday.service.lmp.student;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import sunday.common.enums.DeleteType;
+import sunday.common.kit.ChapterKit;
 import sunday.common.kit.EncryptKit;
-import sunday.pojo.school.Student;
+import sunday.common.kit.LogKit;
 import sunday.pojo.student.*;
 import sunday.service.common.CommonService;
 import sunday.service.student.StudentService;
@@ -19,18 +21,7 @@ import java.util.*;
  */
 @Service("studentService")
 public class StudentServiceImpl extends CommonService implements StudentService {
-
-    @Override
-    public List<Student> select(Page page, Map<String, Object> params) {
-        if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
-        }
-        List<Student> students = studentMapper.select(params);
-        if (null != students && students.size() > 0) {
-            return students;
-        }
-        return null;
-    }
+    private static final Logger LOGGER = LogKit.getLogger();
 
     @Override
     public List<StudentTaken> selectStudentInfo(Page page, Map<String, Object> params) {
@@ -157,7 +148,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 uploadGrade.put("grade1", gradeInfo.getGrade());
                 if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
                     if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
-                        System.out.println("学生课程与成绩关联数据添加失败");
+                        LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
                 changedRow = studentMapper.updateGrade(uploadGrade) > 0;
@@ -166,7 +157,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 uploadGrade.put("grade2", gradeInfo.getGrade());
                 if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
                     if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
-                        System.out.println("学生课程与成绩关联数据添加失败");
+                        LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
                 changedRow = studentMapper.updateGrade(uploadGrade) > 0;
@@ -175,7 +166,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                 uploadGrade.put("grade3", gradeInfo.getGrade());
                 if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
                     if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
-                        System.out.println("学生课程与成绩关联数据添加失败");
+                        LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
                 changedRow = studentMapper.updateGrade(uploadGrade) > 0;
@@ -202,7 +193,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }};
 
         List<StudentTaken> studentTaken = studentMapper.selectStudentInfo(params);
-
+        //判断密码更改
         switch (studentInfo.getUpdateType()) {
             case StuSet://学生设置密码处理
                 if (null != studentInfo.getOldPassword()) {//判断旧密码是否填写
@@ -227,35 +218,35 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             default:
                 break;
         }
-        //判断姓名是否更改
+        //判断姓名更改
         if (null != studentInfo.getName()) {
             if (!studentInfo.getName().equals(studentTaken.get(0).getName())) {
                 params.put("name", studentInfo.getName());
                 count++;
             }
         }
-        //判断专业是否更改
+        //判断专业更改
         if (null != studentInfo.getSpecialtyId()) {
             if (!studentInfo.getSpecialtyId().equals(studentTaken.get(0).getSpecialtyId())) {
                 params.put("specialtyId", studentInfo.getSpecialtyId());
                 count++;
             }
         }
-        //判断号码是否更改
+        //判断号码更改
         if (null != studentInfo.getCellphone()) {
             if (!studentInfo.getCellphone().equals(studentTaken.get(0).getCellphone())) {
                 params.put("cellphone", studentInfo.getCellphone());
                 count++;
             }
         }
-        //判断性别是否更改
+        //判断性别更改
         if (null != studentInfo.getGender()) {
             if (!studentInfo.getGender().equals(studentTaken.get(0).getGender())) {
                 params.put("gender", studentInfo.getGender());
                 count++;
             }
         }
-        //判断邮箱是否更改
+        //判断邮箱更改
         if (null != studentInfo.getEmail()) {
             if (!studentInfo.getEmail().equals(studentTaken.get(0).getEmail())) {
                 params.put("email", studentInfo.getEmail());
@@ -265,7 +256,9 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         //判断是否有更改
         if (count > 0) {
             return studentMapper.update(params) > 0;
-        } else return count == 0;
+        } else {
+            return count == 0;
+        }
     }
 
     @Override
@@ -283,42 +276,17 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     @Override
     public TestPaper selectQuestion(ExamInfo examInfo) {
         if (examInfo == null) return null;
-        Map<String, String> changed = new HashMap<String, String>() {{
-            put("1", "第一章");
-            put("2", "第二章");
-            put("3", "第三章");
-            put("4", "第四章");
-            put("5", "第五章");
-            put("6", "第六章");
-            put("7", "第七章");
-            put("8", "第八章");
-            put("9", "第九章");
-            put("10", "第十章");
-            put("11", "第十一章");
-            put("12", "第十二章");
-            put("13", "第十三章");
-            put("14", "第十四章");
-            put("15", "第十五章");
-            put("16", "第十六章");
-        }};
         String[] strArray = examInfo.getContent().split(",");
-        List<String> sectionInfo = new ArrayList<>();
-        //拼接 章节(sectionInfo) 字符串用于查询
-        for (int i = 0; i < strArray.length; i++) {
-            strArray[i] = changed.get(strArray[i]);
-            sectionInfo.add(strArray[i]);
-        }
         //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
+        Map<String, Object> testInfo = new HashMap<>();
+        testInfo.put("courseId", examInfo.getCourseId());
+        testInfo.put("sectionList", ChapterKit.getChapterTransport(strArray));
         //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
-        Map<String, Object> testInfo = new HashMap<String, Object>() {{
-            put("courseId", examInfo.getCourseId());
-            put("sectionList", sectionInfo);
-        }};
         List<SingleTaken> singleTakenList = studentMapper.selectQuestionOfSingle(testInfo);
         List<TfTaken> tfTakenList = studentMapper.selectQuestionOfTf(testInfo);
         //判断返回题目数是否足够
         if (singleTakenList.size() != 20 || tfTakenList.size() != 5) {
-            System.out.println("组题出现异常");
+            LOGGER.debug("组题出现异常");
             return null;
         }
         //对返回的答案进行加密
@@ -326,8 +294,6 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         int b = 36;
         int c = 37;
         int d = 38;
-        int t = 7;
-        int f = 5;
         for (SingleTaken singleTaken : singleTakenList) {
             singleTaken.setRealAnswer(singleTaken.getResult());
             switch (singleTaken.getResult()) {
@@ -351,6 +317,8 @@ public class StudentServiceImpl extends CommonService implements StudentService 
                     break;
             }
         }
+        int t = 7;
+        int f = 5;
         for (TfTaken tfTaken : tfTakenList) {
             tfTaken.setRealAnswer(tfTaken.getResult());
             switch (tfTaken.getResult()) {
