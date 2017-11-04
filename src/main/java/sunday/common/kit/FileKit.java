@@ -61,7 +61,7 @@ public final class FileKit {
      * @throws IOException
      */
     public static <T extends Serializable> void writeObject(T t, String path) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+        try (ObjectOutputStream oos = new MyObjectOutputStream(new FileOutputStream(path))) {
             oos.writeObject(t);
             oos.flush();
         }
@@ -93,7 +93,7 @@ public final class FileKit {
      * @param resources
      * @return
      */
-    public static List<FileInfo> wrapFileInfo(List<File> resources,int pathLevels) {
+    public static List<FileInfo> wrapFileInfo(List<File> resources, int pathLevels) {
         Objects.requireNonNull(resources);
         List<FileInfo> target = new ArrayList<>();
         FileInfo file;

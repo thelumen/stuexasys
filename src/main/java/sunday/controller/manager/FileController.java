@@ -48,7 +48,7 @@ public class FileController {
     public void zipAndDownload(HttpServletResponse response,
                                @PathVariable("specialtyId") String specialtyId,
                                @PathVariable("courseId") String courseId,
-                               @PathVariable("test") String test) throws IOException {
+                               @PathVariable("test") String test) throws IOException, ClassNotFoundException {
         String dicPath = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
                 + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(dicPath);
@@ -61,7 +61,7 @@ public class FileController {
         String zipPath = dicPath + "/" + ZipKit.getZipFilename();
         FileKit.deleteIfExists(zipPath);
         //打包并下载
-        ZipKit.zipFiles(zipPath, fileNames);
+        ZipKit.zipStudentExamInformation(zipPath, fileNames);
         ResourceKit.download(response, zipPath, ZipKit.getZipFilename());
     }
 
