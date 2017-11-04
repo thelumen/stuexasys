@@ -172,14 +172,14 @@ public class StudentController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:student")
     public String startTest(Model model, @PathVariable(value = "examInfo") String examInfoInPath) throws IOException {
         String[] s = examInfoInPath.split("_");
-        String s3 = new String(s[3].getBytes("iso8859-1"), "utf-8");
+        //String s3 = new String(s[3].getBytes("iso8859-1"), "utf-8");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
-        examInfo.setCourseName(s3);
+        examInfo.setCourseName(s[3]);
         TestPaper testPaper = studentService.selectQuestion(examInfo);
-        ResourceKit.backUpExamTaken(testPaper, s3, getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
+        ResourceKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
@@ -241,6 +241,8 @@ public class StudentController extends CommonController {
                         realAnS = "C";
                     } else if (Integer.valueOf(an[i]) % 5 == 3) {
                         realAnS = "D";
+                    } else {
+                        realAnS = "未选择";
                     }
                     if (realAnS.equals(result[count])) {
                         testRight++;
@@ -252,6 +254,8 @@ public class StudentController extends CommonController {
                         realAnT = "0";
                     } else if (Integer.valueOf(an[i]) % 3 == 2) {
                         realAnT = "1";
+                    } else {
+                        realAnT = "未选择";
                     }
                     if (realAnT.equals(result[count])) {
                         testRight++;

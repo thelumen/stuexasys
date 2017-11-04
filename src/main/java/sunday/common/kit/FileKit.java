@@ -149,7 +149,7 @@ public final class FileKit {
             file = new FileInfo();
 
             file.setFileName(f.getName());
-            file.setPath(splitAndGetLastNodes(f.getPath(), "\\\\", pathLevels));
+            file.setPath(splitAndGetLastNodes(f.getPath(), "/", pathLevels));
             file.setNowDate(f.lastModified());
 
             target.add(file);
