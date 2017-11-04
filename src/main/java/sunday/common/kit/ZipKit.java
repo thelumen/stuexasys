@@ -5,10 +5,11 @@ import sunday.pojo.student.SingleTaken;
 import sunday.pojo.student.TestPaper;
 import sunday.pojo.student.TfTaken;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.zip.Adler32;
-import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -34,32 +35,27 @@ public class ZipKit {
     }
 
     /**
-     * zip打包
+     * zip打包学生试卷信息
      *
      * @param zipName   zip文件名
      * @param fileNames 文件名
      * @throws IOException
      */
-    public static void zipFiles(String zipName, String[] fileNames) throws IOException {
+    public static void zipStudentExamInformation(String zipName, String[] fileNames) throws IOException, ClassNotFoundException {
+        //zip流
         FileOutputStream f = new FileOutputStream(zipName);
-        //从文件输出流中获取数据校验和输出流,并设置Adler32
-        CheckedOutputStream csum = new CheckedOutputStream(f, new Adler32());
-        ZipOutputStream zos = new ZipOutputStream(csum);
-        OutputStreamWriter osw = new OutputStreamWriter(zos, Charset.forName("utf8"));
-        //BufferedOutputStream out = new BufferedOutputStream(zos);
-        BufferedReader in;
-        for (String file : fileNames) {
-            in = new BufferedReader(new FileReader(file));
-            zos.putNextEntry(new ZipEntry(file));
-            int c;
-            while ((c = in.read()) > 0) {
-                osw.write(c);
+        ZipOutputStream zos = new ZipOutputStream(f);
+        TestPaper paper;
+        try (OutputStreamWriter osw = new OutputStreamWriter(zos, Charset.forName("utf8"));
+             BufferedWriter bw = new BufferedWriter(osw)) {
+            for (String file : fileNames) {
+                paper = (TestPaper) FileKit.readObject(file);
+                zos.putNextEntry(new ZipEntry(file.replace(".bin", ".txt")));
+                bw.write(toString(paper));
+                bw.flush();
+                osw.flush();
             }
-            in.close();
-            osw.flush();
         }
-        osw.close();
-
     }
 
     /**
@@ -68,7 +64,7 @@ public class ZipKit {
      * @param paper
      * @return
      */
-    public static String toString(TestPaper paper) {
+    private static String toString(TestPaper paper) {
         StringBuilder sb = new StringBuilder(1024);
         sb.append("测验：").append(paper.getTestNum()).append("\r\n");
         sb.append("课程：").append(paper.getCourseName()).append("\r\n\r\n");
