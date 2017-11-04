@@ -7,7 +7,9 @@ import org.junit.Test;
  */
 public class OrdinaryTest {
 
+
     @Test
     public void t1() {
     }
+
 }

@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -42,14 +43,16 @@ public class ZipKit {
      * @throws IOException
      */
     public static void zipStudentExamInformation(String zipName, String[] fileNames) throws IOException, ClassNotFoundException {
-        //zip流
         FileOutputStream f = new FileOutputStream(zipName);
         ZipOutputStream zos = new ZipOutputStream(f);
         TestPaper paper;
         try (OutputStreamWriter osw = new OutputStreamWriter(zos, Charset.forName("utf8"));
              BufferedWriter bw = new BufferedWriter(osw)) {
             for (String file : fileNames) {
-                paper = (TestPaper) FileKit.readObject(file);
+                if (!file.contains(".bin") || file.contains("$")) {
+                    continue;
+                }
+                paper = (TestPaper) FileKit.deserialize(FileKit.readFile(file));
                 zos.putNextEntry(new ZipEntry(file.replace(".bin", ".txt")));
                 bw.write(toString(paper));
                 bw.flush();
@@ -65,7 +68,8 @@ public class ZipKit {
      * @return
      */
     public static String toString(TestPaper paper) {
-        StringBuilder sb = new StringBuilder(3 * 1024);
+        Objects.requireNonNull(paper);
+        StringBuilder sb = new StringBuilder(2 * 1024);
         sb.append("测验：").append(paper.getTestNum()).append("\r\n");
         sb.append("课程：").append(paper.getCourseName()).append("\r\n\r\n");
         String level;

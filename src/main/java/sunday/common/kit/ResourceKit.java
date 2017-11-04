@@ -208,12 +208,13 @@ public final class ResourceKit {
         String test = resetTestName(testPaper.getTestNum());
         String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + test;
         FileKit.existAndCreateDirectory(homePath);
+
         //新建临时文件，如果文件已存在，就删除新建
         String tempFilePath = homePath + "/$" + studentId + ".bin";
         FileKit.deleteIfExists(tempFilePath);
-        FileKit.existAndCreateFile(tempFilePath);
 
-        FileKit.writeObject(testPaper, tempFilePath);
+        byte[] data = FileKit.serialize(testPaper);
+        FileKit.write2File(data, tempFilePath);
     }
 
     /**
@@ -231,12 +232,11 @@ public final class ResourceKit {
         //考试信息存在便删除
         FileKit.deleteIfExists(realExamInfo);
         //读取临时文件，并设置学生作答信息
-        TestPaper testPaper = (TestPaper) FileKit.readObject(tempExamInfo);
-        testPaper.setStudentAnswer(gradeInfo.getResult());
-        //写入
-        FileKit.writeObject(testPaper, realExamInfo);
-        //删除临时文件
-        FileKit.deleteIfExists(tempExamInfo);
+        byte[] data = FileKit.readFile(tempExamInfo);
+        TestPaper paper = (TestPaper) FileKit.deserialize(data);
+        paper.setStudentAnswer(gradeInfo.getResult());
+        byte[] newData = FileKit.serialize(paper);
+        FileKit.write2File(newData, realExamInfo);
     }
 
     private static String resetTestName(String testNum) {

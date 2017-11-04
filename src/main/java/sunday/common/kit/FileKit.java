@@ -26,46 +26,34 @@ public final class FileKit {
     }
 
     /**
-     * 读取对象
+     * 写数据
      *
+     * @param bytes
      * @param path
-     * @return
      * @throws IOException
-     * @throws ClassNotFoundException
      */
-    public static Object readObject(String path) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
-            return ois.readObject();
+    public static void write2File(byte[] bytes, String path) throws IOException {
+        try (DataOutputStream bos = new DataOutputStream(new FileOutputStream(path))) {
+            bos.write(bytes);
         }
     }
 
     /**
-     * 读取对象
+     * 读数据
      *
      * @param path
-     * @param t
-     * @param <T>
      * @return
      * @throws IOException
-     * @throws ClassNotFoundException
      */
-    @SuppressWarnings("unchecked")
-    public static <T extends Serializable> T readObject(String path, Class<T> t) throws IOException, ClassNotFoundException {
-        return (T) readObject(path);
-    }
-
-    /**
-     * 将对象写入文件
-     *
-     * @param t
-     * @param path
-     * @param <T>
-     * @throws IOException
-     */
-    public static <T extends Serializable> void writeObject(T t, String path) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
-            oos.writeObject(t);
-            oos.flush();
+    public static byte[] readFile(String path) throws IOException {
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(path));
+             ByteArrayOutputStream baps = new ByteArrayOutputStream()) {
+            byte[] bytes = new byte[128];
+            int i = 0;
+            while ((i = dis.read(bytes)) > 0) {
+                baps.write(bytes, 0, i);
+            }
+            return baps.toByteArray();
         }
     }
 
@@ -94,10 +82,7 @@ public final class FileKit {
      * @return
      */
     public static Object deserialize(byte[] bytes) {
-        if (bytes == null || bytes.length == 0) {
-            return null;
-        }
-
+        Objects.requireNonNull(bytes);
         try (FSTObjectInput fstInput = new FSTObjectInput(new ByteArrayInputStream(bytes));) {
             return fstInput.readObject();
         } catch (Exception e) {
