@@ -16,6 +16,18 @@ public final class TestPaper implements Serializable {
     private AnotherTestTaken anotherQuestionTaken;
     private String studentAnswer;
 
+    @Override
+    public String toString() {
+        return "TestPaper{" +
+                "testNum='" + testNum + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", singleTakenList=" + singleTakenList +
+                ", tfTakenList=" + tfTakenList +
+                ", anotherQuestionTaken=" + anotherQuestionTaken +
+                ", studentAnswer='" + studentAnswer + '\'' +
+                '}';
+    }
+
     public String getStudentAnswer() {
         return studentAnswer;
     }

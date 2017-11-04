@@ -1,5 +1,7 @@
 package sunday.common.kit;
 
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
 import org.slf4j.Logger;
 import sunday.pojo.manager.FileInfo;
 
@@ -24,47 +26,93 @@ public final class FileKit {
     }
 
     /**
-     * 读取对象
+     * 删除文件
      *
      * @param path
-     * @param <T>
-     * @return
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @param isAll
+     * @param flags
      */
-    public static <T extends Serializable> Object readObject(String path) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
-            return ois.readObject();
+    public static void deleteFile(String path, boolean isAll, String... flags) {
+        List<File> files = getFiles(path);
+        if (null != files) {
+            for (File f : files) {
+                if (isAll) {
+                    f.delete();
+                } else {
+                    for (String flag : flags) {
+                        if (f.getName().contains(flag)) {
+                            f.delete();
+                        }
+                    }
+                }
+            }
         }
     }
 
     /**
-     * 读取对象
+     * 写数据
      *
+     * @param bytes
      * @param path
-     * @param t
-     * @param <T>
-     * @return
      * @throws IOException
-     * @throws ClassNotFoundException
      */
-    public static <T extends Serializable> T readObject(String path, Class<T> t) throws IOException, ClassNotFoundException {
-        return (T) readObject(path);
+    public static void write2File(byte[] bytes, String path) throws IOException {
+        try (DataOutputStream bos = new DataOutputStream(new FileOutputStream(path))) {
+            bos.write(bytes);
+        }
     }
 
     /**
-     * 将对象写入文件
+     * 读数据
      *
-     * @param t
      * @param path
-     * @param <T>
+     * @return
      * @throws IOException
      */
-    public static <T extends Serializable> void writeObject(T t, String path) throws IOException {
-        try (ObjectOutputStream oos = new MyObjectOutputStream(new FileOutputStream(path))) {
-            oos.writeObject(t);
-            oos.flush();
+    public static byte[] readFile(String path) throws IOException {
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(path));
+             ByteArrayOutputStream baps = new ByteArrayOutputStream()) {
+            byte[] bytes = new byte[128];
+            int i = 0;
+            while ((i = dis.read(bytes)) > 0) {
+                baps.write(bytes, 0, i);
+            }
+            return baps.toByteArray();
         }
+    }
+
+    /**
+     * 序列化对象
+     *
+     * @param obj
+     * @return
+     */
+    public static byte[] serialize(Object obj) {
+        try (ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
+             FSTObjectOutput fstOut = new FSTObjectOutput(bytesOut);) {
+            fstOut.writeObject(obj);
+            fstOut.flush();
+            return bytesOut.toByteArray();
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+        return null;
+    }
+
+    /**
+     * 反序列化对象
+     *
+     * @param bytes
+     * @return
+     */
+    public static Object deserialize(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+        try (FSTObjectInput fstInput = new FSTObjectInput(new ByteArrayInputStream(bytes));) {
+            return fstInput.readObject();
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+        return null;
     }
 
     /**
@@ -101,7 +149,7 @@ public final class FileKit {
             file = new FileInfo();
 
             file.setFileName(f.getName());
-            file.setPath(splitAndGetLastNodes(f.getPath(), "\\\\", pathLevels));
+            file.setPath(splitAndGetLastNodes(f.getPath(), "/", pathLevels));
             file.setNowDate(f.lastModified());
 
             target.add(file);

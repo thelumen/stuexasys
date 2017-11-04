@@ -18,23 +18,31 @@
             <label><strong
                     style="color: #985f0d">专业</strong>：<select
                     id="specialty"
-                    style="width: 200px">
+                    style="width: 180px">
             </select></label>
             <label><strong
                     style="color: #985f0d">课程</strong>：<select
                     id="course"
-                    style="width: 200px">
+                    style="width: 150px">
             </select></label>
             <label><strong
                     style="color: #985f0d">测试</strong>：<select
                     id="test"
-                    style="width: 200px">
+                    style="width: 100px">
             </select></label>
             <button class="btn btn-primary" type="button" onclick="check()">
                 <i class="glyphicon glyphicon-search"></i> 查询
             </button>
             <a id="download_button" class="btn btn-danger" href="#"> <i
                     class="glyphicon glyphicon-download"></i> 下载</a>
+            <button class="btn btn-primary" type="button"
+                    onclick="deletePart()">
+                <i class="glyphicon glyphicon-remove"></i> 清除无用文件
+            </button>
+            <button class="btn btn-primary" type="button"
+                    onclick="deleteAll()">
+                <i class="glyphicon glyphicon-remove"></i> 清除全部文件
+            </button>
         </div>
         <table id="file_table"
                data-toolbar="#toolbar"
@@ -85,7 +93,6 @@
             alert("请选择完整信息进行查询！");
             return false;
         }
-        var data = "specialtyId=" + $specialty.val() + "&courseId=" + $course.val() + "&test=" + $test.val();
         $.get("${pageContext.request.contextPath}/admin/file/list",
             {
                 specialtyId: $specialty.val(),
@@ -96,6 +103,67 @@
             });
         $('#download_button').attr("href",
             "${pageContext.request.contextPath}/admin/file/" + $specialty.val() + "/" + $course.val() + "/" + $test.val() + "/download")
+    }
+
+    //删除无用文件
+    function deletePart() {
+        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
+            alert("请选择完整信息进行删除！");
+            return false;
+        }
+        swal({
+                title: "Are you sure?",
+                text: "您是否确认删除这些文件？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes,it will be!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function () {
+                $.get("${pageContext.request.contextPath}/admin/file/delete",
+                    {
+                        specialtyId: $specialty.val(),
+                        courseId: $course.val(),
+                        test: $test.val()
+                    }, function () {
+                        alert("删除成功！");
+                    });
+            }
+        );
+    }
+
+    //删除全部文件
+    function deleteAll() {
+        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
+            alert("请选择完整信息进行删除！");
+            return false;
+        }
+        swal({
+                title: "Are you sure?",
+                text: "您是否确认删除全部文件？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes,it will be!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+            function () {
+                $.get("${pageContext.request.contextPath}/admin/file/delete",
+                    {
+                        specialtyId: $specialty.val(),
+                        courseId: $course.val(),
+                        test: $test.val(),
+                        isAll: true
+                    }, function () {
+                        alert("删除成功！")
+                    });
+            }
+        );
     }
 
     //初始化

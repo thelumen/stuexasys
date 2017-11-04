@@ -76,7 +76,8 @@ public class ResourceController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public boolean deleteFile(@RequestParam("path") String path) throws IOException {
-        String realPath = ResourceKit.getResourceHome() + "/" + new String(path.getBytes("iso8859-1"), "utf8");
+        //String realPath = ResourceKit.getResourceHome() + "/" + new String(path.getBytes("iso8859-1"), "utf8");
+        String realPath = ResourceKit.getResourceHome() + "/" + path;
         return FileKit.deleteIfExists(realPath);
     }
 
