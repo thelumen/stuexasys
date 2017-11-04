@@ -49,6 +49,38 @@ public class ResourceController extends CommonController {
     }
 
     /**
+     * 返回某一文件目录类所有普通文件信息
+     *
+     * @param directoryName
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) {
+        String directory = CommonKit.string2Chinese(directoryName);
+        String deepPath = ResourceKit.getResourceHome() + "/" + directory;
+        List<File> files = FileKit.getFiles(deepPath);
+
+        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files, 2));
+    }
+
+    /**
+     * 删除资源文件
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/file/delete", method = RequestMethod.GET)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public boolean deleteFile(@RequestParam("path") String path) throws IOException {
+        String realPath = ResourceKit.getResourceHome() + "/" + new String(path.getBytes("iso8859-1"), "utf8");
+        return FileKit.deleteIfExists(realPath);
+    }
+
+    /**
      * 上传文件
      *
      * @param directoryName HOME文件下某一文件夹名
@@ -65,14 +97,11 @@ public class ResourceController extends CommonController {
         try {
             directory = CommonKit.string2Chinese(directoryName);
             //HOME主目录下的某一directory
-            String realPath = ResourceKit.getResourceHome() + File.separator + directory;
-            File child = new File(realPath);
-            if (!child.exists()) {
-                child.mkdir();
-            }
+            String realPath = ResourceKit.getResourceHome() + "/" + directory;
+            FileKit.existAndCreateFile(realPath);
             if (null != files && files.size() > 0) {
                 for (MultipartFile file : files) {
-                    file.transferTo(new File(realPath + File.separator + file.getOriginalFilename()));
+                    file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
                 }
                 return true;
             }
@@ -83,21 +112,5 @@ public class ResourceController extends CommonController {
         return false;
     }
 
-    /**
-     * 返回某一文件目录类所有普通文件信息
-     *
-     * @param directoryName
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) {
-        String directory = CommonKit.string2Chinese(directoryName);
-        String deepPath = ResourceKit.getResourceHome() + "/" + directory;
-        List<File> files = FileKit.getFiles(deepPath);
-
-        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
-    }
 
 }
