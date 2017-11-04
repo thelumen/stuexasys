@@ -217,63 +217,12 @@ public final class ResourceKit {
      * @param specialtyName 专业名
      * @return 成功
      */
-    public static boolean backUpExamInfo(GradeInfo gradeInfo, String specialtyName) {
-        String homePath = getBackupHome() + File.separator + specialtyName + File.separator
-                + gradeInfo.getCourseName() + File.separator + gradeInfo.getTestNum();
-        File fileBackup = new File(homePath + File.separator + gradeInfo.getStudentId() + ".bin");
-        if (fileBackup.exists()) {
-            if (!fileBackup.delete()) {
-                System.out.println("删除原备份文件失败");
-                return false;
-            }
-        }
-        File file = new File(homePath + File.separator + "$" + gradeInfo.getStudentId() + ".bin");
-        BufferedWriter fileWriter = null;
-        try {
-            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
-            fileWriter.write("学生的作答：\r\n");
-            if (!"4".equals(gradeInfo.getTestNum())) {
-                String[] result = gradeInfo.getResult().split(",");
-                fileWriter.write("选择题：\r\n");
-                for (int i = 0; i < 20; i++) {
-                    if (!"E".equals(result[i])) {
-                        fileWriter.write(result[i] + ",");
-                    } else {
-                        fileWriter.write("未选择,");
-                    }
-                    if (i == 4 || i == 9 || i == 14) {
-                        fileWriter.write("\r\n");
-                    }
-                }
-                fileWriter.write("\r\n");
-                fileWriter.write("判断题：\r\n");
-                for (int i = 20; i < 25; i++) {
-                    if ("1".equals(result[i])) {
-                        fileWriter.write("正确,");
-                    } else if ("0".equals(result[i])) {
-                        fileWriter.write("错误,");
-                    } else {
-                        fileWriter.write("未选择,");
-                    }
-                }
-            } else {
-                fileWriter.write(gradeInfo.getResult() + "\r\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileWriter != null) {
-                    fileWriter.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (!file.renameTo(new File(homePath + File.separator + gradeInfo.getStudentId() + ".bin"))) {
-                System.out.println("重命名备份文件失败");
-                return false;
-            }
-        }
-        return true;
+    public static void backUpExamInfo(GradeInfo gradeInfo, String specialtyName) throws IOException, ClassNotFoundException {
+        String homePath = getBackupHome() + "/" + specialtyName + "/" + gradeInfo.getCourseName() + "/" + gradeInfo.getTestNum();
+        FileKit.deleteIfExists(homePath + "/" + gradeInfo.getStudentId() + ".bin");
+        TestPaper testPaper = (TestPaper) FileKit.readObject(homePath + "/$" + gradeInfo.getStudentId() + ".bin");
+        testPaper.setStudentAnswer(gradeInfo.getResult());
+        FileKit.writeObject(testPaper, homePath+ "/" + gradeInfo.getStudentId() + ".bin");
+        FileKit.deleteIfExists(homePath + "/$" + gradeInfo.getStudentId() + ".bin");
     }
 }

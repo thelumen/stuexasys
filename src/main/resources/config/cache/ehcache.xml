@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
     <!--diskStore：缓存数据持久化的目录 地址  -->
-    <diskStore path="../logs/stuexasys/ehcache"/>
+    <diskStore path="/home/logs/stuexasys/ehcache"/>
     <!--<diskStore path="java.io.tmpdir/shiro-ehcache"/>-->
     <defaultCache
             maxElementsInMemory="10000"
