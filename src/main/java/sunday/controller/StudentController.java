@@ -241,8 +241,6 @@ public class StudentController extends CommonController {
                         realAnS = "C";
                     } else if (Integer.valueOf(an[i]) % 5 == 3) {
                         realAnS = "D";
-                    } else {
-                        realAnS = "未选择";
                     }
                     if (realAnS.equals(result[count])) {
                         testRight++;
@@ -254,8 +252,6 @@ public class StudentController extends CommonController {
                         realAnT = "0";
                     } else if (Integer.valueOf(an[i]) % 3 == 2) {
                         realAnT = "1";
-                    } else {
-                        realAnT = "未选择";
                     }
                     if (realAnT.equals(result[count])) {
                         testRight++;
