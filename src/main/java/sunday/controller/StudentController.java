@@ -249,9 +249,9 @@ public class StudentController extends CommonController {
                 } else {
                     String realAnT = "j";
                     if (Integer.valueOf(an[i]) % 3 == 1) {
-                        realAnT = "0";
+                        realAnT = "错误";
                     } else if (Integer.valueOf(an[i]) % 3 == 2) {
-                        realAnT = "1";
+                        realAnT = "正确";
                     }
                     if (realAnT.equals(result[count])) {
                         testRight++;

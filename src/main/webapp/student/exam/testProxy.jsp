@@ -166,7 +166,7 @@
                     </p>
                     <p hidden>
                         <label>
-                            <input type="radio" name="single-${statusSingle.count}" value="E" checked>
+                            <input type="radio" name="single-${statusSingle.count}" value="未作答" checked>
                         </label>
                     </p>
                     <hr>
@@ -177,17 +177,17 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;${statusTf.count}.${testPaperTf.content}</p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}" value="1">正确
+                            <input type="radio" name="tf-${statusTf.count}" value="正确">正确
                         </label>
                     </p>
                     <p>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="tf-${statusTf.count}" value="0">错误
+                            <input type="radio" name="tf-${statusTf.count}" value="错误">错误
                         </label>
                     </p>
                     <p hidden>
                         <label>
-                            <input type="radio" name="tf-${statusTf.count}" value="3" checked>
+                            <input type="radio" name="tf-${statusTf.count}" value="未作答" checked>
                         </label>
                     </p>
                     <hr>
