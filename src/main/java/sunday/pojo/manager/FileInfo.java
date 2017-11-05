@@ -13,13 +13,13 @@ public final class FileInfo {
     private String path;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date nowDate;
-    private Long lastUpdateTime;
+    private String lastUpdateTime;
 
-    public Long getLastUpdateTime() {
+    public String getLastUpdateTime() {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(Long lastUpdateTime) {
+    public void setLastUpdateTime(String lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
 

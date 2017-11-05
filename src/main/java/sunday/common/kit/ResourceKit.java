@@ -131,25 +131,27 @@ public final class ResourceKit {
         List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
         if (filePackagerNames != null) {
             int i = 0;
-            int j = 0;
             for (String fileName : filePackagerNames) {
                 File fileNameInfo = new File(getResourceHome() + File.separator + fileName);//拼接绝对路径并创建file类
                 File[] children = fileNameInfo.listFiles();
                 List<FileInfo> father = new ArrayList<>();
                 if (children != null && children.length > 0) {
+                    int j = 0;
                     for (File file : children) {
                         FileInfo fileInfo = new FileInfo();
                         fileInfo.setFileName(file.getName());
-                        fileInfo.setLastUpdateTime(file.lastModified());
+                        //用于前端显示
+                        fileInfo.setLastUpdateTime(DateKit.date2String(file.lastModified()));
                         fileInfo.setPath(i + "," + j);
                         father.add(fileInfo);
                         j++;
                     }
                     //按最后更新时间对目录下的文件进行排序
                     father.sort((o1, o2) -> {
-                        Long d1 = o1.getLastUpdateTime();
-                        Long d2 = o2.getLastUpdateTime();
-                        if (d1 > d2) {
+                        //用于比较
+                        Date d1 = DateKit.string2Date(o1.getLastUpdateTime());
+                        Date d2 = DateKit.string2Date(o2.getLastUpdateTime());
+                        if (d1.getTime() > d2.getTime()) {
                             return -1;
                         }
                         if (Objects.equals(d1, d2)) {
@@ -184,13 +186,11 @@ public final class ResourceKit {
         List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
         if (filePackagerNames.size() > 0) {
             String fileName = filePackagerNames.get(folderNum);
-            //拼接绝对路径并创建file类
             File fileNameInfo = new File(getResourceHome() + File.separator + fileName);
             File[] children = fileNameInfo.listFiles();
             if (null != children && children.length > 0) {
-                String path = getRelativePath(fileName, children[fileNum].getPath());
                 fileInfoWithMap.put("fileName", children[fileNum].getName());
-                fileInfoWithMap.put("realPath", getResourceHome() + File.separator + path);
+                fileInfoWithMap.put("realPath", children[fileNum].getPath());
             }
         }
         return fileInfoWithMap;
