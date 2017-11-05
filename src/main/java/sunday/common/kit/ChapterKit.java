@@ -65,7 +65,7 @@ public final class ChapterKit {
     public static List<String> getChapterTransport(String... StringArray) {
         List<String> transportList = new ArrayList<>();
         for (String numOfStringArray : StringArray) {
-            transportList.add(CHAPTERS[Integer.valueOf(numOfStringArray)]);
+            transportList.add(CHAPTERS[Integer.valueOf(numOfStringArray) - 1]);
         }
         return transportList;
     }

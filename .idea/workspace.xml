@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8d8fcf3e-67fa-4295-b92f-5aab501bff79" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/DateKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/DateKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/pojo/manager/FileInfo.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/pojo/manager/FileInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java" afterPath="$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,18 +55,36 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
+            <state relative-caret-position="4940">
               <caret line="280" column="0" lean-forward="false" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1003#1004#0" expanded="false" />
+                <element signature="e#1060#1061#0" expanded="false" />
+                <element signature="e#1813#1814#0" expanded="false" />
+                <element signature="e#1861#1862#0" expanded="false" />
+                <element signature="e#2071#2072#0" expanded="false" />
+                <element signature="e#2119#2120#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChapterKit.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChapterKit.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java">
+      <file leaf-file-name="StudentServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+            <state relative-caret-position="139">
+              <caret line="277" column="0" lean-forward="false" selection-start-line="277" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,11 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceKit.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ResourceKit.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="187" column="63" lean-forward="true" selection-start-line="187" selection-start-column="63" selection-end-line="187" selection-end-column="63" />
+            <state relative-caret-position="1235">
+              <caret line="155" column="25" lean-forward="false" selection-start-line="155" selection-start-column="25" selection-end-line="155" selection-end-column="25" />
               <folding>
                 <element signature="method#resetTestName#0;class#ResourceKit#0" expanded="false" />
               </folding>
@@ -161,9 +177,11 @@
       <file leaf-file-name="FileKit.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/FileKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="2641">
               <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,9 +189,13 @@
       <file leaf-file-name="ZipKit.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ZipKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="684">
               <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="40" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#718#719#0" expanded="false" />
+                <element signature="e#753#754#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -253,7 +275,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/sunday/service/lmp/manager/CourseServiceImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/controller/manager/TeacherInAdminController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/teacher/Student2ExamMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/teacher/exam/exam_content.jsp" />
@@ -304,6 +325,7 @@
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/DateKit.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/student/resourcesDownload/resourcesDownloadProxy.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java" />
       </list>
     </option>
   </component>
@@ -417,7 +439,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
@@ -1010,6 +1031,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1019,7 +1041,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/20170823/stuexasys/src/test/OrdinaryTest.java&#10;ordi&#9;FILE&#9;file://E:/20170823/stuexasys/src/test/OrdinaryTest.java&#10;s&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;pom.xml&#9;FILE&#9;file://E:/20170823/stuexasys/pom.xml&#10;re&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;fileki&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;jdbc.p&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;ex&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/pojo/student/ExamInfo.java&#10;stud&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;studentM&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;resou&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;zipki&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ZipKit.java&#10;fi&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;studen&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;filek&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;arraylis&#9;PSI&#9;JAVA://java.util.ArrayList&#10;zip&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ZipKit.java&#10;ord&#9;PSI&#9;JAVA://OrdinaryTest&#10;studentmapp&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;nav.jsp&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/webapp/student/nav/nav.jsp&#10;jdbc&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;jdb&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;studentma&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;spring-dao&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/spring/spring-dao.xml&#10;springmvc&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/spring/springMVC.xml&#10;exami&#9;PSI&#9;JAVA://sunday.pojo.student.ExamInfo&#10;exam&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/pojo/student/ExamTaken.java&#10;examta&#9;PSI&#9;JAVA://sunday.pojo.student.ExamTaken&#10;student&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/student/StudentService.java&#10;adminstu&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java&#10;gradei&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/pojo/student/GradeInfo.java&#10;studentcon&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;studentsi&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java&#10;single&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/webapp/teacher/question/showSingle_content.jsp&#10;gradeta&#9;PSI&#9;JAVA://sunday.pojo.student.GradeTaken&#10;adminm&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/manager/AdminStudentMapper.xml&#10;admin&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/manager/AdminStudentMapper.xml&#10;studenta&#9;PSI&#9;JAVA://sunday.controller.manager.StudentInAdminController&#10;grade&#9;PSI&#9;JAVA://sunday.pojo.student.GradeInfo&#10;studentcont&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;students&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/student/StudentService.java&#10;studenm&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;role&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/shiro/RoleMapper.xml&#10;studentc&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;mess&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/common/enums/MessageInfo.java&#10;rolemapper&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/shiro/RoleMapper.xml&#10;myreal&#9;PSI&#9;JAVA://sunday.common.realm.MyRealm&#10;studentcontr&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;messin&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/common/enums/MessageInfo.java&#10;admins&#9;PSI&#9;JAVA://sunday.mapper.manager.AdminStudentMapper" />
+    <property name="SearchEverywhereHistoryKey" value="student&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java&#10;ordi&#9;FILE&#9;file://E:/20170823/stuexasys/src/test/OrdinaryTest.java&#10;s&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;pom.xml&#9;FILE&#9;file://E:/20170823/stuexasys/pom.xml&#10;re&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;fileki&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;jdbc.p&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;ex&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/pojo/student/ExamInfo.java&#10;stud&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;studentM&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;resou&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ResourceKit.java&#10;zipki&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ZipKit.java&#10;fi&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;studen&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;filek&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/FileKit.java&#10;arraylis&#9;PSI&#9;JAVA://java.util.ArrayList&#10;zip&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/java/sunday/common/kit/ZipKit.java&#10;ord&#9;PSI&#9;JAVA://OrdinaryTest&#10;studentmapp&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;nav.jsp&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/webapp/student/nav/nav.jsp&#10;jdbc&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;jdb&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/jdbc/jdbc.properties&#10;studentma&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;spring-dao&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/spring/spring-dao.xml&#10;springmvc&#9;FILE&#9;file://E:/20170823/stuexasys/src/main/resources/config/spring/springMVC.xml&#10;exami&#9;PSI&#9;JAVA://sunday.pojo.student.ExamInfo&#10;exam&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/pojo/student/ExamTaken.java&#10;examta&#9;PSI&#9;JAVA://sunday.pojo.student.ExamTaken&#10;adminstu&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/lmp/manager/AdminStudentServiceImpl.java&#10;gradei&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/pojo/student/GradeInfo.java&#10;studentcon&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;studentsi&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java&#10;single&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/webapp/teacher/question/showSingle_content.jsp&#10;gradeta&#9;PSI&#9;JAVA://sunday.pojo.student.GradeTaken&#10;adminm&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/manager/AdminStudentMapper.xml&#10;admin&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/manager/AdminStudentMapper.xml&#10;studenta&#9;PSI&#9;JAVA://sunday.controller.manager.StudentInAdminController&#10;grade&#9;PSI&#9;JAVA://sunday.pojo.student.GradeInfo&#10;studentcont&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;students&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/service/student/StudentService.java&#10;studenm&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/student/StudentMapper.xml&#10;role&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/shiro/RoleMapper.xml&#10;studentc&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;mess&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/common/enums/MessageInfo.java&#10;rolemapper&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/resources/mapper/shiro/RoleMapper.xml&#10;myreal&#9;PSI&#9;JAVA://sunday.common.realm.MyRealm&#10;studentcontr&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/controller/StudentController.java&#10;messin&#9;FILE&#9;file://C:/Users/花间一壶酒/Desktop/常用/test/stuexasys/src/main/java/sunday/common/enums/MessageInfo.java&#10;admins&#9;PSI&#9;JAVA://sunday.mapper.manager.AdminStudentMapper" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -1700,14 +1722,8 @@
       <workItem from="1509753512989" duration="199000" />
       <workItem from="1509768203811" duration="899000" />
       <workItem from="1509794754629" duration="5355000" />
-      <workItem from="1509848319347" duration="7215000" />
-    </task>
-    <task id="LOCAL-00027" summary="优化登录操作">
-      <created>1504841731650</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1504841731651</updated>
+      <workItem from="1509848319347" duration="8865000" />
+      <workItem from="1509883038189" duration="440000" />
     </task>
     <task id="LOCAL-00028" summary="Merge branch 'jiang'">
       <created>1504954066425</created>
@@ -2045,7 +2061,14 @@
       <option name="project" value="LOCAL" />
       <updated>1509857251587</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="修复学生资源下载失效问题">
+      <created>1509860602733</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1509860602733</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2081,7 +2104,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="463920000" />
+    <option name="totallyTimeSpent" value="466010000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -2118,7 +2141,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3244496" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30484116" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30937973" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2159,7 +2182,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="优化:考试界面答案加密" />
     <MESSAGE value="优化:关闭debug" />
     <MESSAGE value="优化:学生端测试成绩判断逻辑搬家" />
     <MESSAGE value="优化:学生端测试关闭后不能提交" />
@@ -2184,11 +2206,12 @@
     <MESSAGE value="合并以及优化2" />
     <MESSAGE value="合并以及优化3" />
     <MESSAGE value="完成教师文件上传查询目录的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成教师文件上传查询目录的功能" />
+    <MESSAGE value="修复学生资源下载失效问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复学生资源下载失效问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="241" />
+      <option name="time" value="248" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2444,7 +2467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3496">
           <caret line="184" column="89" lean-forward="false" selection-start-line="184" selection-start-column="89" selection-end-line="184" selection-end-column="89" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2458,9 +2480,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/FileKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="2641">
           <caret line="151" column="0" lean-forward="false" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2468,7 +2492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2512,19 +2535,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/pojo/student/CourseTaken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2586,37 +2600,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ZipKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="684">
           <caret line="50" column="40" lean-forward="false" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="40" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#718#719#0" expanded="false" />
+            <element signature="e#753#754#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/controller/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
+        <state relative-caret-position="4940">
           <caret line="280" column="0" lean-forward="false" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1003#1004#0" expanded="false" />
+            <element signature="e#1060#1061#0" expanded="false" />
+            <element signature="e#1813#1814#0" expanded="false" />
+            <element signature="e#1861#1862#0" expanded="false" />
+            <element signature="e#2071#2072#0" expanded="false" />
+            <element signature="e#2119#2120#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ResourceKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="187" column="63" lean-forward="true" selection-start-line="187" selection-start-column="63" selection-end-line="187" selection-end-column="63" />
+        <state relative-caret-position="1235">
+          <caret line="155" column="25" lean-forward="false" selection-start-line="155" selection-start-column="25" selection-end-line="155" selection-end-column="25" />
           <folding>
             <element signature="method#resetTestName#0;class#ResourceKit#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/service/lmp/student/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="277" column="0" lean-forward="false" selection-start-line="277" selection-start-column="0" selection-end-line="277" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sunday/common/kit/ChapterKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
