@@ -94,7 +94,7 @@ public class ZipKit {
                 level = t.getLevels() == 1 ? "简单" : t.getLevels() == 2 ? "中等" : "困难";
                 sb.append("章节：").append(t.getSection()).append(" 难度：").append(level).append("\r\n");
                 sb.append("题目：").append(t.getContent()).append("\r\n");
-                s = t.getResult() == 1 ? "正确" : "错误";
+                s = t.getRealAnswer() == 1 ? "正确" : "错误";
                 sb.append("答案:").append(s).append("\r\n\r\n");
             }
         }

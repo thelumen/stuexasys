@@ -43,17 +43,16 @@ public class ResourceController extends CommonController {
     public List<Map<String, Object>> getDirectories() {
         //List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {
-            private static final long serialVersionUID = -1045800251672169913L;
-
             {
-            put("teacherId", TeacherKit.getCurrentTeacherId());
-        }};
+                put("teacherId", TeacherKit.getCurrentTeacherId());
+            }
+        };
         Set<String> directories = new HashSet<>();
         List<CourseTaken> courses = specialty2CourseService.selectCourseTaken(null, teacherInfo);
-        for(CourseTaken courseTaken:courses){
+        for (CourseTaken courseTaken : courses) {
             directories.add(courseTaken.getCourseName());
         }
-        return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
+        return ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()]));
     }
 
     /**
