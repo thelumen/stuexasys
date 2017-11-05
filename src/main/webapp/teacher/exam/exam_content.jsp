@@ -198,7 +198,7 @@
         var html = [];
         html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
         html.push('<button class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
-        return html.join(' | ');
+        return html.join('');
     }
     $(function () {
         $('#teacher_exam_table').bootstrapTable({
@@ -302,7 +302,7 @@
                         title: '考察时间',
                         format: 'YYYY-MM-DD',
                         viewformat: 'YYYY.MM.DD',
-                        template: 'YYYY / MMM / D',
+                        template: 'YYYY / MM / DD',
                         combodate: {
                             minYear: 2017,
                             maxYear: 2049,
@@ -355,7 +355,7 @@
                         title: '考察时间',
                         format: 'YYYY-MM-DD',
                         viewformat: 'YYYY.MM.DD',
-                        template: 'YYYY / MMM / D',
+                        template: 'YYYY / MM / DD',
                         combodate: {
                             minYear: 2017,
                             maxYear: 2049,
@@ -408,7 +408,7 @@
                         title: '考察时间',
                         format: 'YYYY-MM-DD',
                         viewformat: 'YYYY.MM.DD',
-                        template: 'YYYY / MMM / D',
+                        template: 'YYYY / MM / DD',
                         combodate: {
                             minYear: 2017,
                             maxYear: 2049,
@@ -438,7 +438,7 @@
                         title: '考察时间',
                         format: 'YYYY-MM-DD',
                         viewformat: 'YYYY.MM.DD',
-                        template: 'YYYY / MMM / D',
+                        template: 'YYYY / MM / DD',
                         combodate: {
                             minYear: 2017,
                             maxYear: 2049,

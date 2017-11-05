@@ -70,13 +70,16 @@ public class ZipKit {
     public static String toString(TestPaper paper) {
         Objects.requireNonNull(paper);
         StringBuilder sb = new StringBuilder(2 * 1024);
+        int i;
         sb.append("测验：").append(paper.getTestNum()).append("\r\n");
         sb.append("课程：").append(paper.getCourseName()).append("\r\n\r\n");
         String level;
 
         if (null != paper.getSingleTakenList()) {
-            sb.append("选择题：" + "\r\n");
+            i = 1;
+            sb.append("选择题：" + "\r\n\r\n");
             for (SingleTaken s : paper.getSingleTakenList()) {
+                sb.append("第").append(i).append("题：\r\n");
                 level = s.getLevels() == 1 ? "简单" : s.getLevels() == 2 ? "中等" : "困难";
                 sb.append("章节：").append(s.getSection()).append(" 难度：").append(level).append("\r\n");
                 sb.append("题目：").append(s.getContent()).append("\r\n");
@@ -85,17 +88,21 @@ public class ZipKit {
                 sb.append("C:").append(s.getQue3()).append("\r\n");
                 sb.append("D:").append(s.getQue4()).append("\r\n");
                 sb.append("答案:").append(s.getRealAnswer()).append("\r\n\r\n");
+                i += 1;
             }
         }
         if (null != paper.getTfTakenList()) {
-            sb.append("判断题：" + "\r\n");
+            i = 1;
+            sb.append("判断题：" + "\r\n\r\n");
             String s;
             for (TfTaken t : paper.getTfTakenList()) {
+                sb.append("第").append(i).append("题：\r\n");
                 level = t.getLevels() == 1 ? "简单" : t.getLevels() == 2 ? "中等" : "困难";
                 sb.append("章节：").append(t.getSection()).append(" 难度：").append(level).append("\r\n");
                 sb.append("题目：").append(t.getContent()).append("\r\n");
                 s = t.getRealAnswer() == 1 ? "正确" : "错误";
                 sb.append("答案:").append(s).append("\r\n\r\n");
+                i += 1;
             }
         }
         if (null != paper.getAnotherQuestionTaken()) {
