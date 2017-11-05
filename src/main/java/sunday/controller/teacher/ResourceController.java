@@ -4,17 +4,14 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sunday.common.kit.ChapterKit;
-import sunday.common.kit.CommonKit;
-import sunday.common.kit.FileKit;
-import sunday.common.kit.ResourceKit;
+import sunday.common.kit.*;
 import sunday.controller.common.CommonController;
+import sunday.pojo.teacher.CourseTaken;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author yang
@@ -44,7 +41,18 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/directory", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getDirectories() {
-        List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);
+        //List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {
+            private static final long serialVersionUID = -1045800251672169913L;
+
+            {
+            put("teacherId", TeacherKit.getCurrentTeacherId());
+        }};
+        Set<String> directories = new HashSet<>();
+        List<CourseTaken> courses = specialty2CourseService.selectCourseTaken(null, teacherInfo);
+        for(CourseTaken courseTaken:courses){
+            directories.add(courseTaken.getCourseName());
+        }
         return null != directories ? ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()])) : null;
     }
 
@@ -99,7 +107,7 @@ public class ResourceController extends CommonController {
             directory = CommonKit.string2Chinese(directoryName);
             //HOME主目录下的某一directory
             String realPath = ResourceKit.getResourceHome() + "/" + directory;
-            FileKit.existAndCreateFile(realPath);
+            FileKit.existAndCreateDirectory(realPath);
             if (null != files && files.size() > 0) {
                 for (MultipartFile file : files) {
                     file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
