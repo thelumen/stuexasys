@@ -13,9 +13,11 @@ import yang.domain.teacher.GradeTaken;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * Created by yang on 2017/8/24.
+ * @author yang
+ * @date 2017/8/24
  * At 22:30
  */
 @Controller
@@ -42,18 +44,18 @@ public class GradeController extends CommonController {
     @RequestMapping(value = "/assign", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String assignGrades(GradePercent percentInfo) {
-
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
-        if (!percentInfo.getPercent1().equals("")) {
+
+        if (!Objects.equals(percentInfo.getPercent1(), "")) {
             p1 = Float.parseFloat(percentInfo.getPercent1()) / 100.0f;
         }
-        if (!percentInfo.getPercent2().equals("")) {
+        if (!Objects.equals(percentInfo.getPercent2(), "")) {
             p2 = Float.parseFloat(percentInfo.getPercent2()) / 100.0f;
         }
-        if (!percentInfo.getPercent3().equals("")) {
+        if (!Objects.equals(percentInfo.getPercent3(), "")) {
             p3 = Float.parseFloat(percentInfo.getPercent3()) / 100.0f;
         }
-        if (!percentInfo.getPercent4().equals("")) {
+        if (!Objects.equals(percentInfo.getPercent4(), "")) {
             p4 = Float.parseFloat(percentInfo.getPercent4()) / 100.0f;
         }
 
@@ -71,7 +73,6 @@ public class GradeController extends CommonController {
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
             //采用四舍五入方式计算总成绩
             studentGrade.setTotal(Math.round(total));
-
             student2GradeService.updateGrade(studentGrade);
         }
 

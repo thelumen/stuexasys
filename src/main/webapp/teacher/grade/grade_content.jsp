@@ -16,43 +16,37 @@
     <div class="container-fluid" style="text-align: center">
         <form id="teacher_course_form" method="post"
               action="${pageContext.request.contextPath}/grade/assign">
-            <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：<select
-                    name="courseId"
-                    id="teacher_grade_select_course"
-                    style="width: 200px">
-                <option selected></option>
-            </select></label>
-            <label style="margin-left: 20px">请选择 <strong
-                    style="color: #985f0d">教课专业</strong>：
-                <select id="teacher_grade_select_specialty" name="specialtyId"
-                        style="width: 200px"></select></label><br>
-            <label><strong style="color: #2b669a">测试一 </strong>所占比重：<input
-                    id="teacher_grade_grade1"
-                    name="percent1"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                    placeholder="请填写0-100的数字"></label>
-            <label><strong style="color: #2b669a">测试二 </strong>所占比重：<input
-                    id="teacher_grade_grade2"
-                    name="percent2"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                    placeholder="请填写0-100的数字"></label>
-            <label><strong style="color: #2b669a">测试三 </strong>所占比重：<input
-                    id="teacher_grade_grade3"
-                    name="percent3"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                    placeholder="请填写0-100的数字"></label>
-            <label><strong style="color: #2b669a">测试四 </strong>所占比重：<input
-                    id="teacher_grade_grade4"
-                    name="percent4"
-                    onkeyup="this.value=this.value.replace(/\D/g,'')"
-                    onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                    placeholder="请填写0-100的数字"></label><br>
+            <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：
+                <select name="courseId" id="course_select" style="width: 200px">
+                    <option selected></option>
+                </select></label>
+            <label style="margin-left: 20px">请选择 <strong style="color: #985f0d">教课专业</strong>：
+                <select id="specialty_select" name="specialtyId"
+                        style="width: 200px">
+                </select>
+            </label><br>
+            <label><strong style="color: #2b669a">测试一 </strong>所占比重：
+                <input name="percent1" placeholder="请填写0-100的数字"
+                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label>
+            <label><strong style="color: #2b669a">测试二 </strong>所占比重：
+                <input name="percent2" placeholder="请填写0-100的数字"
+                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label>
+            <label><strong style="color: #2b669a">测试三 </strong>所占比重：
+                <input name="percent3" placeholder="请填写0-100的数字"
+                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label>
+            <label><strong style="color: #2b669a">测试四 </strong>所占比重：
+                <input name="percent4" placeholder="请填写0-100的数字"
+                       onkeyup="this.value=this.value.replace(/\D/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </label><br>
             <button style="margin-left: 30px" class="btn btn-warning"
-                    type="button"
-                    onclick="outOfGrade()">
+                    type="button" onclick="outOfGrade()">
                 确认分配
             </button>
         </form>
@@ -60,22 +54,20 @@
     <hr class="divider"/>
     <br><br>
     <div id="teacher_grade_toolbar">
-        <label>请选择需要查看的 <strong style="color: #985f0d">课程</strong>：<select
-                name="courseId"
-                id="teacher_grade_choose_course"
-                style="width: 200px">
-            <option selected></option>
-        </select></label>
-        <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：<select
-                name="specialtyId"
-                id="teacher_grade_choose_specialty"
-                style="width: 200px"></select></label>
-        <button id="teacher_grade_select_btn" class="btn btn-primary"
-                type="button">
+        <label>请选择需要查看的 <strong style="color: #985f0d">课程</strong>：
+            <select id="table_course_select" name="courseId"
+                    style="width: 200px">
+                <option selected></option>
+            </select>
+        </label>
+        <label>请选择需要查看的 <strong style="color: #985f0d">专业</strong>：
+            <select name="specialtyId" id="table_specialty_select"
+                    style="width: 200px"></select>
+        </label>
+        <button class="btn btn-primary" type="button" onclick="checkData()">
             <i class="glyphicon glyphicon-search"></i> 查询
         </button>
-        <button id="teacher_grade_reset_btn" class="btn btn-primary"
-                type="button">
+        <button class="btn btn-primary" type="button" onclick="checkAllData()">
             <i class="glyphicon glyphicon-repeat"></i> 全部数据
         </button>
     </div>
@@ -96,27 +88,27 @@
             <thead>
             <tr>
                 <th colspan="4">学生信息</th>
-                <th data-field="courseName" data-width="400" rowspan="2">课程名称
+                <th data-field="courseName" data-width="300" rowspan="2">课程名称
                 </th>
                 <th colspan="5">成绩详情</th>
             </tr>
             <tr>
-                <th data-field="specialtyId" data-width="300"
+                <th data-field="specialtyId" data-width="200"
                     data-sortable="true">
                     专业ID
                 </th>
                 <th data-field="specialtyName" data-width="300">
                     专业名称
                 </th>
-                <th data-field="studentId" data-width="200">学生ID
+                <th data-field="studentId" data-width="150">学生ID
                 </th>
-                <th data-field="studentName" data-width="250">学生姓名
+                <th data-field="studentName" data-width="200">学生姓名
                 </th>
-                <th data-field="grade1" data-width="200">成绩一</th>
-                <th data-field="grade2" data-width="200">成绩二</th>
-                <th data-field="grade3" data-width="200">成绩三</th>
-                <th data-field="grade4" data-width="200">附加题成绩</th>
-                <th data-field="total" data-width="200">
+                <th data-field="grade1" data-width="150">成绩一</th>
+                <th data-field="grade2" data-width="150">成绩二</th>
+                <th data-field="grade3" data-width="150">成绩三</th>
+                <th data-field="grade4" data-width="150">附加题成绩</th>
+                <th data-field="total" data-width="150">
                     总成绩
                 </th>
             </tr>
@@ -125,10 +117,14 @@
     </div>
 </div>
 <script>
-    var course=$('#teacher_grade_select_course');
+    var course_select = $('#course_select');
+    var specialty_select = $('#specialty_select');
+    var table = $('#teacher_grade_table');
+    var table_course_select = $('#table_course_select');
+    var table_specialty_select = $('#table_specialty_select');
+
     //    成绩分配
     function outOfGrade() {
-//        alert(Number($("[name='percent1']").val()));
         var value1 = Number($("[name='percent1']").val());
         var value2 = Number($("[name='percent2']").val());
         var value3 = Number($("[name='percent3']").val());
@@ -141,8 +137,69 @@
         }
     }
 
-    function rowStyle(row, index) {
+    //自定义查询
+    function checkData() {
+        var specialtyId = table_specialty_select.val();
+        var courseId = table_course_select.val();
+        table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/" + specialtyId + "/" + courseId});
+    }
 
+    //全部数据
+    function checkAllData() {
+        table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/list"});
+    }
+
+    //预加载
+    $(function () {
+        course_select.select2();
+        specialty_select.select2();
+        table_specialty_select.select2();
+        table_course_select.select2();
+
+        //课程select查询数据
+        $.ajax({
+            url: '${pageContext.request.contextPath}/course/single',
+            dataType: 'json',
+            success: function (data) {
+                course_select.select2({
+                    data: data
+                });
+                table_course_select.select2({
+                    data: data
+                });
+            }
+        });
+        //联级：选择课程后筛选出修这门课的专业
+        course_select.on("select2:select", function (e) {
+            var courseId = course_select.val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    specialty_select.empty();
+                    specialty_select.select2({
+                        data: data
+                    });
+                }
+            });
+        });
+        table_course_select.on("select2:select", function (e) {
+            var courseId = table_course_select.val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    table_specialty_select.empty();
+                    table_specialty_select.select2({
+                        data: data
+                    });
+                }
+            });
+        })
+    });
+
+    //样式
+    function rowStyle(row, index) {
         var classes = ['active', 'info', 'warning'];
 
         if (index % 2 === 0 && index / 2 < classes.length) {
@@ -155,74 +212,9 @@
                 classes: classes[index / 2 % 3]
             };
         }
+
         return {};
     }
-
-    $(function () {
-        course.select2();
-//        重置
-        $('#teacher_grade_reset_btn').click(function () {
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/list"});
-        });
-//        查询
-        $('#teacher_grade_select_btn').click(function () {
-            var specialtyId = $('#teacher_grade_choose_specialty').val();
-            var courseId = $('#teacher_grade_choose_course').val();
-            $('#teacher_grade_table').bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/" + specialtyId + "/" + courseId});
-        });
-//        预加载数据
-//        专业select添加样式
-        $('#teacher_grade_select_specialty').select2();
-        $('#teacher_grade_choose_specialty').select2();
-
-//        课程select查询数据
-        $.ajax({
-            url: '${pageContext.request.contextPath}/course/single',
-            dataType: 'json',
-            success: function (data) {
-//                上
-                $('#teacher_grade_select_course').select2({
-                    data: data
-                });
-//                下
-                $('#teacher_grade_choose_course').select2({
-                    data: data
-                });
-            }
-        });
-//        联级：选择课程后筛选出修这门课的专业
-        $('#teacher_grade_select_course').on("select2:select", function (e) {
-//            alert($('#teacher_grade_select_course').val());
-            var courseId = $('#teacher_grade_select_course').val();
-            $.ajax({
-                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
-                dataType: 'json',
-                success: function (data) {
-                    var selS = $('#teacher_grade_select_specialty');
-                    selS.empty();
-                    selS.select2({
-                        data: data
-                    });
-                }
-            });
-        });
-        $('#teacher_grade_choose_course').on("select2:select", function (e) {
-//            alert($('#teacher_grade_select_course').val());
-            var courseId = $('#teacher_grade_choose_course').val();
-            $.ajax({
-                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
-                dataType: 'json',
-                success: function (data) {
-                    var choS = $('#teacher_grade_choose_specialty');
-                    choS.empty();
-                    choS.select2({
-                        data: data
-                    });
-                }
-            });
-        })
-
-    });
 </script>
 <style>
     .table th, .table td {
