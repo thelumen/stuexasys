@@ -2,25 +2,30 @@ package yang.service.impl.teacher;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yang.dao.teacher.Student2ExamMapper;
 import yang.domain.teacher.ExamTaken;
-import yang.service.common.CommonService;
 import yang.service.teacher.Student2ExamService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/6/2.
+ * @author yang
+ * @date 2017/6/2
  * At 9:32
  */
 @Service("student2ExamService")
-public class Student2ExamServiceImpl extends CommonService implements Student2ExamService {
+public class Student2ExamServiceImpl implements Student2ExamService {
+
+    @Autowired
+    protected Student2ExamMapper mapper;
 
     @Override
     public boolean insertExamInfo(ExamTaken exam) {
-        return student2ExamMapper.insertExamInfo(exam) > 0;
+        return mapper.insertExamInfo(exam) > 0;
     }
 
     @Override
@@ -28,7 +33,7 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<ExamTaken> examTakens = student2ExamMapper.selectExamTaken(params);
+        List<ExamTaken> examTakens = mapper.selectExamTaken(params);
         if (null != examTakens && examTakens.size() > 0) {
             return examTakens;
         }
@@ -38,13 +43,13 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateExamInfo(ExamTaken examInfo) {
-        return student2ExamMapper.updateExamInfo(examInfo) > 0;
+        return mapper.updateExamInfo(examInfo) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteExamInfo(Map<String, Object> params) {
-        return student2ExamMapper.deleteExamInfo(params) > 0;
+        return mapper.deleteExamInfo(params) > 0;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<ExamTaken> examTakens = student2ExamMapper.selectTableExamInfo(params);
+        List<ExamTaken> examTakens = mapper.selectTableExamInfo(params);
         if (null != examTakens && examTakens.size() > 0) {
             return examTakens;
         }
@@ -62,6 +67,6 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean startOrCloseExam(Map<String, Object> params) {
-        return student2ExamMapper.startOrCloseExam(params) > 0;
+        return mapper.startOrCloseExam(params) > 0;
     }
 }

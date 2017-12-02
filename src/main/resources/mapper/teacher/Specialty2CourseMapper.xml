@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Specialty2CourseMapper">
 
-    <!--新增专业-->
+    <!--新增专业ok-->
     <insert id="insertSpecialty" parameterType="yang.domain.common.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
         VALUES (#{specialtyId},#{name})

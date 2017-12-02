@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Student2ExamMapper">
-    <!--新增考试信息-->
+    <!--新增考试信息ok-->
     <insert id="insertExamInfo" parameterType="yang.domain.teacher.ExamTaken">
         INSERT INTO com_examinfo (teacherId, specialtyId, courseId, test, started)
-        VALUES (#{teacherId,jdbcType=INTEGER}, #{specialtyId,jdbcType=INTEGER},
-                #{courseId,jdbcType=INTEGER}, #{test,jdbcType=INTEGER}, #{started,jdbcType=INTEGER})
+        VALUES (#{teacherId}, #{specialtyId}, #{courseId}, #{test}, #{started})
     </insert>
 
-    <!--查询考试信息-->
+    <!--查询考试信息ok-->
     <select id="selectExamTaken" parameterType="java.util.Map"
             resultType="yang.domain.teacher.ExamTaken">
         SELECT
@@ -35,61 +34,61 @@
         FROM com_examinfo e, com_course c, com_specialty s
         WHERE e.courseId = c.courseId AND e.specialtyId = s.specialtyId
         <if test="teacherId != null">
-            AND e.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND e.teacherId=#{teacherId}
         </if>
         <if test="courseId != null">
-            AND e.courseId=#{courseId,jdbcType=INTEGER}
+            AND e.courseId=#{courseId}
         </if>
         <if test="specialtyId != null">
-            AND e.specialtyId=#{specialtyId,jdbcType=INTEGER}
+            AND e.specialtyId=#{specialtyId}
         </if>
     </select>
 
-    <!--更新考试信息-->
+    <!--更新考试信息ok-->
     <update id="updateExamInfo" parameterType="yang.domain.teacher.ExamTaken">
         UPDATE com_examinfo
         <set>
             <if test="content1 != null">
-                content1 = #{content1,jdbcType=VARCHAR},
+                content1 = #{content1},
             </if>
             <if test="date1 != null">
-                date1 = #{date1,jdbcType=DATE},
+                date1 = #{date1},
             </if>
             <if test="sign1 != null">
-                sign1 = #{sign1,jdbcType=INTEGER},
+                sign1 = #{sign1},
             </if>
             <if test="content2 != null">
-                content2 = #{content2,jdbcType=VARCHAR},
+                content2 = #{content2},
             </if>
             <if test="date2 != null">
-                date2 = #{date2,jdbcType=DATE},
+                date2 = #{date2},
             </if>
             <if test="sign2 != null">
-                sign2 = #{sign2,jdbcType=INTEGER},
+                sign2 = #{sign2},
             </if>
             <if test="content3 != null">
-                content3 = #{content3,jdbcType=VARCHAR},
+                content3 = #{content3},
             </if>
             <if test="date3 != null">
-                date3 = #{date3,jdbcType=DATE},
+                date3 = #{date3},
             </if>
             <if test="sign3 != null">
-                sign3 = #{sign3,jdbcType=INTEGER},
+                sign3 = #{sign3},
             </if>
             <if test="date4 != null">
-                date4 = #{date4,jdbcType=DATE},
+                date4 = #{date4},
             </if>
             <if test="sign4 != null">
-                sign4 = #{sign4,jdbcType=INTEGER},
+                sign4 = #{sign4},
             </if>
             <if test="test != null">
-                test = #{test,jdbcType=INTEGER},
+                test = #{test},
             </if>
             <if test="started != null">
-                started = #{started,jdbcType=INTEGER},
+                started = #{started},
             </if>
         </set>
-        WHERE id = #{id,jdbcType=INTEGER}
+        WHERE id = #{id}
     </update>
 
     <!--删除考试信息ok-->
@@ -108,25 +107,29 @@
         </where>
     </delete>
 
-    <!--获取modal中table的考试信息-->
+    <!--获取modal中table的考试信息ok-->
     <select id="selectTableExamInfo" parameterType="java.util.Map"
             resultType="yang.domain.teacher.ExamTaken">
-        SELECT e.id,c.name AS courseName,s.name AS specialtyName,e.started
+        SELECT
+        e.id,
+        c.name AS courseName,
+        s.name AS specialtyName,
+        e.started
         FROM com_examinfo e,com_course c,com_specialty s
         WHERE e.courseId=c.courseId AND e.specialtyId=s.specialtyId
         <if test="teacherId != null">
-            AND e.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND e.teacherId=#{teacherId}
         </if>
     </select>
 
-    <!--开启/关闭考试-->
+    <!--开启/关闭考试ok-->
     <update id="startOrCloseExam" parameterType="java.util.Map">
         UPDATE com_examinfo
         <set>
             <if test="started != null">
-                started = #{started,jdbcType=INTEGER},
+                started = #{started},
             </if>
         </set>
-        WHERE id=#{id,jdbcType=INTEGER}
+        WHERE id=#{id}
     </update>
 </mapper>
