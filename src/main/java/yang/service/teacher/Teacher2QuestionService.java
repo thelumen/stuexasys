@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/6/5.
+ * @author yang
+ * @date 2017/6/5
  * At 15:24
  */
 public interface Teacher2QuestionService {
@@ -28,7 +29,7 @@ public interface Teacher2QuestionService {
      * @param question
      * @return
      */
-    int insertSingleQuestion(SingleQuestion question);
+    boolean insertSingleQuestion(SingleQuestion question);
 
     /**
      * 新增判断题
@@ -36,7 +37,7 @@ public interface Teacher2QuestionService {
      * @param question
      * @return
      */
-    int insertTfQuestion(TfQuestion question);
+    boolean insertTfQuestion(TfQuestion question);
 
     /**
      * 新增附加题
@@ -44,7 +45,7 @@ public interface Teacher2QuestionService {
      * @param another
      * @return
      */
-    int insertAnother(Another another);
+    boolean insertAnother(Another another);
 
     /**
      * 查询附加题

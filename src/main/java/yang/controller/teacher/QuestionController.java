@@ -3,6 +3,7 @@ package yang.controller.teacher;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import yang.common.base.ResultBean;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.CommonKit;
 import yang.common.kit.StringKit;
@@ -19,7 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/8/24.
+ * @author yang
+ * @date 2017/8/24
  * At 21:41
  */
 @Controller
@@ -35,6 +37,53 @@ public class QuestionController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     public String questionPage() {
         return "/teacher/question/questionProxy";
+    }
+
+    /**
+     * 新增选择题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/single/insert", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object saveSingleQuestion(@RequestBody SingleQuestion question) {
+        String section = question.getSection();
+        if (!StringKit.isContainChinese(section)) {
+            question.setSection(CommonKit.string2Chinese(section));
+        }
+        return new ResultBean<>(teacher2QuestionService.insertSingleQuestion(question));
+    }
+
+    /**
+     * 新增判断题
+     *
+     * @param question
+     * @return
+     */
+    @RequestMapping(value = "/tfQuestion/insert", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object saveTfQuestion(TfQuestion question) {
+        String section = question.getSection();
+        if (!StringKit.isContainChinese(section)) {
+            question.setSection(CommonKit.string2Chinese(section));
+        }
+        return new ResultBean<>(teacher2QuestionService.insertTfQuestion(question));
+    }
+
+    /**
+     * 新增附加题
+     *
+     * @param another
+     * @return
+     */
+    @RequestMapping(value = "/another/insert", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object saveAnother(@RequestBody Another another) {
+        return new ResultBean<>(teacher2QuestionService.insertAnother(another));
     }
 
     /**
@@ -158,52 +207,6 @@ public class QuestionController extends CommonController {
         return null;
     }
 
-    /**
-     * 新增选择题
-     *
-     * @param question
-     * @return
-     */
-    @RequestMapping(value = "/single/insert", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean saveSingleQuestion(@RequestBody SingleQuestion question) {
-        String section = question.getSection();
-        if (!StringKit.isContainChinese(section)) {
-            question.setSection(CommonKit.string2Chinese(section));
-        }
-        return teacher2QuestionService.insertSingleQuestion(question) > 0;
-    }
-
-    /**
-     * 新增判断题
-     *
-     * @param question
-     * @return
-     */
-    @RequestMapping(value = "/tfQuestion/insert", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean saveTfQuestion(TfQuestion question) {
-        String section = question.getSection();
-        if (!StringKit.isContainChinese(section)) {
-            question.setSection(CommonKit.string2Chinese(section));
-        }
-        return teacher2QuestionService.insertTfQuestion(question) > 0;
-    }
-
-    /**
-     * 新增附加题
-     *
-     * @param another
-     * @return
-     */
-    @RequestMapping(value = "/another/insert", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean saveAnother(@RequestBody Another another) {
-        return teacher2QuestionService.insertAnother(another) > 0;
-    }
 
     /**
      * 按条件查询判断题
@@ -247,7 +250,8 @@ public class QuestionController extends CommonController {
             put("courseId", courseId);
             put("section", CommonKit.string2Chinese(section));
         }};
-        List<SingleQuestion> singleQuestionList = teacher2QuestionService.selectSingleInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
+        List<SingleQuestion> singleQuestionList =
+                teacher2QuestionService.selectSingleInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
         return CommonKit.getTakenInfo(singleQuestionList);
     }
 

@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author yang
  * @date 2017/6/5
  * At 15:24
@@ -32,18 +31,18 @@ public class Teacher2QuestionServiceImpl extends CommonService implements Teache
     }
 
     @Override
-    public int insertSingleQuestion(SingleQuestion question) {
-        return teacher2QuestionMapper.insertSingleQuestion(question);
+    public boolean insertSingleQuestion(SingleQuestion question) {
+        return teacher2QuestionMapper.insertSingleQuestion(question) > 0;
     }
 
     @Override
-    public int insertTfQuestion(TfQuestion question) {
-        return teacher2QuestionMapper.insertTfQuestion(question);
+    public boolean insertTfQuestion(TfQuestion question) {
+        return teacher2QuestionMapper.insertTfQuestion(question) > 0;
     }
 
     @Override
-    public int insertAnother(Another another) {
-        return teacher2QuestionMapper.insertAnother(another);
+    public boolean insertAnother(Another another) {
+        return teacher2QuestionMapper.insertAnother(another) > 0;
     }
 
     @Override
