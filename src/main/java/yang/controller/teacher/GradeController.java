@@ -137,13 +137,13 @@ public class GradeController extends CommonController {
      */
     @RequestMapping(value = "/{courseId}/{specialtyId}/another", method = RequestMethod.GET)
     @ResponseBody
-    public List<AnotherTaken> getAnother(@PathVariable("courseId") Integer courseId,
-                                         @PathVariable("specialtyId") Integer specialtyId) {
+    public Object getAnother(@PathVariable("courseId") Integer courseId,
+                             @PathVariable("specialtyId") Integer specialtyId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
-        return teacher2QuestionService.selectAnother(params);
+        return new ResultBean<>(teacher2QuestionService.selectAnother(params));
     }
 
     /**
@@ -154,11 +154,11 @@ public class GradeController extends CommonController {
      */
     @RequestMapping(value = "/another/{content}", method = RequestMethod.POST)
     @ResponseBody
-    public AnotherTaken getStudentResult(@PathVariable("content") String content) {
+    public Object getStudentResult(@PathVariable("content") String content) {
         String[] ele = content.split("&");
         //只有三个值
         if (ele.length != 3) {
-            return null;
+            return new ResultBean<>("接收的数据格式不正确！");
         }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", Long.valueOf(ele[0]));
@@ -181,19 +181,15 @@ public class GradeController extends CommonController {
     @RequestMapping(value = "/{studentId}/{courseId}/{score}", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean recordGrade4(@PathVariable("studentId") Integer studentId,
-                                @PathVariable("courseId") Integer courseId,
-                                @PathVariable("score") int score) {
-        if (null == studentId || null == courseId) {
-            return false;
-        }
-        //前台不做了，后台修改数据
+    public Object recordGrade4(@PathVariable("studentId") Integer studentId,
+                               @PathVariable("courseId") Integer courseId,
+                               @PathVariable("score") int score) {
         if (score < 0) {
             score = 0;
         }
         if (score > 100) {
             score = 100;
         }
-        return student2GradeService.updateAnother(studentId, courseId, score);
+        return new ResultBean<>(student2GradeService.updateAnother(studentId, courseId, score));
     }
 }
