@@ -3,6 +3,7 @@ package yang.controller.teacher;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import yang.common.base.ResultBean;
 import yang.common.kit.CommonKit;
 import yang.common.kit.TeacherKit;
 import yang.controller.common.CommonController;
@@ -42,30 +43,27 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/examInfo/{courseId}/{specialtyId}/insert", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean takeExamInfo(@PathVariable("courseId") Integer courseId,
-                                @PathVariable("specialtyId") Integer specialtyId) {
-        if (null == courseId || null == specialtyId) {
-            return false;
-        }
-
+    public Object takeExamInfo(@PathVariable("courseId") Integer courseId,
+                               @PathVariable("specialtyId") Integer specialtyId) {
+        Integer teacherId = TeacherKit.getCurrentTeacherId();
         Map<String, Object> specouInfo = new HashMap<String, Object>() {{
-            put("teacherId", TeacherKit.getCurrentTeacherId());
+            put("teacherId", teacherId);
             put("courseId", courseId);
             put("specialtyId", specialtyId);
         }};
         List<ExamTaken> examTakens = student2ExamService.selectExamTaken(null, specouInfo);
         if (null != examTakens) {
-            return false;
+            return new ResultBean<>("考试信息已存在！");
         }
 
         ExamTaken exam = new ExamTaken();
-        exam.setTeacherId(TeacherKit.getCurrentTeacherId());
+        exam.setTeacherId(teacherId);
         exam.setCourseId(courseId);
         exam.setSpecialtyId(specialtyId);
         exam.setTest(1);
         exam.setStarted(0);
 
-        return student2ExamService.insertExamInfo(exam) > 0;
+        return new ResultBean<>(student2ExamService.insertExamInfo(exam));
     }
 
     /**
@@ -76,7 +74,7 @@ public class ExamController extends CommonController {
      */
     @RequestMapping(value = "/examInfos", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getExamInfo(@RequestBody Map<String, Object> params) {
+    public Object getExamInfo(@RequestBody Map<String, Object> params) {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
@@ -91,11 +89,11 @@ public class ExamController extends CommonController {
      */
     @RequestMapping(value = "/modal/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getTableExamInfo() {
-        Map<String, Object> params = new HashMap<String, Object>() {{
+    public Object getTableExamInfo(@RequestBody Map<String, Object> params) {
+        Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
-        List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo(params);
+        List<ExamTaken> examTakens = student2ExamService.selectTableExamInfo(CommonKit.getMapInfo2Page(params), teacherInfo);
         return CommonKit.getTakenInfo(examTakens);
     }
 
@@ -108,7 +106,7 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
+    public Object getChapter(@RequestBody ExamTaken examInfo) throws UnsupportedEncodingException {
         //sign信号只有一个为1才能被保存
         int[] signs = {examInfo.getSign1(), examInfo.getSign2(), examInfo.getSign3(), examInfo.getSign4()};
         int i = 0;
@@ -117,7 +115,10 @@ public class ExamController extends CommonController {
                 i++;
             }
         }
-        return i == 1 && student2ExamService.updateExamInfo(examInfo) > 0;
+        if (i == 1 && student2ExamService.updateExamInfo(examInfo)) {
+            return new ResultBean<>(true);
+        }
+        return new ResultBean<>("有且只能开启一场测试！");
     }
 
     /**
@@ -129,10 +130,10 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/examInfo/{info}/delete", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean deleteExamInfo(@PathVariable("info") String info) {
+    public Object deleteExamInfo(@PathVariable("info") String info) {
         String[] strArray = info.split("&");
         if (strArray.length != 3) {
-            return false;
+            return new ResultBean<>(new NullPointerException("接收的数据格式不正确！"));
         }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", strArray[0]);
@@ -140,7 +141,7 @@ public class ExamController extends CommonController {
             put("specialtyId", strArray[2]);
         }};
 
-        return student2ExamService.deleteExamInfo(params);
+        return new ResultBean<>(student2ExamService.deleteExamInfo(params));
     }
 
     /**
@@ -152,12 +153,12 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/{id}/start", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean examStart(@PathVariable("id") Integer id) {
+    public Object examStart(@PathVariable("id") Integer id) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
             put("started", 1);
         }};
-        return student2ExamService.startOrCloseExam(params);
+        return new ResultBean<>(student2ExamService.startOrCloseExam(params));
     }
 
     /**
@@ -169,12 +170,12 @@ public class ExamController extends CommonController {
     @RequestMapping(value = "/{id}/close", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean examClose(@PathVariable("id") Integer id) {
+    public Object examClose(@PathVariable("id") Integer id) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", id);
             put("started", 0);
         }};
-        return student2ExamService.startOrCloseExam(params);
+        return new ResultBean<>(student2ExamService.startOrCloseExam(params));
     }
 
 }

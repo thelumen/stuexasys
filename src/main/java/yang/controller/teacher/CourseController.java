@@ -50,7 +50,7 @@ public class CourseController extends CommonController {
             return new ResultBean<>("课程结束日期不能小于等于课程开始日期！");
         }
         courseTaken.setTeacherId(TeacherKit.getCurrentTeacherId());
-        return new ResultBean<>(Boolean.valueOf(specialty2CourseService.insertCourseTaken(courseTaken)));
+        return new ResultBean<>(specialty2CourseService.insertCourseTaken(courseTaken));
     }
 
     /**
@@ -112,7 +112,7 @@ public class CourseController extends CommonController {
             student2ExamService.deleteExamInfo(params);
         }
 
-        return new ResultBean<>(Boolean.TRUE);
+        return new ResultBean<>(true);
     }
 
     /**

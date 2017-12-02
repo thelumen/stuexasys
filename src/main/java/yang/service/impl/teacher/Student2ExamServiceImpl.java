@@ -19,8 +19,8 @@ import java.util.Map;
 public class Student2ExamServiceImpl extends CommonService implements Student2ExamService {
 
     @Override
-    public int insertExamInfo(ExamTaken exam) {
-        return student2ExamMapper.insertExamInfo(exam);
+    public boolean insertExamInfo(ExamTaken exam) {
+        return student2ExamMapper.insertExamInfo(exam) > 0;
     }
 
     @Override
@@ -36,19 +36,22 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
     }
 
     @Override
-    @Transactional
-    public int updateExamInfo(ExamTaken examInfo) {
-        return student2ExamMapper.updateExamInfo(examInfo);
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateExamInfo(ExamTaken examInfo) {
+        return student2ExamMapper.updateExamInfo(examInfo) > 0;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteExamInfo(Map<String, Object> params) {
         return student2ExamMapper.deleteExamInfo(params) > 0;
     }
 
     @Override
-    public List<ExamTaken> selectTableExamInfo(Map<String, Object> params) {
+    public List<ExamTaken> selectTableExamInfo(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
         List<ExamTaken> examTakens = student2ExamMapper.selectTableExamInfo(params);
         if (null != examTakens && examTakens.size() > 0) {
             return examTakens;
@@ -57,7 +60,7 @@ public class Student2ExamServiceImpl extends CommonService implements Student2Ex
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean startOrCloseExam(Map<String, Object> params) {
         return student2ExamMapper.startOrCloseExam(params) > 0;
     }

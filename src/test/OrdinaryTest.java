@@ -1,9 +1,7 @@
 import org.junit.Test;
+import yang.common.base.ResultBean;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static java.lang.System.out;
 
 /**
  * @author yangxuyue

@@ -22,8 +22,8 @@ public final class ResultBean<T> implements Serializable {
      */
     public ResultBean() {
         super();
-        this.code = NO_PERMISSION;
         this.msg = "您没有权限！";
+        this.code = NO_PERMISSION;
     }
 
     /**
@@ -32,8 +32,20 @@ public final class ResultBean<T> implements Serializable {
      * @param msg
      */
     public ResultBean(String msg) {
-        this.code = FAILED;
         this.msg = msg;
+        this.code = FAILED;
+    }
+
+    /**
+     * 行为正确/错误判断
+     *
+     * @param success
+     */
+    public ResultBean(boolean success) {
+        if (!success) {
+            this.code = FAILED;
+            this.msg = "操作失败！";
+        }
     }
 
     /**

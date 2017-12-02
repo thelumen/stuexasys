@@ -13,18 +13,16 @@
         <li class="active">考试信息</li>
     </ol>
     <div id="teacher_exam_toolbar">
-        <label>添加 <strong style="color: #985f0d">考试课程</strong>：<select
-                name="courseId"
-                id="course_select"
-                style="width: 200px">
-            <option selected></option>
-        </select></label>
-        <label>添加 <strong style="color: #985f0d">测验专业</strong>：<select
-                name="specialtyId"
-                id="specialty_select"
-                style="width: 200px"></select></label>
-        <button id="teacher_exam_add_btn" class="btn btn-primary"
-                type="button">
+        <label>添加 <strong style="color: #985f0d">考试课程</strong>：
+            <select name="courseId" id="course_select" style="width: 200px">
+                <option selected></option>
+            </select>
+        </label>
+        <label>添加 <strong style="color: #985f0d">测验专业</strong>：
+            <select name="specialtyId" id="specialty_select"
+                    style="width: 200px"></select>
+        </label>
+        <button class="btn btn-primary" type="button" onclick="addExamInfo()">
             <i class="glyphicon glyphicon-plus"></i> 添加
         </button>
         <button type="button"
@@ -58,8 +56,10 @@
                        data-height="350"
                        data-method="post"
                        data-show-refresh="true"
+                       data-pagination="true"
                        data-side-pagination="server"
                        data-row-style="modalRowStyle"
+                       data-page-list="[10, 25, 50, 100, ALL]"
                        data-query-params="$.fn.bootstrapTable.queryParams"
                        data-url="${pageContext.request.contextPath}/exam/modal/list">
                     <thead>
@@ -84,35 +84,62 @@
     var modal_table = $('#modal_table');
     var table = $('#exam_table');
 
-    //    开启考试
+    //开启考试
     function examStart(id) {
         $.ajax({
             url: '${pageContext.request.contextPath}/exam/' + id + "/start",
             type: 'post',
             dataType: 'json',
-            success: function (data) {
-                if (data) {
+            success: function (result) {
+                if (result.code == 0) {
                     modal_table.bootstrapTable("refresh");
+                } else {
+                    $.alert(result.msg);
                 }
             },
-            error: function () {
-                swal("Error", "系统错误，请联系管理员！", "error");
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    animation: 'rotateX',
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误!",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
+                        }
+                    }
+                });
             }
         });
     }
-    //    关闭考试
+
+    //关闭考试
     function examClose(id) {
         $.ajax({
             url: '${pageContext.request.contextPath}/exam/' + id + "/close",
             type: 'post',
             dataType: 'json',
-            success: function (data) {
-                if (data) {
+            success: function (result) {
+                if (result.code == 0) {
                     modal_table.bootstrapTable("refresh");
+                } else {
+                    $.alert(result.msg);
                 }
             },
-            error: function () {
-                swal("Error", "系统错误，请联系管理员！", "error");
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    animation: 'rotateX',
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误!",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
+                        }
+                    }
+                });
             }
         });
     }
@@ -126,87 +153,124 @@
             contentType: 'application/json',
             type: 'post',
             dataType: 'json',
-            success: function (data) {
-                if (data) {
-                    swal("year..", "考试信息已更新!", "success");
+            success: function (result) {
+                $.alert(result.msg);
+                if (result.code == 0) {
                     table.bootstrapTable("refresh");
-                } else {
-                    swal("Look", "signX信号有且必有一个开启！请重新设置", "error");
                 }
                 table.bootstrapTable("resetView");
             },
-            error: function () {
-                swal("Error", "系统出现问题，请联系管理员!", "error");
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    animation: 'rotateX',
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误！",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
+                        }
+                    }
+                });
             }
         });
     }
+
     //    删除考试信息
     function deleteExamInfo(info) {
-        swal({
-                title: "Are you sure?",
-                text: "Something will be delete ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes,it will be!",
-                cancelButtonText: "No, cancel!",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            },
-            function () {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
-                    type: 'delete',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            swal("year..", "删除成功!", "success");
-                            table.bootstrapTable("refresh");
-                            modal_table.bootstrapTable("refresh");
+        $.confirm({
+                title: "Warnning!",
+                content: "您确定要删除这条考试信息吗？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
+                                type: 'delete',
+                                dataType: 'json',
+                                success: function (data) {
+                                    $.alert(data.msg);
+                                    if (data.code === 0) {
+                                        table.bootstrapTable("refresh");
+                                        modal_table.bootstrapTable("refresh");
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        theme: 'dark',
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
                     },
-                    error: function () {
-                        swal("Error", "系统出现错误，请联系管理员!", "error");
+                    cancel: function () {
                     }
-                });
+                }
             }
         )
     }
 
-
-    $(function () {
-        //添加考试信息
-        $('#teacher_exam_add_btn').click(function () {
-            var courseId = $('#course_select').val();
-            var specialtyId = specialty_select.val();
-            if (courseId !== '') {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/exam/examInfo/' + courseId + "/" + specialtyId + "/insert",
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            swal("Success", "添加考试信息成功！", "success");
-                            table.bootstrapTable("refresh");
-                            modal_table.bootstrapTable("refresh");
-                        } else {
-                            swal("注意！", "不可添加重复数据！", "error");
+    //添加考试信息
+    function addExamInfo() {
+        var courseId = course_select.val();
+        var specialtyId = specialty_select.val();
+        $.ajax({
+            url: '${pageContext.request.contextPath}/exam/examInfo/' + courseId + "/" + specialtyId + "/insert",
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                if (courseId == '' || specialtyId == '') {
+                    $.alert("请选择课程和专业!");
+                    return false;
+                }
+            },
+            success: function (result) {
+                $.alert(result.msg);
+                if (result.code == 0) {
+                    table.bootstrapTable("refresh");
+                    modal_table.bootstrapTable("refresh");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    theme: 'dark',
+                    animation: 'rotateX',
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误!",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
                         }
-                    },
-                    error: function () {
-                        swal("Error", "出现系统错误，请稍后再试！", "error");
                     }
                 });
-            } else {
-                swal("Look", "请选择测验课程和班级！", "error");
             }
         });
-//        预加载数据
-//        专业select添加样式
+    }
+
+    //预加载
+    $(function () {
         specialty_select.select2();
         course_select.select2();
-
-//        课程select查询数据
+        //课程select查询数据
         $.ajax({
             url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
@@ -216,7 +280,7 @@
                 });
             }
         });
-//        联级：选择课程后筛选出修这门课的专业
+        //联级：选择课程后筛选出修这门课的专业
         course_select.on("select2:select", function (e) {
             var courseId = $('#course_select').val();
             $.ajax({
@@ -520,6 +584,7 @@
         }
         return {};
     }
+
     //    考试信息对学生可见时，行颜色为红色
     function rowStyle(row, index) {
         if (row.test === 1) {

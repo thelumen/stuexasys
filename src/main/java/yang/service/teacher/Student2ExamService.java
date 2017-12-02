@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/6/2.
+ *
+ * @author yang
+ * @date 2017/6/2
  * At 9:22
  */
 public interface Student2ExamService {
@@ -17,7 +19,7 @@ public interface Student2ExamService {
      * @param exam
      * @return
      */
-    int insertExamInfo(ExamTaken exam);
+    boolean insertExamInfo(ExamTaken exam);
 
     /**
      * 获取考试信息
@@ -34,12 +36,12 @@ public interface Student2ExamService {
      * @param examInfo
      * @return
      */
-    int updateExamInfo(ExamTaken examInfo);
+    boolean updateExamInfo(ExamTaken examInfo);
 
     /**
      * 删除考试信息
      *
-     * @param id
+     * @param params
      * @return
      */
     boolean deleteExamInfo(Map<String, Object> params);
@@ -47,10 +49,11 @@ public interface Student2ExamService {
     /**
      * 获取modal中table的考试信息
      *
-     * @return
+     * @param page
      * @param params
+     * @return
      */
-    List<ExamTaken> selectTableExamInfo(Map<String, Object> params);
+    List<ExamTaken> selectTableExamInfo(Page page, Map<String, Object> params);
 
     /**
      * 开启考试

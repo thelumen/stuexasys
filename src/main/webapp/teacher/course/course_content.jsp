@@ -128,7 +128,6 @@
                     }
                 },
                 cancel: function () {
-                    $.alert("Canceled!");
                 }
             }
         });
