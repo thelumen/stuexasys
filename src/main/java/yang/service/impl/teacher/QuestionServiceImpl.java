@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 @Service("questionService")
-public class QuestionServiceImp extends CommonService implements QuestionService{
+public class QuestionServiceImpl extends CommonService implements QuestionService{
 
 
     @Override

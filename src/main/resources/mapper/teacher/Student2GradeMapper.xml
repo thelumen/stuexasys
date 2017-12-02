@@ -2,32 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Student2GradeMapper">
+    <!--ok-->
 
-    <!--更新学生成绩-->
+    <!--更新学生成绩ok-->
     <update id="updateGrade" parameterType="yang.domain.teacher.GradeTaken">
         UPDATE com_grade
         <set>
             <if test="grade1 != null">
-                grade1 = #{grade1,jdbcType=INTEGER},
+                grade1 = #{grade1},
             </if>
             <if test="grade2 != null">
-                grade2 = #{grade2,jdbcType=INTEGER},
+                grade2 = #{grade2},
             </if>
             <if test="grade3 != null">
-                grade3 = #{grade3,jdbcType=INTEGER},
+                grade3 = #{grade3},
             </if>
             <if test="grade4 != null">
-                grade4 = #{grade4,jdbcType=INTEGER},
+                grade4 = #{grade4},
             </if>
             <if test="total != null">
-                total = #{total,jdbcType=INTEGER},
+                total = #{total},
             </if>
         </set>
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId
-        =#{courseId,jdbcType=INTEGER}
+        WHERE studentId = #{studentId} AND courseId =#{courseId}
     </update>
 
-    <!--查询学生成绩-->
+    <!--查询学生成绩ok-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
             resultType="yang.domain.teacher.GradeTaken">
         SELECT
@@ -48,22 +48,21 @@
         p.specialtyId=s.specialtyId AND s.studentId=g.studentId
         AND g.courseId=c.courseId
         <if test="teacherId != null">
-            AND l.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND l.teacherId=#{teacherId}
         </if>
         <if test="specialtyId != null">
-            AND l.specialtyId=#{specialtyId,jdbcType=INTEGER}
+            AND l.specialtyId=#{specialtyId}
         </if>
         <if test="courseId != null">
-            AND l.courseId=#{courseId,jdbcType=INTEGER}
+            AND l.courseId=#{courseId}
         </if>
         ORDER BY l.specialtyId ASC
     </select>
 
-    <!--更新附加题成绩-->
+    <!--更新附加题成绩ok-->
     <update id="updateAnother">
         UPDATE com_grade
-        SET grade4=#{score,jdbcType=INTEGER}
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId =
-        #{courseId,jdbcType=INTEGER}
+        SET grade4=#{score}
+        WHERE studentId = #{studentId} AND courseId = #{courseId}
     </update>
 </mapper>
