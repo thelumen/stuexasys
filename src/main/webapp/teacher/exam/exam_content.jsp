@@ -15,13 +15,13 @@
     <div id="teacher_exam_toolbar">
         <label>添加 <strong style="color: #985f0d">考试课程</strong>：<select
                 name="courseId"
-                id="teacher_exam_choose_course"
+                id="course_select"
                 style="width: 200px">
             <option selected></option>
         </select></label>
         <label>添加 <strong style="color: #985f0d">测验专业</strong>：<select
                 name="specialtyId"
-                id="teacher_exam_choose_specialty"
+                id="specialty_select"
                 style="width: 200px"></select></label>
         <button id="teacher_exam_add_btn" class="btn btn-primary"
                 type="button">
@@ -34,7 +34,7 @@
         </button>
     </div>
     <div class="table-responsive">
-        <table id="teacher_exam_table"></table>
+        <table id="exam_table"></table>
     </div>
 </div>
 <%--modal--%>
@@ -53,9 +53,9 @@
                     <li>开启考试的记录行为<strong style="color: red">红色</strong></li>
                     <li>未开启考试的记录行为<strong>白色</strong></li>
                 </ul>
-                <table id="teacher_exam_modal_table"
+                <table id="modal_table"
                        data-toggle="table"
-                       data-height="299"
+                       data-height="350"
                        data-method="post"
                        data-show-refresh="true"
                        data-side-pagination="server"
@@ -67,7 +67,8 @@
                         <th data-field="id">id</th>
                         <th data-field="courseName">课程名称</th>
                         <th data-field="specialtyName">专业名称</th>
-                        <th data-field="started" data-visible="false">开启/关闭标志</th>
+                        <th data-field="started" data-visible="false">开启/关闭标志
+                        </th>
                         <th data-formatter="operateModalExamInfo">操作
                         </th>
                     </tr>
@@ -77,16 +78,12 @@
         </div>
     </div>
 </div>
-
 <script>
-    //    modal操作
-    function
-    operateModalExamInfo(value, row) {
-        var html = [];
-        html.push('<button class="btn btn-primary" type="button" onclick="examStart(\'{0}\')">开启</button>'.replace('{0}', row.id));
-        html.push('<button class="btn btn-danger" type="button" onclick="examClose(\'{0}\')">关闭</button>'.replace('{0}', row.id));
-        return html.join(' | ');
-    }
+    var course_select = $('#course_select');
+    var specialty_select = $('#specialty_select');
+    var modal_table = $('#modal_table');
+    var table = $('#exam_table');
+
     //    开启考试
     function examStart(id) {
         $.ajax({
@@ -95,7 +92,7 @@
             dataType: 'json',
             success: function (data) {
                 if (data) {
-                    $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                    modal_table.bootstrapTable("refresh");
                 }
             },
             error: function () {
@@ -111,7 +108,7 @@
             dataType: 'json',
             success: function (data) {
                 if (data) {
-                    $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                    modal_table.bootstrapTable("refresh");
                 }
             },
             error: function () {
@@ -119,27 +116,9 @@
             }
         });
     }
-    //    modalTable中，考试开启row为红色
-    function modalRowStyle(row, index) {
-        if (row.started === 1) {
-            return {
-                classes: 'danger'
-            };
-        }
-        return {};
-    }
-    //    考试信息对学生可见时，行颜色为红色
-    function rowStyle(row, index) {
-        if (row.test === 1) {
-            return {
-                classes: 'danger'
-            };
-        }
-        return {};
-    }
+
     //    更新考试信息
     function updateExamInfo(id) {
-        var table = $('#teacher_exam_table');
         var data = JSON.stringify(table.bootstrapTable("getRowByUniqueId", id));
         $.ajax({
             url: '${pageContext.request.contextPath}/exam/update',
@@ -182,8 +161,8 @@
                     success: function (data) {
                         if (data) {
                             swal("year..", "删除成功!", "success");
-                            $('#teacher_exam_table').bootstrapTable("refresh");
-                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
+                            table.bootstrapTable("refresh");
+                            modal_table.bootstrapTable("refresh");
                         }
                     },
                     error: function () {
@@ -193,15 +172,70 @@
             }
         )
     }
-    //    操作
-    function operateExamTaken(value, row) {
-        var html = [];
-        html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
-        html.push('<button class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}', row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
-        return html.join('');
-    }
+
+
     $(function () {
-        $('#teacher_exam_table').bootstrapTable({
+        //添加考试信息
+        $('#teacher_exam_add_btn').click(function () {
+            var courseId = $('#course_select').val();
+            var specialtyId = specialty_select.val();
+            if (courseId !== '') {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/exam/examInfo/' + courseId + "/" + specialtyId + "/insert",
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            swal("Success", "添加考试信息成功！", "success");
+                            table.bootstrapTable("refresh");
+                            modal_table.bootstrapTable("refresh");
+                        } else {
+                            swal("注意！", "不可添加重复数据！", "error");
+                        }
+                    },
+                    error: function () {
+                        swal("Error", "出现系统错误，请稍后再试！", "error");
+                    }
+                });
+            } else {
+                swal("Look", "请选择测验课程和班级！", "error");
+            }
+        });
+//        预加载数据
+//        专业select添加样式
+        specialty_select.select2();
+        course_select.select2();
+
+//        课程select查询数据
+        $.ajax({
+            url: '${pageContext.request.contextPath}/course/single',
+            dataType: 'json',
+            success: function (data) {
+                $('#course_select').select2({
+                    data: data
+                });
+            }
+        });
+//        联级：选择课程后筛选出修这门课的专业
+        course_select.on("select2:select", function (e) {
+            var courseId = $('#course_select').val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
+                dataType: 'json',
+                success: function (data) {
+                    specialty_select.empty();
+                    specialty_select.select2({
+                        data: data
+                    });
+                }
+            });
+        });
+
+        $('#teacher_exam_modal').on('shown.bs.modal', function () {
+            modal_table.bootstrapTable('resetView');
+        });
+
+        $('#exam_table').bootstrapTable({
             url: '${pageContext.request.contextPath}/exam/examInfos',
             method: 'post',
             sidePagination: 'server',
@@ -474,67 +508,44 @@
                 }]
             ]
         });
-//        添加考试信息
-        $('#teacher_exam_add_btn').click(function () {
-            var courseId = $('#teacher_exam_choose_course').val();
-            var specialtyId = $('#teacher_exam_choose_specialty').val();
-            if (courseId !== '') {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/exam/examInfo/' + courseId + "/" + specialtyId + "/insert",
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            swal("Success", "添加考试信息成功！", "success");
-                            $('#teacher_exam_table').bootstrapTable("refresh");
-                            $('#teacher_exam_modal_table').bootstrapTable("refresh");
-                        } else {
-                            swal("注意！", "不可添加重复数据！", "error");
-                        }
-                    },
-                    error: function () {
-                        swal("Error", "出现系统错误，请稍后再试！", "error");
-                    }
-                });
-            } else {
-                swal("Look", "请选择测验课程和班级！", "error");
-            }
-        });
-//        预加载数据
-//        专业select添加样式
-        $('#teacher_exam_choose_specialty').select2();
-        $('#teacher_exam_choose_course').select2();
 
-//        课程select查询数据
-        $.ajax({
-            url: '${pageContext.request.contextPath}/course/single',
-            dataType: 'json',
-            success: function (data) {
-                $('#teacher_exam_choose_course').select2({
-                    data: data
-                });
-            }
-        });
-//        联级：选择课程后筛选出修这门课的专业
-        $('#teacher_exam_choose_course').on("select2:select", function (e) {
-            var courseId = $('#teacher_exam_choose_course').val();
-            $.ajax({
-                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
-                dataType: 'json',
-                success: function (data) {
-                    var choS = $('#teacher_exam_choose_specialty');
-                    choS.empty();
-                    choS.select2({
-                        data: data
-                    });
-                }
-            });
-        });
-
-        $('#teacher_exam_modal').on('shown.bs.modal', function () {
-            $('#teacher_exam_modal_table').bootstrapTable('resetView');
-        });
     });
+
+    //    modalTable中，考试开启row为红色
+    function modalRowStyle(row, index) {
+        if (row.started === 1) {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
+    //    考试信息对学生可见时，行颜色为红色
+    function rowStyle(row, index) {
+        if (row.test === 1) {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
+
+    //    modal操作
+    function operateModalExamInfo(value, row) {
+        var html = [];
+        html.push('<button class="btn btn-primary" type="button" onclick="examStart(\'{0}\')">开启</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-danger" type="button" onclick="examClose(\'{0}\')">关闭</button>'.replace('{0}', row.id));
+        return html.join('');
+    }
+
+    //    操作
+    function operateExamTaken(value, row) {
+        var html = [];
+        html.push('<button class="btn btn-primary" type="button" onclick="updateExamInfo(\'{0}\')">保存</button>'.replace('{0}', row.id));
+        html.push('<button class="btn btn-danger" type="button" onclick="deleteExamInfo(\'{0}\')">删除</button>'.replace('{0}',
+            row.teacherId + "&" + row.courseId + "&" + row.specialtyId));
+        return html.join('');
+    }
 </script>
 <style>
     .table th, .table td {
