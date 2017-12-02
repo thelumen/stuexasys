@@ -57,8 +57,7 @@
     <insert id="insertCourseTaken"
             parameterType="yang.domain.teacher.CourseTaken">
         INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},
-        #{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
+        VALUES (#{teacherId},#{courseId},#{specialtyId},#{starttime},#{endtime})
     </insert>
 
     <!--查询选课信息-->

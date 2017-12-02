@@ -77,3 +77,8 @@
 <script src="${pageContext.request.contextPath}/common/jslib/combodate/moment.min.js" charset="utf-8"></script>
 <link href="${pageContext.request.contextPath}/common/jslib/select2/select2-bootstrap.css" rel="stylesheet"
       charset="utf-8">
+<%--jquery-confirm--%>
+<script src="${pageContext.request.contextPath}/common/jslib/jquery-confirm/jquery-confirm.min.js"
+        charset="utf-8"></script>
+<link href="${pageContext.request.contextPath}/common/jslib/jquery-confirm/jquery-confirm.min.css"
+      rel="stylesheet" charset="utf-8">

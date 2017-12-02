@@ -58,8 +58,8 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
     }
 
     @Override
-    public int insertCourseTaken(CourseTaken courseTaken) {
-        return specialty2CourseMapper.insertCourseTaken(courseTaken);
+    public boolean insertCourseTaken(CourseTaken courseTaken) {
+        return specialty2CourseMapper.insertCourseTaken(courseTaken) > 0;
     }
 
     @Override

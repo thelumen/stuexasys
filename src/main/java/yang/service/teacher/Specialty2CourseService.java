@@ -66,7 +66,7 @@ public interface Specialty2CourseService {
      * @param courseTaken
      * @return
      */
-    int insertCourseTaken(CourseTaken courseTaken);
+    boolean insertCourseTaken(CourseTaken courseTaken);
 
     /**
      * 删除选课信息

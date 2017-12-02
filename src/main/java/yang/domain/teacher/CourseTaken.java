@@ -6,17 +6,19 @@ import java.util.Date;
 
 /**
  * 选课类
- * Created by yang on 2017/5/25.
+ *
+ * @author yang
+ * @date 2017/5/25
  * At 14:53
  */
-public final class CourseTaken {
-    private Integer teacherId;
+public class CourseTaken {
+    private int teacherId;
     private String teacherName;
 
-    private Integer courseId;
+    private int courseId;
     private String courseName;
 
-    private Integer specialtyId;
+    private int specialtyId;
     private String specialtyName;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -24,7 +26,9 @@ public final class CourseTaken {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endtime;
 
-    //课程结束与否，false：结束了，true：没有
+    /**
+     * 课程结束与否，false：结束了，true：没有
+     */
     private String on;
 
     @Override
@@ -42,11 +46,11 @@ public final class CourseTaken {
                 '}';
     }
 
-    public Integer getTeacherId() {
+    public int getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(Integer teacherId) {
+    public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
     }
 
@@ -58,11 +62,11 @@ public final class CourseTaken {
         this.teacherName = teacherName;
     }
 
-    public Integer getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Integer courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
@@ -74,11 +78,11 @@ public final class CourseTaken {
         this.courseName = courseName;
     }
 
-    public Integer getSpecialtyId() {
+    public int getSpecialtyId() {
         return specialtyId;
     }
 
-    public void setSpecialtyId(Integer specialtyId) {
+    public void setSpecialtyId(int specialtyId) {
         this.specialtyId = specialtyId;
     }
 

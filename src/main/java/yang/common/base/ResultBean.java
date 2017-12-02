@@ -27,6 +27,16 @@ public final class ResultBean<T> implements Serializable {
     }
 
     /**
+     * 错误提示
+     *
+     * @param msg
+     */
+    public ResultBean(String msg) {
+        this.code = FAILED;
+        this.msg = msg;
+    }
+
+    /**
      * 成功返回
      *
      * @param data
