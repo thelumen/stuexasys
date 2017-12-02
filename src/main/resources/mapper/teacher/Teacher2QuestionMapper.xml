@@ -2,113 +2,136 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Teacher2QuestionMapper">
+    <!--ok-->
 
-    <!--查询选择题-->
+    <!--查询选择题ok-->
     <select id="selectSingleQuestion" parameterType="java.util.Map"
             resultType="yang.domain.common.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
             <if test="courseId != null">
-                courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId}
             </if>
         </where>
     </select>
 
-    <!--按照课程和章节查询选择题-->
+    <!--按照课程和章节查询选择题ok -->
     <select id="selectSingleInfo" parameterType="java.util.Map"
             resultType="yang.domain.common.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
             <if test="courseId != null">
-                courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId}
             </if>
             <if test="section != null">
-                AND section=#{section,jdbcType=VARCHAR}
+                AND section=#{section}
             </if>
         </where>
     </select>
 
-    <!--查询判断题-->
+    <!--查询判断题ok -->
     <select id="selectTfInfo" parameterType="java.util.Map"
             resultType="yang.domain.common.TfQuestion">
         SELECT *
         FROM com_tf_question
         <where>
             <if test="courseId != null">
-                courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId}
             </if>
             <if test="section != null">
-                AND section=#{section,jdbcType=VARCHAR}
+                AND section=#{section}
             </if>
         </where>
     </select>
 
-    <!--更新判断题-->
+    <!--更新判断题ok-->
     <update id="updateTfInfo" parameterType="yang.domain.common.TfQuestion">
         UPDATE com_tf_question
         <set>
-            section=#{section,jdbcType=VARCHAR},
-            levels=#{levels,jdbcType=INTEGER},
-            content=#{content,jdbcType=VARCHAR},
-            result=#{result,jdbcType=INTEGER},
+            <if test="section != null">
+                section=#{section},
+            </if>
+            <if test="levels != null">
+                levels=#{levels},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="result != null">
+                result=#{result},
+            </if>
         </set>
-        where id=#{id,jdbcType=INTEGER}
+        where id=#{id}
     </update>
 
-
-    <!--更新选择题-->
+    <!--更新选择题ok -->
     <update id="updateSingleInfo"
             parameterType="yang.domain.common.SingleQuestion">
         UPDATE com_single_question
         <set>
-            section=#{section,jdbcType=VARCHAR},
-            levels=#{levels,jdbcType=INTEGER},
-            content=#{content,jdbcType=VARCHAR},
-            que1=#{que1,jdbcType=VARCHAR},
-            que2=#{que2,jdbcType=VARCHAR},
-            que3=#{que3,jdbcType=VARCHAR},
-            que4=#{que4,jdbcType=VARCHAR},
-            result=#{result,jdbcType=CHAR}
+            <if test="section != null">
+                section=#{section},
+            </if>
+            <if test="levels != null">
+                levels=#{levels},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="que1 != null">
+                que1=#{que1},
+            </if>
+            <if test="que2 != null">
+                que2=#{que2},
+            </if>
+            <if test="que3 != null">
+                que3=#{que3},
+            </if>
+            <if test="que4 != null">
+                que4=#{que4},
+            </if>
+            <if test="result != null">
+                result=#{result}
+            </if>
         </set>
-        where id=#{id,jdbcType=INTEGER}
+        where id=#{id}
     </update>
 
-    <!--删除判断题信息-->
+    <!--删除判断题信息ok-->
     <delete id="deleteTfInfo" parameterType="yang.domain.common.TfQuestion">
         DELETE FROM com_tf_question
-        where id=#{id,jdbcType=INTEGER}
+        where id=#{id}
     </delete>
 
-    <!--删除选择题信息-->
+    <!--删除选择题信息ok-->
     <delete id="deleteSingleInfo"
             parameterType="yang.domain.common.SingleQuestion">
         DELETE FROM com_single_question
-        where id=#{id,jdbcType=INTEGER}
+        where id=#{id}
     </delete>
 
-    <!--新增选择题-->
+    <!--新增选择题ok-->
     <insert id="insertSingleQuestion"
             parameterType="yang.domain.common.SingleQuestion">
         INSERT INTO com_single_question(courseId, section, levels, que1, que2, que3, que4, result, content)
-        VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{que1,jdbcType=VARCHAR},
-        #{que2,jdbcType=VARCHAR},#{que3,jdbcType=VARCHAR},#{que4,jdbcType=VARCHAR},#{result,jdbcType=CHAR},#{content,jdbcType=VARCHAR})
+        VALUES (#{courseId},#{section},#{levels},#{que1},#{que2},#{que3},#{que4},#{result},#{content})
     </insert>
 
-    <!--新增判断题-->
+    <!--新增判断题ok-->
     <insert id="insertTfQuestion" parameterType="yang.domain.common.TfQuestion">
          INSERT INTO com_tf_question(courseId, section, levels, content, result)
-        VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=INTEGER})
+           VALUES (#{courseId},#{section},#{levels},#{content},#{result})
     </insert>
 
-    <!--新增附加题-->
+    <!--新增附加题ok-->
     <insert id="insertAnother" parameterType="yang.domain.common.Another">
         INSERT INTO com_another_question(courseId, content, result)
-          VALUES (#{courseId,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR})
+          VALUES (#{courseId},#{content},#{result})
     </insert>
 
-    <!--查询附加题-->
+    <!--查询附加题ok-->
     <select id="selectAnother" parameterType="java.util.Map"
             resultType="yang.domain.teacher.AnotherTaken">
         SELECT
@@ -131,16 +154,16 @@
         c.courseId=g.courseId AND l.courseId=c.courseId AND
         l.studentId=s.studentId AND l.id=a.id
         <if test="id != null">
-            AND l.id=#{id,jdbcType=BIGINT}
+            AND l.id=#{id}
         </if>
         <if test="courseId != null">
-            AND l.courseId=#{courseId,jdbcType=INTEGER}
+            AND l.courseId=#{courseId}
         </if>
         <if test="specialtyId != null">
-            AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
+            AND s.specialtyId=#{specialtyId}
         </if>
         <if test="studentId != null">
-            AND s.studentId=#{studentId,jdbcType=INTEGER}
+            AND s.studentId=#{studentId}
         </if>
     </select>
 </mapper>
