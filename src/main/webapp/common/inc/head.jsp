@@ -22,18 +22,25 @@
       charset="utf-8">
 <script src="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/fileinput.min.js"
         charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/zh.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/bootstrap-fileupload/zh.js"
+        charset="utf-8"></script>
 <%--jquery-form--%>
-<script src="${pageContext.request.contextPath}/common/jslib/jquery-form/jquery.form.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/jquery-form/jquery.form.js"
+        charset="utf-8"></script>
 <!-- toastr插件 -->
-<link href="${pageContext.request.contextPath}/common/jslib/toastr/toastr.css" rel="stylesheet" charset="utf-8">
-<script src="${pageContext.request.contextPath}/common/jslib/toastr/toastr.js" charset="utf-8"></script>
+<link href="${pageContext.request.contextPath}/common/jslib/toastr/toastr.css"
+      rel="stylesheet" charset="utf-8">
+<script src="${pageContext.request.contextPath}/common/jslib/toastr/toastr.js"
+        charset="utf-8"></script>
 <%--表单序列化--%>
-<script src="${pageContext.request.contextPath}/common/jslib/kit/form2Json.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/kit/form2Json.js"
+        charset="utf-8"></script>
 <%--样式--%>
-<link href="${pageContext.request.contextPath}/common/jslib/kit/myStyle.css" rel="stylesheet" charset="utf-8">
+<link href="${pageContext.request.contextPath}/common/jslib/kit/myStyle.css"
+      rel="stylesheet" charset="utf-8">
 <!-- sweetalert插件 -->
-<link href="${pageContext.request.contextPath}/common/jslib/sweetAlert/sweetalert.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/common/jslib/sweetAlert/sweetalert.css"
+      rel="stylesheet"
       charset="utf-8">
 <script src="${pageContext.request.contextPath}/common/jslib/sweetAlert/sweetalert.min.js"
         charset="utf-8"></script>
@@ -53,10 +60,13 @@
     }
 </script>
 <%--select2--%>
-<script src="${pageContext.request.contextPath}/common/jslib/select2/select2.min.js" charset="utf-8"></script>
-<link href="${pageContext.request.contextPath}/common/jslib/select2/select2.min.css" rel="stylesheet"
+<script src="${pageContext.request.contextPath}/common/jslib/select2/select2.min.js"
+        charset="utf-8"></script>
+<link href="${pageContext.request.contextPath}/common/jslib/select2/select2.min.css"
+      rel="stylesheet"
       charset="utf-8">
-<script src="${pageContext.request.contextPath}/common/jslib/select2/zh-CN.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/select2/zh-CN.js"
+        charset="utf-8"></script>
 <%--bootstrap-data-export--%>
 <script src="${pageContext.request.contextPath}/common/jslib/table-export/bootstrap-table-export.js"
         charset="utf-8"></script>
@@ -73,9 +83,12 @@
 <script src="${pageContext.request.contextPath}/common/jslib/editable/bootstrap-editable.min.js"
         charset="utf-8"></script>
 <%--combodate--%>
-<script src="${pageContext.request.contextPath}/common/jslib/combodate/combodate.js" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/common/jslib/combodate/moment.min.js" charset="utf-8"></script>
-<link href="${pageContext.request.contextPath}/common/jslib/select2/select2-bootstrap.css" rel="stylesheet"
+<script src="${pageContext.request.contextPath}/common/jslib/combodate/combodate.js"
+        charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/common/jslib/combodate/moment.min.js"
+        charset="utf-8"></script>
+<link href="${pageContext.request.contextPath}/common/jslib/select2/select2-bootstrap.css"
+      rel="stylesheet"
       charset="utf-8">
 <%--jquery-confirm--%>
 <script src="${pageContext.request.contextPath}/common/jslib/jquery-confirm/jquery-confirm.min.js"

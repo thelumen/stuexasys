@@ -2,32 +2,37 @@ package yang.service.impl.teacher;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yang.dao.teacher.Specialty2CourseMapper;
 import yang.domain.common.Course;
 import yang.domain.common.Specialty;
 import yang.domain.teacher.CourseTaken;
-import yang.service.common.CommonService;
 import yang.service.teacher.Specialty2CourseService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/5/25.
+ * @author yang
+ * @date 2017/5/25
  * At 12:11
  */
 @Service("specialty2CourseService")
-public class Specialty2CourseServiceImp extends CommonService implements Specialty2CourseService {
+public class Specialty2CourseServiceImpl implements Specialty2CourseService {
+
+    @Autowired
+    protected Specialty2CourseMapper mapper;
 
     @Override
     public int insertSpecialty(Specialty specialty) {
-        return specialty2CourseMapper.insertSpecialty(specialty);
+        return mapper.insertSpecialty(specialty);
     }
 
     @Override
     public List<Specialty> selectSpecialty(Map<String, Object> params) {
-        List<Specialty> specialties = specialty2CourseMapper.selectSpecialty(params);
+        List<Specialty> specialties = mapper.selectSpecialty(params);
         if (null != specialties && specialties.size() > 0) {
             return specialties;
         }
@@ -36,12 +41,12 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
 
     @Override
     public int insertCourse(Course course) {
-        return specialty2CourseMapper.insertCourse(course);
+        return mapper.insertCourse(course);
     }
 
     @Override
     public List<Course> selectCourse(Map<String, Object> params) {
-        List<Course> courses = specialty2CourseMapper.selectCourse(params);
+        List<Course> courses = mapper.selectCourse(params);
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -50,7 +55,7 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
 
     @Override
     public List<Course> selectAllCourses() {
-        List<Course> courses = specialty2CourseMapper.selectAllCourses();
+        List<Course> courses = mapper.selectAllCourses();
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -59,17 +64,13 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
 
     @Override
     public boolean insertCourseTaken(CourseTaken courseTaken) {
-        return specialty2CourseMapper.insertCourseTaken(courseTaken) > 0;
+        return mapper.insertCourseTaken(courseTaken) > 0;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteTakenInfo(Map<String, Object> params) {
-        boolean result = false;
-        if (specialty2CourseMapper.deleteTakenInfo(params) > 0) {
-            result = true;
-        }
-        return result;
+        return mapper.deleteTakenInfo(params) > 0;
     }
 
     @Override
@@ -77,7 +78,7 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<CourseTaken> courses = specialty2CourseMapper.selectCourseTaken(params);
+        List<CourseTaken> courses = mapper.selectCourseTaken(params);
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -86,7 +87,7 @@ public class Specialty2CourseServiceImp extends CommonService implements Special
 
     @Override
     public List<Specialty> selectAllSpecialties() {
-        List<Specialty> specialties = specialty2CourseMapper.selectAllSpecialties();
+        List<Specialty> specialties = mapper.selectAllSpecialties();
         if (null != specialties && specialties.size() > 0) {
             return specialties;
         }
