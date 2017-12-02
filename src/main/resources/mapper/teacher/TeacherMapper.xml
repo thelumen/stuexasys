@@ -2,72 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.TeacherMapper">
+    <!--ok-->
 
-    <!--删除教师-->
+    <!--删除教师ok-->
     <delete id="delete" parameterType="java.lang.Integer">
-        DELETE FROM com_teacher WHERE teacherId=#{teacherId,jdbcType=INTEGER}
+        DELETE FROM com_teacher WHERE teacherId=#{teacherId}
     </delete>
 
-    <!--新增教师-->
+    <!--新增教师ok-->
     <insert id="insert" parameterType="yang.domain.teacher.Teacher">
         INSERT INTO com_teacher(teacherId, name,password, gender, position, office)
-        VALUES (#{teacherId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{gender,jdbcType=CHAR},
-        #{position,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR})
+        VALUES (#{teacherId},#{name},#{password},#{gender}, #{position},#{office})
     </insert>
 
-    <!--查询教师-->
+    <!--查询教师ok-->
     <select id="select" parameterType="java.util.Map"
             resultType="yang.domain.teacher.Teacher">
         SELECT *
         FROM com_teacher
         <where>
             <if test="id != null">
-                id=#{id,jdbcType=INTEGER}
+                id=#{id}
             </if>
             <if test="teacherId != null">
-                AND teacherId=#{teacherId,jdbcType=INTEGER}
+                AND teacherId=#{teacherId}
             </if>
             <if test="name != null">
-                AND name = #{name,jdbcType=VARCHAR}
+                AND name = #{name}
             </if>
             <if test="gender != null">
-                AND gender = #{gender,jdbcType=CHAR}
+                AND gender = #{gender}
             </if>
             <if test="position != null">
-                AND position = #{position,jdbcType=VARCHAR}
+                AND position = #{position}
             </if>
             <if test="office != null">
-                AND office = #{office,jdbcType=VARCHAR}
+                AND office = #{office}
             </if>
         </where>
     </select>
 
-    <!--修改教师信息-->
+    <!--修改教师信息ok-->
     <update id="update" parameterType="yang.domain.teacher.Teacher">
         UPDATE com_teacher
         <set>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                name = #{name},
             </if>
             <if test="gender != null">
-                gender = #{gender,jdbcType=CHAR},
+                gender = #{gender},
             </if>
             <if test="position != null">
-                position = #{position,jdbcType=VARCHAR},
+                position = #{position},
             </if>
             <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
+                password = #{password},
             </if>
             <if test="office != null">
-                office = #{office,jdbcType=VARCHAR},
+                office = #{office},
             </if>
             <if test="logintime != null">
-                logintime = #{logintime,jdbcType=TIMESTAMP},
+                logintime = #{logintime},
             </if>
             <if test="ip != null">
-                ip = #{ip,jdbcType=CHAR},
+                ip = #{ip},
             </if>
         </set>
-        WHERE teacherId=#{teacherId,jdbcType=INTEGER}
+        WHERE teacherId=#{teacherId}
     </update>
 </mapper>
