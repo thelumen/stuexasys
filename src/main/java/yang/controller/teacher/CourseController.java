@@ -146,7 +146,7 @@ public class CourseController extends CommonController {
      * @param params
      * @return
      */
-    private Object getCourses(Map<String, Object> params) {
+    private List<Map<String, Object>> getCourses(Map<String, Object> params) {
         List<Course> courses = params != null ?
                 specialty2CourseService.selectCourse(params) :
                 specialty2CourseService.selectAllCourses();
