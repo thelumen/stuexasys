@@ -171,7 +171,7 @@ public class CourseController extends CommonController {
      * @param courseId
      * @return
      */
-    @RequestMapping(value = "/course/specialties/{courseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/specialty/{courseId}", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
