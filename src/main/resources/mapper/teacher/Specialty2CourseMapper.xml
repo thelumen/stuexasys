@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.teacher.Specialty2CourseMapper">
+<mapper namespace="yang.dao.teacher.Specialty2CourseMapper">
 
     <!--新增专业-->
-    <insert id="insertSpecialty" parameterType="sunday.pojo.school.Specialty">
+    <insert id="insertSpecialty" parameterType="yang.domain.school.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
         VALUES (#{specialtyId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR})
     </insert>
 
     <!--查询专业-->
     <select id="selectSpecialty" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.Specialty">
+            resultType="yang.domain.school.Specialty">
         SELECT DISTINCT s.*
         FROM com_teacher_l_course l,com_teacher t,com_specialty s,com_course c
         WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId AND
@@ -25,20 +25,20 @@
     </select>
 
     <!--查询全部专业-->
-    <select id="selectAllSpecialties" resultType="sunday.pojo.school.Specialty">
+    <select id="selectAllSpecialties" resultType="yang.domain.school.Specialty">
         SELECT *
         FROM com_specialty
     </select>
 
     <!--新增课程-->
-    <insert id="insertCourse" parameterType="sunday.pojo.school.Course">
+    <insert id="insertCourse" parameterType="yang.domain.school.Course">
         INSERT INTO com_course(courseId,name,period,credit)
         VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER})
     </insert>
 
     <!--查询课程-->
     <select id="selectCourse" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.Course">
+            resultType="yang.domain.school.Course">
         SELECT DISTINCT c.*
         FROM com_teacher_l_course l,com_course c,com_teacher t
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId
@@ -48,14 +48,14 @@
     </select>
 
     <!--查询全部课程-->
-    <select id="selectAllCourses" resultType="sunday.pojo.school.Course">
+    <select id="selectAllCourses" resultType="yang.domain.school.Course">
         SELECT *
         FROM com_course
     </select>
 
     <!--新增选课信息-->
     <insert id="insertCourseTaken"
-            parameterType="sunday.pojo.teacher.CourseTaken">
+            parameterType="yang.domain.teacher.CourseTaken">
         INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
         VALUES (#{teacherId,jdbcType=INTEGER},#{courseId,jdbcType=INTEGER},#{specialtyId,jdbcType=INTEGER},
         #{starttime,jdbcType=DATE},#{endtime,jdbcType=DATE})
@@ -63,7 +63,7 @@
 
     <!--查询选课信息-->
     <select id="selectCourseTaken" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.CourseTaken">
+            resultType="yang.domain.teacher.CourseTaken">
         SELECT DISTINCT t.teacherId AS teacherId ,t.name AS teacherName
         ,c.courseId AS courseId,
         c.name AS courseName,s.specialtyId AS specialtyId,s.name AS

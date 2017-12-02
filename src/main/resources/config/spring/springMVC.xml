@@ -9,7 +9,7 @@
            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
     <!--注解 -->
-    <context:component-scan base-package="sunday.controller"/>
+    <context:component-scan base-package="yang.controller"/>
 
     <!-- 激活基于注解的配置 -->
     <mvc:annotation-driven/>

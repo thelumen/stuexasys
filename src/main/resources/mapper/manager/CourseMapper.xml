@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.manager.CourseMapper">
+<mapper namespace="yang.dao.manager.CourseMapper">
 
     <!--查询课程-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.Course">
+            resultType="yang.domain.school.Course">
         SELECT *
         FROM com_course
         <where>
@@ -17,7 +17,7 @@
     </select>
 
     <!--新增课程-->
-    <insert id="insert" parameterType="sunday.pojo.school.Course">
+    <insert id="insert" parameterType="yang.domain.school.Course">
         INSERT INTO com_course (courseId, name, period, credit, chapterNum)
         VALUES (#{courseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
                 #{period,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, #{chapterNum,jdbcType=INTEGER})
@@ -36,7 +36,7 @@
     </delete>
 
     <!--更新课程-->
-    <update id="update" parameterType="sunday.pojo.school.Course">
+    <update id="update" parameterType="yang.domain.school.Course">
         UPDATE com_course
         <set>
             <if test="courseId != null">

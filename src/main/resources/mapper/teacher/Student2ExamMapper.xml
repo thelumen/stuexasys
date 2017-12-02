@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.teacher.Student2ExamMapper">
+<mapper namespace="yang.dao.teacher.Student2ExamMapper">
     <!--新增考试信息-->
-    <insert id="insertExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
+    <insert id="insertExamInfo" parameterType="yang.domain.teacher.ExamTaken">
         INSERT INTO com_examinfo (teacherId, specialtyId, courseId, test, started)
         VALUES (#{teacherId,jdbcType=INTEGER}, #{specialtyId,jdbcType=INTEGER},
                 #{courseId,jdbcType=INTEGER}, #{test,jdbcType=INTEGER}, #{started,jdbcType=INTEGER})
@@ -11,7 +11,7 @@
 
     <!--查询考试信息-->
     <select id="selectExamTaken" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.ExamTaken">
+            resultType="yang.domain.teacher.ExamTaken">
         SELECT
         e.id,
         e.teacherId,
@@ -46,7 +46,7 @@
     </select>
 
     <!--更新考试信息-->
-    <update id="updateExamInfo" parameterType="sunday.pojo.teacher.ExamTaken">
+    <update id="updateExamInfo" parameterType="yang.domain.teacher.ExamTaken">
         UPDATE com_examinfo
         <set>
             <if test="content1 != null">
@@ -110,7 +110,7 @@
 
     <!--获取modal中table的考试信息-->
     <select id="selectTableExamInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.ExamTaken">
+            resultType="yang.domain.teacher.ExamTaken">
         SELECT e.id,c.name AS courseName,s.name AS specialtyName,e.started
         FROM com_examinfo e,com_course c,com_specialty s
         WHERE e.courseId=c.courseId AND e.specialtyId=s.specialtyId

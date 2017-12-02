@@ -57,7 +57,7 @@
 
     <!--自动扫描mapper接口，并注入sqlsession-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="sunday.mapper"/>
+        <property name="basePackage" value="yang.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

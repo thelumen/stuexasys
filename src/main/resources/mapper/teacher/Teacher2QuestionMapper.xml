@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.teacher.Teacher2QuestionMapper">
+<mapper namespace="yang.dao.teacher.Teacher2QuestionMapper">
 
     <!--查询选择题-->
     <select id="selectSingleQuestion" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.SingleQuestion">
+            resultType="yang.domain.school.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
@@ -17,7 +17,7 @@
 
     <!--按照课程和章节查询选择题-->
     <select id="selectSingleInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.SingleQuestion">
+            resultType="yang.domain.school.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
@@ -32,7 +32,7 @@
 
     <!--查询判断题-->
     <select id="selectTfInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.TfQuestion">
+            resultType="yang.domain.school.TfQuestion">
         SELECT *
         FROM com_tf_question
         <where>
@@ -46,7 +46,7 @@
     </select>
 
     <!--更新判断题-->
-    <update id="updateTfInfo" parameterType="sunday.pojo.school.TfQuestion">
+    <update id="updateTfInfo" parameterType="yang.domain.school.TfQuestion">
         UPDATE com_tf_question
         <set>
             section=#{section,jdbcType=VARCHAR},
@@ -60,7 +60,7 @@
 
     <!--更新选择题-->
     <update id="updateSingleInfo"
-            parameterType="sunday.pojo.school.SingleQuestion">
+            parameterType="yang.domain.school.SingleQuestion">
         UPDATE com_single_question
         <set>
             section=#{section,jdbcType=VARCHAR},
@@ -76,41 +76,41 @@
     </update>
 
     <!--删除判断题信息-->
-    <delete id="deleteTfInfo" parameterType="sunday.pojo.school.TfQuestion">
+    <delete id="deleteTfInfo" parameterType="yang.domain.school.TfQuestion">
         DELETE FROM com_tf_question
         where id=#{id,jdbcType=INTEGER}
     </delete>
 
     <!--删除选择题信息-->
     <delete id="deleteSingleInfo"
-            parameterType="sunday.pojo.school.SingleQuestion">
+            parameterType="yang.domain.school.SingleQuestion">
         DELETE FROM com_single_question
         where id=#{id,jdbcType=INTEGER}
     </delete>
 
     <!--新增选择题-->
     <insert id="insertSingleQuestion"
-            parameterType="sunday.pojo.school.SingleQuestion">
+            parameterType="yang.domain.school.SingleQuestion">
         INSERT INTO com_single_question(courseId, section, levels, que1, que2, que3, que4, result, content)
         VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{que1,jdbcType=VARCHAR},
         #{que2,jdbcType=VARCHAR},#{que3,jdbcType=VARCHAR},#{que4,jdbcType=VARCHAR},#{result,jdbcType=CHAR},#{content,jdbcType=VARCHAR})
     </insert>
 
     <!--新增判断题-->
-    <insert id="insertTfQuestion" parameterType="sunday.pojo.school.TfQuestion">
+    <insert id="insertTfQuestion" parameterType="yang.domain.school.TfQuestion">
          INSERT INTO com_tf_question(courseId, section, levels, content, result)
         VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=INTEGER})
     </insert>
 
     <!--新增附加题-->
-    <insert id="insertAnother" parameterType="sunday.pojo.school.Another">
+    <insert id="insertAnother" parameterType="yang.domain.school.Another">
         INSERT INTO com_another_question(courseId, content, result)
           VALUES (#{courseId,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR})
     </insert>
 
     <!--查询附加题-->
     <select id="selectAnother" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.AnotherTaken">
+            resultType="yang.domain.teacher.AnotherTaken">
         SELECT
         l.id AS id,
         c.courseId AS courseId,

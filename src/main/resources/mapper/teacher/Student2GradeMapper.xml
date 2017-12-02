@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.teacher.Student2GradeMapper">
+<mapper namespace="yang.dao.teacher.Student2GradeMapper">
 
     <!--更新学生成绩-->
-    <update id="updateGrade" parameterType="sunday.pojo.teacher.GradeTaken">
+    <update id="updateGrade" parameterType="yang.domain.teacher.GradeTaken">
         UPDATE com_grade
         <set>
             <if test="grade1 != null">
@@ -29,7 +29,7 @@
 
     <!--查询学生成绩-->
     <select id="selectGradeTaken" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.GradeTaken">
+            resultType="yang.domain.teacher.GradeTaken">
         SELECT
         s.studentId,
         s.name AS studentName,

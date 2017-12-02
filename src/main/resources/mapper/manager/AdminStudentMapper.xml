@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.manager.AdminStudentMapper">
+<mapper namespace="yang.dao.manager.AdminStudentMapper">
 
     <!--查询学生详细信息-->
-    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
+    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="yang.domain.student.StudentTaken">
         SELECT *
         FROM com_student
         where com_student.studentId IN
@@ -14,7 +14,7 @@
     </select>
 
     <!--查询专业信息-->
-    <select id="selectSpecialty" parameterType="java.util.Map" resultType="sunday.pojo.school.Specialty">
+    <select id="selectSpecialty" parameterType="java.util.Map" resultType="yang.domain.school.Specialty">
         SELECT *
         FROM com_specialty
         <where>
@@ -29,7 +29,7 @@
 
     <!--查询教师选课表 with specialtyId-->
     <select id="selectTeacher2Course" parameterType="java.util.Map"
-            resultType="sunday.pojo.dto.Specialty2Course">
+            resultType="yang.domain.dto.Specialty2Course">
         SELECT*
         FROM com_teacher_l_course
         <where>

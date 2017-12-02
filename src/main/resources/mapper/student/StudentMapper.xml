@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.student.StudentMapper">
+<mapper namespace="yang.dao.student.StudentMapper">
 
     <!--查询选择题题库-->
-    <select id="selectQuestionOfSingle" resultType="sunday.pojo.student.SingleTaken" parameterType="java.util.Map">
+    <select id="selectQuestionOfSingle" resultType="yang.domain.student.SingleTaken" parameterType="java.util.Map">
         (SELECT *
         FROM com_single_question
         WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
@@ -31,7 +31,7 @@
     </select>
 
     <!--查询判断题题库-->
-    <select id="selectQuestionOfTf" resultType="sunday.pojo.student.TfTaken" parameterType="java.util.Map">
+    <select id="selectQuestionOfTf" resultType="yang.domain.student.TfTaken" parameterType="java.util.Map">
         (SELECT *
         FROM com_tf_question
         WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
@@ -58,7 +58,7 @@
     </select>
 
     <!--查询成绩信息-->
-    <select id="selectGradeInfo" resultType="sunday.pojo.student.GradeInfo" parameterType="java.util.Map">
+    <select id="selectGradeInfo" resultType="yang.domain.student.GradeInfo" parameterType="java.util.Map">
         SELECT *
         FROM com_grade
         WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER}
@@ -66,7 +66,7 @@
 
     <!--查询学生-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.school.Student">
+            resultType="yang.domain.school.Student">
         SELECT *
         FROM com_student
         <where>
@@ -83,7 +83,7 @@
     </select>
 
     <!--查询学生详细信息-->
-    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="sunday.pojo.student.StudentTaken">
+    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="yang.domain.student.StudentTaken">
         SELECT DISTINCT
         s.studentId AS studentId,
         s.name AS name,
@@ -107,7 +107,7 @@
     </select>
 
     <!--查询学生考试信息-->
-    <select id="selectExamInfo" resultType="sunday.pojo.student.ExamTaken" parameterType="java.util.Map">
+    <select id="selectExamInfo" resultType="yang.domain.student.ExamTaken" parameterType="java.util.Map">
         SELECT DISTINCT
             c.courseId AS courseId,
             c.name     AS courseName,
@@ -135,7 +135,7 @@
 
     <!--查询题库（附加题）-->
     <select id="selectQuestionBaseAnother" parameterType="java.util.Map"
-            resultType="sunday.pojo.student.AnotherTestTaken">
+            resultType="yang.domain.student.AnotherTestTaken">
         SELECT DISTINCT
             a.courseId AS courseId,
             a.content  AS content,
@@ -146,14 +146,14 @@
 
     <!--查询学生附加题信息-->
     <select id="selectStudentAnotherQuestionInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.student.AnotherTestTaken">
+            resultType="yang.domain.student.AnotherTestTaken">
         SELECT *
         FROM com_student_l_another_question
         WHERE courseId = #{courseId,jdbcType=INTEGER} AND studentId = #{studentId,jdbcType=INTEGER}
     </select>
 
     <!--查询学生成绩以及信息-->
-    <select id="selectGrade" parameterType="java.util.Map" resultType="sunday.pojo.student.GradeTaken">
+    <select id="selectGrade" parameterType="java.util.Map" resultType="yang.domain.student.GradeTaken">
         SELECT DISTINCT
             g.studentId AS studentId,
             s.name      AS studentName,
@@ -170,7 +170,7 @@
     </select>
 
     <!--查询学生课程-->
-    <select id="selectCourse" parameterType="java.util.Map" resultType="sunday.pojo.student.CourseTaken">
+    <select id="selectCourse" parameterType="java.util.Map" resultType="yang.domain.student.CourseTaken">
         SELECT DISTINCT
             c.name       AS courseName,
             c.credit     AS credit,

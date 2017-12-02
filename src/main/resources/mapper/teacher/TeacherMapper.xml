@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.teacher.TeacherMapper">
+<mapper namespace="yang.dao.teacher.TeacherMapper">
 
     <!--删除教师-->
     <delete id="delete" parameterType="java.lang.Integer">
@@ -9,7 +9,7 @@
     </delete>
 
     <!--新增教师-->
-    <insert id="insert" parameterType="sunday.pojo.teacher.Teacher">
+    <insert id="insert" parameterType="yang.domain.teacher.Teacher">
         INSERT INTO com_teacher(teacherId, name,password, gender, position, office)
         VALUES (#{teacherId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{gender,jdbcType=CHAR},
         #{position,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR})
@@ -17,7 +17,7 @@
 
     <!--查询教师-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.teacher.Teacher">
+            resultType="yang.domain.teacher.Teacher">
         SELECT *
         FROM com_teacher
         <where>
@@ -43,7 +43,7 @@
     </select>
 
     <!--修改教师信息-->
-    <update id="update" parameterType="sunday.pojo.teacher.Teacher">
+    <update id="update" parameterType="yang.domain.teacher.Teacher">
         UPDATE com_teacher
         <set>
             <if test="name != null">

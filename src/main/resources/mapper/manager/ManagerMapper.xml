@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.manager.ManagerMapper">
+<mapper namespace="yang.dao.manager.ManagerMapper">
 
     <!--查询管理员-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.manager.Manager">
+            resultType="yang.domain.manager.Manager">
         SELECT *
         FROM com_manager
         <where>
@@ -22,7 +22,7 @@
     </select>
 
     <!--插入管理员-->
-    <insert id="insert" parameterType="sunday.pojo.manager.Manager">
+    <insert id="insert" parameterType="yang.domain.manager.Manager">
         INSERT INTO com_manager (managerId, password)
         VALUES (#{managerId,jdbcType=CHAR}, #{password,jdbcType=CHAR})
     </insert>

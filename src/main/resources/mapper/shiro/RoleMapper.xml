@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="sunday.mapper.shiro.RoleMapper">
+<mapper namespace="yang.dao.shiro.RoleMapper">
     <!--新增角色-->
-    <insert id="insert" parameterType="sunday.pojo.shiro.Role">
+    <insert id="insert" parameterType="yang.domain.shiro.Role">
         INSERT INTO com_role (name, remark)
         VALUES (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
     </insert>
 
     <!--查询角色-->
     <select id="select" parameterType="java.util.Map"
-            resultType="sunday.pojo.shiro.Role">
+            resultType="yang.domain.shiro.Role">
         SELECT *
         FROM com_role
         <where>
@@ -25,7 +25,7 @@
 
     <!--查询学生角色-->
     <select id="selectByStudentInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.shiro.Role">
+            resultType="yang.domain.shiro.Role">
         SELECT r.*
         FROM com_studnet_l_role l, com_role r, com_student s
         WHERE l.roleId = r.id AND l.studentId = s.studentId AND s.studentId = #{studentId,jdbcType=INTEGER}
@@ -33,7 +33,7 @@
 
     <!--查询教师角色-->
     <select id="selectByTeacherInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.shiro.Role">
+            resultType="yang.domain.shiro.Role">
         SELECT r.*
         FROM com_teacher_l_role l, com_role r, com_teacher t
         WHERE l.roleId = r.id AND l.teacherId = t.teacherId AND t.teacherId = #{teacherId,jdbcType=INTEGER}
@@ -41,7 +41,7 @@
 
     <!--查询管理员角色-->
     <select id="selectByManagerInfo" parameterType="java.util.Map"
-            resultType="sunday.pojo.shiro.Role">
+            resultType="yang.domain.shiro.Role">
         SELECT r.*
         FROM com_manager_l_role l, com_role r, com_manager m
         WHERE l.roleId = r.id AND l.managerId = m.managerId AND m.managerId = #{managerId,jdbcType=INTEGER}
