@@ -173,7 +173,7 @@ public class CourseController extends CommonController {
      */
     @RequestMapping(value = "/specialty/{courseId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") Integer courseId) {
+    public Object getSpecialtyByTeacherIdAndCourseId(@PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
             put("courseId", courseId);
@@ -189,7 +189,7 @@ public class CourseController extends CommonController {
      */
     @RequestMapping(value = "/course/section/{courseId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getCourseSection(@PathVariable("courseId") Integer courseId) {
+    public Object getCourseSection(@PathVariable("courseId") Integer courseId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", courseId);
         }};
@@ -210,7 +210,7 @@ public class CourseController extends CommonController {
      */
     @RequestMapping(value = "/specialty/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getAllSpecialties() {
+    public Object getAllSpecialties() {
         return getSpecialties(null);
     }
 
@@ -221,7 +221,7 @@ public class CourseController extends CommonController {
      */
     @RequestMapping(value = "/specialty/single", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> getSpecialtiesFromTeacher() {
+    public Object getSpecialtiesFromTeacher() {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
