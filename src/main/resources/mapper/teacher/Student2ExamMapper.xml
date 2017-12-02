@@ -92,18 +92,18 @@
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
 
-    <!--删除考试信息-->
+    <!--删除考试信息ok-->
     <delete id="deleteExamInfo" parameterType="java.util.Map">
         DELETE FROM com_examinfo
         <where>
             <if test="teacherId != null">
-                teacherId=#{teacherId,jdbcType=INTEGER}
+                teacherId=#{teacherId}
             </if>
             <if test="courseId != null">
-                AND courseId=#{courseId,jdbcType=INTEGER}
+                AND courseId=#{courseId}
             </if>
             <if test="specialtyId != null">
-                AND specialtyId=#{specialtyId,jdbcType=INTEGER}
+                AND specialtyId=#{specialtyId}
             </if>
         </where>
     </delete>

@@ -6,10 +6,10 @@
     <!--新增专业-->
     <insert id="insertSpecialty" parameterType="yang.domain.common.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
-        VALUES (#{specialtyId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR})
+        VALUES (#{specialtyId},#{name})
     </insert>
 
-    <!--查询专业-->
+    <!--查询专业ok-->
     <select id="selectSpecialty" parameterType="java.util.Map"
             resultType="yang.domain.common.Specialty">
         SELECT DISTINCT s.*
@@ -17,77 +17,82 @@
         WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId AND
         l.courseId=c.courseId
         <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND t.teacherId=#{teacherId}
         </if>
         <if test="courseId != null">
-            AND c.courseId=#{courseId,jdbcType=INTEGER}
+            AND c.courseId=#{courseId}
         </if>
     </select>
 
-    <!--查询全部专业-->
+    <!--查询全部专业ok-->
     <select id="selectAllSpecialties" resultType="yang.domain.common.Specialty">
         SELECT *
         FROM com_specialty
     </select>
 
-    <!--新增课程-->
+    <!--新增课程ok-->
     <insert id="insertCourse" parameterType="yang.domain.common.Course">
         INSERT INTO com_course(courseId,name,period,credit)
-        VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER})
+        VALUES (#{courseId},#{name},#{period},#{credit})
     </insert>
 
-    <!--查询课程-->
+    <!--查询课程ok-->
     <select id="selectCourse" parameterType="java.util.Map"
             resultType="yang.domain.common.Course">
         SELECT DISTINCT c.*
         FROM com_teacher_l_course l,com_course c,com_teacher t
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId
         <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND t.teacherId=#{teacherId}
         </if>
     </select>
 
-    <!--查询全部课程-->
+    <!--查询全部课程ok-->
     <select id="selectAllCourses" resultType="yang.domain.common.Course">
         SELECT *
         FROM com_course
     </select>
 
-    <!--新增选课信息-->
+    <!--新增选课信息ok-->
     <insert id="insertCourseTaken"
             parameterType="yang.domain.teacher.CourseTaken">
         INSERT INTO com_teacher_l_course(teacherId,courseId,specialtyId,starttime,endtime)
         VALUES (#{teacherId},#{courseId},#{specialtyId},#{starttime},#{endtime})
     </insert>
 
-    <!--查询选课信息-->
+    <!--查询选课信息ok-->
     <select id="selectCourseTaken" parameterType="java.util.Map"
             resultType="yang.domain.teacher.CourseTaken">
-        SELECT DISTINCT t.teacherId AS teacherId ,t.name AS teacherName
-        ,c.courseId AS courseId,
-        c.name AS courseName,s.specialtyId AS specialtyId,s.name AS
-        specialtyName,l.starttime AS starttime,l.endtime AS endtime
+        SELECT
+        t.teacherId ,
+        t.name AS teacherName
+        ,c.courseId,
+        c.name AS courseName,
+        s.specialtyId,
+        s.name AS specialtyName,
+        l.starttime,
+        l.endtime
         FROM com_teacher_l_course l,com_course c,com_teacher t,com_specialty s
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId AND
         l.specialtyId=s.specialtyId
         <if test="teacherId != null">
-            AND t.teacherId=#{teacherId,jdbcType=INTEGER}
+            AND t.teacherId=#{teacherId}
         </if>
         <if test="courseName != null">
-            AND c.name=#{courseName,jdbcType=VARCHAR}
+            AND c.name=#{courseName}
         </if>
         <if test="specialtyId != null">
-            AND s.specialtyId=#{specialtyId,jdbcType=INTEGER}
+            AND s.specialtyId=#{specialtyId}
         </if>
         <if test="specialtyName != null">
-            AND s.name=#{specialtyName,jdbcType=VARCHAR}
+            AND s.name=#{specialtyName}
         </if>
         ORDER BY l.starttime ASC ,l.endtime ASC
     </select>
 
-    <!--删除选课信息-->
+    <!--删除选课信息ok-->
     <delete id="deleteTakenInfo" parameterType="java.util.Map">
         DELETE FROM com_teacher_l_course
-        WHERE teacherId=#{teacherId,jdbcType=INTEGER} AND courseId=#{courseId,jdbcType=INTEGER} AND specialtyId=#{specialtyId,jdbcType=INTEGER}
+        WHERE teacherId=#{teacherId} AND courseId=#{courseId} AND specialtyId=#{specialtyId}
     </delete>
 </mapper>
