@@ -2,7 +2,7 @@ package yang.dao.manager;
 
 import org.springframework.stereotype.Repository;
 import yang.domain.dto.Specialty2Course;
-import yang.domain.school.Specialty;
+import yang.domain.common.Specialty;
 import yang.domain.student.StudentTaken;
 
 import java.util.List;

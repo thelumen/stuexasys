@@ -1,4 +1,4 @@
-package yang.service.lmp.manager;
+package yang.service.impl.manager;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

@@ -286,7 +286,7 @@
             return false;
         }
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/course/insert',
+            url: '${pageContext.request.contextPath}/admin/common/course/insert',
             type: 'post',
             dataType: 'json',
             data: $('#school_course_form').serializeArray(),
@@ -318,7 +318,7 @@
             },
             function () {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/admin/school/course/delete/' + id,
+                    url: '${pageContext.request.contextPath}/admin/common/course/delete/' + id,
                     type: 'delete',
                     dataType: 'json',
                     success: function (data) {
@@ -336,7 +336,7 @@
     //展示修改课程modal
     function showModifyCourse(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/course/' + id,
+            url: '${pageContext.request.contextPath}/admin/common/course/' + id,
             success: function (data) {
                 $('#modify_c_id').val(data.id);
                 $('#modify_c_cId').val(data.courseId);
@@ -353,7 +353,7 @@
         var stringData = $('#school_course_modify_form').serializeObject();
         var jsonDate = JSON.stringify(stringData);
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/course/update',
+            url: '${pageContext.request.contextPath}/admin/common/course/update',
             contentType: 'application/json',
             data: jsonDate,
             dataType: 'json',
@@ -393,7 +393,7 @@
             return false;
         }
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/specialty/add',
+            url: '${pageContext.request.contextPath}/admin/common/specialty/add',
             type: 'post',
             dataType: 'json',
             data: {
@@ -417,7 +417,7 @@
     //展示修改专业modal
     function showModifySpecialty(id) {
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/specialty/' + id,
+            url: '${pageContext.request.contextPath}/admin/common/specialty/' + id,
             success: function (data) {
                 $('#modify_s_realId').val(data.id);
                 $('#modify_s_id').val(data.specialtyId);
@@ -431,7 +431,7 @@
         var stringData = $('#school_specialty_modify_form').serializeObject();
         var jsonDate = JSON.stringify(stringData);
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/school/specialty/update',
+            url: '${pageContext.request.contextPath}/admin/common/specialty/update',
             contentType: 'application/json',
             data: jsonDate,
             dataType: 'json',
@@ -464,7 +464,7 @@
             },
             function () {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/admin/school/specialty/delete/' + id,
+                    url: '${pageContext.request.contextPath}/admin/common/specialty/delete/' + id,
                     type: 'delete',
                     dataType: 'json',
                     success: function (data) {

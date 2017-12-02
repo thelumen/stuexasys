@@ -1,8 +1,8 @@
-package yang.service.lmp.manager;
+package yang.service.impl.manager;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yang.domain.school.Course;
+import yang.domain.common.Course;
 import yang.service.common.CommonService;
 import yang.service.manager.CourseService;
 

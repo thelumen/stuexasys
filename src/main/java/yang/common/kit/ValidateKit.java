@@ -1,7 +1,7 @@
 package yang.common.kit;
 
-import yang.domain.school.Course;
-import yang.domain.school.Specialty;
+import yang.domain.common.Course;
+import yang.domain.common.Specialty;
 
 import java.util.Objects;
 

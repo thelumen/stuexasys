@@ -1,4 +1,4 @@
-package yang.domain.school;
+package yang.domain.common;
 
 /**
  * 专业表

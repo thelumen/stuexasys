@@ -66,7 +66,7 @@
 
     <!--查询学生-->
     <select id="select" parameterType="java.util.Map"
-            resultType="yang.domain.school.Student">
+            resultType="yang.domain.common.Student">
         SELECT *
         FROM com_student
         <where>

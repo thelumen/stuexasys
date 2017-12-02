@@ -1,6 +1,6 @@
-package yang.dao.teacher;
+package yang.service.teacher;
 
-import org.springframework.stereotype.Repository;
+import com.github.pagehelper.Page;
 import yang.domain.common.Course;
 import yang.domain.common.Specialty;
 import yang.domain.teacher.CourseTaken;
@@ -9,12 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 班级,课程
+ * 专业-课程
  * Created by yang on 2017/5/25.
- * At 12:12
+ * At 12:11
  */
-@Repository
-public interface Specialty2CourseMapper {
+public interface Specialty2CourseService {
     /**
      * 新增专业
      *
@@ -75,15 +74,15 @@ public interface Specialty2CourseMapper {
      * @param params
      * @return
      */
-    int deleteTakenInfo(Map<String, Object> params);
-
+    boolean deleteTakenInfo(Map<String, Object> params);
 
     /**
      * 查询选课信息
      *
+     * @param page
      * @param params
      * @return
      */
-    List<CourseTaken> selectCourseTaken(Map<String, Object> params);
+    List<CourseTaken> selectCourseTaken(Page page, Map<String, Object> params);
 
 }

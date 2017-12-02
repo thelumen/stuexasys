@@ -1,9 +1,9 @@
 package yang.service.teacher;
 
 import com.github.pagehelper.Page;
-import yang.domain.school.Another;
-import yang.domain.school.SingleQuestion;
-import yang.domain.school.TfQuestion;
+import yang.domain.common.Another;
+import yang.domain.common.SingleQuestion;
+import yang.domain.common.TfQuestion;
 import yang.domain.teacher.AnotherTaken;
 
 import java.util.List;

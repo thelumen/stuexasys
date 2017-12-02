@@ -7,8 +7,8 @@ import yang.common.kit.ChapterKit;
 import yang.common.kit.CommonKit;
 import yang.common.kit.TeacherKit;
 import yang.controller.common.CommonController;
-import yang.domain.school.Course;
-import yang.domain.school.Specialty;
+import yang.domain.common.Course;
+import yang.domain.common.Specialty;
 import yang.domain.teacher.CourseTaken;
 
 import java.io.UnsupportedEncodingException;

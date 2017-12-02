@@ -7,10 +7,10 @@ import yang.common.kit.ChapterKit;
 import yang.common.kit.CommonKit;
 import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
-import yang.domain.school.Another;
-import yang.domain.school.Course;
-import yang.domain.school.SingleQuestion;
-import yang.domain.school.TfQuestion;
+import yang.domain.common.Another;
+import yang.domain.common.Course;
+import yang.domain.common.SingleQuestion;
+import yang.domain.common.TfQuestion;
 import yang.domain.teacher.AnotherTaken;
 
 import java.util.ArrayList;

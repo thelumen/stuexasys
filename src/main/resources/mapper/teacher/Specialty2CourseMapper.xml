@@ -4,14 +4,14 @@
 <mapper namespace="yang.dao.teacher.Specialty2CourseMapper">
 
     <!--新增专业-->
-    <insert id="insertSpecialty" parameterType="yang.domain.school.Specialty">
+    <insert id="insertSpecialty" parameterType="yang.domain.common.Specialty">
         INSERT INTO com_specialty(specialtyId,name)
         VALUES (#{specialtyId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR})
     </insert>
 
     <!--查询专业-->
     <select id="selectSpecialty" parameterType="java.util.Map"
-            resultType="yang.domain.school.Specialty">
+            resultType="yang.domain.common.Specialty">
         SELECT DISTINCT s.*
         FROM com_teacher_l_course l,com_teacher t,com_specialty s,com_course c
         WHERE l.teacherId=t.teacherId AND l.specialtyId=s.specialtyId AND
@@ -25,20 +25,20 @@
     </select>
 
     <!--查询全部专业-->
-    <select id="selectAllSpecialties" resultType="yang.domain.school.Specialty">
+    <select id="selectAllSpecialties" resultType="yang.domain.common.Specialty">
         SELECT *
         FROM com_specialty
     </select>
 
     <!--新增课程-->
-    <insert id="insertCourse" parameterType="yang.domain.school.Course">
+    <insert id="insertCourse" parameterType="yang.domain.common.Course">
         INSERT INTO com_course(courseId,name,period,credit)
         VALUES (#{courseId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{period,jdbcType=INTEGER},#{credit,jdbcType=INTEGER})
     </insert>
 
     <!--查询课程-->
     <select id="selectCourse" parameterType="java.util.Map"
-            resultType="yang.domain.school.Course">
+            resultType="yang.domain.common.Course">
         SELECT DISTINCT c.*
         FROM com_teacher_l_course l,com_course c,com_teacher t
         WHERE l.teacherId=t.teacherId AND l.courseId=c.courseId
@@ -48,7 +48,7 @@
     </select>
 
     <!--查询全部课程-->
-    <select id="selectAllCourses" resultType="yang.domain.school.Course">
+    <select id="selectAllCourses" resultType="yang.domain.common.Course">
         SELECT *
         FROM com_course
     </select>

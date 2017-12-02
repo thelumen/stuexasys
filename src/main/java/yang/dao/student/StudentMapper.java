@@ -1,7 +1,7 @@
 package yang.dao.student;
 
 import org.springframework.stereotype.Repository;
-import yang.domain.school.Student;
+import yang.domain.common.Student;
 import yang.domain.student.*;
 
 import java.util.List;

@@ -5,7 +5,7 @@
 
     <!--查询选择题-->
     <select id="selectSingleQuestion" parameterType="java.util.Map"
-            resultType="yang.domain.school.SingleQuestion">
+            resultType="yang.domain.common.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
@@ -17,7 +17,7 @@
 
     <!--按照课程和章节查询选择题-->
     <select id="selectSingleInfo" parameterType="java.util.Map"
-            resultType="yang.domain.school.SingleQuestion">
+            resultType="yang.domain.common.SingleQuestion">
         SELECT *
         FROM com_single_question
         <where>
@@ -32,7 +32,7 @@
 
     <!--查询判断题-->
     <select id="selectTfInfo" parameterType="java.util.Map"
-            resultType="yang.domain.school.TfQuestion">
+            resultType="yang.domain.common.TfQuestion">
         SELECT *
         FROM com_tf_question
         <where>
@@ -46,7 +46,7 @@
     </select>
 
     <!--更新判断题-->
-    <update id="updateTfInfo" parameterType="yang.domain.school.TfQuestion">
+    <update id="updateTfInfo" parameterType="yang.domain.common.TfQuestion">
         UPDATE com_tf_question
         <set>
             section=#{section,jdbcType=VARCHAR},
@@ -60,7 +60,7 @@
 
     <!--更新选择题-->
     <update id="updateSingleInfo"
-            parameterType="yang.domain.school.SingleQuestion">
+            parameterType="yang.domain.common.SingleQuestion">
         UPDATE com_single_question
         <set>
             section=#{section,jdbcType=VARCHAR},
@@ -76,34 +76,34 @@
     </update>
 
     <!--删除判断题信息-->
-    <delete id="deleteTfInfo" parameterType="yang.domain.school.TfQuestion">
+    <delete id="deleteTfInfo" parameterType="yang.domain.common.TfQuestion">
         DELETE FROM com_tf_question
         where id=#{id,jdbcType=INTEGER}
     </delete>
 
     <!--删除选择题信息-->
     <delete id="deleteSingleInfo"
-            parameterType="yang.domain.school.SingleQuestion">
+            parameterType="yang.domain.common.SingleQuestion">
         DELETE FROM com_single_question
         where id=#{id,jdbcType=INTEGER}
     </delete>
 
     <!--新增选择题-->
     <insert id="insertSingleQuestion"
-            parameterType="yang.domain.school.SingleQuestion">
+            parameterType="yang.domain.common.SingleQuestion">
         INSERT INTO com_single_question(courseId, section, levels, que1, que2, que3, que4, result, content)
         VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{que1,jdbcType=VARCHAR},
         #{que2,jdbcType=VARCHAR},#{que3,jdbcType=VARCHAR},#{que4,jdbcType=VARCHAR},#{result,jdbcType=CHAR},#{content,jdbcType=VARCHAR})
     </insert>
 
     <!--新增判断题-->
-    <insert id="insertTfQuestion" parameterType="yang.domain.school.TfQuestion">
+    <insert id="insertTfQuestion" parameterType="yang.domain.common.TfQuestion">
          INSERT INTO com_tf_question(courseId, section, levels, content, result)
         VALUES (#{courseId,jdbcType=INTEGER},#{section,jdbcType=VARCHAR},#{levels,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=INTEGER})
     </insert>
 
     <!--新增附加题-->
-    <insert id="insertAnother" parameterType="yang.domain.school.Another">
+    <insert id="insertAnother" parameterType="yang.domain.common.Another">
         INSERT INTO com_another_question(courseId, content, result)
           VALUES (#{courseId,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{result,jdbcType=VARCHAR})
     </insert>

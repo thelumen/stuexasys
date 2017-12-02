@@ -14,7 +14,7 @@
     </select>
 
     <!--查询专业信息-->
-    <select id="selectSpecialty" parameterType="java.util.Map" resultType="yang.domain.school.Specialty">
+    <select id="selectSpecialty" parameterType="java.util.Map" resultType="yang.domain.common.Specialty">
         SELECT *
         FROM com_specialty
         <where>

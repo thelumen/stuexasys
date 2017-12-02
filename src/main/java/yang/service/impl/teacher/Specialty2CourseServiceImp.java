@@ -1,11 +1,11 @@
-package yang.service.lmp.teacher;
+package yang.service.impl.teacher;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import yang.domain.school.Course;
-import yang.domain.school.Specialty;
+import yang.domain.common.Course;
+import yang.domain.common.Specialty;
 import yang.domain.teacher.CourseTaken;
 import yang.service.common.CommonService;
 import yang.service.teacher.Specialty2CourseService;

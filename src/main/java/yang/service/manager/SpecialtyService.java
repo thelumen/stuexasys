@@ -1,6 +1,6 @@
 package yang.service.manager;
 
-import yang.domain.school.Specialty;
+import yang.domain.common.Specialty;
 
 import java.util.List;
 import java.util.Map;

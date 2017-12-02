@@ -1,7 +1,7 @@
 package yang.dao.manager;
 
 import org.springframework.stereotype.Repository;
-import yang.domain.school.Specialty;
+import yang.domain.common.Specialty;
 
 import java.util.List;
 import java.util.Map;

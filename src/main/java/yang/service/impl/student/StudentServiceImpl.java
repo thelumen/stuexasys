@@ -1,4 +1,4 @@
-package yang.service.lmp.student;
+package yang.service.impl.student;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

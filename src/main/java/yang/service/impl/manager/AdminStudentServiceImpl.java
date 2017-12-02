@@ -1,8 +1,8 @@
-package yang.service.lmp.manager;
+package yang.service.impl.manager;
 
 import org.springframework.stereotype.Service;
 import yang.common.enums.MessageInfo;
-import yang.domain.school.Specialty;
+import yang.domain.common.Specialty;
 import yang.domain.student.StudentTaken;
 import yang.service.common.CommonService;
 import yang.service.manager.AdminStudentService;

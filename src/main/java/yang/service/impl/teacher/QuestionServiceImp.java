@@ -1,4 +1,4 @@
-package yang.service.lmp.teacher;
+package yang.service.impl.teacher;
 
 import org.springframework.stereotype.Service;
 import yang.domain.teacher.AnotherTaken;

@@ -3,16 +3,15 @@ package yang.common.base;
 import java.io.Serializable;
 
 /**
- *
  * @author yang
  * @date 2017/9/5
  * At 17:11
  */
-public class ResultBean<T> implements Serializable {
+public final class ResultBean<T> implements Serializable {
 
-    private static final int SUCCESS = 0;
-    private static final int FAILED = 1;
-    private static final int NO_PERMISSION = 2;
+    private final int SUCCESS = 0;
+    private final int FAILED = 1;
+    private final int NO_PERMISSION = 2;
 
     private int code = SUCCESS;
     private T data;

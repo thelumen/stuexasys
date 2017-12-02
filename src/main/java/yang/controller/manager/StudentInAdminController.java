@@ -13,7 +13,7 @@ import yang.common.enums.UpdateType;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
 import yang.controller.common.CommonController;
-import yang.domain.school.Specialty;
+import yang.domain.common.Specialty;
 import yang.domain.student.StudentInfo;
 import yang.domain.student.StudentTaken;
 

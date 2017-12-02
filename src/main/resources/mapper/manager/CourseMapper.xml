@@ -5,7 +5,7 @@
 
     <!--查询课程-->
     <select id="select" parameterType="java.util.Map"
-            resultType="yang.domain.school.Course">
+            resultType="yang.domain.common.Course">
         SELECT *
         FROM com_course
         <where>
@@ -17,7 +17,7 @@
     </select>
 
     <!--新增课程-->
-    <insert id="insert" parameterType="yang.domain.school.Course">
+    <insert id="insert" parameterType="yang.domain.common.Course">
         INSERT INTO com_course (courseId, name, period, credit, chapterNum)
         VALUES (#{courseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
                 #{period,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, #{chapterNum,jdbcType=INTEGER})
@@ -36,7 +36,7 @@
     </delete>
 
     <!--更新课程-->
-    <update id="update" parameterType="yang.domain.school.Course">
+    <update id="update" parameterType="yang.domain.common.Course">
         UPDATE com_course
         <set>
             <if test="courseId != null">
