@@ -14,8 +14,7 @@
         <li class="active">成绩统计</li>
     </ol>
     <div class="container-fluid" style="text-align: center">
-        <form id="teacher_course_form" method="post"
-              action="${pageContext.request.contextPath}/grade/assign">
+        <form id="teacher_course_form">
             <label>请选择需要分配的 <strong style="color: #985f0d">课程</strong>：
                 <select name="courseId" id="course_select" style="width: 200px">
                     <option selected></option>
@@ -125,22 +124,54 @@
 
     //    成绩分配
     function outOfGrade() {
+        var data = $('#teacher_course_form').serializeObject();
         var value1 = Number($("[name='percent1']").val());
         var value2 = Number($("[name='percent2']").val());
         var value3 = Number($("[name='percent3']").val());
         var value4 = Number($("[name='percent4']").val());
-//        alert(value1);
-        if (value1 + value2 + value3 + value4 === 100) {
-            $('#teacher_course_form').submit();
-        } else {
-            swal("Warnning!", "分配数额为100,请重新分配!", "error");
-        }
+        $.ajax({
+            url: '${pageContext.request.contextPath}/grade/assign',
+            type: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            beforeSend: function () {
+                if (value1 + value2 + value3 + value4 != 100) {
+                    $.alert("分配数额为100,请重新分配!");
+                    return false;
+                }
+            },
+            success: function (result) {
+                $.alert(result.msg);
+                if (result.code == 0) {
+                    table.bootstrapTable("refresh");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    animation: 'rotateX',
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误!",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
+                        }
+                    }
+                });
+            }
+        });
     }
 
     //自定义查询
     function checkData() {
         var specialtyId = table_specialty_select.val();
         var courseId = table_course_select.val();
+        if (courseId == '' || specialtyId == '') {
+            $.alert("请填写课程和专业：)");
+            return false;
+        }
         table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/" + specialtyId + "/" + courseId});
     }
 

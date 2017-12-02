@@ -3,6 +3,7 @@ package yang.controller.teacher;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import yang.common.base.ResultBean;
 import yang.common.kit.CommonKit;
 import yang.common.kit.TeacherKit;
 import yang.controller.common.CommonController;
@@ -43,7 +44,8 @@ public class GradeController extends CommonController {
      */
     @RequestMapping(value = "/assign", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
-    public String assignGrades(GradePercent percentInfo) {
+    @ResponseBody
+    public Object assignGrades(@RequestBody GradePercent percentInfo) {
         float p1 = 0.0f, p2 = 0.0f, p3 = 0.0f, p4 = 0.0f;
 
         if (!Objects.equals(percentInfo.getPercent1(), "")) {
@@ -65,18 +67,18 @@ public class GradeController extends CommonController {
         }};
         List<GradeTaken> studentGrades = student2GradeService.selectGradeTaken(null, params);
         if (null == studentGrades) {
-            return "/teacher/grade/gradeProxy";
+            return new ResultBean<>("此专业的学生还未进行过测试！");
         }
 
+        float total;
         for (GradeTaken studentGrade : studentGrades) {
-            float total;
             total = studentGrade.getGrade1() * p1 + studentGrade.getGrade2() * p2 + studentGrade.getGrade3() * p3 + studentGrade.getGrade4() * p4;
             //采用四舍五入方式计算总成绩
             studentGrade.setTotal(Math.round(total));
             student2GradeService.updateGrade(studentGrade);
         }
 
-        return "/teacher/grade/gradeProxy";
+        return new ResultBean<>(true);
     }
 
     /**
@@ -88,18 +90,15 @@ public class GradeController extends CommonController {
      */
     @RequestMapping(value = "/{specialtyId}/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getGradeBySpecialtyId(@PathVariable("specialtyId") Integer specialtyId,
-                                                     @PathVariable("courseId") Integer courseId) {
-        if (null == specialtyId || null == courseId) {
-            return null;
-        }
-        Map<String, Object> params = new HashMap<String, Object>() {{
+    public Object getGradeBySpecialtyId(@RequestBody Map<String, Object> params,
+                                        @PathVariable("specialtyId") Integer specialtyId,
+                                        @PathVariable("courseId") Integer courseId) {
+        Map<String, Object> info = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
             put("specialtyId", specialtyId);
             put("courseId", courseId);
         }};
-        List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(null, params);
-
+        List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(CommonKit.getMapInfo2Page(params), info);
         return CommonKit.getTakenInfo(gradeTakens);
     }
 
@@ -110,12 +109,11 @@ public class GradeController extends CommonController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getAllStudentGrade(@RequestBody Map<String, Object> params) {
+    public Object getAllStudentGrade(@RequestBody Map<String, Object> params) {
         Map<String, Object> teacherInfo = new HashMap<String, Object>() {{
             put("teacherId", TeacherKit.getCurrentTeacherId());
         }};
         List<GradeTaken> gradeTakens = student2GradeService.selectGradeTaken(CommonKit.getMapInfo2Page(params), teacherInfo);
-
         return CommonKit.getTakenInfo(gradeTakens);
     }
 
