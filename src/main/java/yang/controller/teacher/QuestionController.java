@@ -131,6 +131,19 @@ public class QuestionController extends CommonController {
         return new ResultBean<>(teacher2QuestionService.updateSingleInfo(singleQuestion));
     }
 
+    /**
+     * 选择题的删除操作
+     *
+     * @param singleQuestion
+     * @return
+     */
+    @RequestMapping(value = "/single/delete", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object deleteTfInfo(@RequestBody SingleQuestion singleQuestion) {
+        return new ResultBean<>(teacher2QuestionService.deleteSingleInfo(singleQuestion));
+    }
+
     ///**
     // * 获取某一课程选择题的章节
     // *
@@ -288,11 +301,5 @@ public class QuestionController extends CommonController {
         return teacher2QuestionService.deleteTfInfo(tfQuestion);
     }
 
-    //    选择题的删除操作
-    @RequestMapping(value = "/single/delete", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean deleteTfInfo(@RequestBody SingleQuestion singleQuestion) {
-        return teacher2QuestionService.deleteSingleInfo(singleQuestion);
-    }
+
 }

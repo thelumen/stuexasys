@@ -277,36 +277,55 @@
             });
         },
         'click .deleteSingle': function (e, value, row, index) {
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/question/single/delete',
-                dataType: "json",
-                data: JSON.stringify(row),
-                contentType: 'application/json',
-                success: function (result) {
-                    $.alert({
-                        title: "",
-                        content: result.msg,
-                        backgroundDismiss: true
-                    });
-                    if (result.code == 0) {
-                        table.bootstrapTable("refresh");
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $.confirm({
-                        animation: 'rotateX',
-                        closeAnimation: 'rotateX',
-                        title: false,
-                        backgroundDismiss: true,
-                        content: "系统错误!",
-                        buttons: {
-                            confirm: {
-                                text: '确认',
-                                btnClass: 'waves-effect waves-button waves-light'
-                            }
+            $.confirm({
+                title: "Warnning!",
+                content: "您确定要删除该题目吗？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: '${pageContext.request.contextPath}/question/single/delete',
+                                dataType: "json",
+                                data: JSON.stringify(row),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                    if (result.code == 0) {
+                                        table.bootstrapTable("refresh");
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        backgroundDismiss: true,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
-                    });
+                    },
+                    cancel: function () {
+                    }
                 }
             });
         }
