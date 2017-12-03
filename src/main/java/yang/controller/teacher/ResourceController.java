@@ -46,10 +46,7 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
-        String directory = new String(directoryName.getBytes("iso8859-1"), "utf8").trim();
-        //String deepPath = ResourceKit.getResourceHome() + File.separator + directory;
-        List<File> files = FileKit.getFiles(ResourceKit.getResourceHome() + File.separator + directory);
-
+        List<File> files = FileKit.getFiles(ResourceKit.getResourceHome() + File.separator + directoryName.trim());
         return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
 
@@ -64,9 +61,7 @@ public class ResourceController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Object deleteFile(@RequestParam("path") String path) throws IOException {
-        String realPath = new String(path.getBytes("iso8859-1"), "utf8").trim();
-        //String realPath = ResourceKit.getResourceHome() +  File.separator  + path;
-        return new ResultBean<>(FileKit.deleteIfExists(realPath));
+        return new ResultBean<>(FileKit.deleteIfExists(path.trim()));
     }
 
     /**
@@ -82,12 +77,11 @@ public class ResourceController extends CommonController {
     @ResponseBody
     public Object uploadFiles(@PathVariable("directoryName") String directoryName,
                               @RequestParam("files") List<MultipartFile> files) throws IOException {
-        String realName = new String(directoryName.getBytes("iso8859-1"), "utf8").trim();
         if (null == files || files.size() == 0) {
             return new ResultBean<>("请添加文件：)");
         }
 
-        String realPath = ResourceKit.getResourceHome() + File.separator + realName;
+        String realPath = ResourceKit.getResourceHome() + File.separator + directoryName.trim();
         FileKit.existAndCreateDirectory(realPath);
 
         for (MultipartFile file : files) {
