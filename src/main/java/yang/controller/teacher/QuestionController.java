@@ -8,12 +8,10 @@ import yang.common.kit.CommonKit;
 import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Another;
-import yang.domain.common.Course;
 import yang.domain.common.SingleQuestion;
 import yang.domain.common.TfQuestion;
 import yang.domain.teacher.AnotherTaken;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -210,39 +208,18 @@ public class QuestionController extends CommonController {
     }
 
     /**
-     * 获取课程列表
+     * 自定义查询附加题
      *
      * @return .
      */
-    @RequestMapping(value = "/courseGet", method = RequestMethod.GET)
+    @RequestMapping(value = "/another/list/{courseId}", method = RequestMethod.POST)
     @ResponseBody
-    public List<Map<String, Object>> getCourse() {
-        List<Course> courses = specialty2CourseService.selectAllCourses();
-        if (null != courses) {
-            List<Map<String, Object>> father = new ArrayList<>();
-            for (Course course : courses) {
-                Map<String, Object> child = new HashMap<String, Object>() {{
-                    put("id", course.getCourseId());
-                    put("text", course.getName());
-                }};
-                father.add(child);
-            }
-            return father;
-        }
-        return null;
-    }
-
-    /**
-     * 根据课程查询简答题
-     *
-     * @return .
-     */
-    @RequestMapping(value = "/questionLoad/{courseId}", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> selectWithCourse(@PathVariable(value = "courseId") String courseId) {
-        return CommonKit.getTakenInfo(questionService.selectAnotherQuestion(new HashMap<String, Object>() {{
+    public Object selectWithCourse(@PathVariable(value = "courseId") String courseId) {
+        Map<String, Object> info = new HashMap<String, Object>() {{
             put("courseId", courseId);
-        }}));
+        }};
+        List<AnotherTaken> qiestions = questionService.selectAnotherQuestion(info);
+        return CommonKit.getTakenInfo(qiestions);
     }
 
     /**
@@ -250,26 +227,26 @@ public class QuestionController extends CommonController {
      *
      * @return
      */
-    @RequestMapping(value = "/questionSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/another/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean saveQuestion(@RequestBody AnotherTaken anotherTaken) {
-        return questionService.saveQuestion(anotherTaken);
+    public Object saveQuestion(@RequestBody AnotherTaken anotherTaken) {
+        return new ResultBean<>(questionService.saveQuestion(anotherTaken));
     }
 
     /**
-     * 删除附加题题目
+     * 删除附加题
      *
      * @return .
      */
-    @RequestMapping(value = "/questionDel", method = RequestMethod.POST)
+    @RequestMapping(value = "/another/delete", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean delQuestion(@RequestBody AnotherTaken anotherTaken) {
-        return questionService.delQuestion(new HashMap<String, Object>() {{
+    public Object delQuestion(@RequestBody AnotherTaken anotherTaken) {
+        Map<String, Object> info = new HashMap<String, Object>() {{
             put("id", anotherTaken.getId());
-        }});
+        }};
+        return new ResultBean<>(questionService.delQuestion(info));
     }
-
 
 }

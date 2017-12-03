@@ -13,36 +13,58 @@
         <li class="active">附加题管理</li>
     </ol>
     <div id="editQ_toolbar">
-        <select id="course" style="width: 250px"></select>
-        <button class="btn btn-primary" type="button"
-                id="selectQuestion">查找
+        <label>
+            <select id="course" style="width: 200px"></select>
+        </label>
+        <button class="btn btn-primary" type="button" onclick="checkAnother()">
+            查找
         </button>
     </div>
     <div>
-        <table id="editQuestionTable">
+        <table id="table">
         </table>
     </div>
 </div>
 <script>
+
+    var course = $('#course');
+    var table = $('#table');
+
+    //查询附加题
+    function checkAnother() {
+        var courseId = course.val();
+        if (courseId == '') {
+            $.alert({
+                title: "",
+                content: "请选择课程：)",
+                backgroundDismiss: true
+            });
+            return false;
+        }
+        table.bootstrapTable("refresh", {
+            url: '${pageContext.request.contextPath}/question/another/list/' + courseId,
+            silent: true
+        });
+    }
+
+    //预加载
     $(function () {
-        $("#course").select2();
+        course.select2();
         //初始化下拉框
         $.ajax({
-            url: '${pageContext.request.contextPath}/question/courseGet',
+            url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
-                $('#course').select2({
-                    placeholder: "课程名",
-                    allowClear: true,
+                course.select2({
+                    placeholder: "请选择课程：)",
                     data: data
                 });
             }
         });
 
         //表格初始化
-        $("#editQuestionTable").bootstrapTable({
+        table.bootstrapTable({
             method: "post",
-            url: "${pageContext.request.contextPath}/question/initTable",
             sidePagination: "server",
             idField: "questionId",
             showRefresh: "true",
@@ -79,62 +101,102 @@
                 events: 'editBtnEvent'
             }]
         });
-
-        //查找按钮点击事件
-        $("#selectQuestion").click(function () {
-            var courseId = $("#course").val();
-            if (courseId !== null) {
-                $("#editQuestionTable").bootstrapTable("refresh", {
-                    url: '${pageContext.request.contextPath}/question/questionLoad/' + courseId,
-                    silent: true
-                })
-            } else {
-                alert("请选择一个课程");
-            }
-        })
     });
 
     //表格内的按钮初始化
     function initEditBtn() {
         var html = [];
-        html.push('<button class="btn btn-primary editQuestion" type="button">保存</button>');
+        html.push('<button class="btn btn-primary updateAnother" type="button">保存</button>');
         html.push('&nbsp;&nbsp;');
-        html.push('<button class="btn btn-danger delQuestion" type="button">删除</button>');
+        html.push('<button class="btn btn-danger deleteAnother" type="button">删除</button>');
         return html.join('');
     }
 
     //点击事件处理
     window.editBtnEvent = {
-        'click .editQuestion': function (e, value, row, index) {
+        'click .updateAnother': function (e, value, row, index) {
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/question/questionSave',
+                url: '${pageContext.request.contextPath}/question/another/update',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("更新成功");
-                        $("#editQuestionTable").bootstrapTable("refresh")
-                    } else {
-                        alert("更新失败");
+                success: function (result) {
+                    $.alert({
+                        title: "",
+                        content: result.msg,
+                        backgroundDismiss: true
+                    });
+                    if (result.code == 0) {
+                        table.bootstrapTable("refresh")
                     }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.confirm({
+                        animation: 'rotateX',
+                        closeAnimation: 'rotateX',
+                        title: false,
+                        backgroundDismiss: true,
+                        content: "系统错误!",
+                        buttons: {
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'waves-effect waves-button waves-light'
+                            }
+                        }
+                    });
                 }
             });
         },
-        'click .delQuestion': function (e, value, row, index) {
-            $.ajax({
-                type: 'post',
-                url: '${pageContext.request.contextPath}/question/questionDel',
-                dataType: "json",
-                data: JSON.stringify(row),
-                contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("成功删除");
-                        $("#editQuestionTable").bootstrapTable("refresh")
-                    } else {
-                        alert("删除失败");
+        'click .deleteAnother': function (e, value, row, index) {
+            $.confirm({
+                title: "Warnning!",
+                content: "您确定要删除该题目吗？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                type: 'delete',
+                                url: '${pageContext.request.contextPath}/question/another/delete',
+                                dataType: "json",
+                                data: JSON.stringify(row),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                    if (result.code == 0) {
+                                        table.bootstrapTable("refresh")
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        backgroundDismiss: true,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    cancel: function () {
                     }
                 }
             });
