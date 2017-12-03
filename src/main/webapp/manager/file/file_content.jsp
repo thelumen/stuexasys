@@ -45,7 +45,6 @@
                data-toolbar="#toolbar"
                class="table table-bordered table-hover"
                data-toggle="table"
-               data-show-refresh="true"
                data-pagination="true"
                data-side-pagination="server"
                data-method="post"
