@@ -132,7 +132,7 @@ public class QuestionController extends CommonController {
     }
 
     /**
-     * 选择题的删除操作
+     * 删除选择题
      *
      * @param singleQuestion
      * @return
@@ -144,34 +144,62 @@ public class QuestionController extends CommonController {
         return new ResultBean<>(teacher2QuestionService.deleteSingleInfo(singleQuestion));
     }
 
-    ///**
-    // * 获取某一课程选择题的章节
-    // *
-    // * @param courseId
-    // * @return
-    // */
-    //@RequestMapping(value = "/{courseId}/chapter", method = RequestMethod.GET)
-    //@ResponseBody
-    //public List<Map<String, Object>> getCourseChapter(@PathVariable("courseId") Integer courseId) {
-    //    //如果courseId为null，则会查询出所有的信息
-    //    if (null == courseId) {
-    //        return null;
-    //    }
-    //    Map<String, Object> params = new HashMap<String, Object>() {{
-    //        put("courseId", courseId);
-    //    }};
-    //    List<Course> courses = courseService.select(params);
-    //    if (null != courses) {
-    //        int chapterNum = courses.get(0).getChapterNum();
-    //        String[] target = ChapterKit.getLimitedChapters(chapterNum);
-    //
-    //        return ChapterKit.getChapterInSelect(target);
-    //    }
-    //    return null;
-    //}
+    /**
+     * 判断题管理
+     *
+     * @return
+     */
+    @RequestMapping(value = "/showTf", method = RequestMethod.GET)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    public String tfPage() {
+        return "/teacher/question/showTfProxy";
+    }
 
     /**
-     * 转到题目编辑界面
+     * 按条件查询判断题
+     *
+     * @param params   分页信息
+     * @param courseId 课程号
+     * @param section  章节信息
+     * @return
+     */
+    @RequestMapping(value = "/tf/list/{courseId}/{section}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object selectTf(@RequestBody Map<String, Object> params,
+                           @PathVariable(value = "courseId") String courseId,
+                           @PathVariable(value = "section") String section) {
+        Map<String, Object> selectOption = new HashMap<String, Object>() {{
+            put("courseId", courseId);
+            put("section", CommonKit.string2Chinese(section));
+        }};
+        List<TfQuestion> tfQuestionList =
+                teacher2QuestionService.selectTfInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
+        return CommonKit.getTakenInfo(tfQuestionList);
+    }
+
+    /**
+     * 更新判断题
+     *
+     * @param tfQuestion 前台传入的判断题封装信息
+     * @return
+     */
+    @RequestMapping(value = "/tf/update", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object updateTfInfo(@RequestBody TfQuestion tfQuestion) {
+        return new ResultBean<>(teacher2QuestionService.updateTfInfo(tfQuestion));
+    }
+
+    //删除判断题
+    @RequestMapping(value = "/tf/delete", method = RequestMethod.POST)
+    @RequiresPermissions(value = "shiro:sys:teacher")
+    @ResponseBody
+    public Object deleteTfInfo(@RequestBody TfQuestion tfQuestion) {
+        return new ResultBean<>(teacher2QuestionService.deleteTfInfo(tfQuestion));
+    }
+
+    /**
+     * 附加题编辑界面
      *
      * @return .
      */
@@ -241,64 +269,6 @@ public class QuestionController extends CommonController {
         return questionService.delQuestion(new HashMap<String, Object>() {{
             put("id", anotherTaken.getId());
         }});
-    }
-
-    /**
-     * 转到判断题目查看页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/showTf", method = RequestMethod.GET)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    public String tfPage() {
-        return "/teacher/question/showTfProxy";
-    }
-
-
-    /**
-     * 按条件查询判断题
-     *
-     * @param params   分页信息
-     * @param courseId 课程号
-     * @param section  章节信息
-     * @return
-     */
-    @RequestMapping(value = "/tf/loadTf/{courseId}/{section}", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> selectTf(@RequestBody Map<String, Object> params,
-                                        @PathVariable(value = "courseId") String courseId, @PathVariable(value = "section") String section) {
-        if ("null".equals(courseId) || "null".equals(section)) {
-            return CommonKit.getTakenInfo(null);
-        }
-        Map<String, Object> selectOption = new HashMap<String, Object>() {{
-            put("courseId", courseId);
-            put("section", CommonKit.string2Chinese(section));
-        }};
-        List<TfQuestion> tfQuestionList = teacher2QuestionService.selectTfInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
-        return CommonKit.getTakenInfo(tfQuestionList);
-    }
-
-
-    /**
-     * 更新判断题
-     *
-     * @param tfQuestion 前台传入的判断题封装信息
-     * @return
-     */
-    @RequestMapping(value = "/tf/update", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean updateTfInfo(@RequestBody TfQuestion tfQuestion) {
-        return teacher2QuestionService.updateTfInfo(tfQuestion);
-    }
-
-
-    //    判断题的删除操作
-    @RequestMapping(value = "/tf/delete", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:teacher")
-    @ResponseBody
-    public boolean deleteTfInfo(@RequestBody TfQuestion tfQuestion) {
-        return teacher2QuestionService.deleteTfInfo(tfQuestion);
     }
 
 

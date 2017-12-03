@@ -41,7 +41,7 @@
     function cheackSingle() {
         var courseId = course_select.val();
         var section = section_select.val();
-        if (courseId == "" || section == '') {
+        if (section == '' || courseId == '') {
             $.alert({
                 title: "",
                 content: "请选择所要查询的课程和章节：)",
@@ -235,7 +235,6 @@
     function initEditBtn() {
         var html = [];
         html.push('<button class="btn btn-primary updateSingle" type="button">更新</button>');
-        html.push('&nbsp;&nbsp;');
         html.push('<button class="btn btn-danger deleteSingle" type="button">删除</button>');
         return html.join('');
     }

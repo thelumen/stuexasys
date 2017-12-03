@@ -333,7 +333,7 @@
         course.on("select2:select", function (e) {
             var courseId = course.val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/question/' + courseId + '/chapter',
+                url: '${pageContext.request.contextPath}/course/section/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     section.empty();
@@ -346,7 +346,7 @@
         tfcourse.on("select2:select", function (e) {
             var courseId = tfcourse.val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/question/' + courseId + '/chapter',
+                url: '${pageContext.request.contextPath}/course/section/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     tfsection.empty();
