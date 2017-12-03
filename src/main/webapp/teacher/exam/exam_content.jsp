@@ -312,7 +312,7 @@
         course_select.on("select2:select", function (e) {
             var courseId = $('#course_select').val();
             $.ajax({
-                url: '${pageContext.request.contextPath}/course/specialties/' + courseId,
+                url: '${pageContext.request.contextPath}/specialty/' + courseId,
                 dataType: 'json',
                 success: function (data) {
                     specialty_select.empty();
