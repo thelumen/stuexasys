@@ -15,21 +15,18 @@
     </ol>
     <div class="container">
         <div id="toolbar">
-            <label><strong
-                    style="color: #985f0d">专业</strong>：<select
-                    id="specialty"
-                    style="width: 180px">
-            </select></label>
-            <label><strong
-                    style="color: #985f0d">课程</strong>：<select
-                    id="course"
-                    style="width: 150px">
-            </select></label>
-            <label><strong
-                    style="color: #985f0d">测试</strong>：<select
-                    id="test"
-                    style="width: 100px">
-            </select></label>
+            <label><strong style="color: #985f0d">专业</strong>：
+                <select id="specialty" style="width: 180px">
+                </select>
+            </label>
+            <label><strong style="color: #985f0d">课程</strong>：
+                <select id="course" style="width: 150px">
+                </select>
+            </label>
+            <label><strong style="color: #985f0d">测试</strong>：
+                <select id="test" style="width: 100px">
+                </select>
+            </label>
             <button class="btn btn-primary" type="button" onclick="check()">
                 <i class="glyphicon glyphicon-search"></i> 查询
             </button>
@@ -66,145 +63,181 @@
 </div>
 <script>
     //    select
-    var $specialty = $('#specialty');
-    var $course = $('#course');
-    var $test = $('#test');
+    var specialty = $('#specialty');
+    var course = $('#course');
+    var test = $('#test');
     //    table
-    var $table = $('#file_table');
+    var table = $('#file_table');
 
     //下载按钮点击事件
     //下载zip文件
     function downloadZipFile() {
-        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
-            alert("填写完整信息后方可下载文件！");
+        if (test.val() == undefined || test.text() == "" || test.text() == "null") {
+            $.alert({
+                title: "",
+                content: "填写完整信息后方可下载文件:)",
+                backgroundDismiss: true
+            });
             return false;
         }
         $.get("${pageContext.request.contextPath}/admin/file/download",
             {
-                specialtyId: $specialty.val(),
-                courseId: $course.val(),
-                test: $test.val()
+                specialtyId: specialty.val(),
+                courseId: course.val(),
+                test: test.val()
             })
     }
 
-    //    查询学生作业
+    //    查询试卷
     function check() {
-        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
-            alert("请选择完整信息进行查询！");
+        if (test.val() == undefined || test.text() == "" || test.text() == "null") {
+            $.alert({
+                title: "",
+                content: "请选择完整信息进行删除:)",
+                backgroundDismiss: true
+            });
             return false;
         }
         $.get("${pageContext.request.contextPath}/admin/file/list",
             {
-                specialtyId: $specialty.val(),
-                courseId: $course.val(),
-                test: $test.val()
+                specialtyId: specialty.val(),
+                courseId: course.val(),
+                test: test.val()
             }, function (result) {
-                $table.bootstrapTable('load', result);
+                table.bootstrapTable('load', result);
             });
         $('#download_button').attr("href",
-            "${pageContext.request.contextPath}/admin/file/" + $specialty.val() + "/" + $course.val() + "/" + $test.val() + "/download")
+            "${pageContext.request.contextPath}/admin/file/" + specialty.val() + "/" + course.val() + "/" + test.val() + "/download")
     }
 
     //删除无用文件
     function deletePart() {
-        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
-            alert("请选择完整信息进行删除！");
-            return false;
-        }
-        swal({
-                title: "Are you sure?",
-                text: "您是否确认删除这些文件？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes,it will be!",
-                cancelButtonText: "No, cancel!",
-                closeOnConfirm: true,
-                closeOnCancel: true
+        $.confirm({
+            title: "Warnning!",
+            content: "您确定要删除临时文件吗？",
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            type: 'red',
+            backgroundDismiss: true,
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        if (test.text() == undefined || test.text() == "" || test.text() == "null") {
+                            $.alert({
+                                title: "",
+                                content: "请选择完整信息进行删除:)",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        $.get("${pageContext.request.contextPath}/admin/file/delete",
+                            {
+                                specialtyId: specialty.val(),
+                                courseId: course.val(),
+                                test: test.val()
+                            }, function (result) {
+                                $.alert({
+                                    title: "",
+                                    content: result.msg,
+                                    backgroundDismiss: true
+                                });
+                            });
+                    }
             },
-            function () {
-                $.get("${pageContext.request.contextPath}/admin/file/delete",
-                    {
-                        specialtyId: $specialty.val(),
-                        courseId: $course.val(),
-                        test: $test.val()
-                    }, function () {
-                        alert("删除成功！");
-                    });
+                cancel: function () {
+                }
             }
-        );
+        });
     }
 
     //删除全部文件
     function deleteAll() {
-        if ($test.val() == undefined || $test.text() == "" || $test.text() == "null") {
-            alert("请选择完整信息进行删除！");
-            return false;
-        }
-        swal({
-                title: "Are you sure?",
-                text: "您是否确认删除全部文件？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes,it will be!",
-                cancelButtonText: "No, cancel!",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            },
-            function () {
-                $.get("${pageContext.request.contextPath}/admin/file/delete",
-                    {
-                        specialtyId: $specialty.val(),
-                        courseId: $course.val(),
-                        test: $test.val(),
-                        isAll: true
-                    }, function () {
-                        alert("删除成功！")
-                    });
+        $.confirm({
+            title: "Warnning!",
+            content: "您确定要删除全部文件吗？",
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            type: 'red',
+            backgroundDismiss: true,
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        if (test.text() == undefined || test.text() == "" || test.text() == "null") {
+                            $.alert({
+                                title: "",
+                                content: "请选择完整信息进行删除:)",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        $.get("${pageContext.request.contextPath}/admin/file/delete",
+                            {
+                                specialtyId: specialty.val(),
+                                courseId: course.val(),
+                                test: test.val(),
+                                isAll: true
+                            }, function (result) {
+                                $.alert({
+                                    title: "",
+                                    content: result.msg,
+                                    backgroundDismiss: true
+                                });
+                            });
+                    }
+                },
+                cancel: function () {
+                }
             }
-        );
+        });
     }
 
     //初始化
     $(function () {
-        $specialty.select2();
-        $course.select2();
-        $test.select2();
+        specialty.select2();
+        course.select2();
+        test.select2();
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/file/specialty',
             dataType: 'json',
             success: function (data) {
-                $specialty.select2({
+                specialty.select2({
                     data: data
                 });
             }
         });
         //        联级查询专业课程
-        $specialty.on("select2:select", function (e) {
-            var specialtyId = $specialty.val();
+        specialty.on("select2:select", function (e) {
+            var specialtyId = specialty.val();
             $.ajax({
                 url: '${pageContext.request.contextPath}/admin/file/' + specialtyId,
                 dataType: 'json',
                 success: function (data) {
-                    $course.empty();
-                    $test.empty();
-                    $course.select2({
+                    course.empty();
+                    test.empty();
+                    course.select2({
                         data: data
                     });
                 }
             });
         });
         //        联级查询测试
-        $course.on("select2:select", function (e) {
-            var specialtyId = $specialty.val();
-            var courseId = $course.val();
+        course.on("select2:select", function (e) {
+            var specialtyId = specialty.val();
+            var courseId = course.val();
             $.ajax({
                 url: '${pageContext.request.contextPath}/admin/file/' + specialtyId + "/" + courseId,
                 dataType: 'json',
                 success: function (data) {
-                    $test.empty();
-                    $test.select2({
+                    test.empty();
+                    test.select2({
                         data: data
                     });
                 }

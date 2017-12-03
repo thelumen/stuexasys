@@ -3,6 +3,7 @@ package yang.controller.manager;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import yang.common.base.ResultBean;
 import yang.common.kit.CommonKit;
 import yang.common.kit.FileKit;
 import yang.common.kit.ResourceKit;
@@ -48,10 +49,10 @@ public class FileController {
                                  @RequestParam("courseId") String courseId,
                                  @RequestParam("test") String test,
                                  @RequestParam(value = "isAll", required = false, defaultValue = "false") String isAll) {
-        String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
-                + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
+        String path = ResourceKit.getBackupHome() + File.separator + CommonKit.string2Chinese(specialtyId) + File.separator
+                + CommonKit.string2Chinese(courseId) + File.separator + CommonKit.string2Chinese(test);
         FileKit.deleteFile(path, Boolean.valueOf(isAll), "$", ".zip");
-        return true;
+        return new ResultBean<>(true);
     }
 
     /**
@@ -70,8 +71,8 @@ public class FileController {
                                @PathVariable("specialtyId") String specialtyId,
                                @PathVariable("courseId") String courseId,
                                @PathVariable("test") String test) throws IOException, ClassNotFoundException {
-        String dicPath = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
-                + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
+        String dicPath = ResourceKit.getBackupHome() + File.separator + CommonKit.string2Chinese(specialtyId) + File.separator
+                + CommonKit.string2Chinese(courseId) + File.separator + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(dicPath);
         Objects.requireNonNull(files);
         String[] fileNames = new String[files.size()];
@@ -99,8 +100,8 @@ public class FileController {
     public Object getFile(@RequestParam("specialtyId") String specialtyId,
                           @RequestParam("courseId") String courseId,
                           @RequestParam("test") String test) {
-        String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
-                + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
+        String path = ResourceKit.getBackupHome() + File.separator + CommonKit.string2Chinese(specialtyId) + File.separator
+                + CommonKit.string2Chinese(courseId) + File.separator + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(path);
         return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
@@ -126,7 +127,7 @@ public class FileController {
     @RequestMapping(value = "/{specialtyId}", method = RequestMethod.GET)
     @ResponseBody
     public List<Map<String, Object>> findCourseBySpecialtyId(@PathVariable("specialtyId") String specialtyId) {
-        String targetHome = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId);
+        String targetHome = ResourceKit.getBackupHome() + File.separator + CommonKit.string2Chinese(specialtyId);
         List<String> dicNames = FileKit.getFileOrDirectoryNames(targetHome, true);
         return getFileName2Select(dicNames);
     }
@@ -140,9 +141,10 @@ public class FileController {
      */
     @RequestMapping(value = "/{specialtyId}/{courseId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Map<String, Object>> findTestBySpecialtyIdAndCourseId(@PathVariable("specialtyId") String specialtyId,
-                                                                      @PathVariable("courseId") String courseId) {
-        String targetHome = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/" + CommonKit.string2Chinese(courseId);
+    public Object findTestBySpecialtyIdAndCourseId(@PathVariable("specialtyId") String specialtyId,
+                                                   @PathVariable("courseId") String courseId) {
+        String targetHome = ResourceKit.getBackupHome() + File.separator
+                + CommonKit.string2Chinese(specialtyId) + File.separator + CommonKit.string2Chinese(courseId);
         List<String> dicNames = FileKit.getFileOrDirectoryNames(targetHome, true);
         return getFileName2Select(dicNames);
     }
