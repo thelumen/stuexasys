@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import yang.common.base.ResultBean;
 import yang.common.kit.EncryptKit;
 import yang.controller.common.CommonController;
 import yang.domain.teacher.Teacher;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author yang
@@ -43,23 +42,14 @@ public class TeacherController extends CommonController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean updateInfo(@RequestBody Teacher teacher) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("teacherId", teacher.getTeacherId());
-        }};
-        List<Teacher> teachers = teacherService.select(null, params);
-        if (null != teachers) {
-            Teacher t = teachers.get(0);
-            //后台接收的密码是加密了的
-            if (!teacher.getPassword().equals(t.getPassword())) {
-                String password = teacher.getPassword();
-                teacher.setPassword(EncryptKit.md5(password));
-            } else {
-                teacher.setPassword(null);
-            }
-            return teacherService.update(teacher);
+    public Object updateInfo(@RequestBody Teacher teacher) {
+        if (!Objects.equals(teacher.getPassword(), "******")) {
+            String password = teacher.getPassword();
+            teacher.setPassword(EncryptKit.md5(password));
+        } else {
+            teacher.setPassword(null);
         }
-        return false;
+        return new ResultBean<>(teacherService.update(teacher));
     }
 
 }

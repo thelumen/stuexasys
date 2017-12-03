@@ -66,13 +66,42 @@
             }
         }
 
+        //个人信息展示和更改
         function updateTeacher() {
             $.confirm({
-                title: "",
-                content: "您确定要退出登录？",
-                animation: 'right',
+                title: "Personal Information",
+                content: '<form id="me_form">\n' +
+                '    教工号：\n' +
+                '    <input name="teacherId" readonly type="text"\n' +
+                '           value="${currentTeacher.teacherId}">\n' +
+                '    <br>\n' +
+                '    姓名：\n' +
+                '    <input name="name" type="text"\n' +
+                '           value="${currentTeacher.name}">\n' +
+                '    <br>\n' +
+                '    性别：\n' +
+                '    <select name="gender">\n' +
+                '        <option>${currentTeacher.gender}</option>\n' +
+                '        <option>男</option>\n' +
+                '        <option>女</option>\n' +
+                '    </select>\n' +
+                '    <br>\n' +
+                '    教研室：\n' +
+                '    <input name="office" type="text"\n' +
+                '           value="${currentTeacher.office}">\n' +
+                '    <br>\n' +
+                '    职称：\n' +
+                '    <input name="position" type="text"\n' +
+                '           value="${currentTeacher.position}">\n' +
+                '    <br>\n' +
+                '    密码：\n' +
+                '    <input name="password" type="text"\n' +
+                '           onkeyup="value=value.replace(/[^\\w\\.\\/]/ig,\'\')"\n' +
+                '           value="******">\n' +
+                '</form>',
+                animation: 'left',
                 closeAnimation: 'rotateX',
-                type: 'red',
+                type: 'purple',
                 backgroundDismiss: true,
                 buttons: {
                     ok: {
@@ -81,7 +110,52 @@
                         btnClass: 'btn-primary',
                         keys: ['enter'],
                         action: function () {
-                            location.href = '${pageContext.request.contextPath}/shiro/logout';
+                            var gender = $('[name="gender"]').val();
+                            var password = $('[name="password"]').val();
+                            var name = $('[name="name"]').val();
+                            var formdata = $('#me_form').serializeObject();
+                            $.ajax({
+                                url: '${pageContext.request.contextPath}/teacher/update',
+                                data: JSON.stringify(formdata),
+                                contentType: 'application/json',
+                                type: 'post',
+                                dataType: 'json',
+                                beforeSend: function () {
+                                    if (password == '' || name == '') {
+                                        $.alert({
+                                            title: "",
+                                            content: "不要忘记填写姓名和密码哟~",
+                                            backgroundDismiss: true
+                                        });
+                                        return false;
+                                    }
+                                },
+                                success: function (result) {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                    if (result.code == 0) {
+                                        location.reload();
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        animation: 'rotateX',
+                                        backgroundDismiss: true,
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
                     },
                     cancel: function () {
@@ -180,8 +254,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal"
-                           data-target="#teacher_main_modal">${currentTeacher.name}</a>
+                    <li><a href="#"
+                           onclick="updateTeacher()">${currentTeacher.name}</a>
                     </li>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>
