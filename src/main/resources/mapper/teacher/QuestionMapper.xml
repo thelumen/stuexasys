@@ -6,31 +6,40 @@
     <!--删除简答题-->
     <delete id="deleteAnotherQuestion" parameterType="java.util.Map">
         DELETE FROM com_another_question
-        WHERE id = #{id,jdbcType=BIGINT}
+        WHERE id = #{id}
     </delete>
 
-    <!--更新简答题-->
-    <update id="updateAnotherQuestion" parameterType="yang.domain.teacher.AnotherTaken">
+    <!--更新附加题-->
+    <update id="updateAnotherQuestion"
+            parameterType="yang.domain.teacher.AnotherTaken">
         UPDATE com_another_question
-        SET courseId = #{courseId,jdbcType=INTEGER}, content = #{content,jdbcType=VARCHAR},
-            result   = #{result,jdbcType=VARCHAR}
-        WHERE id = #{id,jdbcType=BIGINT}
+        <set>
+            <if test="courseId != null">
+                courseId = #{courseId},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="result != null">
+                result = #{result},
+            </if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     <!--查询简答题with课程Id-->
     <select id="selectAnotherQuestionWithCourse" parameterType="java.util.Map"
             resultType="yang.domain.teacher.AnotherTaken">
         SELECT DISTINCT
-        a.id AS id,
-        a.courseId AS courseId,
+        a.id,
+        a.courseId,
         c.name AS courseName,
-        a.content AS content,
-        a.result AS result
+        a.content,
+        a.result
         FROM com_another_question a,com_course c
         WHERE a.courseId=c.courseId
         <if test="courseId!=null">
-            AND a.courseId=#{courseId,jdbcType=INTEGER}
+            AND a.courseId=#{courseId}
         </if>
     </select>
-
 </mapper>

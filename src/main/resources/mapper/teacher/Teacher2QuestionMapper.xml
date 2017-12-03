@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Teacher2QuestionMapper">
-    <!--ok-->
 
     <!--查询选择题ok-->
     <select id="selectSingleQuestion" parameterType="java.util.Map"

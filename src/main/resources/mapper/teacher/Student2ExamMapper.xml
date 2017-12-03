@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.teacher.Student2ExamMapper">
-    <!--ok-->
 
     <!--新增考试信息ok-->
     <insert id="insertExamInfo" parameterType="yang.domain.teacher.ExamTaken">
