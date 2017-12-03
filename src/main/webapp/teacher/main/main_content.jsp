@@ -12,7 +12,6 @@
 <head>
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
-    <link href="/common/mycss/mycss.css" rel="stylesheet" type="text/css">
     <script>
         function logout() {
             swal({
@@ -66,7 +65,7 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-fixed-top navbar-inverse ">
+    <nav class="navbar navbar-fixed-top ">
         <div class="container-fluid">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"

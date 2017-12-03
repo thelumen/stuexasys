@@ -32,9 +32,9 @@
                class="table table-bordered table-hover"
                data-toggle="table"
                data-show-refresh="true"
-               data-pagination="true"
                data-side-pagination="server"
                data-method="post"
+               data-height="600"
                data-query-params="$.fn.bootstrapTable.queryParams">
             <thead>
             <tr>
@@ -192,7 +192,7 @@
 
     //查询
     function check() {
-        var value = select.val();
+        var value = $("#directory option:selected").text();
         if (value == undefined || value == "" || value == "null") {
             $.alert({
                 title: "",
@@ -201,7 +201,7 @@
             });
             return false;
         }
-        table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/resource/" + select.text() + "/files"});
+        table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/resource/" + value + "/files"});
     }
 
 </script>
