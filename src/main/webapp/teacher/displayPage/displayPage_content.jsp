@@ -6,8 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div
-        style="background: url(${pageContext.request.contextPath}/common/image/bg-灰色科技.jpg) no-repeat">
+<div style="background: url(${pageContext.request.contextPath}/common/image/bg-灰色科技.jpg) no-repeat">
     <header>
         <span style="font-family: 华文楷体;font-size: 30px;color: #1b6d85">功能简介</span>
     </header>
@@ -142,6 +141,12 @@
             </li>
             <li>
                 需要注意的是，进入题目管理页面，题目是不自动加载的，需要选择课程和课程的章节进行查询。课程信息的来源，源自教师的选课信息！
+            </li>
+        </ul>
+        <h4>更改密码</h4>
+        <ul>
+            <li>
+                用户可点击右上角自己的名字 在弹出框中可以进行信息的更新！
             </li>
         </ul>
     </div>

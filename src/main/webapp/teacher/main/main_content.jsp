@@ -29,6 +29,7 @@
                     location.href = '${pageContext.request.contextPath}/shiro/logout';
                 });
         }
+
         function updateInfo() {
             var password = $('[name="password"]').val();
             var name = $('[name="name"]').val();
@@ -65,7 +66,7 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-fixed-top ">
+    <nav class="navbar navbar-fixed-top navbar-default">
         <div class="container-fluid">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"
