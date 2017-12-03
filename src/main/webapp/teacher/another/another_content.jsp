@@ -56,12 +56,20 @@
             dataType: 'json',
             beforeSend: function () {
                 if (score == '') {
-                    $.alert("请确认已填写学生信息！");
+                    $.alert({
+                        title: "",
+                        content: "请确认已填写学生信息！",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     if (score > 100) {
                         $('#score').val(100);
@@ -76,6 +84,7 @@
                 $.confirm({
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
+                    backgroundDismiss: true,
                     title: false,
                     content: "系统错误！",
                     buttons: {
@@ -138,7 +147,11 @@
             dataType: 'json',
             beforeSend: function () {
                 if (course == '' || course == '') {
-                    $.alert("请选择所教课程及其专业!");
+                    $.alert({
+                        title: "",
+                        content: "请选择所教课程及其专业!",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
@@ -160,6 +173,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误！",
                     buttons: {
                         confirm: {

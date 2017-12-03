@@ -2,59 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.manager.CourseMapper">
+    <!--ok-->
 
-    <!--查询课程-->
+    <!--查询课程ok-->
     <select id="select" parameterType="java.util.Map"
             resultType="yang.domain.common.Course">
         SELECT *
         FROM com_course
         <where>
             <if test="courseId != null">
-                courseId=#{courseId,jdbcType=INTEGER}
+                courseId=#{courseId}
             </if>
         </where>
         ORDER BY courseId ASC
     </select>
 
-    <!--新增课程-->
+    <!--新增课程ok-->
     <insert id="insert" parameterType="yang.domain.common.Course">
         INSERT INTO com_course (courseId, name, period, credit, chapterNum)
-        VALUES (#{courseId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-                #{period,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, #{chapterNum,jdbcType=INTEGER})
+        VALUES (#{courseId}, #{name}, #{period}, #{credit}, #{chapterNum})
     </insert>
 
-    <!--删除课程-->
+    <!--删除课程ok-->
     <delete id="delete" parameterType="java.lang.Integer">
         DELETE FROM com_course
-        WHERE courseId = #{courseId,jdbcType=INTEGER}
+        WHERE courseId = #{courseId}
     </delete>
 
-    <!--以教师ID删除课程-->
+    <!--以教师ID删除课程ok-->
     <delete id="deleteCourseTakenByTeacherId" parameterType="java.lang.Integer">
         DELETE FROM com_teacher_l_course
-        WHERE teacherId = #{teacherId,jdbcType=INTEGER}
+        WHERE teacherId = #{teacherId}
     </delete>
 
-    <!--更新课程-->
+    <!--更新课程ok-->
     <update id="update" parameterType="yang.domain.common.Course">
         UPDATE com_course
         <set>
             <if test="courseId != null">
-                courseId = #{courseId,jdbcType=INTEGER},
+                courseId = #{courseId},
             </if>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                name = #{name},
             </if>
             <if test="period != null">
-                period = #{period,jdbcType=INTEGER},
+                period = #{period},
             </if>
             <if test="credit != null">
-                credit = #{credit,jdbcType=INTEGER},
+                credit = #{credit},
             </if>
             <if test="chapterNum != null">
-                chapterNum = #{chapterNum,jdbcType=INTEGER},
+                chapterNum = #{chapterNum},
             </if>
         </set>
-        WHERE id = #{id,jdbcType=INTEGER}
+        WHERE id = #{id}
     </update>
 </mapper>

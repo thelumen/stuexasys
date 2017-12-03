@@ -13,66 +13,79 @@
         </li>
         <li class="active">选择题管理</li>
     </ol>
-    <div id="single_select_clause">
-        <label>选择 <strong style="color: #985f0d">授课课程</strong>：<select
-                name="courseId"
-                id="question_single_course"
-                style="width: 200px">
-            <option selected></option>
-        </select></label>
-        <label>选择 <strong style="color: #985f0d">课程章节</strong>：<select
-                name="section"
-                id="question_single_section"
-                style="width: 200px">
-        </select></label>
-        <button id="query_single" class="btn btn-primary"
-                type="button">
+    <div id="toolbar">
+        <label>选择 <strong style="color: #985f0d">授课课程</strong>：
+            <select name="courseId" id="course_select"
+                    style="width: 200px">
+                <option selected></option>
+            </select>
+        </label>
+        <label>选择 <strong style="color: #985f0d">课程章节</strong>：
+            <select name="section" id="section_select"
+                    style="width: 200px">
+            </select>
+        </label>
+        <button class="btn btn-primary" type="button" onclick="cheackSingle()">
             查询
         </button>
     </div>
     <table id="singleTable">
     </table>
 </div>
-
 <script>
-    var singleCourse = $('#question_single_course');
+    var course_select = $('#course_select');
+    var section_select = $('#section_select');
+    var table = $('#singleTable');
+
+    //查询选择题
+    function cheackSingle() {
+        var courseId = course_select.val();
+        var section = section_select.val();
+        if (courseId == "" || section == '') {
+            $.alert({
+                title: "",
+                content: "请选择所要查询的课程和章节：)",
+                backgroundDismiss: true
+            });
+            return false;
+        }
+        table.bootstrapTable("refresh",
+            {url: "${pageContext.request.contextPath}/question/single/list/" + courseId + "/" + section});
+    }
+
+    //预加载
     $(function () {
-        singleCourse.select2();
-        $('#question_single_section').select2();
-        //初始化下拉框数据。
+        course_select.select2();
+        section_select.select2();
         $.ajax({
-            //            这个url请求获取该教师所教授所有课程
             url: '${pageContext.request.contextPath}/course/single',
             dataType: 'json',
             success: function (data) {
-                singleCourse.select2({
+                course_select.select2({
                     data: data
                 });
             }
         });
-        //        级联：选择课程后筛选出修这门课的所有章节
-        singleCourse.on("select2:select", function (e) {
-            var courseId = singleCourse.val();
+        course_select.on("select2:select", function (e) {
+            var courseId = course_select.val();
             $.ajax({
                 url: '${pageContext.request.contextPath}/course/section/' + courseId,
                 dataType: 'json',
                 success: function (data) {
-                    var choS = $('#question_single_section');
-                    choS.empty();
-                    choS.select2({
+                    section_select.empty();
+                    section_select.select2({
                         data: data
                     });
                 }
             });
         });
 
-        //格式化表格
-        $("#singleTable").bootstrapTable({
+        //初始化table
+        table.bootstrapTable({
             method: "post",
-            url: "${pageContext.request.contextPath}/question/single/loadSingle/" + null + "/" + null,
             sidePagination: "server",
             idField: "id",
-            toolbar: "#single_select_clause",
+            toolbar: "#toolbar",
             showRefresh: "true",
             pagination: "true",
             showColumns: "true",
@@ -81,19 +94,19 @@
                 field: 'id',
                 title: '题号',
                 sortable: true,
-                class: "col-md-1",
+                width: 20,
                 visible: false
             }, {
                 field: 'courseId',
                 title: '课号',
                 sortable: true,
-                class: "col-md-1",
+                width: 30,
                 visible: false
             }, {
                 field: 'section',
                 title: '章节',
-                class: "col-md-1",
                 visible: true,
+                width: 70,
                 editable: {
                     type: 'text',
                     validate: function (value) {
@@ -105,7 +118,7 @@
             }, {
                 field: 'levels',
                 title: '难度级别',
-                class: "col-md-1",
+                width: 70,
                 editable: {
                     type: 'select',
                     source: [{value: '1', text: "简单"}, {
@@ -123,7 +136,7 @@
             }, {
                 field: 'content',
                 title: '题干',
-                class: "col-md-2",
+                width: 400,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -137,7 +150,7 @@
             }, {
                 field: 'que1',
                 title: 'A',
-                class: "col-md-1",
+                width: 200,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -151,7 +164,7 @@
             }, {
                 field: 'que2',
                 title: 'B',
-                class: "col-md-1",
+                width: 200,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -165,7 +178,7 @@
             }, {
                 field: 'que3',
                 title: 'C',
-                class: "col-md-1",
+                width: 200,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -179,7 +192,7 @@
             }, {
                 field: 'que4',
                 title: 'D',
-                class: "col-md-1",
+                width: 200,
                 editable: {
                     type: 'text',
                     disabled: false,    //是否禁用编辑
@@ -193,7 +206,7 @@
             }, {
                 field: 'result',
                 title: '答案',
-                class: "col-md-1",
+                width: 20,
                 editable: {
                     type: 'select',
                     source: [{value: 'A', text: "A"}, {
@@ -211,73 +224,97 @@
             }, {
                 field: 'edit',
                 title: '操作',
-                class: "col-md-1",
+                width: 60,
                 formatter: initEditBtn(),
                 events: 'editBtnEvent'
             }]
         });
-
-        //查找按钮点击事件
-        $("#query_single").click(function () {
-            var courseId = $("#question_single_course").val();
-            var section = $("#question_single_section").val();
-            if (courseId === null) {
-                courseId = 0;//未选中时的默认值
-            }
-            if (section === null || section.length === 0) {
-                section = 0;//未选中时的默认值
-            }
-            $("#singleTable").bootstrapTable("refresh",
-                {url: "${pageContext.request.contextPath}/question/single/loadSingle/" + courseId + "/" + section})
-        })
-
     });
 
     //表格内的按钮初始化
     function initEditBtn() {
         var html = [];
-        html.push('<button class="btn btn-primary saveChanged" type="button">更新</button>');
+        html.push('<button class="btn btn-primary updateSingle" type="button">更新</button>');
         html.push('&nbsp;&nbsp;');
-        html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
+        html.push('<button class="btn btn-danger deleteSingle" type="button">删除</button>');
         return html.join('');
     }
 
     //表格内按钮点击事件处理
     window.editBtnEvent = {
-        'click .saveChanged': function (e, value, row, index) {
+        'click .updateSingle': function (e, value, row, index) {
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/question/single/update',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("更新成功");
-                        $("#singleTable").bootstrapTable("refresh")
-                    } else {
-                        alert("更新失败");
+                success: function (result) {
+                    $.alert({
+                        title: "",
+                        content: result.msg,
+                        backgroundDismiss: true
+                    });
+                    if (result.code == 0) {
+                        table.bootstrapTable("refresh");
                     }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.confirm({
+                        animation: 'rotateX',
+                        closeAnimation: 'rotateX',
+                        title: false,
+                        backgroundDismiss: true,
+                        content: "系统错误!",
+                        buttons: {
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'waves-effect waves-button waves-light'
+                            }
+                        }
+                    });
                 }
             });
         },
-        'click .delStu': function (e, value, row, index) {
+        'click .deleteSingle': function (e, value, row, index) {
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/question/single/delete',
                 dataType: "json",
                 data: JSON.stringify(row),
                 contentType: 'application/json',
-                success: function (data) {
-                    if (data) {
-                        alert("成功删除");
-                        $("#singleTable").bootstrapTable("refresh")
-                    } else {
-                        alert("删除失败");
+                success: function (result) {
+                    $.alert({
+                        title: "",
+                        content: result.msg,
+                        backgroundDismiss: true
+                    });
+                    if (result.code == 0) {
+                        table.bootstrapTable("refresh");
                     }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.confirm({
+                        animation: 'rotateX',
+                        closeAnimation: 'rotateX',
+                        title: false,
+                        backgroundDismiss: true,
+                        content: "系统错误!",
+                        buttons: {
+                            confirm: {
+                                text: '确认',
+                                btnClass: 'waves-effect waves-button waves-light'
+                            }
+                        }
+                    });
                 }
             });
         }
     }
-
 </script>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>

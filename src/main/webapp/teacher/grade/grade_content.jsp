@@ -137,12 +137,20 @@
             data: JSON.stringify(data),
             beforeSend: function () {
                 if (value1 + value2 + value3 + value4 != 100) {
-                    $.alert("分配数额为100,请重新分配!");
+                    $.alert({
+                        title: "",
+                        content: "分配数额为100,请重新分配!",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     table.bootstrapTable("refresh");
                 }
@@ -152,6 +160,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误!",
                     buttons: {
                         confirm: {
@@ -169,7 +178,11 @@
         var specialtyId = table_specialty_select.val();
         var courseId = table_course_select.val();
         if (courseId == '' || specialtyId == '') {
-            $.alert("请填写课程和专业：)");
+            $.alert({
+                title: "",
+                content: "请填写课程和专业：)",
+                backgroundDismiss: true
+            });
             return false;
         }
         table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/grade/" + specialtyId + "/" + courseId});

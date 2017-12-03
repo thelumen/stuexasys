@@ -14,10 +14,10 @@ import java.util.Map;
  * At 8:17
  */
 @Service("courseService")
-public class CourseServiceImp extends CommonService implements CourseService {
+public class CourseServiceImpl extends CommonService implements CourseService {
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int deleteCourseTakenByTeacherId(Integer teacherId) {
         return courseMapper.deleteCourseTakenByTeacherId(teacherId);
     }
@@ -37,13 +37,13 @@ public class CourseServiceImp extends CommonService implements CourseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer courseId) {
         return courseMapper.delete(courseId) > 0;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(Course course) {
         return courseMapper.update(course) > 0;
     }

@@ -94,13 +94,18 @@
                 if (result.code == 0) {
                     modal_table.bootstrapTable("refresh");
                 } else {
-                    $.alert(result.msg);
+                    $.alert({
+                        title: "",
+                        content: result.msg,
+                        backgroundDismiss: true
+                    });
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.confirm({
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
+                    backgroundDismiss: true,
                     title: false,
                     content: "系统错误!",
                     buttons: {
@@ -124,7 +129,11 @@
                 if (result.code == 0) {
                     modal_table.bootstrapTable("refresh");
                 } else {
-                    $.alert(result.msg);
+                    $.alert({
+                        title: "",
+                        content: result.msg,
+                        backgroundDismiss: true
+                    });
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -132,6 +141,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误!",
                     buttons: {
                         confirm: {
@@ -154,7 +164,11 @@
             type: 'post',
             dataType: 'json',
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     table.bootstrapTable("refresh");
                 }
@@ -165,6 +179,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误！",
                     buttons: {
                         confirm: {
@@ -184,6 +199,7 @@
                 content: "您确定要删除这条考试信息吗？",
                 animation: 'right',
                 closeAnimation: 'rotateX',
+                backgroundDismiss: true,
                 buttons: {
                     ok: {
                         text: "ok!",
@@ -196,7 +212,11 @@
                                 type: 'delete',
                                 dataType: 'json',
                                 success: function (data) {
-                                    $.alert(data.msg);
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
                                     if (data.code === 0) {
                                         table.bootstrapTable("refresh");
                                         modal_table.bootstrapTable("refresh");
@@ -204,10 +224,10 @@
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                                     $.confirm({
-                                        theme: 'dark',
                                         animation: 'rotateX',
                                         closeAnimation: 'rotateX',
                                         title: false,
+                                        backgroundDismiss: true,
                                         content: "系统错误!",
                                         buttons: {
                                             confirm: {
@@ -237,12 +257,20 @@
             dataType: 'json',
             beforeSend: function () {
                 if (courseId == '' || specialtyId == '') {
-                    $.alert("请选择课程和专业!");
+                    $.alert({
+                        title: "",
+                        content: "请选择课程和专业!",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     table.bootstrapTable("refresh");
                     modal_table.bootstrapTable("refresh");
@@ -250,9 +278,9 @@
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.confirm({
-                    theme: 'dark',
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
+                    backgroundDismiss: true,
                     title: false,
                     content: "系统错误!",
                     buttons: {

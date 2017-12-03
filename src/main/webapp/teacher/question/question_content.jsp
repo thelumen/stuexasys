@@ -165,12 +165,20 @@
             contentType: 'application/json',
             beforeSend: function () {
                 if (course.val() == '' || section.val() == '' || textarea == '' || que1 == '' || que2 == '' || que3 == '') {
-                    $.alert("请完整填写题目内容:)");
+                    $.alert({
+                        title: "",
+                        content: "请完整填写题目内容:)",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     $("#single_content").val('');
                     $("[name='que1']").val('');
@@ -184,6 +192,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误!",
                     buttons: {
                         confirm: {
@@ -207,12 +216,20 @@
             type: 'post',
             beforeSend: function () {
                 if (tfcourse.val() == '' || tfsection.val() == '' || textarea == '') {
-                    $.alert("请完整填写题目内容:)");
+                    $.alert({
+                        title: "",
+                        content: "请完整填写题目内容:)",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     $('#tf_content').val('');
                 }
@@ -221,6 +238,7 @@
                 $.confirm({
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
+                    backgroundDismiss: true,
                     title: false,
                     content: "系统错误!",
                     buttons: {
@@ -248,12 +266,20 @@
             contentType: 'application/json',
             beforeSend: function () {
                 if (anocourse.val() == '' || textarea_content == '' || textarea_result == '') {
-                    $.alert("请完整填写题目内容:)");
+                    $.alert({
+                        title: "",
+                        content: "请完整填写题目内容:)",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     $('#ano_content').val('');
                     $('#ano_result').val('');
@@ -264,6 +290,7 @@
                     animation: 'rotateX',
                     closeAnimation: 'rotateX',
                     title: false,
+                    backgroundDismiss: true,
                     content: "系统错误!",
                     buttons: {
                         confirm: {
@@ -335,16 +362,19 @@
     var single = $('#single_div');
     var tf = $('#tf_div');
     var ano = $('#another_div');
+
     function singlePart() {
         tf.css('display', 'none');
         ano.css('display', 'none');
         single.css('display', 'block');
     }
+
     function tfPart() {
         single.css('display', 'none');
         ano.css('display', 'none');
         tf.css('display', 'block');
     }
+
     function anoPart() {
         single.css('display', 'none');
         tf.css('display', 'none');

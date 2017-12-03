@@ -44,8 +44,6 @@ public final class ChapterKit {
         List<Map<String, Object>> father = new ArrayList<>();
         for (String chapterName : srcArray) {
             Map<String, Object> child = new HashMap<String, Object>() {
-                private static final long serialVersionUID = -8907869205729845500L;
-
                 {
                     put("id", CommonKit.chinese2CharNumber(chapterName));
                     put("text", chapterName);

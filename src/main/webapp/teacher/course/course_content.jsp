@@ -89,6 +89,7 @@
             content: "删除成功后将会同时删除相应的考试信息，您确定吗？",
             animation: 'right',
             closeAnimation: 'rotateX',
+            backgroundDismiss: true,
             buttons: {
                 ok: {
                     text: "ok!",
@@ -100,16 +101,20 @@
                             type: 'delete',
                             url: '${pageContext.request.contextPath}/course/delete/' + content,
                             dataType: 'json',
-                            success: function (data) {
-                                if (data.code === 0) {
+                            success: function (result) {
+                                if (result.code === 0) {
                                     table.bootstrapTable("refresh");
                                 }
-                                $.alert(data.msg);
+                                $.alert({
+                                    title: "",
+                                    content: result.msg,
+                                    backgroundDismiss: true
+                                });
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 $.confirm({
-                                    theme: 'dark',
                                     animation: 'rotateX',
+                                    backgroundDismiss: true,
                                     closeAnimation: 'rotateX',
                                     title: false,
                                     content: "您没有权限!",
@@ -141,12 +146,20 @@
             data: JSON.stringify(data),
             beforeSend: function () {
                 if ($('#endtime').val() == '' || $('#starttime').val() == '') {
-                    $.alert("不要忘记填写开课和结课时间哦!");
+                    $.alert({
+                        title: "",
+                        content: "不要忘记填写开课和结课时间哦!",
+                        backgroundDismiss: true
+                    });
                     return false;
                 }
             },
             success: function (result) {
-                $.alert(result.msg);
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
                 if (result.code == 0) {
                     table.bootstrapTable("refresh");
                 }
@@ -154,6 +167,7 @@
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.confirm({
                     animation: 'rotateX',
+                    backgroundDismiss: true,
                     closeAnimation: 'rotateX',
                     title: false,
                     content: "您选择的课程和专业已存在!",
