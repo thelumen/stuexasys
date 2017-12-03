@@ -13,7 +13,6 @@
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
-
         //退出
         function logout() {
             $.confirm({
@@ -37,33 +36,6 @@
                     }
                 }
             });
-        }
-
-        function updateInfo() {
-            var password = $('[name="password"]').val();
-            var name = $('[name="name"]').val();
-            if (password !== '' && name !== '') {
-                var formdata = $('#teacher_main_form').serializeObject();
-                var data = JSON.stringify(formdata);
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/teacher/update',
-                    data: data,
-                    contentType: 'application/json',
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data === true) {
-                            $('#teacher_main_modal').modal("hide");
-                            swal("year", "修改成功！请刷新本页：)", "success");
-                        }
-                    },
-                    error: function () {
-                        swal("oh..", "系统智商不在线，发生错误了...", "error");
-                    }
-                });
-            } else {
-                swal("oh..", "请填写姓名和密码 :)", "error");
-            }
         }
 
         //个人信息展示和更改
@@ -265,45 +237,5 @@
     </nav>
 </div>
 <jsp:include page="/teacher/${category}/${name}_content.jsp"></jsp:include>
-<%--个人信息完善--%>
-<div id="teacher_main_modal" class="modal fade" tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="main_main_modal_about_h4">
-                    个人信息</h4>
-            </div>
-            <div class="modal-body">
-                <form id="teacher_main_form">
-                    <label>教工号：<input name="teacherId" readonly type="text"
-                                      value="${currentTeacher.teacherId}"></label>
-                    <label>姓名：<input name="name" type="text"
-                                     value="${currentTeacher.name}"></label>
-                    <label>性别：<select name="gender">
-                        <option>男</option>
-                        <option>女</option>
-                    </select></label>
-                    <label>教研室：<input name="office" type="text"
-                                      value="${currentTeacher.office}"></label>
-                    <label>职称：<input name="position" type="text"
-                                     value="${currentTeacher.position}"></label>
-                    <label>密码：<input name="password" type="text"
-                                     onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"
-                                     value="${currentTeacher.password}"></label>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        onclick="updateInfo()">保存
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>
