@@ -222,6 +222,7 @@
                 content: "您确定要删除该题目吗？",
                 animation: 'right',
                 closeAnimation: 'rotateX',
+                type: 'red',
                 backgroundDismiss: true,
                 buttons: {
                     ok: {

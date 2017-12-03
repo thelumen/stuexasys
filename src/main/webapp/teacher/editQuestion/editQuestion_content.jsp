@@ -155,6 +155,7 @@
                 animation: 'right',
                 closeAnimation: 'rotateX',
                 backgroundDismiss: true,
+                type: 'red',
                 buttons: {
                     ok: {
                         text: "ok!",

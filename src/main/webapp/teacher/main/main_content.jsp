@@ -13,21 +13,30 @@
     <title>权限管理</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
+
+        //退出
         function logout() {
-            swal({
-                    title: "您确定要退出登录？",
-                    text: "",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "注销",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    location.href = '${pageContext.request.contextPath}/shiro/logout';
-                });
+            $.confirm({
+                title: "",
+                content: "您确定要退出登录？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                type: 'red',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            location.href = '${pageContext.request.contextPath}/shiro/logout';
+                        }
+                    },
+                    cancel: function () {
+                    }
+                }
+            });
         }
 
         function updateInfo() {
@@ -56,6 +65,30 @@
                 swal("oh..", "请填写姓名和密码 :)", "error");
             }
         }
+
+        function updateTeacher() {
+            $.confirm({
+                title: "",
+                content: "您确定要退出登录？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                type: 'red',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            location.href = '${pageContext.request.contextPath}/shiro/logout';
+                        }
+                    },
+                    cancel: function () {
+                    }
+                }
+            });
+        }
     </script>
     <style>
         form input {
@@ -66,7 +99,7 @@
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-fixed-top navbar-default">
+    <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"

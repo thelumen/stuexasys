@@ -89,6 +89,7 @@
             content: "删除成功后将会同时删除相应的考试信息，您确定吗？",
             animation: 'right',
             closeAnimation: 'rotateX',
+            type: 'red',
             backgroundDismiss: true,
             buttons: {
                 ok: {

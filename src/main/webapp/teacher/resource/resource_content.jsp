@@ -162,6 +162,7 @@
             content: "您确定要删除这个文件吗？",
             animation: 'right',
             closeAnimation: 'rotateX',
+            type: 'red',
             backgroundDismiss: true,
             buttons: {
                 ok: {

@@ -199,6 +199,7 @@
                 content: "您确定要删除这条考试信息吗？",
                 animation: 'right',
                 closeAnimation: 'rotateX',
+                type: 'red',
                 backgroundDismiss: true,
                 buttons: {
                     ok: {
