@@ -4,14 +4,17 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import yang.common.kit.*;
+import yang.common.base.ResultBean;
+import yang.common.kit.CommonKit;
+import yang.common.kit.FileKit;
+import yang.common.kit.ResourceKit;
 import yang.controller.common.CommonController;
-import yang.domain.teacher.CourseTaken;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author yang
@@ -34,28 +37,6 @@ public class ResourceController extends CommonController {
     }
 
     /**
-     * 获取学科目录文件名select
-     *
-     * @return
-     */
-    @RequestMapping(value = "/directory", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Map<String, Object>> getDirectories() {
-        //List<String> directories = FileKit.getFileOrDirectoryNames(ResourceKit.getResourceHome(), true);
-        Map<String, Object> teacherInfo = new HashMap<String, Object>() {
-            {
-                put("teacherId", TeacherKit.getCurrentTeacherId());
-            }
-        };
-        Set<String> directories = new HashSet<>();
-        List<CourseTaken> courses = specialty2CourseService.selectCourseTaken(null, teacherInfo);
-        for (CourseTaken courseTaken : courses) {
-            directories.add(courseTaken.getCourseName());
-        }
-        return ChapterKit.getChapterInSelect(directories.toArray(new String[directories.size()]));
-    }
-
-    /**
      * 返回某一文件目录类所有普通文件信息
      *
      * @param directoryName
@@ -64,12 +45,12 @@ public class ResourceController extends CommonController {
      */
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) {
-        String directory = CommonKit.string2Chinese(directoryName);
-        String deepPath = ResourceKit.getResourceHome() + "/" + directory;
-        List<File> files = FileKit.getFiles(deepPath);
+    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
+        String directory = new String(directoryName.getBytes("iso8859-1"), "utf8").trim();
+        //String deepPath = ResourceKit.getResourceHome() + File.separator + directory;
+        List<File> files = FileKit.getFiles(ResourceKit.getResourceHome() + File.separator + directory);
 
-        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files, 2));
+        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
 
     /**
@@ -82,43 +63,38 @@ public class ResourceController extends CommonController {
     @RequestMapping(value = "/file/delete", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean deleteFile(@RequestParam("path") String path) throws IOException {
-        //String realPath = ResourceKit.getResourceHome() + "/" + new String(path.getBytes("iso8859-1"), "utf8");
-        String realPath = ResourceKit.getResourceHome() + "/" + path;
-        return FileKit.deleteIfExists(realPath);
+    public Object deleteFile(@RequestParam("path") String path) throws IOException {
+        String realPath = new String(path.getBytes("iso8859-1"), "utf8").trim();
+        //String realPath = ResourceKit.getResourceHome() +  File.separator  + path;
+        return new ResultBean<>(FileKit.deleteIfExists(realPath));
     }
 
     /**
      * 上传文件
      *
-     * @param directoryName HOME文件下某一文件夹名
-     * @param files         上传的文件
+     * @param directoryName
+     * @param files
      * @return
      * @throws IOException
      */
     @RequestMapping(value = "/{directoryName}/upload", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
-    public boolean uploadFiles(@PathVariable("directoryName") String directoryName,
-                               @RequestParam("files") List<MultipartFile> files) {
-        String directory;
-        try {
-            directory = CommonKit.string2Chinese(directoryName);
-            //HOME主目录下的某一directory
-            String realPath = ResourceKit.getResourceHome() + "/" + directory;
-            FileKit.existAndCreateDirectory(realPath);
-            if (null != files && files.size() > 0) {
-                for (MultipartFile file : files) {
-                    file.transferTo(new File(realPath + "/" + file.getOriginalFilename()));
-                }
-                return true;
-            }
-        } catch (IOException e) {
-            LOGGER.error(e.toString());
-            return false;
+    public Object uploadFiles(@PathVariable("directoryName") String directoryName,
+                              @RequestParam("files") List<MultipartFile> files) throws IOException {
+        String realName = new String(directoryName.getBytes("iso8859-1"), "utf8").trim();
+        if (null == files || files.size() == 0) {
+            return new ResultBean<>("请添加文件：)");
         }
-        return false;
-    }
 
+        String realPath = ResourceKit.getResourceHome() + File.separator + realName;
+        FileKit.existAndCreateDirectory(realPath);
+
+        for (MultipartFile file : files) {
+            file.transferTo(new File(realPath + File.separator + file.getOriginalFilename()));
+        }
+
+        return new ResultBean<>(true);
+    }
 
 }

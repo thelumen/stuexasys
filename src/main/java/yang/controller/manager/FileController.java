@@ -102,7 +102,7 @@ public class FileController {
         String path = ResourceKit.getBackupHome() + "/" + CommonKit.string2Chinese(specialtyId) + "/"
                 + CommonKit.string2Chinese(courseId) + "/" + CommonKit.string2Chinese(test);
         List<File> files = FileKit.getFiles(path);
-        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files, 4));
+        return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
 
     /**

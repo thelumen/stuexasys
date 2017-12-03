@@ -16,7 +16,7 @@
         <div id="toolbar">
             <label>请选择文件<strong style="color: #985f0d">目录分类</strong>：
                 <select style="width: 200px"
-                        id="teacher_resource_home_directory">
+                        id="directory">
                     <option selected></option>
                 </select>
             </label>
@@ -61,7 +61,7 @@
             <div class="modal-body">
                 <label>请选择需要<strong style="color: #985f0d">上传的文件</strong>：
                     <form id="form">
-                        <input id="teacher_resource_form_inp" multiple
+                        <input id="file_input" multiple
                                type="file" class="file" name="files"
                                data-show-upload="false"
                                data-show-caption="true"
@@ -77,19 +77,18 @@
     </div>
 </div>
 <script>
-    var $table = $('#resource_table');
-    var $select = $('#teacher_resource_home_directory');
-    var $modal = $('#modal');
+    var table = $('#resource_table');
+    var select = $('#directory');
+    var modal = $('#modal');
 
     //    初始化
     $(function () {
-        $select.select2();
-//        展示学科目录
+        select.select2();
         $.ajax({
-            url: '${pageContext.request.contextPath}/resource/directory',
+            url: '${pageContext.request.contextPath}/course/single',
             dateType: 'json',
             success: function (data) {
-                $select.select2({
+                select.select2({
                     data: data
                 });
             }
@@ -100,73 +99,109 @@
     function operate(value, row) {
         var html = [];
         html.push('<button class="btn btn-danger" type="button" onclick="deleteFile(\'{0}\')">删除</button>'.replace('{0}', row.path));
-        return html.join(' | ');
+        return html.join('');
     }
 
+    //展示modal
     function showModal() {
-        $modal.modal("show");
+        modal.modal("show");
     }
 
     //    文件上传
     function submitFiles() {
-        var files = $('#teacher_resource_form_inp').val();
-        var directoryName = $('#teacher_resource_home_directory').val();
-        if (files !== '' && directoryName !== '') {
-            $('#form').ajaxSubmit({
-                url: '${pageContext.request.contextPath}/resource/' + directoryName + '/upload',
-                type: 'post',
-                dataType: 'json',
-                success: function (data) {
-                    if (data) {
-                        swal("year", "上传成功！", "success");
-                    }
-                    $modal.modal("hide");
-                    $table.bootstrapTable("refresh");
-                },
-                error: function () {
-                    swal("oh..", "系统智商不在线，不能上传了...", "error");
+        var files = $('#file_input').val();
+        var directoryName = $('#directory').text();
+        $('#form').ajaxSubmit({
+            url: '${pageContext.request.contextPath}/resource/' + directoryName + '/upload',
+            type: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                if (files == '' || directoryName == '') {
+                    $.alert({
+                        title: "",
+                        content: "请选择学科分类以及上传的文件 并且选择正确的文件类型 :)",
+                        backgroundDismiss: true
+                    });
+                    return false;
                 }
-            });
-        } else {
-            swal("oh..", "请选择学科分类以及上传的文件 并且选择正确的文件类型 :)", "error");
-            return false;
-        }
+            },
+            success: function (result) {
+                $.alert({
+                    title: "",
+                    content: result.msg,
+                    backgroundDismiss: true
+                });
+                if (result.code == 0) {
+                    modal.modal("hide");
+                    $('#file_input').val("");
+                    table.bootstrapTable("refresh");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    animation: 'rotateX',
+                    backgroundDismiss: true,
+                    closeAnimation: 'rotateX',
+                    title: false,
+                    content: "系统错误!",
+                    buttons: {
+                        confirm: {
+                            text: '确认',
+                            btnClass: 'waves-effect waves-button waves-light'
+                        }
+                    }
+                });
+            }
+        });
     }
 
     //删除资源
     function deleteFile(path) {
-        swal({
-                title: "Are you sure?",
-                text: "您是否确认删除这个文件？",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes,it will be!",
-                cancelButtonText: "No, cancel!",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            },
-            function () {
-                $.get("${pageContext.request.contextPath}/resource/file/delete", {
-                    path: path
-                }, function (result) {
-                    if (result) {
-                        $table.bootstrapTable("refresh");
-                        alert("删除成功！")
+        $.confirm({
+            title: "Warnning!",
+            content: "您确定要删除这个文件吗？",
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            backgroundDismiss: true,
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        $.get("${pageContext.request.contextPath}/resource/file/delete", {
+                            path: path
+                        }, function (result) {
+                            $.alert({
+                                title: "",
+                                content: result.msg,
+                                backgroundDismiss: true
+                            });
+                            if (result.code == 0) {
+                                table.bootstrapTable("refresh");
+                            }
+                        });
                     }
-                });
+                },
+                cancel: function () {
+                }
             }
-        );
+        });
     }
 
-    //    查询
+    //查询
     function check() {
-        var value = $select.val();
+        var value = select.val();
         if (value == undefined || value == "" || value == "null") {
-            alert("请选择一条数据项！");
+            $.alert({
+                title: "",
+                content: "请选择一条数据项:)",
+                backgroundDismiss: true
+            });
             return false;
         }
-        $table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/resource/" + $select.val() + "/files"});
+        table.bootstrapTable('refresh', {url: "${pageContext.request.contextPath}/resource/" + select.text() + "/files"});
     }
 
 </script>

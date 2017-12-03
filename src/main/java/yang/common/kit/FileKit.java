@@ -122,16 +122,16 @@ public final class FileKit {
      * @return
      */
     public static List<File> getFiles(String directoryPath) {
-        File dir = new File(directoryPath);
-        if (!dir.exists() || !dir.isDirectory()) {
-            return null;
+        existAndCreateDirectory(directoryPath);
+
+        File[] files = new File(directoryPath).listFiles(File::isFile);
+        if (null == files || files.length == 0) {
+            return new ArrayList<>();
         }
-        File[] files = dir.listFiles(File::isFile);
-        List<File> homework = null;
-        if (null != files) {
-            homework = new ArrayList<>();
-            homework.addAll(Arrays.asList(files));
-        }
+
+        List<File> homework = new ArrayList<>();
+        homework.addAll(Arrays.asList(files));
+
         return homework;
     }
 
@@ -141,7 +141,7 @@ public final class FileKit {
      * @param resources
      * @return
      */
-    public static List<FileInfo> wrapFileInfo(List<File> resources, int pathLevels) {
+    public static List<FileInfo> wrapFileInfo(List<File> resources) {
         Objects.requireNonNull(resources);
         List<FileInfo> target = new ArrayList<>();
         FileInfo file;
@@ -149,38 +149,12 @@ public final class FileKit {
             file = new FileInfo();
 
             file.setFileName(f.getName());
-            file.setPath(splitAndGetLastNodes(f.getPath(), "/", pathLevels));
+            file.setPath(f.getPath());
             file.setNowDate(f.lastModified());
 
             target.add(file);
         }
         return target;
-    }
-
-    /**
-     * 分解字符串，得到指定的后几个节点
-     *
-     * @param src   源字符串
-     * @param flag  分解标志
-     * @param level 节点层数
-     * @return
-     */
-    private static String splitAndGetLastNodes(String src, String flag, int level) {
-        Objects.requireNonNull(src);
-        String[] nodes = src.split(flag);
-        int length = nodes.length;
-        if (length < level) {
-            throw new NullPointerException("没有足够的节点数");
-        } else if (length == level) {
-            return src;
-        } else {
-            StringBuilder sb = new StringBuilder();
-            for (int i = length - level; i < length; i++) {
-                sb.append(nodes[i]).append("/");
-            }
-            return sb.substring(0, sb.length() - 1);
-        }
-
     }
 
     /**
