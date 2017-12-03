@@ -10,15 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/8/31.
+ * @author yang
+ * @date 2017/8/31
  * At 8:16
  */
 @Service("specialtyService")
 public class SpecialtyServiceImp extends CommonService implements SpecialtyService {
 
     @Override
-    public int insert(Specialty specialty) {
-        return specialtyMapper.insert(specialty);
+    public boolean insert(Specialty specialty) {
+        return specialtyMapper.insert(specialty) > 0;
     }
 
     @Override

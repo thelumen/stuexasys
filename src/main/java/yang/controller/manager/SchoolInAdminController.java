@@ -4,16 +4,21 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import yang.common.base.ResultBean;
 import yang.common.enums.DeleteType;
 import yang.common.kit.ValidateKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Course;
 import yang.domain.common.Specialty;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by yang on 2017/8/30.
+ * @author yang
+ * @date 2017/8/30
  * At 16:42
  */
 @Controller
@@ -21,7 +26,7 @@ import java.util.*;
 public class SchoolInAdminController extends CommonController {
 
     /**
-     * 转至学校配置主页
+     * 学校配置主页
      *
      * @param model
      * @return
@@ -137,30 +142,22 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/specialty/add", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public boolean insertSpecialty(@RequestParam(value = "specialtyId") Integer specialtyId,
-                                   @RequestParam(value = "year") String year,
-                                   @RequestParam(value = "specialtyName") String specialtyName) {
-        //校验
-        if (specialtyId < 100000 || specialtyId > 999999) {
-            return false;
-        }
-        if (Objects.equals(year, "") || Objects.equals(specialtyName, "")) {
-            return false;
-        }
-
+    public Object insertSpecialty(@RequestParam(value = "specialtyId") Integer specialtyId,
+                                  @RequestParam(value = "year") String year,
+                                  @RequestParam(value = "specialtyName") String specialtyName) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
         }};
         List<Specialty> specialties = specialtyService.select(params);
         if (null != specialties) {
-            return false;
+            return new ResultBean<>("专业已存在！（专业Id起冲突）");
         }
 
         Specialty s = new Specialty();
         s.setSpecialtyId(specialtyId);
         s.setName(year + specialtyName);
 
-        return specialtyService.insert(s) > 0;
+        return new ResultBean<>(specialtyService.insert(s));
     }
 
     /**

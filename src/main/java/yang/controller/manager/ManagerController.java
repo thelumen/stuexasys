@@ -4,15 +4,15 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import yang.controller.common.CommonController;
 
 /**
- * Created by yang on 2017/5/15.
+ * @author yang
+ * @date 2017/5/15
  * At 15:48
  */
 @Controller
 @RequestMapping("/admin")
-public class ManagerController extends CommonController {
+public class ManagerController {
 
     /**
      * 主页
@@ -24,6 +24,5 @@ public class ManagerController extends CommonController {
     public String main() {
         return "/manager/main/mainProxy";
     }
-
 
 }

@@ -16,10 +16,10 @@
     </ol>
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span6">
+            <div class="col-md-6">
                 <shiro:hasPermission name="shiro:sys:admin">
                     <button class="btn-primary" style="text-align: right"
-                            onclick="showAddSpecialty()">新增专业
+                            onclick="addSpecialty()">新增专业
                     </button>
                 </shiro:hasPermission>
                 <br><br>
@@ -42,7 +42,7 @@
                                 <td>${specialty.name}</td>
                                 <td>
                                     <button class="btn-primary"
-                                            onclick="showModifySpecialty('${specialty.specialtyId}')">
+                                            onclick="modifySpecialty('${specialty.id}')">
                                         修改
                                     </button>
                                     <shiro:hasPermission name="shiro:sys:admin">
@@ -58,7 +58,7 @@
                     </table>
                 </div>
             </div>
-            <div class="span6">
+            <div class="col-md-6">
                 <shiro:hasPermission name="shiro:sys:admin">
                     <button class="btn-primary" style="text-align: right"
                             onclick="showAddCourse()">新增课程
@@ -191,40 +191,6 @@
         </div>
     </div>
 </div>
-<%--新增专业--%>
-<div id="school_specialty_modal" class="modal fade" tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    新增专业</h4>
-            </div>
-            <div class="modal-body">
-                <form id="school_specialty_form">
-                    <input class="form-control"
-                           name="specialtyId"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="6" minlength="6"
-                           placeholder="专业Id，如：14届计算机，请填写“140401”">
-                    <input name="year" placeholder="填写两位数数字，如14届计算机，请填写“14”"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           minlength="2" maxlength="2" class="form-control"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <input name="specialtyName" type="text"
-                           class="form-control"
-                           placeholder="专业名称，如：计算机科学与技术">
-                    <button type="button" onclick="addSpecialty()">添加</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <%--修改专业--%>
 <div id="school_specialty_modify_modal" class="modal fade" tabindex="-1"
      role="dialog"
@@ -258,10 +224,6 @@
     </div>
 </div>
 <script>
-    //展示课程添加modal
-    function showAddCourse() {
-        $('#school_course_modal').modal('show');
-    }
     //添加课程
     function addCourse() {
         var courseId = $('[name="courseId"]').val();
@@ -303,6 +265,7 @@
             }
         })
     }
+
     //删除课程
     function deleteCourse(id) {
         swal({
@@ -333,21 +296,7 @@
                 })
             });
     }
-    //展示修改课程modal
-    function showModifyCourse(id) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/course/' + id,
-            success: function (data) {
-                $('#modify_c_id').val(data.id);
-                $('#modify_c_cId').val(data.courseId);
-                $('#modify_c_name').val(data.name);
-                $('#modify_c_p').val(data.period);
-                $('#modify_c_c').val(data.credit);
-                $('#modify_c_cn').val(data.chapterNum);
-            }
-        });
-        $('#school_course_modify_modal').modal('show');
-    }
+
     //修改课程
     function modifyCourse() {
         var stringData = $('#school_course_modify_form').serializeObject();
@@ -371,84 +320,212 @@
             }
         })
     }
-    //展示新增专业modal
-    function showAddSpecialty(id) {
-        $('#school_specialty_modal').modal('show');
-    }
+
     //新增专业
     function addSpecialty() {
-        var sId = $('[name="specialtyId"]').val();
-        var year = $('[name="year"]').val();
-        var name = $('[name="specialtyName"]').val();
-        if (sId === "" || year === "" || name === "") {
-            alert("请填写完整数据！");
-            return false;
-        }
-        if (sId.length !== 6) {
-            alert("专业id长度为6！");
-            return false;
-        }
-        if (year.length !== 2) {
-            alert("请正确填写两位数值！");
-            return false;
-        }
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/specialty/add',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                specialtyId: sId,
-                year: year,
-                specialtyName: name
-            },
-            success: function (data) {
-                if (data) {
-                    location.reload();
-                } else {
-                    alert("专业Id重复！");
+        $.confirm({
+            title: "新增专业",
+            content: '<input id="add_specialtyId" class="form-control" onkeyup="this.value=this.value.replace(/\\D/g,\'\')" ' +
+            'onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="6" minlength="6"' +
+            ' placeholder="专业Id，如：14届计算机，请填写“140401”">' +
+            '<input id="add_year" placeholder="填写两位数数字，如14届计算机，请填写“14”" ' +
+            'onkeyup="this.value=this.value.replace(/\\D/g,\'\')" minlength="2" maxlength="2" ' +
+            'class="form-control" onafterpaste="this.value=this.value.replace(/\\D/g,\'\')">' +
+            '<input id="add_specialtyName" type="text" class="form-control" placeholder="专业名称，如：计算机科学与技术">',
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        var sId = $('#add_specialtyId').val();
+                        var year = $('#add_year').val();
+                        var name = $('#add_specialtyName').val();
+                        if (sId == "" || year == "" || name == "") {
+                            $.alert({
+                                title: "",
+                                content: "请填写完整数据:)",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (sId.length != 6) {
+                            $.alert({
+                                title: "",
+                                content: "专业id长度为6",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (year.length != 2) {
+                            $.alert({
+                                title: "",
+                                content: "请正确填写两位数值:)",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/admin/school/specialty/add',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                specialtyId: sId,
+                                year: year,
+                                specialtyName: name
+                            },
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    $.confirm({
+                                        animation: 'left',
+                                        closeAnimation: 'rotateX',
+                                        content: result.msg + " 数据将在3秒后刷新...",
+                                        autoClose: 'confirm|3000',
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light',
+                                                action: function () {
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $.confirm({
+                                    animation: 'rotateX',
+                                    backgroundDismiss: true,
+                                    closeAnimation: 'rotateX',
+                                    title: false,
+                                    content: "系统错误!",
+                                    buttons: {
+                                        confirm: {
+                                            text: '确认',
+                                            btnClass: 'waves-effect waves-button waves-light'
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                },
+                cancel: function () {
                 }
-            },
-            error: function () {
-                alert("您没有权限！");
-                location.reload();
-            }
-        })
-    }
-    //展示修改专业modal
-    function showModifySpecialty(id) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/specialty/' + id,
-            success: function (data) {
-                $('#modify_s_realId').val(data.id);
-                $('#modify_s_id').val(data.specialtyId);
-                $('#modify_s_name').val(data.name);
             }
         });
-        $('#school_specialty_modify_modal').modal("show");
     }
+
     //修改专业
-    function modifySpecialty(id) {
-        var stringData = $('#school_specialty_modify_form').serializeObject();
-        var jsonDate = JSON.stringify(stringData);
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/specialty/update',
-            contentType: 'application/json',
-            data: jsonDate,
-            dataType: 'json',
-            type: 'post',
-            success: function (data) {
-                if (data) {
-                    location.reload();
-                } else {
-                    alert("请填写正确参数！");
+    function modifySpecialty(info) {
+        alert(info);
+        return false;
+        var array = {};
+//        array = info.split('+');
+        $.confirm({
+            title: "修改专业",
+            content:
+            '<input class="form-control" id="mod_s_id" name="id" value="' + id + '">' +
+            '<input class="form-control" id="mod_s_Id" placeholder="专业Id，如：14届计算机，请填写“140401”">' +
+            '<input class="form-control" id="mod_s_name" placeholder="专业名称，如：计算机科学与技术">',
+            animation: 'left',
+            closeAnimation: 'rotateX',
+            type: 'purple',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        var s_id = Number($('#mod_s_id').val());
+                        var s_Id = Number($('#mod_s_Id').val());
+                        var s_name = $('#mod_s_name').val();
+                        if (s_Id.length != 6) {
+                            $.alert({
+                                title: "",
+                                content: "专业编号为6位数字！",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (s_name == '') {
+                            $.alert({
+                                title: "",
+                                content: "不要忘记专业名称哦！",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/admin/common/specialty/update',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                id: s_id,
+                                specialtyId: s_Id,
+                                specialtyName: s_name
+                            },
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    $.confirm({
+                                        animation: 'left',
+                                        closeAnimation: 'rotateX',
+                                        content: result.msg + " 数据将在3秒后刷新...",
+                                        autoClose: 'confirm|3000',
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light',
+                                                action: function () {
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $.confirm({
+                                    animation: 'rotateX',
+                                    backgroundDismiss: true,
+                                    closeAnimation: 'rotateX',
+                                    title: false,
+                                    content: "系统错误!",
+                                    buttons: {
+                                        confirm: {
+                                            text: '确认',
+                                            btnClass: 'waves-effect waves-button waves-light'
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                },
+                cancel: function () {
                 }
-            },
-            error: function () {
-                alert("出错！可能原因：1.您没有权限；2.该专业Id被其他事务所关联;3.专业Id重复");
-                location.reload();
             }
-        })
+        });
     }
+
     //删除专业
     function deleteSpecialty(id) {
         swal({
