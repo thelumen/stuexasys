@@ -26,22 +26,12 @@ public class Specialty2CourseServiceImpl implements Specialty2CourseService {
     protected Specialty2CourseMapper mapper;
 
     @Override
-    public int insertSpecialty(Specialty specialty) {
-        return mapper.insertSpecialty(specialty);
-    }
-
-    @Override
     public List<Specialty> selectSpecialty(Map<String, Object> params) {
         List<Specialty> specialties = mapper.selectSpecialty(params);
         if (null != specialties && specialties.size() > 0) {
             return specialties;
         }
         return null;
-    }
-
-    @Override
-    public int insertCourse(Course course) {
-        return mapper.insertCourse(course);
     }
 
     @Override

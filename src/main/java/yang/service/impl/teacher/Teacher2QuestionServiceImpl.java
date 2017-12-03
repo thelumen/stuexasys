@@ -2,12 +2,14 @@ package yang.service.impl.teacher;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import yang.dao.teacher.Teacher2QuestionMapper;
 import yang.domain.common.Another;
 import yang.domain.common.SingleQuestion;
 import yang.domain.common.TfQuestion;
 import yang.domain.teacher.AnotherTaken;
-import yang.service.common.CommonService;
 import yang.service.teacher.Teacher2QuestionService;
 
 import java.util.List;
@@ -19,35 +21,29 @@ import java.util.Map;
  * At 15:24
  */
 @Service("teacher2QuestionService")
-public class Teacher2QuestionServiceImpl extends CommonService implements Teacher2QuestionService {
+public class Teacher2QuestionServiceImpl implements Teacher2QuestionService {
 
-    @Override
-    public List<SingleQuestion> selectSingleQuestion(Map<String, Object> params) {
-        List<SingleQuestion> questions = teacher2QuestionMapper.selectSingleQuestion(params);
-        if (null != questions && questions.size() > 0) {
-            return questions;
-        }
-        return null;
-    }
+    @Autowired
+    protected Teacher2QuestionMapper mapper;
 
     @Override
     public boolean insertSingleQuestion(SingleQuestion question) {
-        return teacher2QuestionMapper.insertSingleQuestion(question) > 0;
+        return mapper.insertSingleQuestion(question) > 0;
     }
 
     @Override
     public boolean insertTfQuestion(TfQuestion question) {
-        return teacher2QuestionMapper.insertTfQuestion(question) > 0;
+        return mapper.insertTfQuestion(question) > 0;
     }
 
     @Override
     public boolean insertAnother(Another another) {
-        return teacher2QuestionMapper.insertAnother(another) > 0;
+        return mapper.insertAnother(another) > 0;
     }
 
     @Override
     public List<AnotherTaken> selectAnother(Map<String, Object> params) {
-        List<AnotherTaken> anotherTaken = teacher2QuestionMapper.selectAnother(params);
+        List<AnotherTaken> anotherTaken = mapper.selectAnother(params);
         if (null != anotherTaken && anotherTaken.size() > 0) {
             return anotherTaken;
         }
@@ -59,7 +55,7 @@ public class Teacher2QuestionServiceImpl extends CommonService implements Teache
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<TfQuestion> tfs = teacher2QuestionMapper.selectTfInfo(params);
+        List<TfQuestion> tfs = mapper.selectTfInfo(params);
         if (null != tfs && tfs.size() > 0) {
             return tfs;
         }
@@ -67,13 +63,15 @@ public class Teacher2QuestionServiceImpl extends CommonService implements Teache
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateTfInfo(TfQuestion tfQuestion) {
-        return teacher2QuestionMapper.updateTfInfo(tfQuestion);
+        return mapper.updateTfInfo(tfQuestion);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteTfInfo(TfQuestion tfQuestion) {
-        return teacher2QuestionMapper.deleteTfInfo(tfQuestion);
+        return mapper.deleteTfInfo(tfQuestion);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class Teacher2QuestionServiceImpl extends CommonService implements Teache
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<SingleQuestion> singleQuestionList = teacher2QuestionMapper.selectSingleInfo(params);
+        List<SingleQuestion> singleQuestionList = mapper.selectSingleInfo(params);
         if (null != singleQuestionList && singleQuestionList.size() > 0) {
             return singleQuestionList;
         }
@@ -89,12 +87,14 @@ public class Teacher2QuestionServiceImpl extends CommonService implements Teache
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateSingleInfo(SingleQuestion singleQuestion) {
-        return teacher2QuestionMapper.updateSingleInfo(singleQuestion);
+        return mapper.updateSingleInfo(singleQuestion);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteSingleInfo(SingleQuestion singleQuestion) {
-        return teacher2QuestionMapper.deleteSingleInfo(singleQuestion);
+        return mapper.deleteSingleInfo(singleQuestion);
     }
 }

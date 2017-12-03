@@ -10,17 +10,12 @@ import java.util.Map;
 
 /**
  * 专业-课程
- * Created by yang on 2017/5/25.
+ *
+ * @author yang
+ * @date 2017/5/25
  * At 12:11
  */
 public interface Specialty2CourseService {
-    /**
-     * 新增专业
-     *
-     * @param specialty
-     * @return
-     */
-    int insertSpecialty(Specialty specialty);
 
     /**
      * 查询专业
@@ -36,14 +31,6 @@ public interface Specialty2CourseService {
      * @return
      */
     List<Specialty> selectAllSpecialties();
-
-    /**
-     * 新增课程
-     *
-     * @param course
-     * @return
-     */
-    int insertCourse(Course course);
 
     /**
      * 查询课程

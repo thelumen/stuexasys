@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/5/22.
+ * @author yang
+ * @date 2017/5/22
  * At 17:33
  */
 public interface TeacherService {

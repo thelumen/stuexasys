@@ -6,14 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 花间一壶酒 on 2017/9/5.
+ * @author 花间一壶酒
+ * @date 2017/9/5
  */
 public interface QuestionService {
 
     /**
      * 保存简答题更改
      *
-     * @param anotherTaken  .
+     * @param anotherTaken .
      * @return .
      */
     boolean saveQuestion(AnotherTaken anotherTaken);
@@ -24,7 +25,7 @@ public interface QuestionService {
      * @param params .
      * @return .
      */
-    boolean delQuestion(Map<String,Object> params);
+    boolean delQuestion(Map<String, Object> params);
 
     /**
      * 查询简答题
@@ -32,5 +33,5 @@ public interface QuestionService {
      * @param params .
      * @return .
      */
-    List<AnotherTaken> selectAnotherQuestion(Map<String,Object> params);
+    List<AnotherTaken> selectAnotherQuestion(Map<String, Object> params);
 }

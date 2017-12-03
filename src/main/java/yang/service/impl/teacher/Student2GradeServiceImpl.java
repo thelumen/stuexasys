@@ -2,10 +2,11 @@ package yang.service.impl.teacher;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yang.dao.teacher.Student2GradeMapper;
 import yang.domain.teacher.GradeTaken;
-import yang.service.common.CommonService;
 import yang.service.teacher.Student2GradeService;
 
 import java.util.List;
@@ -13,18 +14,23 @@ import java.util.Map;
 
 /**
  * 学生-成绩
- * Created by yang on 2017/5/27.
+ *
+ * @author yang
+ * @date 2017/5/27
  * At 18:56
  */
 @Service("student2GradeService")
-public class Student2GradeServiceImpl extends CommonService implements Student2GradeService {
+public class Student2GradeServiceImpl implements Student2GradeService {
+
+    @Autowired
+    protected Student2GradeMapper mapper;
 
     @Override
     public List<GradeTaken> selectGradeTaken(Page page, Map<String, Object> params) {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<GradeTaken> gradeTakens = student2GradeMapper.selectGradeTaken(params);
+        List<GradeTaken> gradeTakens = mapper.selectGradeTaken(params);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;
         }
@@ -32,22 +38,14 @@ public class Student2GradeServiceImpl extends CommonService implements Student2G
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateGrade(GradeTaken studentGrade) {
-        boolean result = false;
-        if (student2GradeMapper.updateGrade(studentGrade) > 0) {
-            result = true;
-        }
-        return result;
+        return mapper.updateGrade(studentGrade) > 0;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateAnother(Integer studentId, Integer courseId, int score) {
-        boolean result = false;
-        if (student2GradeMapper.updateAnother(studentId, courseId, score) > 0) {
-            result = true;
-        }
-        return result;
+        return mapper.updateAnother(studentId, courseId, score) > 0;
     }
 }

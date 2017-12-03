@@ -1,33 +1,39 @@
 package yang.service.impl.teacher;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import yang.dao.teacher.QuestionMapper;
 import yang.domain.teacher.AnotherTaken;
-import yang.service.common.CommonService;
 import yang.service.teacher.QuestionService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 花间一壶酒 on 2017/9/5.
+ * @author 花间一壶酒
+ * @date 2017/9/5
  */
-
 @Service("questionService")
-public class QuestionServiceImpl extends CommonService implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
 
+    @Autowired
+    protected QuestionMapper mapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean saveQuestion(AnotherTaken anotherTaken) {
-        return questionMapper.updateAnotherQuestion(anotherTaken)>0;
+        return mapper.updateAnotherQuestion(anotherTaken) > 0;
     }
 
     @Override
-    public boolean delQuestion(Map<String,Object> params) {
-        return questionMapper.deleteAnotherQuestion(params)>0;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean delQuestion(Map<String, Object> params) {
+        return mapper.deleteAnotherQuestion(params) > 0;
     }
 
     @Override
-    public List<AnotherTaken> selectAnotherQuestion(Map<String,Object> params) {
-        return questionMapper.selectAnotherQuestionWithCourse(params);
+    public List<AnotherTaken> selectAnotherQuestion(Map<String, Object> params) {
+        return mapper.selectAnotherQuestionWithCourse(params);
     }
 }

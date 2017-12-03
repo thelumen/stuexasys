@@ -15,13 +15,6 @@ import java.util.Map;
  * At 15:24
  */
 public interface Teacher2QuestionService {
-    /**
-     * 查询选择题
-     *
-     * @param params
-     * @return
-     */
-    List<SingleQuestion> selectSingleQuestion(Map<String, Object> params);
 
     /**
      * 新增选择题
@@ -55,15 +48,53 @@ public interface Teacher2QuestionService {
      */
     List<AnotherTaken> selectAnother(Map<String, Object> params);
 
+    /**
+     * 查询判断题
+     *
+     * @param page
+     * @param params
+     * @return
+     */
     List<TfQuestion> selectTfInfo(Page page, Map<String, Object> params);
 
+    /**
+     * 更新判断题
+     *
+     * @param tfQuestion
+     * @return
+     */
     boolean updateTfInfo(TfQuestion tfQuestion);
 
+    /**
+     * 删除判断题
+     *
+     * @param tfQuestion
+     * @return
+     */
     boolean deleteTfInfo(TfQuestion tfQuestion);
 
+    /**
+     * 查询选择题
+     *
+     * @param page
+     * @param params
+     * @return
+     */
     List<SingleQuestion> selectSingleInfo(Page page, Map<String, Object> params);
 
+    /**
+     * 更新选择题
+     *
+     * @param singleQuestion
+     * @return
+     */
     boolean updateSingleInfo(SingleQuestion singleQuestion);
 
+    /**
+     * 删除选择题
+     *
+     * @param singleQuestion
+     * @return
+     */
     boolean deleteSingleInfo(SingleQuestion singleQuestion);
 }

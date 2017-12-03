@@ -8,7 +8,9 @@ import java.util.Map;
 
 /**
  * 学生-成绩
- * Created by yang on 2017/5/27.
+ *
+ * @author yang
+ * @date 2017/5/27
  * At 18:56
  */
 public interface Student2GradeService {
