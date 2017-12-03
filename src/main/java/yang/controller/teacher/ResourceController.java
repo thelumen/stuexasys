@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yang
@@ -45,7 +44,7 @@ public class ResourceController extends CommonController {
      */
     @RequestMapping(value = "/{directoryName}/files", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
+    public Object getFiles(@PathVariable("directoryName") String directoryName) throws UnsupportedEncodingException {
         List<File> files = FileKit.getFiles(ResourceKit.getResourceHome() + File.separator + directoryName.trim());
         return CommonKit.getTakenInfo(FileKit.wrapFileInfo(files));
     }
