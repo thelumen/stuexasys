@@ -43,22 +43,19 @@ public class StudentInAdminController extends CommonController {
     }
 
     /**
-     * 初始化学生信息表
+     * 默认加载专业号为100000学生
      *
-     * @param params       分页参数.
-     * @param selectOption 预留显示.
+     * @param params 分页参数.
      * @return 格式化的信息.
      */
-    @RequestMapping(value = "/initTable/{selectOption}", method = RequestMethod.POST)
+    @RequestMapping(value = "/default/list", method = RequestMethod.POST)
     @ResponseBody
-    public Object initStudentTable(@RequestBody Map<String, Object> params,
-                                   @PathVariable(value = "selectOption") Integer selectOption) {
-        Map<String, Object> selectOptionMap = new HashMap<>();
-        if (selectOption == 1) {
-            selectOptionMap.put("specialtyId", new ArrayList<String>() {{
+    public Object initStudentTable(@RequestBody Map<String, Object> params) {
+        Map<String, Object> selectOptionMap = new HashMap<String, Object>() {{
+            put("specialtyId", new ArrayList<String>() {{
                 add("100000");
             }});
-        }
+        }};
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
         return CommonKit.getTakenInfo(studentTakenList);
     }
