@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.manager.SpecialtyMapper">
+    <!--ok-->
 
     <!--新增专业-->
     <insert id="insert" parameterType="yang.domain.common.Specialty">
-        INSERT INTO com_specialty(specialtyId, name) VALUES (#{specialtyId,jdbcType=INTEGER},#{name,jdbcType=VARCHAR})
+        INSERT INTO com_specialty(specialtyId, name) VALUES (#{specialtyId},#{name})
     </insert>
 
     <!--查询专业-->
@@ -15,7 +16,7 @@
         FROM com_specialty
         <where>
             <if test="specialtyId != null">
-                specialtyId =#{specialtyId,jdbcType=INTEGER}
+                specialtyId =#{specialtyId}
             </if>
         </where>
         ORDER BY specialtyId ASC
@@ -23,7 +24,7 @@
 
     <!--删除专业-->
     <delete id="delete" parameterType="java.lang.Integer">
-        DELETE FROM com_specialty WHERE specialtyId=#{specialtyId,jdbcType=INTEGER}
+        DELETE FROM com_specialty WHERE specialtyId=#{specialtyId}
     </delete>
 
     <!--更新专业-->
@@ -31,12 +32,12 @@
         UPDATE com_specialty
         <set>
             <if test="specialtyId != null">
-                specialtyId = #{specialtyId,jdbcType=INTEGER},
+                specialtyId = #{specialtyId},
             </if>
             <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+                name = #{name},
             </if>
         </set>
-        WHERE id = #{id,jdbcType=INTEGER}
+        WHERE id = #{id}
     </update>
 </mapper>

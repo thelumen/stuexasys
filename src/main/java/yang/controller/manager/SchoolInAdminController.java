@@ -150,7 +150,7 @@ public class SchoolInAdminController extends CommonController {
         }};
         List<Specialty> specialties = specialtyService.select(params);
         if (null != specialties) {
-            return new ResultBean<>("专业已存在！（专业Id起冲突）");
+            return new ResultBean<>("专业已存在！（专业id起冲突）");
         }
 
         Specialty s = new Specialty();
@@ -158,43 +158,6 @@ public class SchoolInAdminController extends CommonController {
         s.setName(year + specialtyName);
 
         return new ResultBean<>(specialtyService.insert(s));
-    }
-
-    /**
-     * 删除专业
-     *
-     * @param specialtyId
-     * @return
-     */
-    @RequestMapping(value = "/specialty/delete/{specialtyId}", method = RequestMethod.DELETE)
-    @RequiresPermissions(value = "shiro:sys:admin")
-    @ResponseBody
-    public boolean deleteSpecialty(@PathVariable("specialtyId") Integer specialtyId) {
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("deleteType", DeleteType.DeleteWithSpecialtyId);
-            put("specialtyId", new ArrayList<String>() {{
-                add(specialtyId.toString());
-            }});
-        }};
-        return studentService.delete(params) && adminStudentService.deleteSpecialty(params);
-    }
-
-    /**
-     * 获取指定专业信息
-     *
-     * @param specialtyId
-     * @return
-     */
-    @RequestMapping(value = "/specialty/{specialtyId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Specialty getRowInSpecialty(@PathVariable("specialtyId") String specialtyId) {
-
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("specialtyId", specialtyId);
-        }};
-        List<Specialty> specialties = specialtyService.select(params);
-
-        return null != specialties ? specialties.get(0) : null;
     }
 
     /**
@@ -206,9 +169,31 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/specialty/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
-    public boolean updateSpecialty(@RequestBody Specialty specialty) {
-        //校验通过则更新
-        return ValidateKit.validateSpecialty(specialty) && specialtyService.update(specialty);
+    public Object updateSpecialty(Specialty specialty) {
+        specialty.setSpecialtyId(null);
+        return new ResultBean<>(specialtyService.update(specialty));
+    }
+
+    /**
+     * 删除专业
+     *
+     * @param specialtyId
+     * @return
+     */
+    @RequestMapping(value = "/specialty/delete/{specialtyId}", method = RequestMethod.DELETE)
+    @RequiresPermissions(value = "shiro:sys:manager")
+    @ResponseBody
+    public Object deleteSpecialty(@PathVariable("specialtyId") Integer specialtyId) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("deleteType", DeleteType.DeleteWithSpecialtyId);
+            put("specialtyId", new ArrayList<String>() {{
+                add(specialtyId.toString());
+            }});
+        }};
+        if (studentService.delete(params) && adminStudentService.deleteSpecialty(params)) {
+            return new ResultBean<>(true);
+        }
+        return new ResultBean<>("系统错误！");
     }
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author yang
  * @date 2017/8/31
  * At 8:15
@@ -23,8 +22,8 @@ public interface SpecialtyService {
     /**
      * 查询专业
      *
-     * @return
      * @param params
+     * @return
      */
     List<Specialty> select(Map<String, Object> params);
 
@@ -43,4 +42,13 @@ public interface SpecialtyService {
      * @return
      */
     boolean update(Specialty specialty);
+
+    /**
+     * 更新相关专业id号
+     *
+     * @param newSpecialtyId
+     * @param OldSpecialtyId
+     * @return
+     */
+    boolean updateSpecialtyId(Integer newSpecialtyId, Integer OldSpecialtyId);
 }

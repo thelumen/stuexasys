@@ -42,7 +42,8 @@
                                 <td>${specialty.name}</td>
                                 <td>
                                     <button class="btn-primary"
-                                            onclick="modifySpecialty('${specialty.id}')">
+                                            onclick="
+                                                    modifySpecialty('${specialty.id}'+'_'+'${specialty.specialtyId}'+'_'+'${specialty.name}')">
                                         修改
                                     </button>
                                     <shiro:hasPermission name="shiro:sys:admin">
@@ -381,6 +382,7 @@
                             success: function (result) {
                                 if (result.code === 0) {
                                     $.confirm({
+                                        title: "",
                                         animation: 'left',
                                         closeAnimation: 'rotateX',
                                         content: result.msg + " 数据将在3秒后刷新...",
@@ -429,17 +431,16 @@
 
     //修改专业
     function modifySpecialty(info) {
-        alert(info);
-        return false;
-        var array = {};
-//        array = info.split('+');
+        var array = info.split('_');
         $.confirm({
             title: "修改专业",
             content:
-            '<input class="form-control" id="mod_s_id" name="id" value="' + id + '">' +
-            '<input class="form-control" id="mod_s_Id" placeholder="专业Id，如：14届计算机，请填写“140401”">' +
-            '<input class="form-control" id="mod_s_name" placeholder="专业名称，如：计算机科学与技术">',
+            '<input class="form-control" id="mod_s_id" name="id" value="' + array[0] + '" readonly>' +
+            '<input class="form-control" id="mod_s_Id" value="' + array[1] + '" readonly' +
+            '  placeholder="专业Id，如：14届计算机，请填写“140401”">' +
+            '<input class="form-control" id="mod_s_name" placeholder="专业名称，如：计算机科学与技术" value="' + array[2] + '">',
             animation: 'left',
+            backgroundDismiss: true,
             closeAnimation: 'rotateX',
             type: 'purple',
             buttons: {
@@ -449,17 +450,17 @@
                     btnClass: 'btn-primary',
                     keys: ['enter'],
                     action: function () {
-                        var s_id = Number($('#mod_s_id').val());
-                        var s_Id = Number($('#mod_s_Id').val());
-                        var s_name = $('#mod_s_name').val();
-                        if (s_Id.length != 6) {
+                        var reid = $('#mod_s_id').val();
+                        var reId = $('#mod_s_Id').val();
+                        if (isNaN(reId) || reId.length != 6) {
                             $.alert({
                                 title: "",
-                                content: "专业编号为6位数字！",
+                                content: "专业编号为6位数字:)",
                                 backgroundDismiss: true
                             });
                             return false;
                         }
+                        var s_name = $('#mod_s_name').val();
                         if (s_name == '') {
                             $.alert({
                                 title: "",
@@ -469,17 +470,18 @@
                             return false;
                         }
                         $.ajax({
-                            url: '${pageContext.request.contextPath}/admin/common/specialty/update',
+                            url: '${pageContext.request.contextPath}/admin/school/specialty/update',
                             dataType: 'json',
                             type: 'post',
                             data: {
-                                id: s_id,
-                                specialtyId: s_Id,
-                                specialtyName: s_name
+                                id: reid,
+                                specialtyId: reId,
+                                name: s_name
                             },
                             success: function (result) {
                                 if (result.code === 0) {
                                     $.confirm({
+                                        title: "",
                                         animation: 'left',
                                         closeAnimation: 'rotateX',
                                         content: result.msg + " 数据将在3秒后刷新...",
@@ -528,32 +530,71 @@
 
     //删除专业
     function deleteSpecialty(id) {
-        swal({
-                title: "您确定要删除这个专业吗？",
-                text: "包括此专业下的学生和教师对此专业选课信息都将被删除",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "再见了，同学们",
-                cancelButtonText: "我再想想",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true
-            },
-            function () {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/admin/common/specialty/delete/' + id,
-                    type: 'delete',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            location.reload();
-                        }
-                    },
-                    error: function () {
-                        alert("您没有权限！");
-                        location.reload();
+        $.confirm({
+            title: "Warnning!",
+            content: '您确认要删除该专业吗？',
+            animation: 'right',
+            backgroundDismiss: true,
+            closeAnimation: 'rotateX',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/admin/school/specialty/delete/' + id,
+                            dataType: 'json',
+                            type: 'delete',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    $.confirm({
+                                        title: "",
+                                        animation: 'left',
+                                        closeAnimation: 'rotateX',
+                                        content: result.msg + " 数据将在3秒后刷新...",
+                                        autoClose: 'confirm|3000',
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light',
+                                                action: function () {
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $.confirm({
+                                    animation: 'rotateX',
+                                    backgroundDismiss: true,
+                                    closeAnimation: 'rotateX',
+                                    title: false,
+                                    content: "此专业不可删除!",
+                                    buttons: {
+                                        confirm: {
+                                            text: '确认',
+                                            btnClass: 'waves-effect waves-button waves-light'
+                                        }
+                                    }
+                                });
+                            }
+                        })
                     }
-                })
-            });
+                },
+                cancel: function () {
+                }
+            }
+        });
     }
 </script>

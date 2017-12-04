@@ -1,5 +1,6 @@
 package yang.dao.manager;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import yang.domain.common.Specialty;
 
@@ -23,8 +24,8 @@ public interface SpecialtyMapper {
     /**
      * 查询专业
      *
-     * @return
      * @param params
+     * @return
      */
     List<Specialty> select(Map<String, Object> params);
 
@@ -43,4 +44,22 @@ public interface SpecialtyMapper {
      * @return
      */
     int update(Specialty specialty);
+
+    /**
+     * 更新学生专业号
+     *
+     * @param newSpecialtyId
+     * @param oldSpecialtyId
+     * @return
+     */
+    int updateSpecialtyIdOfStudent(@Param("newSpecialtyId") Integer newSpecialtyId, @Param("oldSpecialtyId") Integer oldSpecialtyId);
+
+    /**
+     * 更新教师选课相关专业号
+     *
+     * @param newSpecialtyId
+     * @param oldSpecialtyId
+     * @return
+     */
+    int updateSpecialtyIdOfTeacher(@Param("newSpecialtyId") Integer newSpecialtyId, @Param("oldSpecialtyId") Integer oldSpecialtyId);
 }

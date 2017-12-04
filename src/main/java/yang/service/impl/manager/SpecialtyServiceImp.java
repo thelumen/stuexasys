@@ -32,14 +32,22 @@ public class SpecialtyServiceImp extends CommonService implements SpecialtyServi
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer specialtyId) {
         return specialtyMapper.delete(specialtyId) > 0;
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(Specialty specialty) {
         return specialtyMapper.update(specialty) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateSpecialtyId(Integer newSpecialtyId, Integer OldSpecialtyId) {
+        //更新学生专业号和教师课程联系
+        return specialtyMapper.updateSpecialtyIdOfStudent(newSpecialtyId, OldSpecialtyId) > 0
+                && specialtyMapper.updateSpecialtyIdOfTeacher(newSpecialtyId, OldSpecialtyId) > 0;
     }
 }
