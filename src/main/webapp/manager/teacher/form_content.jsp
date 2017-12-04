@@ -6,14 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<ol class="breadcrumb">
-    <li><a href="${pageContext.request.contextPath}/admin/main">权限管理</a>
-    </li>
-    <li><a href="${pageContext.request.contextPath}/admin/teacher/main">教师列表</a>
-    </li>
-    <li class="active">新增/修改</li>
-</ol>
 <div class="container">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/admin/main">权限管理</a>
+        </li>
+        <li><a href="${pageContext.request.contextPath}/admin/teacher/main">教师列表</a>
+        </li>
+        <li class="active">新增/修改</li>
+    </ol>
     <div>
         <form method="post"
               action="${pageContext.request.contextPath}/admin/teacher/${action}"
