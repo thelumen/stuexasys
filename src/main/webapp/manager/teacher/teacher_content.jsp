@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="container-fluid">
+<div class="container">
     <ol class="breadcrumb">
         <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
         </li>
@@ -17,7 +17,7 @@
     <br><br>
     <shiro:hasPermission name="shiro:sys:admin">
         <div id="admin_teacher_tool">
-            <button type="button" class="btn-primary" onclick="insert()">添加教师
+            <button type="button" class="btn btn-primary" onclick="insert()">添加教师
             </button>
         </div>
     </shiro:hasPermission>

@@ -18,7 +18,7 @@
         <div class="row-fluid">
             <div class="col-md-6">
                 <shiro:hasPermission name="shiro:sys:admin">
-                    <button class="btn-primary" style="text-align: right"
+                    <button class="btn btn-primary" style="text-align: right"
                             onclick="addSpecialty()">新增专业
                     </button>
                 </shiro:hasPermission>
@@ -39,13 +39,13 @@
                                 <td>${specialty.specialtyId}</td>
                                 <td>${specialty.name}</td>
                                 <td>
-                                    <button class="btn-primary"
+                                    <button class="btn btn-primary"
                                             onclick="
                                                     modifySpecialty('${specialty.id}'+'_'+'${specialty.specialtyId}'+'_'+'${specialty.name}')">
                                         修改
                                     </button>
                                     <shiro:hasPermission name="shiro:sys:admin">
-                                        <button class="btn-warning"
+                                        <button class="btn btn-warning"
                                                 onclick="deleteSpecialty('${specialty.specialtyId}')">
                                             删除
                                         </button>
@@ -59,7 +59,7 @@
             </div>
             <div class="col-md-6">
                 <shiro:hasPermission name="shiro:sys:admin">
-                    <button class="btn-primary" style="text-align: right"
+                    <button class="btn btn-primary" style="text-align: right"
                             onclick="addCourse()">新增课程
                     </button>
                 </shiro:hasPermission>
@@ -86,14 +86,14 @@
                                 <td>${course.credit}</td>
                                 <td>${course.chapterNum}</td>
                                 <td>
-                                    <button class="btn-primary"
+                                    <button class="btn btn-primary"
                                             onclick="modifyCourse('${course.id}'+'_'+'${course.courseId}'
                                                     +'_'+'${course.name}'+'_'+'${course.period}'+'_'+'${course.credit}'
                                                     +'_'+'${course.chapterNum}')">
                                         修改
                                     </button>
                                     <shiro:hasPermission name="shiro:sys:admin">
-                                        <button class="btn-warning"
+                                        <button class="btn btn-warning"
                                                 onclick="deleteCourse('${course.courseId}')">
                                             删除
                                         </button>

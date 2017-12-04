@@ -32,7 +32,7 @@
 <body>
 
 <div>
-    <nav class="navbar navbar-fixed-top navbar-inverse ">
+    <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"
