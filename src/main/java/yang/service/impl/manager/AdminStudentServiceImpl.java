@@ -10,7 +10,9 @@ import yang.service.manager.AdminStudentService;
 import java.util.*;
 
 /**
- * Created by 花间一壶酒 on 2017/8/30.
+ *
+ * @author 花间一壶酒
+ * @date 2017/8/30
  */
 
 @Service("adminStudentService")
@@ -37,7 +39,8 @@ public class AdminStudentServiceImpl extends CommonService implements AdminStude
 
     @Override
     public boolean deleteSpecialty(Map<String, Object> params) {
-        return ((adminStudentMapper.selectTeacher2Course(params).size() <= 0 || adminStudentMapper.deleteTeacher2Course(params) > 0) && adminStudentMapper.deleteSpecialty(params) > 0);
+        return ((adminStudentMapper.selectTeacher2Course(params).size() <= 0 ||
+                adminStudentMapper.deleteTeacher2Course(params) > 0) && adminStudentMapper.deleteSpecialty(params) > 0);
     }
 
     @Override

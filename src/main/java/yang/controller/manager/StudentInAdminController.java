@@ -7,6 +7,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import yang.common.base.ResultBean;
 import yang.common.enums.DeleteType;
 import yang.common.enums.MessageInfo;
 import yang.common.enums.UpdateType;
@@ -22,7 +23,8 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Created by yang on 2017/8/29.
+ * @author yang
+ * @date 2017/8/29
  * At 7:34
  */
 @Controller
@@ -36,7 +38,7 @@ public class StudentInAdminController extends CommonController {
      */
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:manager")
-    public String EditStudent() {
+    public String editStudent() {
         return "/manager/student/studentProxy";
     }
 
@@ -49,8 +51,8 @@ public class StudentInAdminController extends CommonController {
      */
     @RequestMapping(value = "/initTable/{selectOption}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> initStudentTable(@RequestBody Map<String, Object> params,
-                                                @PathVariable(value = "selectOption") Integer selectOption) {
+    public Object initStudentTable(@RequestBody Map<String, Object> params,
+                                   @PathVariable(value = "selectOption") Integer selectOption) {
         Map<String, Object> selectOptionMap = new HashMap<>();
         if (selectOption == 1) {
             selectOptionMap.put("specialtyId", new ArrayList<String>() {{
@@ -58,7 +60,6 @@ public class StudentInAdminController extends CommonController {
             }});
         }
         List<StudentTaken> studentTakenList = studentService.selectStudentInfo(CommonKit.getMapInfo2Page(params), selectOptionMap);
-
         return CommonKit.getTakenInfo(studentTakenList);
     }
 
@@ -85,11 +86,12 @@ public class StudentInAdminController extends CommonController {
     @RequestMapping(value = "/infoDel", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public boolean deleteStudent(@RequestBody StudentInfo studentInfo) {
-        return studentService.delete(new HashMap<String, Object>() {{
+    public Object deleteStudent(@RequestBody StudentInfo studentInfo) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
             put("deleteType", DeleteType.DeleteWithStudentId);
             put("studentId", studentInfo.getStudentId());
-        }});
+        }};
+        return new ResultBean<>(studentService.delete(params));
     }
 
     /**
@@ -112,17 +114,6 @@ public class StudentInAdminController extends CommonController {
     }
 
     /**
-     * 加载专业信息
-     *
-     * @return
-     */
-    @RequestMapping(value = "/specialty", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Map<String, Object>> loadSpecialty() {
-        return adminStudentService.selectSpecialty();
-    }
-
-    /**
      * 查找学生信息
      *
      * @param params      分页信息.
@@ -132,11 +123,9 @@ public class StudentInAdminController extends CommonController {
      */
     @RequestMapping(value = "/loadStudent/{specialtyId}/{studentId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> selectStudent(
-            @RequestBody Map<String, Object> params,
-            @PathVariable(value = "specialtyId") String specialtyId,
-            @PathVariable(value = "studentId") String studentId) {
-
+    public Object selectStudent(@RequestBody Map<String, Object> params,
+                                @PathVariable(value = "specialtyId") String specialtyId,
+                                @PathVariable(value = "studentId") String studentId) {
         Map<String, Object> selectOption = new HashMap<>();
         if (!"0".equals(specialtyId)) {
             selectOption.put("specialtyId", Arrays.asList(specialtyId.split(",")));
@@ -145,7 +134,6 @@ public class StudentInAdminController extends CommonController {
             selectOption.put("studentId", studentId);
         }
         List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
-
         return CommonKit.getTakenInfo(studentInfos);
     }
 
@@ -158,10 +146,10 @@ public class StudentInAdminController extends CommonController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public Map<String,Object> uploadStudentHandle(@RequestParam("files") MultipartFile files) {
+    public Map<String, Object> uploadStudentHandle(@RequestParam("files") MultipartFile files) {
         Map<String, Object> info = new HashMap<>();
         if (null == files) {
-            info.put("message",MessageInfo.OperationFailed.getMessageId());
+            info.put("message", MessageInfo.OperationFailed.getMessageId());
             return info;
         }
         try {
@@ -175,7 +163,7 @@ public class StudentInAdminController extends CommonController {
                     Objects.equals(sheet_0.getCell(2, rows - 1).getContents().trim(), "") ||
                     Objects.equals(sheet_0.getCell(3, rows - 1).getContents().trim(), "")
                     ) {
-                info.put("message",MessageInfo.OperationFailed.getMessageId());
+                info.put("message", MessageInfo.OperationFailed.getMessageId());
                 return info;
             }
 
@@ -192,8 +180,8 @@ public class StudentInAdminController extends CommonController {
                         || line_specialtyName.equals("")
                         || line_studentGender.equals("")
                         || line_studentName.equals("")) {
-                    info.put("msg",MessageInfo.OperationFailed.getMessageId());
-                    info.put("failedRows", (k+1));
+                    info.put("msg", MessageInfo.OperationFailed.getMessageId());
+                    info.put("failedRows", (k + 1));
                     return info;
                 }
                 //专业处理
@@ -220,11 +208,11 @@ public class StudentInAdminController extends CommonController {
                 put("specialtyInfo", specialtyList);
                 put("studentUploadList", studentUploadList);
             }};
-            info.put("message",adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId());
+            info.put("message", adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId());
             return info;
         } catch (IOException | BiffException e) {
             LOGGER.error(e.toString());
-            info.put("message",MessageInfo.OperationFailed.getMessageId());
+            info.put("message", MessageInfo.OperationFailed.getMessageId());
             return info;
         }
     }

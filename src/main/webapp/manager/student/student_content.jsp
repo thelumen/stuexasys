@@ -9,15 +9,94 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
+        </li>
+        <li class="active">学生管理</li>
+    </ol>
+    <div class="row" id="student_admin_bar">
+        <div class="col-md-3">
+            <label style="display: block">
+                <select multiple="multiple" class="form-control "
+                        id="specialty">
+                </select>
+            </label>
+        </div>
+        <div class="col-md-3">
+            <label style="display: block">
+                <input class="form-control" placeholder="学号" id="studentId">
+            </label>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" type="button" id="selectStudent">
+                查找
+            </button>
+            &nbsp;&nbsp;
+            <shiro:hasPermission name="shiro:sys:admin">
+                <button class="btn btn-success" type="button" id="uploadStudent"
+                        href="#modal-container-uploadStudent"
+                        data-toggle="modal">上传学生
+                </button>
+            </shiro:hasPermission>
+        </div>
+    </div>
+    <div class="row">
+        <table id="studentTable">
+        </table>
+    </div>
+    <%--学生信息上传模态框--%>
+    <div class="modal fade" id="modal-container-uploadStudent"
+         aria-hidden="true" aria-labelledby="myModalLabel">
+        <form enctype="multipart/form-data" id="uploadForm" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" aria-hidden="true" type="button"
+                                data-dismiss="modal">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            上传学生信息
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>&nbsp;&nbsp;请选择需要上传的<strong
+                                        style="color: #985f0d">学生信息表</strong>：</label>
+                                <div class="form-group">
+                                    <br>
+                                    <label>
+                                        <input id="studentExcelFile" multiple
+                                               type="file" class="file-loading"
+                                               name="files">
+                                    </label>
+                                </div>
+                                <br>
+                                <a href="${pageContext.request.contextPath}/common/example/上传学生表样表.xls"
+                                   class="form-control" style="border:none;">下载上传模板</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button"
+                                data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <script>
+    var table = $('#studentTable');
+
     //初始化
     $(function () {
-
         $('#specialty').select2();
         initSelect();//初始化下拉框
-
         var selectOption = 1;//默认加载预留专业的学生
-
         //表格初始化
         $("#studentTable").bootstrapTable({
             method: "post",
@@ -233,21 +312,11 @@
         return true;
     }
 
-    //表格内的按钮初始化
-    function initEditBtn() {
-        var html = [];
-        html.push('<button class="btn btn-primary saveChanged" type="button">保存</button>');
-        html.push('&nbsp;&nbsp;');
-        <shiro:hasPermission name="shiro:sys:admin">
-        html.push('<button class="btn btn-danger delStu" type="button">删除</button>');
-        </shiro:hasPermission>
-        return html.join('');
-    }
 
     //初始化下拉框
     function initSelect() {
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/student/specialty',
+            url: '${pageContext.request.contextPath}/specialty/all',
             dataType: 'json',
             success: function (data) {
                 $('#specialty').select2({
@@ -260,10 +329,19 @@
         });
     }
 
+    //表格内的按钮初始化
+    function initEditBtn() {
+        var html = [];
+        html.push('<button class="btn btn-primary updateStudent" type="button">保存</button>');
+        <shiro:hasPermission name="shiro:sys:admin">
+        html.push('<button class="btn btn-danger deleteStudent" type="button">删除</button>');
+        </shiro:hasPermission>
+        return html.join('');
+    }
+
     //点击事件处理
     window.editBtnEvent = {
-        'click .saveChanged': function (e, value, row, index) {
-//            alert('You click like action, row: ' + JSON.stringify(row));
+        'click .updateStudent': function (e, value, row, index) {
             swal({
                     title: "Are you sure?",
                     text: "Your will be able to recover this Student!",
@@ -293,125 +371,59 @@
                 }
             );
         },
-        'click .delStu': function (e, value, row, index) {
-//            alert('You click like action, row: ' + JSON.stringify(row));
-            swal({
-                    title: "Are you sure?",
-                    text: "Your will be able to delete this Student!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    $.ajax({
-                        type: 'post',
-                        url: '${pageContext.request.contextPath}/admin/student/infoDel',
-                        dataType: "json",
-                        data: JSON.stringify(row),
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data) {
-                                swal("成功的删除", "", "success");
-                                $("#studentTable").bootstrapTable("refresh")
-                            } else {
-                                swal("删除失败", "请找服务器背锅", "error");
-                            }
+        'click .deleteStudent': function (e, value, row, index) {
+            $.confirm({
+                title: "Warnning!",
+                content: "您确定要删除该学生吗？",
+                animation: 'left',
+                closeAnimation: 'rotateX',
+                type: 'red',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: '${pageContext.request.contextPath}/admin/student/infoDel',
+                                dataType: "json",
+                                data: JSON.stringify(row),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                    if (result.code == 0) {
+                                        table.bootstrapTable("refresh")
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        backgroundDismiss: true,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
-                    });
+                    },
+                    cancel: function () {
+                    }
                 }
-            );
-
+            });
         }
     }
-
 </script>
-<br>
-<div class="container">
-    <ol class="breadcrumb">
-        <li><a href="${pageContext.request.contextPath}/admin/main">首页</a>
-        </li>
-        <li class="active">学生管理</li>
-    </ol>
-    <div class="row" id="student_admin_bar">
-        <div class="col-md-3">
-            <label style="display: block">
-                <select multiple="multiple" class="form-control "
-                        id="specialty"></select>
-            </label>
-        </div>
-        <div class="col-md-3">
-            <label style="display: block">
-                <input class="form-control" placeholder="学号" id="studentId">
-            </label>
-        </div>
-        <div class="col-md-6">
-            <button class="btn btn-primary" type="button" id="selectStudent">
-                查找
-            </button>
-            &nbsp;&nbsp;
-            <shiro:hasPermission name="shiro:sys:admin">
-                <button class="btn btn-success" type="button" id="uploadStudent"
-                        href="#modal-container-uploadStudent"
-                        data-toggle="modal">上传学生
-                </button>
-            </shiro:hasPermission>
-        </div>
-    </div>
-
-    <div class="row">
-        <table id="studentTable">
-        </table>
-    </div>
-
-    <%--学生信息上传模态框--%>
-    <div class="modal fade" id="modal-container-uploadStudent"
-         aria-hidden="true" aria-labelledby="myModalLabel">
-        <form enctype="multipart/form-data" id="uploadForm" method="post">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button class="close" aria-hidden="true" type="button"
-                                data-dismiss="modal">×
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            上传学生信息
-                        </h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <br>
-                                <label>&nbsp;&nbsp;请选择需要上传的<strong
-                                        style="color: #985f0d">学生信息表</strong>：</label>
-                                <div class="form-group">
-                                    <br>
-                                    <label>
-                                        <input id="studentExcelFile" multiple
-                                               type="file" class="file-loading"
-                                               name="files">
-                                    </label>
-                                </div>
-                                <br>
-                                <a href="${pageContext.request.contextPath}/common/example/上传学生表样表.xls"
-                                   class="form-control" style="border:none;">下载上传模板</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-default" type="button"
-                                data-dismiss="modal">关闭
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-

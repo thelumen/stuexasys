@@ -13,7 +13,6 @@
         </li>
         <li class="active">教师管理</li>
     </ol>
-    <hr class="divider"/>
     <shiro:hasPermission name="shiro:sys:admin">
         <div id="admin_teacher_tool">
             <button type="button" class="btn btn-primary" onclick="insert()">

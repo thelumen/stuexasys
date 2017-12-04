@@ -12,25 +12,31 @@
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
     <script>
         function logout() {
-            swal({
-                    title: "您确定要退出登录？",
-                    text: "",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "注销",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                },
-                function () {
-                    location.href = '${pageContext.request.contextPath}/shiro/logout';
-                });
+            $.confirm({
+                title: "",
+                content: "您确定要退出登录？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                type: 'red',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            location.href = '${pageContext.request.contextPath}/shiro/logout';
+                        }
+                    },
+                    cancel: function () {
+                    }
+                }
+            });
         }
     </script>
 </head>
 <body>
-
 <div>
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
@@ -63,8 +69,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal"
-                           data-target="#">${currentManager.name}</a>
+                    <li><a href="javascript:void (0)">${currentManager.name}</a>
                     </li>
                     <li><a href="javascript:void(0);" onclick="logout();">注销</a>
                     </li>

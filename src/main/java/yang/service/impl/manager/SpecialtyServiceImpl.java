@@ -15,7 +15,7 @@ import java.util.Map;
  * At 8:16
  */
 @Service("specialtyService")
-public class SpecialtyServiceImp extends CommonService implements SpecialtyService {
+public class SpecialtyServiceImpl extends CommonService implements SpecialtyService {
 
     @Override
     public boolean insert(Specialty specialty) {
