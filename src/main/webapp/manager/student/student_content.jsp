@@ -342,34 +342,58 @@
     //点击事件处理
     window.editBtnEvent = {
         'click .updateStudent': function (e, value, row, index) {
-            swal({
-                    title: "Are you sure?",
-                    text: "Your will be able to recover this Student!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, recover it!",
-                    cancelButtonText: "No, cancel!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    $.ajax({
-                        type: 'post',
-                        url: '${pageContext.request.contextPath}/admin/student/infoSave',
-                        dataType: "json",
-                        data: JSON.stringify(row),
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data) {
-                                swal("成功的更新", "", "success");
-                                $("#studentTable").bootstrapTable("refresh")
-                            } else {
-                                swal("更新失败", "请找服务器背锅", "error");
-                            }
+            $.confirm({
+                title: "Warnning!",
+                content: "您确定要更新该学生信息吗？",
+                animation: 'right',
+                closeAnimation: 'rotateX',
+                type: 'purple',
+                backgroundDismiss: true,
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                type: 'post',
+                                url: '${pageContext.request.contextPath}/admin/student/update',
+                                dataType: "json",
+                                data: JSON.stringify(row),
+                                contentType: 'application/json',
+                                success: function (result) {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                    if (result.code == 0) {
+                                        table.bootstrapTable("refresh")
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    $.confirm({
+                                        animation: 'rotateX',
+                                        closeAnimation: 'rotateX',
+                                        title: false,
+                                        backgroundDismiss: true,
+                                        content: "系统错误!",
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light'
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
-                    });
+                    },
+                    cancel: function () {
+                    }
                 }
-            );
+            });
         },
         'click .deleteStudent': function (e, value, row, index) {
             $.confirm({
@@ -387,8 +411,8 @@
                         keys: ['enter'],
                         action: function () {
                             $.ajax({
-                                type: 'post',
-                                url: '${pageContext.request.contextPath}/admin/student/infoDel',
+                                type: 'delete',
+                                url: '${pageContext.request.contextPath}/admin/student/delete',
                                 dataType: "json",
                                 data: JSON.stringify(row),
                                 contentType: 'application/json',

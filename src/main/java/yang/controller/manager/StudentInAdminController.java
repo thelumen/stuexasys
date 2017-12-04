@@ -64,17 +64,17 @@ public class StudentInAdminController extends CommonController {
     }
 
     /**
-     * 保存学生信息的修改
+     * 更新学生
      *
      * @param studentInfo .
      * @return .
      */
-    @RequestMapping(value = "/infoSave", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
-    public boolean saveStudentInfo(@RequestBody StudentInfo studentInfo) {
+    public Object saveStudentInfo(@RequestBody StudentInfo studentInfo) {
         studentInfo.setUpdateType(UpdateType.AdminSet);
-        return studentService.update(studentInfo);
+        return new ResultBean<>(studentService.update(studentInfo));
     }
 
     /**
@@ -83,7 +83,7 @@ public class StudentInAdminController extends CommonController {
      * @param studentInfo .
      * @return .
      */
-    @RequestMapping(value = "/infoDel", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public Object deleteStudent(@RequestBody StudentInfo studentInfo) {
