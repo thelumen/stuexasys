@@ -117,7 +117,7 @@
             content:
             '<input  id="c_courseId" placeholder="请填写课程Id，8位数值" class="form-control">' +
             '<input id="c_name" placeholder="请填写课程名称" class="form-control">' +
-            '<input id="c_period" placeholder="请填写学时，范围：0-100" class="form-control">' +
+            '<input id="c_period" placeholder="请填写学时，范围：0-200" class="form-control">' +
             '<input id="c_credit" placeholder="请填写学分，范围：0-25" class="form-control">' +
             '<input id="c_chapterNum" placeholder="请填写总章节数，范围：1-16" class="form-control">',
             animation: 'right',
@@ -159,10 +159,10 @@
                             });
                             return false;
                         }
-                        if (isNaN(period) || Number(period) > 100) {
+                        if (isNaN(period) || Number(period) > 200) {
                             $.alert({
                                 title: "",
-                                content: "学时是范围在0-100之间的数字",
+                                content: "学时是范围在0-200之间的数字",
                                 backgroundDismiss: true
                             });
                             return false;
@@ -315,7 +315,7 @@
             '<input id="mod_c_id"  class="form-control" readonly value="' + array[0] + '">' +
             '<input id="mod_c_courseId" readonly placeholder="请填写课程Id，8位数值" class="form-control" readonly value="' + array[1] + '">' +
             '<input id="mod_c_name" placeholder="请填写课程名称" class="form-control" value="' + array[2] + '">' +
-            '<input id="mod_c_period" placeholder="请填写学时，范围：0-100" class="form-control" value="' + array[3] + '">' +
+            '<input id="mod_c_period" placeholder="请填写学时，范围：0-200" class="form-control" value="' + array[3] + '">' +
             '<input id="mod_c_credit" placeholder="请填写学分，范围：0-25" class="form-control" value="' + array[4] + '">' +
             '<input id="mod_c_chapterNum" placeholder="请填写总章节数，范围：1-16"  class="form-control" value="' + array[5] + '">',
             animation: 'left',
@@ -353,10 +353,10 @@
                                     });
                                     return false;
                                 }
-                                if (isNaN(period) || Number(period) > 100) {
+                                if (isNaN(period) || Number(period) > 200) {
                                     $.alert({
                                         title: "",
-                                        content: "学时是范围在0-100之间的数字",
+                                        content: "学时是范围在0-200之间的数字",
                                         backgroundDismiss: true
                                     });
                                     return false;
