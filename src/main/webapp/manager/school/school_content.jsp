@@ -23,10 +23,8 @@
                     </button>
                 </shiro:hasPermission>
                 <br><br>
-                <%--选择题--%>
                 <div class="table-responsive">
-                    <table id="chapter_table"
-                           class="table table-bordered table-hover"
+                    <table class="table table-bordered table-hover"
                            data-toggle="table">
                         <thead>
                         <tr>
@@ -62,7 +60,7 @@
             <div class="col-md-6">
                 <shiro:hasPermission name="shiro:sys:admin">
                     <button class="btn-primary" style="text-align: right"
-                            onclick="showAddCourse()">新增课程
+                            onclick="addCourse()">新增课程
                     </button>
                 </shiro:hasPermission>
                 <br><br>
@@ -89,7 +87,9 @@
                                 <td>${course.chapterNum}</td>
                                 <td>
                                     <button class="btn-primary"
-                                            onclick="showModifyCourse('${course.courseId}')">
+                                            onclick="modifyCourse('${course.id}'+'_'+'${course.courseId}'
+                                                    +'_'+'${course.name}'+'_'+'${course.period}'+'_'+'${course.credit}'
+                                                    +'_'+'${course.chapterNum}')">
                                         修改
                                     </button>
                                     <shiro:hasPermission name="shiro:sys:admin">
@@ -109,217 +109,327 @@
     </div>
     <hr class="divider"/>
 </div>
-<%--新增课程--%>
-<div id="school_course_modal" class="modal fade" tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    新增课程</h4>
-            </div>
-            <div class="modal-body">
-                <form id="school_course_form">
-                    <input class="form-control"
-                           name="courseId"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="8" minlength="8"
-                           placeholder="请填写课程Id，8位数值">
-                    <input name="name" placeholder="请填写课程名称"
-                           class="form-control">
-                    <input name="period" placeholder="请填写学时"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <input name="credit" placeholder="请填写学分"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <input name="chapterNum" placeholder="请填写总章节数"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <button type="button" onclick="addCourse()">添加</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<%--修改课程--%>
-<div id="school_course_modify_modal" class="modal fade" tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    课程修改</h4>
-            </div>
-            <div class="modal-body">
-                <form id="school_course_modify_form">
-                    <input id="modify_c_id" name="id" hidden>
-                    <input class="form-control"
-                           name="courseId" id="modify_c_cId"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="8" minlength="8" readonly
-                           placeholder="请填写课程Id，8位数值">
-                    <input name="name" placeholder="请填写课程名称" id="modify_c_name"
-                           class="form-control">
-                    <input name="period" placeholder="请填写学时" id="modify_c_p"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <input name="credit" placeholder="请填写学分" id="modify_c_c"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <input name="chapterNum" placeholder="请填写总章节数"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           class="form-control" maxlength="2" id="modify_c_cn"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')">
-                    <button type="button" onclick="modifyCourse()">修改</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<%--修改专业--%>
-<div id="school_specialty_modify_modal" class="modal fade" tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">
-                    专业修改</h4>
-            </div>
-            <div class="modal-body">
-                <form id="school_specialty_modify_form">
-                    <input id="modify_s_realId" name="id" hidden>
-                    <input class="form-control"
-                           name="specialtyId" id="modify_s_id"
-                           onkeyup="this.value=this.value.replace(/\D/g,'')"
-                           onafterpaste="this.value=this.value.replace(/\D/g,'')"
-                           maxlength="6" minlength="6" readonly
-                           placeholder="专业Id，如：14届计算机，请填写“140401”">
-                    <input name="name" type="text"
-                           class="form-control" id="modify_s_name"
-                           placeholder="专业名称，如：计算机科学与技术">
-                    <button type="button" onclick="modifySpecialty()">修改
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     //添加课程
     function addCourse() {
-        var courseId = $('[name="courseId"]').val();
-        var name = $('[name="name"]').val();
-        var period = $('[name="period"]').val();
-        var credit = $('[name="credit"]').val();
-        var chapterNum = $('[name="chapterNum"]').val();
-        if (courseId === "" || name === "" || period === "" || credit === "" || chapterNum === "") {
-            alert("请填写完整数据！");
-            return false;
-        }
-        if (courseId.length !== 8) {
-            alert("课程Id长度为8！");
-            return false;
-        }
-        if (credit < 0 || credit > 25) {
-            alert("学分范围在0-25之间!");
-            return false;
-        }
-        if (chapterNum < 1 || chapterNum > 16) {
-            alert("章节数范围在1-16之间!");
-            return false;
-        }
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/course/insert',
-            type: 'post',
-            dataType: 'json',
-            data: $('#school_course_form').serializeArray(),
-            success: function (data) {
-                if (data) {
-                    location.reload();
-                } else {
-                    alert("课程Id重复！");
+        $.confirm({
+            title: "新增课程",
+            content:
+            '<input  id="c_courseId" placeholder="请填写课程Id，8位数值" class="form-control">' +
+            '<input id="c_name" placeholder="请填写课程名称" class="form-control">' +
+            '<input id="c_period" placeholder="请填写学时，范围：0-100" class="form-control">' +
+            '<input id="c_credit" placeholder="请填写学分，范围：0-25" class="form-control">' +
+            '<input id="c_chapterNum" placeholder="请填写总章节数，范围：1-16" class="form-control">',
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        var courseId = $('#c_courseId').val();
+                        var name = $('#c_name').val();
+                        var period = $('#c_period').val();
+                        var credit = $('#c_credit').val();
+                        var chapterNum = $('#c_chapterNum').val();
+                        if (courseId == "" || name == "" || period == "" || credit == "" || chapterNum == "") {
+                            $.alert({
+                                title: "",
+                                content: "请填写完整数据:)",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (isNaN(courseId) || courseId.length != 8) {
+                            $.alert({
+                                title: "",
+                                content: "课程Id是长度为8的数字！",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (isNaN(credit) || Number(credit) > 25) {
+                            $.alert({
+                                title: "",
+                                content: "学分是范围在0-25之间的数字",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (isNaN(period) || Number(period) > 100) {
+                            $.alert({
+                                title: "",
+                                content: "学时是范围在0-100之间的数字",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        if (isNaN(chapterNum) || Number(chapterNum) < 1 || Number(chapterNum) > 16) {
+                            $.alert({
+                                title: "",
+                                content: "章节数是范围在1-16之间的数字",
+                                backgroundDismiss: true
+                            });
+                            return false;
+                        }
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/admin/school/course/insert',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                courseId: courseId,
+                                name: name,
+                                period: period,
+                                credit: credit,
+                                chapterNum: chapterNum
+                            },
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    $.confirm({
+                                        title: "",
+                                        animation: 'left',
+                                        closeAnimation: 'rotateX',
+                                        content: result.msg + " 数据将在3秒后刷新...",
+                                        autoClose: 'confirm|3000',
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light',
+                                                action: function () {
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $.confirm({
+                                    animation: 'rotateX',
+                                    backgroundDismiss: true,
+                                    closeAnimation: 'rotateX',
+                                    title: false,
+                                    content: "系统错误!",
+                                    buttons: {
+                                        confirm: {
+                                            text: '确认',
+                                            btnClass: 'waves-effect waves-button waves-light'
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                },
+                cancel: function () {
                 }
-            },
-            error: function () {
-                alert("您没有权限！");
-                location.reload();
             }
-        })
+        });
     }
 
     //删除课程
     function deleteCourse(id) {
-        swal({
-                title: "您确定要删除这条记录？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "删除",
-                cancelButtonText: "取消",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true
-            },
-            function () {
-                $.ajax({
-                    url: '${pageContext.request.contextPath}/admin/common/course/delete/' + id,
-                    type: 'delete',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data) {
-                            location.reload();
-                        }
-                    },
-                    error: function () {
-                        alert("您没有权限！");
-                        location.reload();
+        $.confirm({
+            title: "删除课程",
+            content: '您确认要删除该课程吗？',
+            animation: 'left',
+            backgroundDismiss: true,
+            closeAnimation: 'rotateX',
+            type: 'red',
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        $.ajax({
+                            url: '${pageContext.request.contextPath}/admin/school/course/delete/' + id,
+                            type: 'delete',
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.code === 0) {
+                                    $.confirm({
+                                        title: "",
+                                        animation: 'left',
+                                        closeAnimation: 'rotateX',
+                                        content: result.msg + " 数据将在3秒后刷新...",
+                                        autoClose: 'confirm|3000',
+                                        buttons: {
+                                            confirm: {
+                                                text: '确认',
+                                                btnClass: 'waves-effect waves-button waves-light',
+                                                action: function () {
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: result.msg,
+                                        backgroundDismiss: true
+                                    });
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $.confirm({
+                                    animation: 'rotateX',
+                                    backgroundDismiss: true,
+                                    closeAnimation: 'rotateX',
+                                    title: false,
+                                    content: "此课程不可删除!",
+                                    buttons: {
+                                        confirm: {
+                                            text: '确认',
+                                            btnClass: 'waves-effect waves-button waves-light'
+                                        }
+                                    }
+                                });
+                            }
+                        })
                     }
-                })
-            });
+                },
+                cancel: function () {
+                }
+            }
+        });
     }
 
     //修改课程
-    function modifyCourse() {
-        var stringData = $('#school_course_modify_form').serializeObject();
-        var jsonDate = JSON.stringify(stringData);
-        $.ajax({
-            url: '${pageContext.request.contextPath}/admin/common/course/update',
-            contentType: 'application/json',
-            data: jsonDate,
-            dataType: 'json',
-            type: 'post',
-            success: function (data) {
-                if (data) {
-                    location.reload();
-                } else {
-                    alert("请填写正确参数！");
+    function modifyCourse(info) {
+        var array = info.split('_');
+        $.confirm({
+            title: "修改课程",
+            content:
+            '<input id="mod_c_id"  class="form-control" readonly value="' + array[0] + '">' +
+            '<input id="mod_c_courseId" readonly placeholder="请填写课程Id，8位数值" class="form-control" readonly value="' + array[1] + '">' +
+            '<input id="mod_c_name" placeholder="请填写课程名称" class="form-control" value="' + array[2] + '">' +
+            '<input id="mod_c_period" placeholder="请填写学时，范围：0-100" class="form-control" value="' + array[3] + '">' +
+            '<input id="mod_c_credit" placeholder="请填写学分，范围：0-25" class="form-control" value="' + array[4] + '">' +
+            '<input id="mod_c_chapterNum" placeholder="请填写总章节数，范围：1-16"  class="form-control" value="' + array[5] + '">',
+            animation: 'left',
+            backgroundDismiss: true,
+            closeAnimation: 'rotateX',
+            type: 'purple',
+            buttons:
+                {
+                    ok: {
+                        text: "ok!",
+                        theme: 'dark',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action:
+                            function () {
+                                var id = $('#mod_c_id').val();
+                                var courseId = $('#mod_c_courseId').val();
+                                var name = $('#mod_c_name').val();
+                                var period = $('#mod_c_period').val();
+                                var credit = $('#mod_c_credit').val();
+                                var num = $('#mod_c_chapterNum').val();
+                                if (name == "" || period == "" || credit == "" || num == "") {
+                                    $.alert({
+                                        title: "",
+                                        content: "请填写完整数据:)",
+                                        backgroundDismiss: true
+                                    });
+                                    return false;
+                                }
+                                if (isNaN(credit) || Number(credit) > 25) {
+                                    $.alert({
+                                        title: "",
+                                        content: "学分是范围在0-25之间的数字",
+                                        backgroundDismiss: true
+                                    });
+                                    return false;
+                                }
+                                if (isNaN(period) || Number(period) > 100) {
+                                    $.alert({
+                                        title: "",
+                                        content: "学时是范围在0-100之间的数字",
+                                        backgroundDismiss: true
+                                    });
+                                    return false;
+                                }
+                                if (isNaN(num) || Number(num) < 1 || Number(num) > 16) {
+                                    $.alert({
+                                        title: "",
+                                        content: "章节数是范围在1-16之间的数字",
+                                        backgroundDismiss: true
+                                    });
+                                    return false;
+                                }
+                                $.ajax({
+                                    url: '${pageContext.request.contextPath}/admin/school/course/update',
+                                    dataType: 'json',
+                                    type: 'post',
+                                    data: {
+                                        id: id,
+                                        courseId: courseId,
+                                        name: name,
+                                        period: period,
+                                        credit: credit,
+                                        chapterNum: num
+                                    },
+                                    success: function (result) {
+                                        if (result.code === 0) {
+                                            $.confirm({
+                                                title: "",
+                                                animation: 'left',
+                                                closeAnimation: 'rotateX',
+                                                content: result.msg + " 数据将在3秒后刷新...",
+                                                autoClose: 'confirm|3000',
+                                                buttons: {
+                                                    confirm: {
+                                                        text: '确认',
+                                                        btnClass: 'waves-effect waves-button waves-light',
+                                                        action: function () {
+                                                            location.reload();
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            $.alert({
+                                                title: "",
+                                                content: result.msg,
+                                                backgroundDismiss: true
+                                            });
+                                        }
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        $.confirm({
+                                            animation: 'rotateX',
+                                            backgroundDismiss: true,
+                                            closeAnimation: 'rotateX',
+                                            title: false,
+                                            content: "系统错误!",
+                                            buttons: {
+                                                confirm: {
+                                                    text: '确认',
+                                                    btnClass: 'waves-effect waves-button waves-light'
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            }
+                    },
+                    cancel: function () {
+                    }
                 }
-            },
-            error: function () {
-                alert("出错！可能原因：1.您没有权限；2.该课程Id被其他事务所关联;3.课程Id重复;4.属性设置超出范围");
-                location.reload();
-            }
         })
+        ;
     }
 
     //新增专业

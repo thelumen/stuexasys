@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import yang.common.base.ResultBean;
 import yang.common.enums.DeleteType;
-import yang.common.kit.ValidateKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Course;
 import yang.domain.common.Specialty;
@@ -72,18 +71,15 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/course/insert", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public boolean insertCourse(Course course) {
-        //校验
-        if (!ValidateKit.validateCourse(course)) {
-            return false;
-        }
-        //课程id不能重复
+    public Object insertCourse(Course course) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("courseId", course.getCourseId());
         }};
         List<Course> courses = courseService.select(params);
-
-        return null == courses && courseService.insert(course);
+        if (null != courses) {
+            return new ResultBean<>("专业id重复！");
+        }
+        return new ResultBean<>(courseService.insert(course));
     }
 
     /**
@@ -95,26 +91,8 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/course/delete/{courseId}", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public boolean deleteCourse(@PathVariable("courseId") Integer courseId) {
-        return courseService.delete(courseId);
-    }
-
-    /**
-     * 获取指定课程
-     *
-     * @param courseId
-     * @return
-     */
-    @RequestMapping(value = "/course/{courseId}", method = RequestMethod.GET)
-    @ResponseBody
-    public Course getRowInCourse(@PathVariable("courseId") String courseId) {
-
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("courseId", courseId);
-        }};
-        List<Course> courses = courseService.select(params);
-
-        return null != courses ? courses.get(0) : null;
+    public Object deleteCourse(@PathVariable("courseId") Integer courseId) {
+        return new ResultBean<>(courseService.delete(courseId));
     }
 
     /**
@@ -126,9 +104,8 @@ public class SchoolInAdminController extends CommonController {
     @RequestMapping(value = "/course/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
-    public boolean updateCourse(@RequestBody Course course) {
-        //通过校验就更新
-        return ValidateKit.validateCourse(course) && courseService.update(course);
+    public Object updateCourse(Course course) {
+        return new ResultBean<>(courseService.update(course));
     }
 
     /**
