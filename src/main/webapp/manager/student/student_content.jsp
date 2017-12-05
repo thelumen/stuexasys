@@ -353,10 +353,8 @@
                         action: function () {
                             $.ajax({
                                 type: 'delete',
-                                url: '${pageContext.request.contextPath}/admin/student/delete',
+                                url: '${pageContext.request.contextPath}/admin/student/delete/'+row.studentId,
                                 dataType: "json",
-                                data: JSON.stringify(row),
-                                contentType: 'application/json',
                                 success: function (result) {
                                     $.alert({
                                         title: "",

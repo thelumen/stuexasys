@@ -112,4 +112,12 @@ public interface StudentService {
      * @return
      */
     boolean updateStudent(Student student);
+
+    /**
+     * 删除学生
+     *
+     * @param params
+     * @return
+     */
+    boolean deleteStudent(Map<String, Object> params);
 }

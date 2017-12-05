@@ -8,14 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yang.common.base.ResultBean;
-import yang.common.enums.DeleteType;
 import yang.common.enums.RoleEnum;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Specialty;
 import yang.domain.common.Student;
-import yang.domain.student.StudentInfo;
 import yang.domain.student.StudentTaken;
 
 import java.io.IOException;
@@ -63,7 +61,7 @@ public class StudentInAdminController extends CommonController {
     /**
      * 更新学生
      *
-     * @param studentInfo .
+     * @param student
      * @return .
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -89,18 +87,17 @@ public class StudentInAdminController extends CommonController {
     /**
      * 删除学生
      *
-     * @param studentInfo .
+     * @param studentId
      * @return .
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{studentId}", method = RequestMethod.DELETE)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public Object deleteStudent(@RequestBody StudentInfo studentInfo) {
+    public Object deleteStudent(@PathVariable("studentId") Integer studentId) {
         Map<String, Object> params = new HashMap<String, Object>() {{
-            put("deleteType", DeleteType.DeleteWithStudentId);
-            put("studentId", studentInfo.getStudentId());
+            put("studentId", studentId);
         }};
-        return new ResultBean<>(studentService.delete(params));
+        return new ResultBean<>(studentService.deleteStudent(params));
     }
 
     /**

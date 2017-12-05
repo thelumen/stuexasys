@@ -169,4 +169,12 @@ public interface StudentMapper {
      * @return
      */
     int updateStudent(Student student);
+
+    /**
+     * 删除学生
+     *
+     * @param params
+     * @return
+     */
+    int deleteStudent(Map<String, Object> params);
 }

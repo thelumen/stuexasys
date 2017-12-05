@@ -35,6 +35,17 @@
         where studentId=#{studentId}
     </update>
 
+    <!--删除学生-->
+    <!--删除学生信息-->
+    <delete id="deleteStudent" parameterType="java.util.Map">
+        DELETE FROM com_student
+        <where>
+            <if test="studentId != null">
+                AND studentId = #{studentId }
+            </if>
+        </where>
+    </delete>
+
     <!--查询选择题题库-->
     <select id="selectQuestionOfSingle"
             resultType="yang.domain.student.SingleTaken"

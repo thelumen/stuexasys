@@ -367,4 +367,10 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     public boolean updateStudent(Student student) {
         return studentMapper.updateStudent(student) > 0;
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteStudent(Map<String, Object> params) {
+        return studentMapper.deleteStudent(params) > 0;
+    }
 }
