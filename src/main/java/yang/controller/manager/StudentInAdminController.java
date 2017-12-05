@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yang.common.base.ResultBean;
 import yang.common.enums.DeleteType;
-import yang.common.enums.MessageInfo;
 import yang.common.enums.UpdateType;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Specialty;
+import yang.domain.common.Student;
 import yang.domain.student.StudentInfo;
 import yang.domain.student.StudentTaken;
 
@@ -116,82 +116,92 @@ public class StudentInAdminController extends CommonController {
     }
 
     /**
-     * 上传学生表处理
+     * 上传学生表
      *
-     * @param files Excel( xls类型 )
-     * @return .
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws BiffException
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
-    public Map<String, Object> uploadStudentHandle(@RequestParam("files") MultipartFile files) {
-        Map<String, Object> info = new HashMap<>();
-        if (null == files) {
-            info.put("message", MessageInfo.OperationFailed.getMessageId());
-            return info;
-        }
-        try {
-            InputStream input = files.getInputStream();
+    public Object uploadStudentHandle(@RequestParam("files") MultipartFile file) throws IOException, BiffException {
+        try (InputStream input = file.getInputStream();) {
             Workbook workbook = Workbook.getWorkbook(input);
-            Sheet sheet_0 = workbook.getSheet(0);
-
-            int rows = sheet_0.getRows();
-            if (Objects.equals(sheet_0.getCell(0, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet_0.getCell(1, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet_0.getCell(2, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet_0.getCell(3, rows - 1).getContents().trim(), "")
+            Sheet sheet = workbook.getSheet(0);
+            //总行数
+            int rows = sheet.getRows();
+            if (Objects.equals(sheet.getCell(0, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet.getCell(1, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet.getCell(2, rows - 1).getContents().trim(), "") ||
+                    Objects.equals(sheet.getCell(3, rows - 1).getContents().trim(), "")
                     ) {
-                info.put("message", MessageInfo.OperationFailed.getMessageId());
-                return info;
+                return new ResultBean<>("请确保Excel文件的数据内容填写正确与完整！");
             }
 
-            Set<String> specialtySet = new HashSet<>();
-            List<Specialty> specialtyList = new ArrayList<>();
-            List<StudentTaken> studentUploadList = new ArrayList<>();
+            Set<Specialty> specialties = new HashSet<>();
+            List<Student> students = new ArrayList<>();
+            Set<Student> checkStudents = new HashSet<>();
 
-            for (int k = 1; k < rows; k++) {
-                String line_studentId = sheet_0.getCell(0, k).getContents().trim();
-                String line_studentName = sheet_0.getCell(1, k).getContents().trim();
-                String line_studentGender = sheet_0.getCell(2, k).getContents().trim();
-                String line_specialtyName = sheet_0.getCell(3, k).getContents().trim();
-                if (line_studentId.equals("")
-                        || line_specialtyName.equals("")
-                        || line_studentGender.equals("")
-                        || line_studentName.equals("")) {
-                    info.put("msg", MessageInfo.OperationFailed.getMessageId());
-                    info.put("failedRows", (k + 1));
-                    return info;
+            Specialty specialty;
+            Student student;
+            for (int i = 1; i < rows; i++) {
+                String studentId = sheet.getCell(0, i).getContents().trim();
+                String studentName = sheet.getCell(1, i).getContents().trim();
+                String gender = sheet.getCell(2, i).getContents().trim();
+                String specialtyName = sheet.getCell(3, i).getContents().trim();
+
+                if (Objects.equals(studentId, "") || Objects.equals(studentName, "")
+                        || Objects.equals(gender, "") || Objects.equals(specialtyName, "")) {
+                    return new ResultBean<>("请确保在第" + (i + 1) + "行：学生的学号，姓名，性别和专业填写完整！");
                 }
-                //专业处理
-                String specialtyId = line_studentId.substring(0, 6);//截取学号前六位
-                int specialtyNumInSet = specialtySet.size();//获取当前 set 的大小
-                specialtySet.add(specialtyId);
-                if (specialtyNumInSet < specialtySet.size()) {//判断是否添加了新数据
-                    Specialty specialty = new Specialty();
-                    specialty.setSpecialtyId(Integer.valueOf(specialtyId));
-                    specialty.setName(specialtyId.substring(0, 2) + line_specialtyName);//在专业前拼接学号前两位
-                    specialtyList.add(specialty);
-                }
-                //新建学生
-                StudentTaken studentTaken = new StudentTaken();
-                studentTaken.setStudentId(Integer.valueOf(line_studentId));
-                studentTaken.setName(line_studentName);
-                studentTaken.setGender(line_studentGender);
-                studentTaken.setSpecialtyId(Integer.valueOf(specialtyId));
-                studentTaken.setPassword(EncryptKit.md5(line_studentId));
-                studentUploadList.add(studentTaken);
+
+                //新增专业
+                Integer specialtyId = Integer.valueOf(studentId.substring(0, 6));
+                specialty = new Specialty();
+                specialty.setSpecialtyId(specialtyId);
+                specialty.setName(specialtyName);
+
+                specialties.add(specialty);
+
+                //新增学生
+                student = new Student();
+                student.setStudentId(Integer.valueOf(studentId));
+                student.setName(studentName);
+                student.setPassword(EncryptKit.md5(studentId));
+                student.setGender(gender);
+                student.setSpecialtyId(specialtyId);
+
+                students.add(student);
             }
 
-            Map<String, Object> uploadStudentInfo = new HashMap<String, Object>() {{
-                put("specialtyInfo", specialtyList);
-                put("studentUploadList", studentUploadList);
-            }};
-            info.put("message", adminStudentService.uploadStudentHandle(uploadStudentInfo).getMessageId());
-            return info;
-        } catch (IOException | BiffException e) {
-            LOGGER.error(e.toString());
-            info.put("message", MessageInfo.OperationFailed.getMessageId());
-            return info;
+            checkStudents.addAll(students);
+
+            int totalStudents = students.size();
+            int realStudents = checkStudents.size();
+            if (totalStudents != realStudents) {
+                return new ResultBean<>("学生中有学号重复的！");
+            }
+
+            //更新专业
+            List<Specialty> specialtiesInDB = specialtyService.select(null);
+            for (Specialty s : specialties) {
+                if (null == specialtiesInDB || !specialtiesInDB.contains(s)) {
+                    specialtyService.insert(s);
+                }
+            }
+
+            //更新学生
+            List<Student> studentsInDB = studentService.select(null, null);
+            for (Student s : students) {
+                if (null == studentsInDB || !studentsInDB.contains(s)) {
+                    studentService.insert(s);
+                }
+            }
+
+            return new ResultBean<>(true);
         }
     }
+
 }

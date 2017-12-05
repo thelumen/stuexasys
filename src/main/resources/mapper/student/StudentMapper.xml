@@ -3,6 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="yang.dao.student.StudentMapper">
 
+    <!--新增学生-->
+    <insert id="insert" parameterType="yang.domain.common.Student">
+        INSERT INTO com_student(studentId, password, name, specialtyId, gender)
+         VALUES (#{studentId},#{password},#{name},#{specialtyId},#{gender})
+    </insert>
+
     <!--查询选择题题库-->
     <select id="selectQuestionOfSingle"
             resultType="yang.domain.student.SingleTaken"

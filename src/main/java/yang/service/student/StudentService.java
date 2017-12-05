@@ -1,13 +1,15 @@
 package yang.service.student;
 
 import com.github.pagehelper.Page;
+import yang.domain.common.Student;
 import yang.domain.student.*;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/5/22.
+ * @author yang
+ * @date 2017/5/22
  * At 17:35
  */
 public interface StudentService {
@@ -48,8 +50,8 @@ public interface StudentService {
     /**
      * 通过 courseId 组卷并返回集合对象( 附加 )
      *
-     *@param studentId .
-     * @param examInfo .
+     * @param studentId .
+     * @param examInfo  .
      * @return TestPaper
      */
     TestPaper selectTestPaperAnother(int studentId, ExamInfo examInfo);
@@ -85,4 +87,21 @@ public interface StudentService {
      * @return .
      */
     TestPaper selectQuestion(ExamInfo examInfo);
+
+    /**
+     * 查询学生
+     *
+     * @param page
+     * @param params
+     * @return
+     */
+    List<Student> select(Page page, Map<String, Object> params);
+
+    /**
+     * 新增学生
+     *
+     * @param student
+     * @return
+     */
+    boolean insert(Student student);
 }

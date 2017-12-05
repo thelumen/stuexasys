@@ -153,4 +153,12 @@ public interface StudentMapper {
      * @return .
      */
     int delete(Map<String, Object> params);
+
+    /**
+     * 新增学生
+     *
+     * @param student
+     * @return
+     */
+    int insert(Student student);
 }

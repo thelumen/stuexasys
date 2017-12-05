@@ -1,8 +1,12 @@
 package yang.domain.common;
 
+import java.util.Objects;
+
 /**
  * 专业表
- * Created by yang on 2017/5/25.
+ *
+ * @author yang
+ * @date 2017/5/25
  * At 12:06
  */
 public final class Specialty {
@@ -10,6 +14,23 @@ public final class Specialty {
     private Integer specialtyId;
     private String name;
     private Integer total;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Specialty specialty = (Specialty) o;
+        return Objects.equals(specialtyId, specialty.specialtyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(specialtyId);
+    }
 
     @Override
     public String toString() {

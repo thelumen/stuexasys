@@ -228,28 +228,13 @@
             allowedFileExtensions: ['xls']
         }).on("fileuploaded", function (event, data, previewId, index) {
             var result = data.response;
-            var msgId = result.msg;
-            var failedRows = result.failedRows;
-            if (msgId === 1) {
-                swal("上传失败了", "请检查上传表，第" + failedRows + "可能存在问题", "error");
-            } else if (msgId === 2) {
-                swal("上传失败了", "上传了一张重复的表呢", "error");
-            } else if (msgId === 3) {
-                swal("上传失败了", "数据录入时出现了问题", "error");
-            } else {
-                swal({
-                    title: "成功上传",
-                    text: "学生们已被录入",
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "嗯，我知道了",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    $("#modal-container-uploadStudent").modal("hide");
-                    location.reload();
-                });
+            $.alert({
+                title: "",
+                content: result.msg,
+                backgroundDismiss: true
+            });
+            if (result.code == 0) {
+                table.bootstrapTable("refresh")
             }
         });
     });

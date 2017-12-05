@@ -9,6 +9,7 @@ import yang.common.enums.DeleteType;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.EncryptKit;
 import yang.common.kit.LogKit;
+import yang.domain.common.Student;
 import yang.domain.student.*;
 import yang.service.common.CommonService;
 import yang.service.student.StudentService;
@@ -341,5 +342,22 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         testPaper.setTfTakenList(tfTakenList);
         testPaper.setTestNum(examInfo.getTestNum());
         return testPaper;
+    }
+
+    @Override
+    public List<Student> select(Page page, Map<String, Object> params) {
+        if (null != page) {
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+        }
+        List<Student> students = studentMapper.select(params);
+        if (null != students && students.size() > 0) {
+            return students;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean insert(Student student) {
+        return studentMapper.insert(student) > 0;
     }
 }
