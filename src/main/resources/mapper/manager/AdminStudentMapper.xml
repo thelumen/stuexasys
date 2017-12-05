@@ -40,7 +40,6 @@
                 </foreach>
             </if>
         </where>
-
     </select>
 
     <!--删除专业-->
@@ -54,7 +53,6 @@
                 </foreach>
             </if>
         </where>
-
     </delete>
 
     <!--删除教师选课表中的数据 with specialtyId-->
@@ -75,7 +73,7 @@
         INSERT INTO com_specialty (specialtyId, name)
         VALUES
         <foreach collection="specialtyInfo" index="index" item="specialtyItem" separator=",">
-            (#{specialtyItem.specialtyId,jdbcType=INTEGER}, #{specialtyItem.name,jdbcType=VARCHAR})
+            (#{specialtyItem.specialtyId}, #{specialtyItem.name})
         </foreach>
     </insert>
 
@@ -84,9 +82,9 @@
         INSERT INTO com_student(studentId, password, name, specialtyId, gender)
         VALUES
         <foreach collection="studentUploadList" item="item" index="index" separator=",">
-            (#{item.studentId,jdbcType=INTEGER},#{item.password,jdbcType=VARCHAR},
-            #{item.name,jdbcType=VARCHAR},#{item.specialtyId,jdbcType=INTEGER},
-            #{item.gender,jdbcType=CHAR})
+            (#{item.studentId},#{item.password},
+            #{item.name},#{item.specialtyId},
+            #{item.gender})
         </foreach>
     </insert>
 
@@ -95,7 +93,7 @@
         INSERT INTO com_studnet_l_role(studentId, roleId)
         VALUES
         <foreach collection="studentUploadList" item="item" index="index" separator=",">
-            (#{item.studentId,jdbcType=INTEGER},4)
+            (#{item.studentId},4)
         </foreach>
     </insert>
 </mapper>

@@ -10,21 +10,21 @@
         FROM com_manager
         <where>
             <if test="managerId != null">
-                AND managerId=#{managerId,jdbcType=CHAR}
+                AND managerId=#{managerId}
             </if>
             <if test="name != null">
-                AND name = #{name,jdbcType=CHAR}
+                AND name = #{name}
             </if>
             <if test="password != null">
-                AND password=#{password,jdbcType=CHAR}
+                AND password=#{password}
             </if>
         </where>
     </select>
 
-    <!--插入管理员-->
+    <!--新增管理员-->
     <insert id="insert" parameterType="yang.domain.manager.Manager">
         INSERT INTO com_manager (managerId, password)
-        VALUES (#{managerId,jdbcType=CHAR}, #{password,jdbcType=CHAR})
+        VALUES (#{managerId}, #{password})
     </insert>
 </mapper>
 
