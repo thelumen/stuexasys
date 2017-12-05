@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yang.common.enums.DeleteType;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.EncryptKit;
@@ -359,5 +360,11 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     @Override
     public boolean insert(Student student) {
         return studentMapper.insert(student) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateStudent(Student student) {
+        return studentMapper.updateStudent(student) > 0;
     }
 }

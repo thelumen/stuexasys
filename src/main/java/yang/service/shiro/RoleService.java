@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/5/22.
+ *
+ * @author yang
+ * @date 2017/5/22
  * At 17:32
  */
 public interface RoleService {
@@ -69,4 +71,12 @@ public interface RoleService {
      */
     boolean link2Manager(short managerId, short roleId);
 
+    /**
+     * 绑定学生-角色
+     *
+     * @param studentId
+     * @param roleId
+     * @return
+     */
+    boolean link2Student(Integer studentId, Integer roleId);
 }

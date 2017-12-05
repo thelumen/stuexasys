@@ -161,4 +161,12 @@ public interface StudentMapper {
      * @return
      */
     int insert(Student student);
+
+    /**
+     * 更新学生
+     *
+     * @param student
+     * @return
+     */
+    int updateStudent(Student student);
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import yang.common.base.ResultBean;
 import yang.common.enums.DeleteType;
-import yang.common.enums.UpdateType;
+import yang.common.enums.RoleEnum;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
 import yang.controller.common.CommonController;
@@ -69,9 +69,21 @@ public class StudentInAdminController extends CommonController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
-    public Object saveStudentInfo(@RequestBody StudentInfo studentInfo) {
-        studentInfo.setUpdateType(UpdateType.AdminSet);
-        return new ResultBean<>(studentService.update(studentInfo));
+    public Object saveStudentInfo(@RequestBody Student student) {
+        Map<String, Object> params = new HashMap<String, Object>() {{
+            put("studentId", student.getStudentId());
+        }};
+        List<Student> students = studentService.select(null, params);
+        if (null == students) {
+            return new ResultBean<>("该学生信息不存在！");
+        }
+        Student s = students.get(0);
+        if (!s.getPassword().equals(student.getPassword())) {
+            student.setPassword(EncryptKit.md5(student.getPassword()));
+        } else {
+            student.setPassword(null);
+        }
+        return new ResultBean<>(studentService.updateStudent(student));
     }
 
     /**
@@ -197,6 +209,7 @@ public class StudentInAdminController extends CommonController {
             for (Student s : students) {
                 if (null == studentsInDB || !studentsInDB.contains(s)) {
                     studentService.insert(s);
+                    roleService.link2Student(s.getStudentId(), RoleEnum.STUDENT.getRoleId());
                 }
             }
 

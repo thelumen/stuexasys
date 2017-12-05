@@ -70,4 +70,13 @@ public interface RoleMapper {
      * @return
      */
     int link2Manager(@Param("managerId") short managerId, @Param("roleId") short roleId);
+
+    /**
+     * 绑定学生-角色
+     *
+     * @param studentId
+     * @param roleId
+     * @return
+     */
+    int link2Student(@Param("studentId") Integer studentId, @Param("roleId") Integer roleId);
 }

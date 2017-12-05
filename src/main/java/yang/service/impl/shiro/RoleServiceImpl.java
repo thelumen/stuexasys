@@ -1,7 +1,6 @@
 package yang.service.impl.shiro;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.domain.shiro.Role;
 import yang.service.common.CommonService;
 import yang.service.shiro.RoleService;
@@ -17,7 +16,6 @@ import java.util.Map;
 public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
-    @Transactional
     public int insert(Role role) {
         return roleMapper.insert(role);
     }
@@ -59,23 +57,18 @@ public class RoleServiceImpl extends CommonService implements RoleService {
     }
 
     @Override
-    @Transactional
     public boolean link2Teacher(Integer teacherId, Integer roleId) {
-        boolean result = false;
-        if (roleMapper.link2Teacher(teacherId, roleId) > 0) {
-            result = true;
-        }
-        return result;
+        return roleMapper.link2Teacher(teacherId, roleId) > 0;
     }
 
     @Override
-    @Transactional
     public boolean link2Manager(short managerId, short roleId) {
-        boolean result = false;
-        if (roleMapper.link2Manager(managerId, roleId) > 0) {
-            result = true;
-        }
-        return result;
+        return roleMapper.link2Manager(managerId, roleId) > 0;
+    }
+
+    @Override
+    public boolean link2Student(Integer studentId, Integer roleId) {
+        return roleMapper.link2Student(studentId, roleId) > 0;
     }
 
 }

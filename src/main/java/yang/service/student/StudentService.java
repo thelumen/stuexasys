@@ -104,4 +104,12 @@ public interface StudentService {
      * @return
      */
     boolean insert(Student student);
+
+    /**
+     * 更新学生
+     *
+     * @param student
+     * @return
+     */
+    boolean updateStudent(Student student);
 }

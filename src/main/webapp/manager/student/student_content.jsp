@@ -195,7 +195,7 @@
                 field: 'password',
                 title: '修改密码',
                 formatter: function (value, row, index) {
-                    return '修改密码';
+                    return '*****';
                 },
                 editable: {
                     type: 'text',

@@ -9,6 +9,32 @@
          VALUES (#{studentId},#{password},#{name},#{specialtyId},#{gender})
     </insert>
 
+    <!--更新学生-->
+    <update id="updateStudent" parameterType="yang.domain.common.Student">
+        UPDATE com_student
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="password != null">
+                password=#{password},
+            </if>
+            <if test="cellphone != null">
+                cellphone=#{cellphone},
+            </if>
+            <if test="gender != null">
+                gender=#{gender},
+            </if>
+            <if test="email != null">
+                email=#{email},
+            </if>
+            <if test="specialtyId != null">
+                specialtyId=#{specialtyId},
+            </if>
+        </set>
+        where studentId=#{studentId}
+    </update>
+
     <!--查询选择题题库-->
     <select id="selectQuestionOfSingle"
             resultType="yang.domain.student.SingleTaken"
@@ -213,22 +239,22 @@
     <update id="update" parameterType="java.util.Map">
         UPDATE com_student
         <set>
-            <if test="name !=null">
+            <if test="name != null">
                 name=#{name},
             </if>
-            <if test="password !=null">
+            <if test="password != null">
                 password=#{password},
             </if>
-            <if test="cellphone !=null">
+            <if test="cellphone != null">
                 cellphone=#{cellphone},
             </if>
-            <if test="gender !=null">
+            <if test="gender != null">
                 gender=#{gender},
             </if>
-            <if test="email !=null">
+            <if test="email != null">
                 email=#{email},
             </if>
-            <if test="specialtyId!=null">
+            <if test="specialtyId != null">
                 specialtyId=#{specialtyId},
             </if>
         </set>
