@@ -17,7 +17,7 @@
     </ol>
     <div id="toolbar">
         <label>
-            <select multiple="multiple" id="specialty" style="width: 200px">
+            <select multiple="multiple" id="specialty" style="width: 400px">
             </select>
         </label>
         &nbsp;
@@ -34,10 +34,8 @@
             </button>
         </shiro:hasPermission>
     </div>
-    <div>
-        <table id="studentTable">
-        </table>
-    </div>
+    <table id="studentTable">
+    </table>
     <%--学生信息上传模态框--%>
     <div class="modal fade" id="modal-container-uploadStudent"
          aria-hidden="true" aria-labelledby="myModalLabel">
@@ -89,7 +87,9 @@
 
     //预加载
     $(function () {
-        specialty_select.select2();
+        specialty_select.select2({
+            maximumSelectionLength: 3
+        });
 
         $.ajax({
             url: '${pageContext.request.contextPath}/specialty/all',
@@ -98,7 +98,8 @@
                 specialty_select.select2({
                     placeholder: "专业",
                     allowClear: true,
-                    data: data
+                    data: data,
+                    maximumSelectionLength: 3
                 });
                 window._data = data;
             }
@@ -259,8 +260,6 @@
         var studentId = studentId_input.val();
         //全不选，就显示预留学生
         if (specialty == null && studentId == '') {
-            alert("预留");
-            alert(specialty);
             table.bootstrapTable("refresh", {
                 url: "${pageContext.request.contextPath}/admin/student/default/list"
             });
