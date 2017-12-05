@@ -131,11 +131,11 @@ public class StudentInAdminController extends CommonController {
             return info;
         }
         try {
-            InputStream input = files.getInputStream();//IOException
-            Workbook workbook = Workbook.getWorkbook(input);//BiffException
-            Sheet sheet_0 = workbook.getSheet(0);//获取第一章工作表
+            InputStream input = files.getInputStream();
+            Workbook workbook = Workbook.getWorkbook(input);
+            Sheet sheet_0 = workbook.getSheet(0);
 
-            int rows = sheet_0.getRows();//获取总行数
+            int rows = sheet_0.getRows();
             if (Objects.equals(sheet_0.getCell(0, rows - 1).getContents().trim(), "") ||
                     Objects.equals(sheet_0.getCell(1, rows - 1).getContents().trim(), "") ||
                     Objects.equals(sheet_0.getCell(2, rows - 1).getContents().trim(), "") ||
@@ -178,7 +178,7 @@ public class StudentInAdminController extends CommonController {
                 studentTaken.setName(line_studentName);
                 studentTaken.setGender(line_studentGender);
                 studentTaken.setSpecialtyId(Integer.valueOf(specialtyId));
-                studentTaken.setPassword(EncryptKit.md5(line_studentId));//初始密码为学号
+                studentTaken.setPassword(EncryptKit.md5(line_studentId));
                 studentUploadList.add(studentTaken);
             }
 
