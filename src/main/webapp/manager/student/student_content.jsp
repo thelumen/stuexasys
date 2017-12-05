@@ -85,7 +85,7 @@
 <script>
     var table = $('#studentTable');
     var specialty_select = $('#specialty');
-    var studentId_select = $('#studentId');
+    var studentId_input = $('#studentId');
 
     //预加载
     $(function () {
@@ -256,20 +256,20 @@
     //查询学生
     function selectStudent() {
         var specialty = specialty_select.val();
-        var studentId = studentId_select.val();
+        var studentId = studentId_input.val();
         //全不选，就显示预留学生
-        if (specialty == '' && studentId == '') {
-            $("#studentTable").bootstrapTable("refresh", {
+        if (specialty == null && studentId == '') {
+            alert("预留");
+            alert(specialty);
+            table.bootstrapTable("refresh", {
                 url: "${pageContext.request.contextPath}/admin/student/default/list"
             });
+            return false;
         }
         if (specialty == null) {
-            specialty = 0;//未选中时的默认值
+            specialty = null;
         }
-        if (studentId == null || studentId.length == 0) {
-            studentId = 0;//未选中时的默认值
-        }
-        if (studentId != 0) {
+        if (studentId != '') {
             if (isNaN(studentId) || studentId.length != 9) {
                 $.alert({
                     title: "",
@@ -278,42 +278,13 @@
                 });
                 return false;
             }
-            $("#studentTable").bootstrapTable("refresh", {
-                url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId
-            });
         } else {
-            $("#studentTable").bootstrapTable("refresh",
-                {url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId})
+            studentId = null;
         }
+        table.bootstrapTable("refresh", {
+            url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId
+        });
     }
-
-    //查询学生
-    <%--function selectStudent() {--%>
-    <%--var specialty = specialty_select.val();--%>
-    <%--var studentId = studentId_select.val();--%>
-    <%--if (specialty == null) {--%>
-    <%--specialty = 0;//未选中时的默认值--%>
-    <%--}--%>
-    <%--if (studentId == null || studentId.length == 0) {--%>
-    <%--studentId = 0;//未选中时的默认值--%>
-    <%--}--%>
-    <%--if (studentId != 0) {--%>
-    <%--if (isNaN(studentId) || studentId.length != 9) {--%>
-    <%--$.alert({--%>
-    <%--title: "",--%>
-    <%--content: "学号为长度9的数字：)",--%>
-    <%--backgroundDismiss: true--%>
-    <%--});--%>
-    <%--return false;--%>
-    <%--}--%>
-    <%--$("#studentTable").bootstrapTable("refresh", {--%>
-    <%--url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId--%>
-    <%--});--%>
-    <%--} else {--%>
-    <%--$("#studentTable").bootstrapTable("refresh",--%>
-    <%--{url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId})--%>
-    <%--}--%>
-    <%--}--%>
 
     //表格内的按钮初始化
     function initEditBtn() {

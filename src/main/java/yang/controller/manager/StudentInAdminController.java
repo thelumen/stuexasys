@@ -104,14 +104,14 @@ public class StudentInAdminController extends CommonController {
     public Object selectStudent(@RequestBody Map<String, Object> params,
                                 @PathVariable(value = "specialtyId") String specialtyId,
                                 @PathVariable(value = "studentId") String studentId) {
-        Map<String, Object> params = new HashMap<>();
-        if (!"0".equals(specialtyId)) {
-            params.put("specialtyId", Arrays.asList(specialtyId.split(",")));
+        Map<String, Object> info = new HashMap<>();
+        if (!"null".equals(specialtyId)) {
+            info.put("specialtyId", Arrays.asList(specialtyId.split(",")));
         }
-        if (!"0".equals(studentId)) {
-            params.put("studentId", studentId);
+        if (!"null".equals(studentId)) {
+            info.put("studentId", studentId);
         }
-        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), params);
+        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), info);
         return CommonKit.getTakenInfo(studentInfos);
     }
 
