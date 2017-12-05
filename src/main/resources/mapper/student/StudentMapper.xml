@@ -4,64 +4,80 @@
 <mapper namespace="yang.dao.student.StudentMapper">
 
     <!--查询选择题题库-->
-    <select id="selectQuestionOfSingle" resultType="yang.domain.student.SingleTaken" parameterType="java.util.Map">
+    <select id="selectQuestionOfSingle"
+            resultType="yang.domain.student.SingleTaken"
+            parameterType="java.util.Map">
         (SELECT *
         FROM com_single_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 1 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 4)
         UNION
         (SELECT *
         FROM com_single_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 2 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 2 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 14)
         UNION
         (SELECT *
         FROM com_single_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 3 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 3 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 2)
     </select>
 
     <!--查询判断题题库-->
-    <select id="selectQuestionOfTf" resultType="yang.domain.student.TfTaken" parameterType="java.util.Map">
+    <select id="selectQuestionOfTf" resultType="yang.domain.student.TfTaken"
+            parameterType="java.util.Map">
         (SELECT *
         FROM com_tf_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 1 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 1 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 1)
         UNION
         (SELECT *
         FROM com_tf_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 2 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 2 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 3)
         UNION
         (SELECT *
         FROM com_tf_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND levels = 3 AND section IN
-        <foreach collection="sectionList" index="index" item="sectionItem" open="(" separator="," close=")">
+        WHERE courseId = #{courseId} AND levels = 3 AND section
+        IN
+        <foreach collection="sectionList" index="index" item="sectionItem"
+                 open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
         ORDER BY rand() LIMIT 1)
     </select>
 
     <!--查询成绩信息-->
-    <select id="selectGradeInfo" resultType="yang.domain.student.GradeInfo" parameterType="java.util.Map">
+    <select id="selectGradeInfo" resultType="yang.domain.student.GradeInfo"
+            parameterType="java.util.Map">
         SELECT *
         FROM com_grade
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER}
+        WHERE studentId = #{studentId} AND courseId = #{courseId}
     </select>
 
     <!--查询学生-->
@@ -71,65 +87,68 @@
         FROM com_student
         <where>
             <if test="studentId != null">
-                AND studentId=#{studentId,jdbcType=INTEGER}
+                AND studentId=#{studentId}
             </if>
             <if test="name != null">
-                AND name = #{name,jdbcType=VARCHAR}
+                AND name = #{name}
             </if>
             <if test="password != null">
-                AND password=#{password,jdbcType=VARCHAR}
+                AND password=#{password}
             </if>
         </where>
     </select>
 
     <!--查询学生详细信息-->
-    <select id="selectStudentInfo" parameterType="java.util.Map" resultType="yang.domain.student.StudentTaken">
+    <select id="selectStudentInfo" parameterType="java.util.Map"
+            resultType="yang.domain.student.StudentTaken">
         SELECT DISTINCT
-        s.studentId AS studentId,
-        s.name AS name,
-        s.email AS email,
-        s.cellphone AS cellphone,
-        s.gender AS gender,
-        s.password AS password,
-        s.specialtyId AS specialtyId,
+        s.studentId,
+        s.name,
+        s.email,
+        s.cellphone,
+        s.gender,
+        s.password,
+        s.specialtyId,
         p.name AS specialtyName
         FROM com_student s, com_specialty p
         where s.specialtyId = p.specialtyId
         <if test="studentId != null">
-            AND s.studentId = #{studentId,jdbcType=INTEGER}
+            AND s.studentId = #{studentId}
         </if>
         <if test="specialtyId != null">
             AND s.specialtyId IN
-            <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+            <foreach collection="specialtyId" index="index" item="specialtyItem"
+                     open="(" separator="," close=")">
                 #{specialtyItem}
             </foreach>
         </if>
     </select>
 
     <!--查询学生考试信息-->
-    <select id="selectExamInfo" resultType="yang.domain.student.ExamTaken" parameterType="java.util.Map">
+    <select id="selectExamInfo" resultType="yang.domain.student.ExamTaken"
+            parameterType="java.util.Map">
         SELECT DISTINCT
-            c.courseId AS courseId,
-            c.name     AS courseName,
-            e.content1 AS content1,
-            e.content2 AS content2,
-            e.content3 AS content3,
-            e.date1    AS date1,
-            e.date2    AS date2,
-            e.date3    AS date3,
-            e.date4    AS date4,
-            e.sign1    AS sign1,
-            e.sign2    AS sign2,
-            e.sign3    AS sign3,
-            e.sign4    AS sign4,
-            e.started  AS started,
-            e.test     AS test
+        c.courseId,
+        c.name AS courseName,
+        e.content1,
+        e.content2,
+        e.content3,
+        e.date1,
+        e.date2,
+        e.date3,
+        e.date4,
+        e.sign1,
+        e.sign2,
+        e.sign3,
+        e.sign4,
+        e.started,
+        e.test
         FROM com_examinfo e, com_course c
         WHERE c.courseId = e.courseId
-              AND (e.test = 1 OR e.started = 1)
-              AND e.specialtyId = #{specialtyId,jdbcType=INTEGER}
+        AND (e.test = 1 OR e.started = 1)
+        AND e.specialtyId = #{specialtyId}
         <if test="courseId != null">
-            AND c.courseId = #{courseId,jdbcType=INTEGER}
+            AND c.courseId = #{courseId}
         </if>
     </select>
 
@@ -137,11 +156,11 @@
     <select id="selectQuestionBaseAnother" parameterType="java.util.Map"
             resultType="yang.domain.student.AnotherTestTaken">
         SELECT DISTINCT
-            a.courseId AS courseId,
-            a.content  AS content,
-            a.id       AS Id
+            a.courseId,
+            a.content,
+            a.id AS Id
         FROM com_another_question a
-        WHERE a.courseId = #{courseId,jdbcType=INTEGER}
+        WHERE a.courseId = #{courseId}
     </select>
 
     <!--查询学生附加题信息-->
@@ -149,65 +168,65 @@
             resultType="yang.domain.student.AnotherTestTaken">
         SELECT *
         FROM com_student_l_another_question
-        WHERE courseId = #{courseId,jdbcType=INTEGER} AND studentId = #{studentId,jdbcType=INTEGER}
+        WHERE courseId = #{courseId} AND studentId = #{studentId}
     </select>
 
     <!--查询学生成绩以及信息-->
-    <select id="selectGrade" parameterType="java.util.Map" resultType="yang.domain.student.GradeTaken">
+    <select id="selectGrade" parameterType="java.util.Map"
+            resultType="yang.domain.student.GradeTaken">
         SELECT DISTINCT
             g.studentId AS studentId,
             s.name      AS studentName,
             c.name      AS courseName,
-            g.grade1    AS grade1,
-            g.grade2    AS grade2,
-            g.grade3    AS grade3,
-            g.grade4    AS grade4,
-            g.total     AS total
+            g.grade1,
+            g.grade2,
+            g.grade3,
+            g.grade4,
+            g.total
         FROM com_course c, com_grade g, com_student s, com_teacher_l_course tc
         WHERE
             g.studentId = s.studentId AND g.courseId = c.courseId AND tc.specialtyId = s.specialtyId AND
-            tc.courseId = c.courseId AND g.studentId = #{studentId,jdbcType=INTEGER}
+            tc.courseId = c.courseId AND g.studentId = #{studentId}
     </select>
 
     <!--查询学生课程-->
-    <select id="selectCourse" parameterType="java.util.Map" resultType="yang.domain.student.CourseTaken">
+    <select id="selectCourse" parameterType="java.util.Map"
+            resultType="yang.domain.student.CourseTaken">
         SELECT DISTINCT
-            c.name       AS courseName,
-            c.credit     AS credit,
-            c.period     AS period,
-            tc.starttime AS startTime,
-            tc.endtime   AS endtime
+            c.name AS courseName,
+            c.credit,
+            c.period,
+            tc.starttime,
+            tc.endtime
         FROM com_course c, com_teacher_l_course tc, com_student s
         WHERE
-            c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId,jdbcType=INTEGER}
+            c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId}
     </select>
-
-    <!--——更新————————————————————————————————————————————————————————————————————-->
 
     <!--更新学生信息-->
     <update id="update" parameterType="java.util.Map">
         UPDATE com_student
         <set>
             <if test="name !=null">
-                name=#{name,jdbcType=VARCHAR},
+                name=#{name},
             </if>
             <if test="password !=null">
-                password=#{password,jdbcType=VARCHAR},
+                password=#{password},
             </if>
             <if test="cellphone !=null">
-                cellphone=#{cellphone,jdbcType=VARCHAR},
+                cellphone=#{cellphone},
             </if>
             <if test="gender !=null">
-                gender=#{gender,jdbcType=CHAR},
+                gender=#{gender},
             </if>
             <if test="email !=null">
-                email=#{email,jdbcType=VARCHAR},
+                email=#{email},
             </if>
             <if test="specialtyId!=null">
-                specialtyId=#{specialtyId,jdbcType=INTEGER},
+                specialtyId=#{specialtyId},
             </if>
         </set>
-        where studentId=#{studentId,jdbcType=INTEGER}
+        where studentId=#{studentId}
     </update>
 
     <!--更新学生成绩（除测试四）-->
@@ -215,53 +234,48 @@
         UPDATE com_grade
         <set>
             <if test="grade1!=null">
-                grade1 = #{grade1,jdbcType=INTEGER}
+                grade1 = #{grade1}
             </if>
             <if test="grade2!=null">
-                grade2 = #{grade2,jdbcType=INTEGER}
+                grade2 = #{grade2}
             </if>
             <if test="grade3!=null">
-                grade3 = #{grade3,jdbcType=INTEGER}
+                grade3 = #{grade3}
             </if>
         </set>
-        WHERE studentId=#{studentId,jdbcType=INTEGER} AND courseId= #{courseId,jdbcType=INTEGER}
+        WHERE studentId=#{studentId} AND courseId= #{courseId}
     </update>
 
     <!--更新学生附加题的答案-->
     <update id="updateAnotherResult" parameterType="java.util.Map">
         UPDATE com_student_l_another_question
-        SET result = #{result,jdbcType=VARCHAR}
-        WHERE studentId = #{studentId,jdbcType=INTEGER} AND courseId = #{courseId,jdbcType=INTEGER} AND
-              Id = #{Id,jdbcType=BIGINT}
+        SET result = #{result}
+        WHERE studentId = #{studentId} AND courseId = #{courseId} AND Id = #{Id}
     </update>
-
-    <!--——插入————————————————————————————————————————————————————————————————————-->
 
     <!--插入学生成绩关联行-->
     <insert id="insertGrade" parameterType="java.util.Map">
         INSERT INTO com_grade (studentId, courseId)
-        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER})
+        VALUES (#{studentId}, #{courseId})
     </insert>
 
     <!--插入学生附加题的答案-->
     <insert id="insertAnotherResult" parameterType="java.util.Map">
         INSERT INTO com_student_l_another_question (studentId, courseId, result, id)
-        VALUES (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR},
-                #{Id,jdbcType=BIGINT})
+        VALUES (#{studentId}, #{courseId}, #{result}, #{Id})
     </insert>
-
-    <!--——删除————————————————————————————————————————————————————————————————————-->
 
     <!--删除学生信息-->
     <delete id="delete" parameterType="java.util.Map">
         DELETE FROM com_student
         <where>
             <if test="studentId != null">
-                AND studentId = #{studentId ,jdbcType=INTEGER}
+                AND studentId = #{studentId }
             </if>
             <if test="specialtyId != null">
                 AND specialtyId IN
-                <foreach collection="specialtyId" index="index" item="specialtyItem" open="(" separator="," close=")">
+                <foreach collection="specialtyId" index="index"
+                         item="specialtyItem" open="(" separator="," close=")">
                     #{specialtyItem}
                 </foreach>
             </if>

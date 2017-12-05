@@ -15,34 +15,26 @@
         </li>
         <li class="active">学生管理</li>
     </ol>
-    <div class="row" id="student_admin_bar">
-        <div class="col-md-3">
-            <label style="display: block">
-                <select multiple="multiple" class="form-control "
-                        id="specialty">
-                </select>
-            </label>
-        </div>
-        <div class="col-md-3">
-            <label style="display: block">
-                <input class="form-control" placeholder="学号" id="studentId">
-            </label>
-        </div>
-        <div class="col-md-6">
-            <button class="btn btn-primary" type="button"
-                    onclick="selectStudent()">
-                查找
+    <div id="toolbar">
+        <label>
+            <select multiple="multiple" id="specialty" style="width: 200px">
+            </select>
+        </label>
+        &nbsp;
+        <input placeholder="学号" id="studentId">
+        <button class="btn btn-primary" type="button"
+                onclick="selectStudent()">
+            查找
+        </button>
+        &nbsp;
+        <shiro:hasPermission name="shiro:sys:admin">
+            <button class="btn btn-success" type="button"
+                    href="#modal-container-uploadStudent"
+                    data-toggle="modal">上传学生
             </button>
-            &nbsp;&nbsp;
-            <shiro:hasPermission name="shiro:sys:admin">
-                <button class="btn btn-success" type="button" id="uploadStudent"
-                        href="#modal-container-uploadStudent"
-                        data-toggle="modal">上传学生
-                </button>
-            </shiro:hasPermission>
-        </div>
+        </shiro:hasPermission>
     </div>
-    <div class="row">
+    <div>
         <table id="studentTable">
         </table>
     </div>
@@ -92,16 +84,18 @@
 </div>
 <script>
     var table = $('#studentTable');
+    var specialty_select = $('#specialty');
+    var studentId_select = $('#studentId');
 
     //预加载
     $(function () {
-        $('#specialty').select2();
+        specialty_select.select2();
 
         $.ajax({
             url: '${pageContext.request.contextPath}/specialty/all',
             dataType: 'json',
             success: function (data) {
-                $('#specialty').select2({
+                specialty_select.select2({
                     placeholder: "专业",
                     allowClear: true,
                     data: data
@@ -111,11 +105,12 @@
         });
 
         //table初始化
-        $("#studentTable").bootstrapTable({
+        table.bootstrapTable({
             method: "post",
             url: "${pageContext.request.contextPath}/admin/student/default/list",
             sidePagination: "server",
             idField: "studentId",
+            toolbar: '#toolbar',
             showRefresh: "true",
             pagination: "true",
             showColumns: "true",
@@ -260,8 +255,14 @@
 
     //查询学生
     function selectStudent() {
-        var specialty = $("#specialty").val();
-        var studentId = $("#studentId").val();
+        var specialty = specialty_select.val();
+        var studentId = studentId_select.val();
+        //全不选，就显示预留学生
+        if (specialty == '' && studentId == '') {
+            $("#studentTable").bootstrapTable("refresh", {
+                url: "${pageContext.request.contextPath}/admin/student/default/list"
+            });
+        }
         if (specialty == null) {
             specialty = 0;//未选中时的默认值
         }
@@ -278,24 +279,41 @@
                 return false;
             }
             $("#studentTable").bootstrapTable("refresh", {
-                url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,
+                url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId
             });
         } else {
             $("#studentTable").bootstrapTable("refresh",
-                {url: "${pageContext.request.contextPath}/admin/student/loadStudent/" + specialty + "/" + studentId,})
+                {url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId})
         }
     }
 
-    //验证所删除专业中不包括预留专业
-    function validate_Specialty() {
-        var specialtyId = $("#specialty").val();
-        for (var x in specialtyId) {
-            if (specialtyId[x] == '100000') {
-                return false;
-            }
-        }
-        return true;
-    }
+    //查询学生
+    <%--function selectStudent() {--%>
+    <%--var specialty = specialty_select.val();--%>
+    <%--var studentId = studentId_select.val();--%>
+    <%--if (specialty == null) {--%>
+    <%--specialty = 0;//未选中时的默认值--%>
+    <%--}--%>
+    <%--if (studentId == null || studentId.length == 0) {--%>
+    <%--studentId = 0;//未选中时的默认值--%>
+    <%--}--%>
+    <%--if (studentId != 0) {--%>
+    <%--if (isNaN(studentId) || studentId.length != 9) {--%>
+    <%--$.alert({--%>
+    <%--title: "",--%>
+    <%--content: "学号为长度9的数字：)",--%>
+    <%--backgroundDismiss: true--%>
+    <%--});--%>
+    <%--return false;--%>
+    <%--}--%>
+    <%--$("#studentTable").bootstrapTable("refresh", {--%>
+    <%--url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId--%>
+    <%--});--%>
+    <%--} else {--%>
+    <%--$("#studentTable").bootstrapTable("refresh",--%>
+    <%--{url: "${pageContext.request.contextPath}/admin/student/list/" + specialty + "/" + studentId})--%>
+    <%--}--%>
+    <%--}--%>
 
     //表格内的按钮初始化
     function initEditBtn() {

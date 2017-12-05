@@ -92,25 +92,6 @@ public class StudentInAdminController extends CommonController {
     }
 
     /**
-     * 删除专业
-     *
-     * @param specialtyId .
-     * @return .
-     */
-    @RequestMapping(value = "/specialtyDel/{specialtyId}", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:admin")
-    @ResponseBody
-    public boolean deleteStudentWithSpecialty(@PathVariable(value = "specialtyId") String specialtyId) {
-
-        Map<String, Object> params = new HashMap<String, Object>() {{
-            put("deleteType", DeleteType.DeleteWithSpecialtyId);
-            put("specialtyId", Arrays.asList(specialtyId.split(",")));
-        }};
-
-        return studentService.delete(params) && adminStudentService.deleteSpecialty(params);
-    }
-
-    /**
      * 查找学生信息
      *
      * @param params      分页信息.
@@ -118,19 +99,19 @@ public class StudentInAdminController extends CommonController {
      * @param studentId   学号.
      * @return .
      */
-    @RequestMapping(value = "/loadStudent/{specialtyId}/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/list/{specialtyId}/{studentId}", method = RequestMethod.POST)
     @ResponseBody
     public Object selectStudent(@RequestBody Map<String, Object> params,
                                 @PathVariable(value = "specialtyId") String specialtyId,
                                 @PathVariable(value = "studentId") String studentId) {
-        Map<String, Object> selectOption = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         if (!"0".equals(specialtyId)) {
-            selectOption.put("specialtyId", Arrays.asList(specialtyId.split(",")));
+            params.put("specialtyId", Arrays.asList(specialtyId.split(",")));
         }
         if (!"0".equals(studentId)) {
-            selectOption.put("studentId", studentId);
+            params.put("studentId", studentId);
         }
-        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), selectOption);
+        List<StudentTaken> studentInfos = studentService.selectStudentInfo(CommonKit.getOrginMapInfo2Page(params), params);
         return CommonKit.getTakenInfo(studentInfos);
     }
 
