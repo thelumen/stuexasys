@@ -37,47 +37,45 @@
     </script>
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false" aria-haspopup="true">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div class="navbar-header">
-                <a class="navbar-brand"
-                   href="${pageContext.request.contextPath}/admin/main">管理员系统</a>
-            </div>
-            <div class="collapse navbar-collapse"
-                 id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/teacher/main">教师管理</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/student/main">学生管理</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/file/main">试卷管理</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void (0)">${currentManager.name}</a>
-                    </li>
-                    <li><a href="javascript:void(0);" onclick="logout();">注销</a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false" aria-haspopup="true">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header">
+            <a class="navbar-brand"
+               href="${pageContext.request.contextPath}/admin/main">管理员系统</a>
         </div>
-    </nav>
-</div>
+        <div class="collapse navbar-collapse"
+             id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="${pageContext.request.contextPath}/admin/teacher/main">教师管理</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/admin/student/main">学生管理</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/admin/school/main">专业&学科</a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/admin/file/main">试卷管理</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void (0)">${currentManager.name}</a>
+                </li>
+                <li><a href="javascript:void(0);" onclick="logout();">注销</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <jsp:include page="/manager/${category}/${name}_content.jsp"></jsp:include>
 </body>
 </html>
