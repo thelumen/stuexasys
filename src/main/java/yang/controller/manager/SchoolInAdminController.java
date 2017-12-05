@@ -161,6 +161,9 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public Object deleteSpecialty(@PathVariable("specialtyId") Integer specialtyId) {
+        if (specialtyId == 100000) {
+            return new ResultBean<>("预留专业不可删除！");
+        }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("deleteType", DeleteType.DeleteWithSpecialtyId);
             put("specialtyId", new ArrayList<String>() {{
