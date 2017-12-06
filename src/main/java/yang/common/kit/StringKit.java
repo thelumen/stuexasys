@@ -36,4 +36,35 @@ public final class StringKit {
         return m.find();
     }
 
+    /**
+     * 空字符串
+     *
+     * @param src
+     * @return
+     */
+    public static boolean isBank(String src) {
+        int strLen;
+        //不为空，也不是“”
+        if (src == null || (strLen = src.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(src.charAt(i))) {
+                return false;
+            }
+        }
+        //都是空格
+        return true;
+    }
+
+    /**
+     * 字符串，不空
+     *
+     * @param src
+     * @return
+     */
+    public static boolean isNotBank(String src) {
+        return !isBank(src);
+    }
+
 }

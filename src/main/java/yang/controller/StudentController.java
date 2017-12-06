@@ -4,14 +4,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import yang.common.enums.UpdateType;
-import yang.common.kit.FileKit;
-import yang.common.kit.ResourceKit;
-import yang.common.kit.StudentKit;
+import yang.common.base.ResultBean;
+import yang.common.kit.*;
 import yang.controller.common.CommonController;
+import yang.domain.common.Student;
 import yang.domain.student.ExamInfo;
 import yang.domain.student.GradeInfo;
-import yang.domain.student.StudentInfo;
 import yang.domain.student.TestPaper;
 
 import javax.servlet.http.HttpServletResponse;
@@ -85,19 +83,42 @@ public class StudentController extends CommonController {
      *
      * @return 成功信号
      */
-    @RequestMapping(value = "/uploadInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
-    public Map<String, Object> updateStudentInfo(@RequestBody StudentInfo studentInfo) {
-        Map<String, Object> msg = new HashMap<String, Object>() {{
-            put("isSuccess", false);
-        }};
-        studentInfo.setStudentId(StudentKit.getStudentIdWithInt());
-        studentInfo.setUpdateType(UpdateType.StuSet);
-        if (studentService.update(studentInfo)) {
-            msg.put("isSuccess", true);
+    public Object updateStudentInfo(@RequestBody Student student) {
+        student.setStudentId(StudentKit.getStudentIdWithInt());
+        String oldPwd = student.getOldPassword().trim();
+        String newPwd = student.getPassword().trim();
+        if (StringKit.isBank(oldPwd) && StringKit.isNotBank(newPwd)) {
+            return new ResultBean<>("请填写您现在的密码:)");
         }
-        return msg;
+        if (StringKit.isNotBank(oldPwd) && StringKit.isBank(newPwd)) {
+            return new ResultBean<>("如果您不需要修改密码，请将“旧密码”一栏置空：)");
+        }
+        if (StringKit.isBank(oldPwd) && StringKit.isBank(newPwd)) {
+            student.setPassword(null);
+        }
+        if (StringKit.isNotBank(oldPwd) && StringKit.isNotBank(newPwd)) {
+            if (newPwd.length() < 3) {
+                return new ResultBean<>("新密码至少3位！");
+            }
+            Map<String, Object> params = new HashMap<String, Object>() {{
+                put("studentId", student.getStudentId());
+            }};
+            List<Student> students = studentService.select(null, params);
+            if (null == students) {
+                return new ResultBean<>("您的账号出现问题！请联系管理员..");
+            }
+            Student s = students.get(0);
+            if (s.getPassword().equals(EncryptKit.md5(student.getOldPassword()))) {
+                student.setPassword(EncryptKit.md5(newPwd));
+            } else {
+                return new ResultBean<>("原密码不正确！");
+            }
+        }
+
+        return new ResultBean<>(studentService.updateStudent(student));
     }
 
     /**

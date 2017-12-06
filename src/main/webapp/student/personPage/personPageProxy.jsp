@@ -19,77 +19,103 @@
         }
     </style>
     <script>
-        <%--校验邮箱--%>
+        var emailSpan = $("#spanEmailShow");
+        var pwdContent = $("#changePasswordContent");
+        var cellSpan = $("#spanCellShow");
+
+        //校验邮箱
         function validate_email() {
             var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             var email = $("#email").val();
             if (!myreg.test(email)) {
-                swal("enmmmmun....", "这个邮箱应该是错的", "error");
+                $.alert({
+                    title: "",
+                    content: "邮箱格式不正确：(",
+                    backgroundDismiss: true
+                });
                 return false;
             } else {
-                $("#spanEmailShow").slideToggle("slow");
+                emailSpan.slideToggle("slow");
                 return true;
             }
         }
-        <%--校验号码--%>
+
+        //校验号码
         function validate_cellphone() {
             var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
             var cellphone = $("#cellphone").val();
             if (!myreg.test(cellphone)) {
-                swal("enmmmmun....", "这个号码应该是错的", "error");
+                $.alert({
+                    title: "",
+                    content: "手机号格式不规范：(",
+                    backgroundDismiss: true
+                });
                 return false;
             } else {
-                $("#spanCellShow").slideToggle("slow");
+                cellSpan.slideToggle("slow");
                 return true;
             }
         }
-    </script>
-    <script>
-        $(function () {
-            if (window.history && window.history.pushState) {
-                $(window).on('popstate', function () {
-                    window.history.pushState('forward', null, '#');
-                    window.history.forward(1);
-                });
-            }
-            window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-            window.history.forward(1);
 
-//          修改密码 按键
-            $("#changePasswordContent").hide();
-            $("#spanEmailShow").hide();
-            $("#spanCellShow").hide();
-            $("#changePasswordButton").click(function () {
-                $("#changePasswordContent").slideToggle("slow");
-            });
-
-//          提交修改 按键
-            $("#submitChanged").click(function () {
-                if (validate_email() && validate_cellphone()) {
-                    var str = $("#submitForm").serializeObject();
-                    var jsonDate = JSON.stringify(str);
-                    $.ajax({
-                        type: 'post',
-                        url: '${pageContext.request.contextPath}/student/uploadInfo',
-                        dataType: "json",
-                        data: jsonDate,
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data.isSuccess) {
-                                swal("更新成功", "", "success");
-                            } else {
-                                swal("enmmmmun....", "土豆服务器可能又坏了", "error");
-                            }
+        //更新学生
+        function updateStudent() {
+            if (validate_email() && validate_cellphone()) {
+                var str = $("#submitForm").serializeObject();
+                var jsonDate = JSON.stringify(str);
+                $.ajax({
+                    type: 'post',
+                    url: '${pageContext.request.contextPath}/student/update',
+                    dataType: "json",
+                    data: jsonDate,
+                    contentType: 'application/json',
+                    success: function (result) {
+                        $.alert({
+                            title: "",
+                            content: result.msg,
+                            backgroundDismiss: true
+                        });
+                        if (result.code == 0) {
+                            location.reload();
                         }
-                    })
-                }
-            });
-
-//          判断性别显示
-            if ("女" === "${studentInfo.gender}") {
-                $("#gender2").attr("selected", "selected");
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $.confirm({
+                            animation: 'rotateX',
+                            closeAnimation: 'rotateX',
+                            backgroundDismiss: true,
+                            title: false,
+                            content: "系统错误！",
+                            buttons: {
+                                confirm: {
+                                    text: '确认',
+                                    btnClass: 'waves-effect waves-button waves-light'
+                                }
+                            }
+                        });
+                    }
+                })
             }
-        });
+
+            $(function () {
+                if (window.history && window.history.pushState) {
+                    $(window).on('popstate', function () {
+                        window.history.pushState('forward', null, '#');
+                        window.history.forward(1);
+                    });
+                }
+                //在IE中必须得有这两行
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+
+                //修改密码 按键
+                pwdContent.hide();
+                emailSpan.hide();
+                cellSpan.hide();
+                $("#changePasswordButton").click(function () {
+                    pwdContent.slideToggle("slow");
+                });
+            });
+        }
     </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
@@ -101,48 +127,57 @@
             <br>
             <p class="h3">&nbsp;&nbsp;个人信息</p>
             <p>&nbsp;&nbsp;学号：${studentInfo.studentId}</p>
-            <p>&nbsp;&nbsp;班级：${studentInfo.specialtyName}</p>
+            <p>&nbsp;&nbsp;专业：${studentInfo.specialtyName}</p>
             <p>&nbsp;&nbsp;姓名：${studentInfo.name}</p>
             <form action="" id="submitForm">
                 <p>&nbsp;&nbsp;性别：
                     <label>
                         <select class="form-control" name="gender">
-                            <option id="gender1" value="男">男</option>
-                            <option id="gender2" value="女">女</option>
+                            <option>${studentInfo.gender}</option>
+                            <option>男</option>
+                            <option>女</option>
                         </select>
                     </label>
                 </p>
                 <p>&nbsp;&nbsp;邮箱：
                     <label>
-                        <input class="form-control" type="text" id="email" name="email"
+                        <input class="form-control" type="text" id="email"
+                               name="email"
                                onchange="validate_email()"
                                value="${studentInfo.email}">
                     </label>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true" id="spanEmailShow"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"
+                          id="spanEmailShow"></span>
                 </p>
                 <p>&nbsp;&nbsp;号码：
                     <label>
-                        <input class="form-control" type="text" id="cellphone" name="cellphone"
+                        <input class="form-control" type="text" id="cellphone"
+                               name="cellphone"
                                onchange="validate_cellphone()"
                                value="${studentInfo.cellphone}">
                     </label>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true" id="spanCellShow"></span>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"
+                          id="spanCellShow"></span>
                 </p>
                 <hr>
-                <button class="btn btn-primary" type="button" id="changePasswordButton">
+                <button class="btn btn-primary" type="button"
+                        id="changePasswordButton">
                     修改密码
                 </button>
                 <div id="changePasswordContent">
                     <hr>
                     <p>&nbsp;&nbsp;旧密码：<label>
-                        <input class="form-control" type="password" name="oldPassword" id="oldPassword">
+                        <input class="form-control" type="password"
+                               name="oldPassword" id="oldPassword">
                     </label></p>
                     <p>&nbsp;&nbsp;新密码：<label>
-                        <input class="form-control" type="password" name="newPassword" id="newPassword">
+                        <input class="form-control" type="password"
+                               name="password" id="password">
                     </label></p>
                 </div>
                 <hr>
-                <button class="btn btn-info" type="button" id="submitChanged">
+                <button class="btn btn-info" type="button"
+                        onclick="updateStudent()">
                     提交修改
                 </button>
             </form>
@@ -176,8 +211,12 @@
                                 <c:forEach items="${studentCourse}" var="Info">
                                     <tr>
                                         <td>${Info.courseName}</td>
-                                        <td><fmt:formatDate value="${Info.startTime}" pattern="yyyy-MM-dd"/></td>
-                                        <td><fmt:formatDate value="${Info.endTime}" pattern="yyyy-MM-dd"/></td>
+                                        <td><fmt:formatDate
+                                                value="${Info.startTime}"
+                                                pattern="yyyy-MM-dd"/></td>
+                                        <td><fmt:formatDate
+                                                value="${Info.endTime}"
+                                                pattern="yyyy-MM-dd"/></td>
                                         <td>${Info.period}</td>
                                         <td>${Info.credit}</td>
                                     </tr>
@@ -187,7 +226,8 @@
                         </table>
                         <p style="color: #002a80">(学分请以教务处数据为准)</p>
                     </div>
-                    <div class="tab-pane active table-responsive" id="panel-282388">
+                    <div class="tab-pane active table-responsive"
+                         id="panel-282388">
                         <table class="table table-hover">
                             <thead>
                             <tr>

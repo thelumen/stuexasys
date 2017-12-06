@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Created by yang on 2017/5/22.
+ *
+ * @author yang
+ * @date 2017/5/22
  * At 19:06
  */
 public final class Student implements Serializable {
@@ -12,6 +14,7 @@ public final class Student implements Serializable {
     private long id;
     private Integer studentId;
     private String password;
+    private String oldPassword;
     private String name;
     private Integer specialtyId;
     private String gender;
@@ -33,6 +36,14 @@ public final class Student implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(studentId);
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public void setId(long id) {
@@ -103,10 +114,11 @@ public final class Student implements Serializable {
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", studentId='" + studentId + '\'' +
+                ", studentId=" + studentId +
                 ", password='" + password + '\'' +
+                ", oldPassword='" + oldPassword + '\'' +
                 ", name='" + name + '\'' +
-                ", specialtyId='" + specialtyId + '\'' +
+                ", specialtyId=" + specialtyId +
                 ", gender='" + gender + '\'' +
                 ", cellphone='" + cellphone + '\'' +
                 ", email='" + email + '\'' +
