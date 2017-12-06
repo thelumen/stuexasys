@@ -31,7 +31,7 @@
         });
     }
 </script>
-<nav class="navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
             <button type="button" class="navbar-toggle collapsed"

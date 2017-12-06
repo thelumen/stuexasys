@@ -67,7 +67,7 @@
         })
     </script>
 </head>
-<body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
+<body style="background: url(${pageContext.request.contextPath}/common/image/sea.jpg);background-attachment: fixed">
 <%@include file="/student/nav/nav.jsp" %>
 <br>
 <div class="container" style="background: #BCD2EE">

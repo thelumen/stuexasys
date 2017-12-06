@@ -11,13 +11,13 @@
     <title>学生考试系统</title>
     <jsp:include page="/common/inc/head.jsp"></jsp:include>
 </head>
-<body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
+<body style="background: url(${pageContext.request.contextPath}/common/image/1293375.jpg)">
 <%@include file="/student/nav/nav.jsp"%>
 <br>
 <div class="container">
     <div class="row">
         <div class="jumbotron"
-             style="background: url(${pageContext.request.contextPath}/common/image/bg-灰色科技.jpg) no-repeat">
+             style="background: url(${pageContext.request.contextPath}/common/image/changjl.jpg) no-repeat">
             <h1>
                 个人信息
             </h1>
@@ -25,10 +25,10 @@
                 个人基本信息，课程表、成绩表，可在此页面进行密码修改
             </p>
             <p>
-                <a href="${pageContext.request.contextPath}/student/personPage">前往</a>
+                <a href="${pageContext.request.contextPath}/student/info">前往</a>
             </p>
         </div>
-        <div class="jumbotron" style="background: url(${pageContext.request.contextPath}/common/image/Image-4.jpg)">
+        <div class="jumbotron" style="background: url(${pageContext.request.contextPath}/common/image/sanzhi.jpg)">
             <h1>
                 测试
             </h1>
@@ -40,7 +40,7 @@
             </p>
         </div>
         <div class="jumbotron"
-             style="background: url(${pageContext.request.contextPath}/common/image/bg-挂纸.jpg) no-repeat">
+             style="background: url(${pageContext.request.contextPath}/common/image/xiamu.jpg) no-repeat">
             <h1>
                 资源下载
             </h1>
@@ -48,7 +48,7 @@
                 获取老师上传的学习资源或者作业等
             </p>
             <p>
-                <a href="${pageContext.request.contextPath}/student/resources/download">前往</a>
+                <a href="${pageContext.request.contextPath}/student/resource">前往</a>
             </p>
         </div>
     </div>

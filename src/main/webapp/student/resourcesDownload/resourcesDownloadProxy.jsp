@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@include file="/common/inc/head.jsp" %>
 </head>
-<body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
+<body style="background: url(${pageContext.request.contextPath}/common/image/sea.jpg;);background-attachment: fixed;">
 <%@include file="/student/nav/nav.jsp" %>
 <br>
 <div class="container">
