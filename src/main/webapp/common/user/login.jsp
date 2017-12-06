@@ -24,8 +24,13 @@
             window.history.forward(1);
         })
     </script>
+    <style>
+        img {
+            border-radius: 20px;
+        }
+    </style>
 </head>
-<body>
+<body style="background: url(${pageContext.request.contextPath}/common/image/sea.jpg);background-attachment: fixed">
 <c:if test="${!empty exception}">
     <script>
         $.alert({
@@ -36,7 +41,7 @@
             '2.身份类型错误（管理员 or 教师 or 学生）;<br>' +
             '3.不存在该账号',
             backgroundDismiss: true,
-            type:"red"
+            type: "red"
         });
     </script>
 </c:if>
@@ -48,7 +53,6 @@
                 <img src="${pageContext.request.contextPath}/common/image/bg-login.jpg"
                      class="img-responsive center-block">
             </div>
-
         </div>
         <div class="col-md-5">
             <form method="post"
@@ -84,11 +88,10 @@
                             class="btn btn-default">登录
                     </button>
                 </div>
-                <hr class="divider">
             </form>
         </div>
     </div>
-    <hr class="divider"/>
+    <br><br><br><br> <br><br><br>
     <p style="text-align: center">辽宁工业大学 电子与信息工程学院 学生考核管理平台</p>
 </div>
 </body>
