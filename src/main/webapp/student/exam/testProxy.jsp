@@ -157,17 +157,23 @@
                 <hr>
                 <c:if test="${empty testPaper}">
                     <script>
-                        swal({
-                            title: "组题失败",
-                            text: "请向教师反映题库内对应题目数不足",
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "好的，我这就去",
-                            closeOnConfirm: false,
-                            showLoaderOnConfirm: true
-                        }, function () {
-                            window.location.href = ('${pageContext.request.contextPath}/student/exam');
+                        $.confirm({
+                            title: "组题失败:(",
+                            content: "请向教师反映题库内对应题目数不足..",
+                            animation: 'right',
+                            closeAnimation: 'rotateX',
+                            type: 'red',
+                            buttons: {
+                                ok: {
+                                    text: "ok!",
+                                    theme: 'dark',
+                                    btnClass: 'btn-primary',
+                                    keys: ['enter'],
+                                    action: function () {
+                                        location.href = ('${pageContext.request.contextPath}/student/exam');
+                                    }
+                                }
+                            }
                         });
                     </script>
                 </c:if>
