@@ -129,7 +129,7 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/test/ready", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> readyTest(@RequestBody ExamInfo examInfo) {
+    public Object readyTest(@RequestBody ExamInfo examInfo) {
         Map<String, Object> data = new HashMap<>();
         if (!"4".equals(examInfo.getTestNum())) {
             data.put("generalTest", true);
@@ -189,7 +189,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/uploadGrade", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:student")
     @ResponseBody
-    public Map uploadGrade(@RequestBody GradeInfo gradeInfo) throws IOException, ClassNotFoundException {
+    public Object uploadGrade(@RequestBody GradeInfo gradeInfo) throws IOException, ClassNotFoundException {
         Map<String, Object> info = new HashMap<>();
         Map<String, Object> params = StudentKit.getStudentSpecialtyIdWithMap();
         params.put("courseId", gradeInfo.getCourseId());
