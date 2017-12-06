@@ -17,6 +17,11 @@
         #contentContainer .col-md-4 {
             margin-bottom: 60px;
         }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
     </style>
     <script>
         //校验邮箱
