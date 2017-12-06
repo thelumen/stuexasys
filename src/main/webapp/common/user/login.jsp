@@ -28,7 +28,16 @@
 <body>
 <c:if test="${!empty exception}">
     <script>
-        swal("登入失败", "可能原因：1.账号信息错误；2.身份类型错误（管理员？教师？学生？）；3.不存在该账号.", "error");
+        $.alert({
+            title: "登入失败",
+            content:
+            '可能原因：<br>' +
+            '1.账号信息错误；<br>' +
+            '2.身份类型错误（管理员 or 教师 or 学生）;<br>' +
+            '3.不存在该账号',
+            backgroundDismiss: true,
+            type:"red"
+        });
     </script>
 </c:if>
 <div class="container">
