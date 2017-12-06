@@ -19,10 +19,6 @@
         }
     </style>
     <script>
-        var emailSpan = $("#spanEmailShow");
-        var pwdContent = $("#changePasswordContent");
-        var cellSpan = $("#spanCellShow");
-
         //校验邮箱
         function validate_email() {
             var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
@@ -35,7 +31,7 @@
                 });
                 return false;
             } else {
-                emailSpan.slideToggle("slow");
+                $("#spanEmailShow").slideToggle("slow");
                 return true;
             }
         }
@@ -52,7 +48,7 @@
                 });
                 return false;
             } else {
-                cellSpan.slideToggle("slow");
+                $("#spanCellShow").slideToggle("slow");
                 return true;
             }
         }
@@ -95,27 +91,27 @@
                     }
                 })
             }
-
-            $(function () {
-                if (window.history && window.history.pushState) {
-                    $(window).on('popstate', function () {
-                        window.history.pushState('forward', null, '#');
-                        window.history.forward(1);
-                    });
-                }
-                //在IE中必须得有这两行
-                window.history.pushState('forward', null, '#');
-                window.history.forward(1);
-
-                //修改密码 按键
-                pwdContent.hide();
-                emailSpan.hide();
-                cellSpan.hide();
-                $("#changePasswordButton").click(function () {
-                    pwdContent.slideToggle("slow");
-                });
-            });
         }
+
+        $(function () {
+            if (window.history && window.history.pushState) {
+                $(window).on('popstate', function () {
+                    window.history.pushState('forward', null, '#');
+                    window.history.forward(1);
+                });
+            }
+            //在IE中必须得有这两行
+            window.history.pushState('forward', null, '#');
+            window.history.forward(1);
+
+            //修改密码 按键
+            $("#changePasswordContent").hide();
+            $("#spanEmailShow").hide();
+            $("#spanCellShow").hide();
+            $("#changePasswordButton").click(function () {
+                $("#changePasswordContent").slideToggle("slow");
+            });
+        });
     </script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/common/image/bg-蓝色科技.png)">
