@@ -8,44 +8,60 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     function logout() {
-        swal({
-                title: "您确定要退出登录？",
-                text: "",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "登出",
-                cancelButtonText: "取消",
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true
-            },
-            function () {
-                location.href = '${pageContext.request.contextPath}/shiro/logout';
-            });
+        $.confirm({
+            title: "",
+            content: "您确定要退出登录？",
+            animation: 'right',
+            closeAnimation: 'rotateX',
+            type: 'red',
+            backgroundDismiss: true,
+            buttons: {
+                ok: {
+                    text: "ok!",
+                    theme: 'dark',
+                    btnClass: 'btn-primary',
+                    keys: ['enter'],
+                    action: function () {
+                        location.href = '${pageContext.request.contextPath}/shiro/logout';
+                    }
+                },
+                cancel: function () {
+                }
+            }
+        });
     }
 </script>
 <nav class="navbar-inverse navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navber-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
                 <span class="sr-only">学生考试系统</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/student/main">学生考试系统</a><%--导航栏大标题--%>
+            <a class="navbar-brand"
+               href="${pageContext.request.contextPath}/student/main">学生考试系统</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><%--导航栏左侧--%>
+        <div class="collapse navbar-collapse"
+             id="bs-example-navbar-collapse-1"><%--导航栏左侧--%>
             <ul class="nav navbar-nav">
-                <li><a href='${pageContext.request.contextPath}/student/personPage'>个人信息</a></li>
-                <li><a href='${pageContext.request.contextPath}/student/exam'>测试</a></li>
-                <li><a href='${pageContext.request.contextPath}/student/resources/download'>资源下载</a></li>
+                <li>
+                    <a href='${pageContext.request.contextPath}/student/info'>个人信息</a>
+                </li>
+                <li>
+                    <a href='${pageContext.request.contextPath}/student/exam'>测试</a>
+                </li>
+                <li>
+                    <a href='${pageContext.request.contextPath}/student/resource'>资源下载</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <%--导航栏右侧 通过类选择器动态展示用户状态--%>
                 <li>
-                    <a href="${pageContext.request.contextPath}/student/personPage">
+                    <a href="${pageContext.request.contextPath}/student/info">
                         <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;${currentStudent.name}
                     </a>
                 </li>

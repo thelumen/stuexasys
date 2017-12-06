@@ -5,80 +5,37 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import yang.common.enums.UpdateType;
+import yang.common.kit.FileKit;
 import yang.common.kit.ResourceKit;
-import yang.common.kit.ShiroKit;
+import yang.common.kit.StudentKit;
 import yang.controller.common.CommonController;
-import yang.domain.student.*;
+import yang.domain.student.ExamInfo;
+import yang.domain.student.GradeInfo;
+import yang.domain.student.StudentInfo;
+import yang.domain.student.TestPaper;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author jiangrijiu
+ */
 @Controller
 @RequestMapping(value = "/student")
 public class StudentController extends CommonController {
-
-    /**
-     * 从Session中获取当前登录学生的信息
-     *
-     * @return 当前登录学生的信息
-     */
-    private StudentTaken getCurrentStudent() {
-        return (StudentTaken) ShiroKit.getSession().getAttribute("currentStudent");
-    }
-
-    /**
-     * 用于获取学生 int 类型的学号
-     *
-     * @return 当前登录学生的id（int）
-     */
-    private int getStudentIdWithInt() {
-        return getCurrentStudent().getStudentId();
-    }
-
-    /**
-     * 用于获取学生 Map 类型的学号
-     *
-     * @return 当前登录学生的id（Map）
-     */
-    private Map<String, Object> getStudentIdWithMap() {
-        return new HashMap<String, Object>() {{
-            put("studentId", getCurrentStudent().getStudentId());
-        }};
-    }
-
-    /**
-     * 用于获取学生 Map 类型的专业号
-     *
-     * @return 当前登录学生的专业Id(Map)
-     */
-    private Map<String, Object> getStudentSpecialtyIdWithMap() {
-        return new HashMap<String, Object>() {{
-            put("specialtyId", getCurrentStudent().getSpecialtyId());
-        }};
-    }
 
     /**
      * 转到学生主页
      *
      * @return 主页url
      */
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main")
     @RequiresPermissions(value = "shiro:sys:student")
     public String main() {
-        return "/student/main/mainProxy";
-    }
-
-    /**
-     * 显示学生主页
-     *
-     * @return 主页url
-     */
-    @RequestMapping(value = "/main", method = RequestMethod.POST)
-    @RequiresPermissions(value = "shiro:sys:student")
-    public String homepage() {
         return "/student/main/mainProxy";
     }
 
@@ -88,12 +45,12 @@ public class StudentController extends CommonController {
      *
      * @return 个人信息 url
      */
-    @RequestMapping(value = "/personPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
-        model.addAttribute("studentCourse", studentService.selectCourse(getStudentIdWithMap()));
-        model.addAttribute("studentGrade", studentService.selectGrade(getStudentIdWithMap()));
-        model.addAttribute("studentInfo", studentService.selectStudentInfo(null, getStudentIdWithMap()).get(0));
+        model.addAttribute("studentCourse", studentService.selectCourse(StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentGrade", studentService.selectGrade(StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentInfo", studentService.selectStudentInfo(null, StudentKit.getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
     }
 
@@ -106,7 +63,7 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/exam", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String exam(Model model) {
-        model.addAttribute("studentExamInfo", studentService.selectExamInfo(getStudentSpecialtyIdWithMap()));
+        model.addAttribute("studentExamInfo", studentService.selectExamInfo(StudentKit.getStudentSpecialtyIdWithMap()));
         return "/student/exam/examProxy";
     }
 
@@ -116,7 +73,7 @@ public class StudentController extends CommonController {
      *
      * @return 资源下载 url
      */
-    @RequestMapping(value = "/resources/download", method = RequestMethod.GET)
+    @RequestMapping(value = "/resource", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String resourceDownload(Model model) {
         model.addAttribute("resourceInfo", ResourceKit.getResourceInfo());
@@ -135,7 +92,7 @@ public class StudentController extends CommonController {
         Map<String, Object> msg = new HashMap<String, Object>() {{
             put("isSuccess", false);
         }};
-        studentInfo.setStudentId(getStudentIdWithInt());
+        studentInfo.setStudentId(StudentKit.getStudentIdWithInt());
         studentInfo.setUpdateType(UpdateType.StuSet);
         if (studentService.update(studentInfo)) {
             msg.put("isSuccess", true);
@@ -172,14 +129,13 @@ public class StudentController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:student")
     public String startTest(Model model, @PathVariable(value = "examInfo") String examInfoInPath) throws IOException {
         String[] s = examInfoInPath.split("_");
-        //String s3 = new String(s[3].getBytes("iso8859-1"), "utf-8");
         ExamInfo examInfo = new ExamInfo();
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
         examInfo.setCourseName(s[3]);
         TestPaper testPaper = studentService.selectQuestion(examInfo);
-        ResourceKit.backUpExamTaken(testPaper, s[3], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
+        ResourceKit.backUpExamTaken(testPaper, s[3], StudentKit.getCurrentStudent().getSpecialtyName(), StudentKit.getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testProxy";
     }
@@ -197,8 +153,8 @@ public class StudentController extends CommonController {
         examInfo.setCourseId(Integer.valueOf(s[0]));
         examInfo.setCourseName(s[1]);
         examInfo.setTestNum("4");
-        TestPaper testPaper = studentService.selectTestPaperAnother(getStudentIdWithInt(), examInfo);
-        ResourceKit.backUpExamTaken(testPaper, s[1], getCurrentStudent().getSpecialtyName(), getStudentIdWithInt());
+        TestPaper testPaper = studentService.selectTestPaperAnother(StudentKit.getStudentIdWithInt(), examInfo);
+        ResourceKit.backUpExamTaken(testPaper, s[1], StudentKit.getCurrentStudent().getSpecialtyName(), StudentKit.getStudentIdWithInt());
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testAnotherProxy";
     }
@@ -214,7 +170,7 @@ public class StudentController extends CommonController {
     @ResponseBody
     public Map uploadGrade(@RequestBody GradeInfo gradeInfo) throws IOException, ClassNotFoundException {
         Map<String, Object> info = new HashMap<>();
-        Map<String, Object> params = getStudentSpecialtyIdWithMap();
+        Map<String, Object> params = StudentKit.getStudentSpecialtyIdWithMap();
         params.put("courseId", gradeInfo.getCourseId());
         List<ExamInfo> examInfos = studentService.selectExamInfo(params);
         if (examInfos.get(0).getTest() == 0) {
@@ -222,7 +178,7 @@ public class StudentController extends CommonController {
             info.put("issuccess", false);
             return info;
         }
-        gradeInfo.setStudentId(getStudentIdWithInt());
+        gradeInfo.setStudentId(StudentKit.getStudentIdWithInt());
         if (Integer.valueOf(gradeInfo.getTestNum()) != 4) {
             String[] an = gradeInfo.getAnswer();
             String[] result = gradeInfo.getResult().split(",");
@@ -265,7 +221,7 @@ public class StudentController extends CommonController {
             info.put("single", single);
             info.put("tf", tf);
         }
-        ResourceKit.backUpExamInfo(gradeInfo, getCurrentStudent().getSpecialtyName());//备份
+        ResourceKit.backUpExamInfo(gradeInfo, StudentKit.getCurrentStudent().getSpecialtyName());
         info.put("issuccess", studentService.insertGrade(gradeInfo));
         return info;
     }
@@ -273,21 +229,27 @@ public class StudentController extends CommonController {
     /**
      * 文件下载
      *
-     * @param path     路径
-     * @param response 返回数据流
-     * @throws IOException 异常
+     * @param path
+     * @param response
+     * @throws IOException
      */
-    @RequestMapping(value = "/resources/download/{fileDownloadPath}", method = RequestMethod.GET)
-    public void download(@PathVariable(value = "fileDownloadPath") String path,
+    @RequestMapping(value = "/resource/{filePath}", method = RequestMethod.GET)
+    public void download(@PathVariable(value = "filePath") String path,
                          HttpServletResponse response) throws IOException {
-        //分解索引号
-        String[] fileNum = path.split(",");
-        //获取文件信息
-        Map<String, Object> fileInfo = ResourceKit.selectWithFileNum(Integer.valueOf(fileNum[0]), Integer.valueOf(fileNum[1]));
-        //获取绝对路径
-        String realPath = (String) fileInfo.get("realPath");
-        String fileName = (String) fileInfo.get("fileName");
+        String realPath = path.replace('_', '/');
 
-        ResourceKit.download(response, realPath, fileName);
+        int index = realPath.lastIndexOf("/");
+        String relativePath = realPath.substring(0, index);
+        String fileNameWithoutExtension = realPath.substring(index + 1);
+
+        List<File> files = FileKit.getFiles(relativePath);
+        for (File f : files) {
+            String fileName = f.getName();
+            String realName = fileName.substring(0, fileName.lastIndexOf("."));
+            if (realName.equals(fileNameWithoutExtension)) {
+                ResourceKit.download(response, f.getPath(), f.getName());
+                break;
+            }
+        }
     }
 }

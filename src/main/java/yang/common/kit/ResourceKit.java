@@ -127,51 +127,32 @@ public final class ResourceKit {
      * @return .
      */
     public static List<Map<String, Object>> getResourceInfo() {
-        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
-        List<Map<String, Object>> target = new ArrayList<>();//最终返回类型
-        if (filePackagerNames != null) {
-            int i = 0;
-            for (String fileName : filePackagerNames) {
-                File fileNameInfo = new File(getResourceHome() + File.separator + fileName);//拼接绝对路径并创建file类
-                File[] children = fileNameInfo.listFiles();
-                List<FileInfo> father = new ArrayList<>();
-                if (children != null && children.length > 0) {
-                    int j = 0;
-                    for (File file : children) {
-                        FileInfo fileInfo = new FileInfo();
-                        fileInfo.setFileName(file.getName());
-                        //用于前端显示
-                        fileInfo.setLastUpdateTime(DateKit.date2String(file.lastModified()));
-                        fileInfo.setPath(i + "," + j);
-                        father.add(fileInfo);
-                        j++;
-                    }
-                    //按最后更新时间对目录下的文件进行排序
-                    father.sort((o1, o2) -> {
-                        //用于比较
-                        Date d1 = DateKit.string2Date(o1.getLastUpdateTime());
-                        Date d2 = DateKit.string2Date(o2.getLastUpdateTime());
-                        if (d1.getTime() > d2.getTime()) {
-                            return -1;
-                        }
-                        if (Objects.equals(d1, d2)) {
-                            return 0;
-                        }
-                        return 1;
-                    });//end sort
-                }//end for
-                Map<String, Object> filePackageInfo = new HashMap<String, Object>() {
-                    private static final long serialVersionUID = 3916909062088302220L;
-                    {
-                    put("directoryName", fileName);
-                    put("directory", father);
-                }};
-                target.add(filePackageInfo);
-                i++;
-            }//end for
-            return target;
-        }//end if
-        return null;
+        List<Map<String, Object>> target = new ArrayList<>();
+        List<String> directories = FileKit.getFileOrDirectoryNames(getResourceHome(), true);
+        List<File> children;
+        List<FileInfo> father;
+        Map<String, Object> filePackageInfo;
+        //遍历每一个文件夹
+        for (String directoryName : directories) {
+            children = FileKit.getFiles(getResourceHome() + File.separator + directoryName);
+            father = FileKit.wrapFileInfo(children);
+
+            //这里做一个文件路径的修改，防止url的问题造成404错误，导致文件无法下载
+            for (FileInfo f : father) {
+                String path = f.getPath();
+                f.setPath(path.replace('/', '_'));
+            }
+
+            //排序
+            father.sort(Comparator.comparing(FileInfo::getNowDate));
+
+            filePackageInfo = new HashMap<>();
+            filePackageInfo.put("directoryName", directoryName);
+            filePackageInfo.put("directory", father);
+
+            target.add(filePackageInfo);
+        }
+        return target;
     }
 
     /**
@@ -181,7 +162,8 @@ public final class ResourceKit {
      * @param fileNum   文佳号.
      * @return 文件信息.
      */
-    public static Map<String, Object> selectWithFileNum(Integer folderNum, Integer fileNum) {
+    public static Map<String, Object> selectWithFileNum(Integer
+                                                                folderNum, Integer fileNum) {
         Map<String, Object> fileInfoWithMap = new HashMap<>();
         List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
         if (filePackagerNames.size() > 0) {
@@ -205,6 +187,7 @@ public final class ResourceKit {
      * @param studentId
      * @throws IOException
      */
+
     public static void backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) throws IOException {
         String test = resetTestName(testPaper.getTestNum());
         String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + test;

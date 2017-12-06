@@ -69,10 +69,10 @@
                                                 <p>${FileInfo.fileName}</p>
                                             </div>
                                             <div class="col-md-3">
-                                                <p>${FileInfo.lastUpdateTime}</p>
+                                                <p>${FileInfo.nowDate}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <a href="${pageContext.request.contextPath}/student/resources/download/${FileInfo.path}">下载链接</a>
+                                                <a href="${pageContext.request.contextPath}/student/resource/${FileInfo.path}">下载链接</a>
                                             </div>
                                         </div>
                                     </div>

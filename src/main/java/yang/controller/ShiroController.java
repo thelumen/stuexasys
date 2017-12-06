@@ -11,12 +11,13 @@ import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
 
 /**
- * Created by yang on 2017/5/22.
+ * @author yang
+ * @date 2017/5/22
  * At 13:55
  */
 @Controller
 @RequestMapping("/shiro")
-public class ShiroController extends CommonController{
+public class ShiroController extends CommonController {
 
     /**
      * 转至登录页面

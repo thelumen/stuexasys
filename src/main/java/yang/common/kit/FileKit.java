@@ -201,11 +201,7 @@ public final class FileKit {
         File dir = new File(directoryPath);
         if (dir.exists() && dir.isDirectory()) {
             File[] files;
-            if (isDirectory) {
-                files = dir.listFiles(File::isDirectory);
-            } else {
-                files = dir.listFiles(File::isFile);
-            }
+            files = isDirectory ? dir.listFiles(File::isDirectory) : dir.listFiles(File::isFile);
             if (null != files) {
                 for (File f : files) {
                     targetNames.add(f.getName());
