@@ -1,9 +1,10 @@
 package yang.service.impl.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yang.dao.manager.CourseMapper;
 import yang.domain.common.Course;
-import yang.service.common.CommonService;
 import yang.service.manager.CourseService;
 
 import java.util.List;
@@ -14,17 +15,14 @@ import java.util.Map;
  * At 8:17
  */
 @Service("courseService")
-public class CourseServiceImpl extends CommonService implements CourseService {
+public class CourseServiceImpl implements CourseService {
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int deleteCourseTakenByTeacherId(Integer teacherId) {
-        return courseMapper.deleteCourseTakenByTeacherId(teacherId);
-    }
+    @Autowired
+    protected CourseMapper mapper;
 
     @Override
     public List<Course> select(Map<String, Object> params) {
-        List<Course> courses = courseMapper.select(params);
+        List<Course> courses = mapper.select(params);
         if (null != courses && courses.size() > 0) {
             return courses;
         }
@@ -33,19 +31,19 @@ public class CourseServiceImpl extends CommonService implements CourseService {
 
     @Override
     public boolean insert(Course course) {
-        return courseMapper.insert(course) > 0;
+        return mapper.insert(course) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer courseId) {
-        return courseMapper.delete(courseId) > 0;
+        return mapper.delete(courseId) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(Course course) {
-        return courseMapper.update(course) > 0;
+        return mapper.update(course) > 0;
     }
 
 }

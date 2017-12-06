@@ -3,6 +3,7 @@ package yang.service.impl.student;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,27 +11,31 @@ import yang.common.enums.DeleteType;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.EncryptKit;
 import yang.common.kit.LogKit;
+import yang.dao.student.StudentMapper;
 import yang.domain.common.Student;
 import yang.domain.student.*;
-import yang.service.common.CommonService;
 import yang.service.student.StudentService;
 
 import java.util.*;
 
 /**
- * Created by yang on 2017/5/22.
+ * @author yang
+ * @date 2017/5/22
  * At 17:35
  */
 @Service("studentService")
-public class StudentServiceImpl extends CommonService implements StudentService {
+public class StudentServiceImpl implements StudentService {
     private static final Logger LOGGER = LogKit.getLogger();
+
+    @Autowired
+    protected StudentMapper mapper;
 
     @Override
     public List<StudentTaken> selectStudentInfo(Page page, Map<String, Object> params) {
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<StudentTaken> students = studentMapper.selectStudentInfo(params);
+        List<StudentTaken> students = mapper.selectStudentInfo(params);
         if (null != students && students.size() > 0) {
             return students;
         }
@@ -39,7 +44,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public List<GradeTaken> selectGrade(Map<String, Object> params) {
-        List<GradeTaken> gradeTakens = studentMapper.selectGrade(params);
+        List<GradeTaken> gradeTakens = mapper.selectGrade(params);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;
         }
@@ -48,7 +53,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public List<CourseTaken> selectCourse(Map<String, Object> params) {
-        List<CourseTaken> courseTakens = studentMapper.selectCourse(params);
+        List<CourseTaken> courseTakens = mapper.selectCourse(params);
         if (null != courseTakens && courseTakens.size() > 0) {
             return courseTakens;
         }
@@ -62,8 +67,8 @@ public class StudentServiceImpl extends CommonService implements StudentService 
             put("studentId", studentId);
             put("courseId", examInfo.getCourseId());
         }};
-        AnotherTestTaken anotherTestTaken = studentMapper.selectStudentAnotherQuestionInfo(testInfo);
-        List<AnotherTestTaken> anotherTestTakens = studentMapper.selectQuestionBaseAnother(testInfo);
+        AnotherTestTaken anotherTestTaken = mapper.selectStudentAnotherQuestionInfo(testInfo);
+        List<AnotherTestTaken> anotherTestTakens = mapper.selectQuestionBaseAnother(testInfo);
         //判断此学生之前有无作答，有就加载同一题并加载其之前作答的答案
         if (null != anotherTestTaken) {
             long anotherQuestionId = anotherTestTaken.getId();
@@ -87,7 +92,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public List<ExamInfo> selectExamInfo(Map<String, Object> params) {
-        List<ExamTaken> examTakens = studentMapper.selectExamInfo(params);
+        List<ExamTaken> examTakens = mapper.selectExamInfo(params);
         if (null != examTakens && examTakens.size() > 0) {
             List<ExamInfo> examInfoList = new ArrayList<>();
             /*每一条ExamTaken中有四次测试信息
@@ -148,37 +153,37 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         switch (gradeInfo.getTestNum()) {
             case "1":
                 uploadGrade.put("grade1", gradeInfo.getGrade());
-                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
-                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                changedRow = mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "2":
                 uploadGrade.put("grade2", gradeInfo.getGrade());
-                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
-                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                changedRow = mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "3":
                 uploadGrade.put("grade3", gradeInfo.getGrade());
-                if (studentMapper.selectGradeInfo(uploadGrade).size() == 0) {
-                    if (!(studentMapper.insertGrade(uploadGrade) > 0)) {
+                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                    if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = studentMapper.updateGrade(uploadGrade) > 0;
+                changedRow = mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
                 try {
-                    changedRow = studentMapper.insertAnotherResult(uploadGrade) > 0;
+                    changedRow = mapper.insertAnotherResult(uploadGrade) > 0;
                 } catch (DataAccessException e) {
-                    changedRow = studentMapper.updateAnotherResult(uploadGrade) > 0;
+                    changedRow = mapper.updateAnotherResult(uploadGrade) > 0;
                 }
                 break;
             default:
@@ -188,13 +193,14 @@ public class StudentServiceImpl extends CommonService implements StudentService 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean update(StudentInfo studentInfo) {
         int count = 0;
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", studentInfo.getStudentId());
         }};
 
-        List<StudentTaken> studentTaken = studentMapper.selectStudentInfo(params);
+        List<StudentTaken> studentTaken = mapper.selectStudentInfo(params);
         //判断密码更改
         switch (studentInfo.getUpdateType()) {
             case StuSet://学生设置密码处理
@@ -257,19 +263,20 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         }
         //判断是否有更改
         if (count > 0) {
-            return studentMapper.update(params) > 0;
+            return mapper.update(params) > 0;
         } else {
             return count == 0;
         }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Map<String, Object> params) {
         switch ((DeleteType) params.get("deleteType")) {
             case DeleteWithStudentId:
-                return studentMapper.delete(params) > 0;
+                return mapper.delete(params) > 0;
             case DeleteWithSpecialtyId:
-                return studentMapper.selectStudentInfo(params).size() <= 0 || studentMapper.delete(params) > 0;
+                return mapper.selectStudentInfo(params).size() <= 0 || mapper.delete(params) > 0;
             default:
                 return false;
         }
@@ -277,15 +284,17 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public TestPaper selectQuestion(ExamInfo examInfo) {
-        if (examInfo == null) return null;
+        if (examInfo == null) {
+            return null;
+        }
         String[] strArray = examInfo.getContent().split(",");
         //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
         Map<String, Object> testInfo = new HashMap<>();
         testInfo.put("courseId", examInfo.getCourseId());
         testInfo.put("sectionList", ChapterKit.getChapterTransport(strArray));
         //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
-        List<SingleTaken> singleTakenList = studentMapper.selectQuestionOfSingle(testInfo);
-        List<TfTaken> tfTakenList = studentMapper.selectQuestionOfTf(testInfo);
+        List<SingleTaken> singleTakenList = mapper.selectQuestionOfSingle(testInfo);
+        List<TfTaken> tfTakenList = mapper.selectQuestionOfTf(testInfo);
         //判断返回题目数是否足够
         if (singleTakenList.size() != 20 || tfTakenList.size() != 5) {
             LOGGER.debug("组题出现异常");
@@ -350,7 +359,7 @@ public class StudentServiceImpl extends CommonService implements StudentService 
         if (null != page) {
             PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
-        List<Student> students = studentMapper.select(params);
+        List<Student> students = mapper.select(params);
         if (null != students && students.size() > 0) {
             return students;
         }
@@ -359,18 +368,18 @@ public class StudentServiceImpl extends CommonService implements StudentService 
 
     @Override
     public boolean insert(Student student) {
-        return studentMapper.insert(student) > 0;
+        return mapper.insert(student) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateStudent(Student student) {
-        return studentMapper.updateStudent(student) > 0;
+        return mapper.updateStudent(student) > 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteStudent(Map<String, Object> params) {
-        return studentMapper.deleteStudent(params) > 0;
+        return mapper.deleteStudent(params) > 0;
     }
 }

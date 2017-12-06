@@ -43,12 +43,4 @@ public interface SpecialtyService {
      */
     boolean update(Specialty specialty);
 
-    /**
-     * 更新相关专业id号
-     *
-     * @param newSpecialtyId
-     * @param OldSpecialtyId
-     * @return
-     */
-    boolean updateSpecialtyId(Integer newSpecialtyId, Integer OldSpecialtyId);
 }

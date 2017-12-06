@@ -14,14 +14,6 @@ import java.util.Map;
 public interface CourseService {
 
     /**
-     * 按教师号删除选课信息
-     *
-     * @param teacherId
-     * @return
-     */
-    int deleteCourseTakenByTeacherId(Integer teacherId);
-
-    /**
      * 查找课程
      *
      * @param params

@@ -1,28 +1,33 @@
 package yang.service.impl.shiro;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yang.dao.shiro.RoleMapper;
 import yang.domain.shiro.Role;
-import yang.service.common.CommonService;
 import yang.service.shiro.RoleService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by yang on 2017/5/22.
+ * @author yang
+ * @date 2017/5/22
  * At 17:32
  */
 @Service("roleService")
-public class RoleServiceImpl extends CommonService implements RoleService {
+public class RoleServiceImpl implements RoleService {
+
+    @Autowired
+    protected RoleMapper mapper;
 
     @Override
     public int insert(Role role) {
-        return roleMapper.insert(role);
+        return mapper.insert(role);
     }
 
     @Override
     public List<Role> select(Map<String, Object> params) {
-        List<Role> roles = roleMapper.select(params);
+        List<Role> roles = mapper.select(params);
         if (null != roles && roles.size() > 0) {
             return roles;
         }
@@ -31,7 +36,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
     public List<Role> selectByStudentInfo(Map<String, Object> studentInfo) {
-        List<Role> roles = roleMapper.selectByStudentInfo(studentInfo);
+        List<Role> roles = mapper.selectByStudentInfo(studentInfo);
         if (null != roles && roles.size() > 0) {
             return roles;
         }
@@ -40,7 +45,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
     public List<Role> selectByTeacherInfo(Map<String, Object> teacherInfo) {
-        List<Role> roles = roleMapper.selectByTeacherInfo(teacherInfo);
+        List<Role> roles = mapper.selectByTeacherInfo(teacherInfo);
         if (null != roles && roles.size() > 0) {
             return roles;
         }
@@ -49,7 +54,7 @@ public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
     public List<Role> selectByManagerInfo(Map<String, Object> managerInfo) {
-        List<Role> roles = roleMapper.selectByManagerInfo(managerInfo);
+        List<Role> roles = mapper.selectByManagerInfo(managerInfo);
         if (null != roles && roles.size() > 0) {
             return roles;
         }
@@ -58,17 +63,12 @@ public class RoleServiceImpl extends CommonService implements RoleService {
 
     @Override
     public boolean link2Teacher(Integer teacherId, Integer roleId) {
-        return roleMapper.link2Teacher(teacherId, roleId) > 0;
-    }
-
-    @Override
-    public boolean link2Manager(short managerId, short roleId) {
-        return roleMapper.link2Manager(managerId, roleId) > 0;
+        return mapper.link2Teacher(teacherId, roleId) > 0;
     }
 
     @Override
     public boolean link2Student(Integer studentId, Integer roleId) {
-        return roleMapper.link2Student(studentId, roleId) > 0;
+        return mapper.link2Student(studentId, roleId) > 0;
     }
 
 }

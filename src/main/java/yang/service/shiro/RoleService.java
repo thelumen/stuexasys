@@ -63,15 +63,6 @@ public interface RoleService {
     boolean link2Teacher(Integer teacherId, Integer roleId);
 
     /**
-     * 绑定普通管理员-角色
-     *
-     * @param managerId
-     * @param roleId
-     * @return
-     */
-    boolean link2Manager(short managerId, short roleId);
-
-    /**
      * 绑定学生-角色
      *
      * @param studentId
