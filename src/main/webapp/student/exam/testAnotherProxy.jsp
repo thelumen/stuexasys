@@ -26,15 +26,13 @@
             examInfo += "_";
             examInfo +=${testPaper.anotherQuestionTaken.id};
             examInfo += "_";
-            examInfo +='${testPaper.courseName}';
+            examInfo += '${testPaper.courseName}';
             document.getElementById("hideArea").value = examInfo;
             //加载上次提交到数据库的答案
             <c:if test="${ !empty testPaper.anotherQuestionTaken.result}">
             var studentLastAnswer = "${testPaper.anotherQuestionTaken.result}";
             $("#studentResult").val(studentLastAnswer);
             </c:if>
-
-//            alert($("#hideArea").val());
 
             //计时器实现
             var timeS = 1800;//测试时间,单位秒
@@ -57,18 +55,26 @@
 
             //提交按钮
             $("#submitTestPaper").click(function () {
-                swal({
-                    title: "确定要提交吗？",
-                    text: "",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "提交",
-                    cancelButtonText: "取消",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    submitTest();
+                $.confirm({
+                    title: "",
+                    content: "确定要提交吗?",
+                    animation: 'left',
+                    backgroundDismiss: true,
+                    closeAnimation: 'rotateX',
+                    type: 'purple',
+                    buttons: {
+                        ok: {
+                            text: "ok!",
+                            theme: 'dark',
+                            btnClass: 'btn-primary',
+                            keys: ['enter'],
+                            action: function () {
+                                submitTest();
+                            }
+                        },
+                        cancel: function () {
+                        }
+                    }
                 });
             });
 
@@ -77,7 +83,13 @@
                 clearInterval(setI);
                 var QuestionId = $("#hideArea").val().split("_");
                 var result = $("#studentResult").val();
-                var gradeInfo = {'id': QuestionId[1], 'courseId': QuestionId[0], 'result': result, 'testNum': '4', 'courseName': QuestionId[2]};
+                var gradeInfo = {
+                    'id': QuestionId[1],
+                    'courseId': QuestionId[0],
+                    'result': result,
+                    'testNum': '4',
+                    'courseName': QuestionId[2]
+                };
                 var jsonData = JSON.stringify(gradeInfo);
                 $.ajax({
                     type: 'post',
@@ -87,19 +99,31 @@
                     data: jsonData,
                     success: function (data) {
                         if (data.issuccess) {
-                            swal({
-                                title: "提交成功",
-                                text: "点击确定跳转到个人信息页",
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonColor: "#DD6B55",
-                                confirmButtonText: "确定",
-                                closeOnConfirm: false,
-                                showLoaderOnConfirm: true
-                            }, function () {
-                                window.location.href = ('${pageContext.request.contextPath}/student/info');
+                            $.confirm({
+                                title: "提交成功!",
+                                content: "点击确定跳转到个人信息页:)",
+                                animation: 'right',
+                                closeAnimation: 'rotateX',
+                                type: 'purple',
+                                buttons: {
+                                    ok: {
+                                        text: "ok!",
+                                        theme: 'dark',
+                                        btnClass: 'btn-primary',
+                                        keys: ['enter'],
+                                        action: function () {
+                                            window.location.href = ('${pageContext.request.contextPath}/student/info');
+                                        }
+                                    }
+                                }
                             });
-                        } else swal("提交失败", "请向老师反映", "error");
+                        } else {
+                            $.alert({
+                                title: "提交失败！",
+                                content: "请向老师反映:(",
+                                backgroundDismiss: true
+                            });
+                        }
                     }
                 })
             }
@@ -132,9 +156,12 @@
                 <h4 id="countDownTxt">测试剩余时间:</h4>
                 <P>${testPaper.anotherQuestionTaken.content}</P>
                 <div class="form-group">
-                    <p><textarea class="form-control" rows="5" placeholder="填写相关答案:"
-                                 name="anotherResult" id="studentResult"></textarea></p>
-                    <button class="btn btn-primary" type="button" id="submitTestPaper">
+                    <p><textarea class="form-control" rows="5"
+                                 placeholder="填写相关答案:"
+                                 name="anotherResult"
+                                 id="studentResult"></textarea></p>
+                    <button class="btn btn-primary" type="button"
+                            id="submitTestPaper">
                         提交答案
                     </button>
                 </div>

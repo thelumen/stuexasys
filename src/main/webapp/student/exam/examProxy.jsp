@@ -26,7 +26,12 @@
                 } else if (s[2] === "测试三") {
                     testNum = 3;
                 } else testNum = 4;
-                var examInfo = {"courseId": s[0], "content": s[1], "testNum": testNum,"courseName":s[3]};
+                var examInfo = {
+                    "courseId": s[0],
+                    "content": s[1],
+                    "testNum": testNum,
+                    "courseName": s[3]
+                };
                 var jsonDate = JSON.stringify(examInfo);
                 var myUrl = '${pageContext.request.contextPath}/student/test/ready';
                 $.ajax({
@@ -37,9 +42,25 @@
                     data: jsonDate,
                     success: function (data) {
                         if (data.generalTest) {
-                            <%--window.open('${pageContext.request.contextPath}/student/test/start/' + data.examInfo);--%>
                             window.location.href = '${pageContext.request.contextPath}/student/test/start/' + data.examInfo;
-                        } else window.location.href = '${pageContext.request.contextPath}/student/test/startAnother/' + data.examInfo;
+                        } else {
+                            window.location.href = '${pageContext.request.contextPath}/student/test/startAnother/' + data.examInfo;
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $.confirm({
+                            animation: 'rotateX',
+                            backgroundDismiss: true,
+                            closeAnimation: 'rotateX',
+                            title: false,
+                            content: "系统错误!",
+                            buttons: {
+                                confirm: {
+                                    text: '确认',
+                                    btnClass: 'waves-effect waves-button waves-light'
+                                }
+                            }
+                        });
                     }
                 });
             })
@@ -64,21 +85,26 @@
                 </thead>
                 <tbody>
                 <c:if test="${!empty studentExamInfo}">
-                    <c:forEach items="${studentExamInfo}" var="Info" varStatus="status">
+                    <c:forEach items="${studentExamInfo}" var="Info"
+                               varStatus="status">
                         <tr class="rowId">
                             <td>${Info.courseName}</td>
                             <td>${Info.testNum}</td>
                             <td>${Info.content}</td>
-                            <td><fum:formatDate value="${Info.date}" pattern="yyyy-MM-dd"/></td>
+                            <td><fum:formatDate value="${Info.date}"
+                                                pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <c:if test="${Info.test==1}">
-                                    <button type="button" class="btn btn-success"
+                                    <button type="button"
+                                            class="btn btn-success"
                                             value="${Info.courseId}_${Info.content}_${Info.testNum}_${Info.courseName}">
                                         <label>开始考试</label>
                                     </button>
                                 </c:if>
                                 <c:if test="${!(Info.test==1)}">
-                                    <button type="button" class="btn btn-primary" disabled="disabled">
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            disabled="disabled">
                                         <label>等待开始</label>
                                     </button>
                                 </c:if>
