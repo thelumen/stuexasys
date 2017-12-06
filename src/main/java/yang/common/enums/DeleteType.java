@@ -1,7 +1,9 @@
 package yang.common.enums;
 
 /**
- * Created by 花间一壶酒 on 2017/9/2.
+ *
+ * @author 花间一壶酒
+ * @date 2017/9/2
  */
 public enum DeleteType {
 

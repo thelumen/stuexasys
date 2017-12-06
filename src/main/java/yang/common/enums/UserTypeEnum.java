@@ -5,7 +5,9 @@ package yang.common.enums;
  * name:用户名称
  * num:权限级别
  * url:首页地址
- * Created by yang on 2017/5/22.
+ *
+ * @author yang
+ * @date 2017/5/22
  * At 14:41
  */
 public enum UserTypeEnum {

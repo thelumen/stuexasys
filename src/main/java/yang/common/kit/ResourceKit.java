@@ -25,7 +25,6 @@ public final class ResourceKit {
     private ResourceKit() {
     }
 
-    private static final Logger LOGGER = LogKit.getLogger();
     /**
      * 必须给定一个主目录
      */
@@ -168,7 +167,9 @@ public final class ResourceKit {
         //读取临时文件，并设置学生作答信息
         byte[] data = FileKit.readFile(tempExamInfo);
         TestPaper paper = (TestPaper) FileKit.deserialize(data);
-        paper.setStudentAnswer(gradeInfo.getResult());
+        if (paper != null) {
+            paper.setStudentAnswer(gradeInfo.getResult());
+        }
         byte[] newData = FileKit.serialize(paper);
         FileKit.write2File(newData, realExamInfo);
     }
