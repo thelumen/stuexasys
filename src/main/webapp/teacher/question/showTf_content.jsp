@@ -89,7 +89,6 @@
             pagination: "true",
             toolbar: "#tf_select_clause",
             showColumns: "true",
-            showExport: "true",
             columns: [{
                 field: 'id',
                 title: '题号',

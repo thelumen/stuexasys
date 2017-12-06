@@ -71,7 +71,6 @@
             toolbar: "#editQ_toolbar",
             pagination: "true",
             showColumns: "true",
-            showExport: "true",
             columns: [{
                 field: 'courseName',
                 title: '课程名称'

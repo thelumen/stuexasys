@@ -89,7 +89,6 @@
             showRefresh: "true",
             pagination: "true",
             showColumns: "true",
-            showExport: "true",
             columns: [{
                 field: 'id',
                 title: '题号',

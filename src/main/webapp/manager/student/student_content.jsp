@@ -115,7 +115,6 @@
             showRefresh: "true",
             pagination: "true",
             showColumns: "true",
-            showExport: "true",
             columns: [{
                 field: 'studentId',
                 title: '学号',
