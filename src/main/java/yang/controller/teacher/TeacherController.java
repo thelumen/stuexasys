@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import yang.common.base.ResultBean;
 import yang.common.kit.EncryptKit;
+import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
 import yang.domain.teacher.Teacher;
 
@@ -43,9 +44,12 @@ public class TeacherController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:teacher")
     @ResponseBody
     public Object updateInfo(@RequestBody Teacher teacher) {
+        String pwd = teacher.getPassword().trim();
+        if (StringKit.isBank(pwd) || pwd.length() < 3) {
+            return new ResultBean<>("密码不为空且不能小于3位：)");
+        }
         if (!Objects.equals(teacher.getPassword(), "******")) {
-            String password = teacher.getPassword();
-            teacher.setPassword(EncryptKit.md5(password));
+            teacher.setPassword(EncryptKit.md5(pwd));
         } else {
             teacher.setPassword(null);
         }

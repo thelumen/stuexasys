@@ -7,6 +7,7 @@ import yang.common.base.ResultBean;
 import yang.common.enums.RoleEnum;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
+import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
 import yang.domain.teacher.Teacher;
 
@@ -57,6 +58,10 @@ public class TeacherInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public Object insert(Teacher teacher) {
+        String pwd = teacher.getPassword().trim();
+        if (StringKit.isBank(pwd) || pwd.length() < 3) {
+            return new ResultBean<>("密码不为空且不能小于3位：)");
+        }
         Map<String, Object> teacherParams = new HashMap<String, Object>() {{
             put("teacherId", teacher.getTeacherId());
         }};
@@ -64,7 +69,7 @@ public class TeacherInAdminController extends CommonController {
         if (null != teachers) {
             return new ResultBean<>("教师Id重复！");
         }
-        teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
+        teacher.setPassword(EncryptKit.md5(pwd));
         if (Objects.equals(teacher.getPosition(), "")) {
             teacher.setPosition("nothing");
         }
@@ -107,6 +112,10 @@ public class TeacherInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public Object edit(Teacher teacher) {
+        String pwd = teacher.getPassword().trim();
+        if (StringKit.isBank(pwd) || pwd.length() < 3) {
+            return new ResultBean<>("密码不为空且不能小于3位：)");
+        }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("id", teacher.getId());
         }};
@@ -117,7 +126,7 @@ public class TeacherInAdminController extends CommonController {
         Teacher t = teachers.get(0);
         //如果修改密码了，就加密
         if (!t.getPassword().equals(teacher.getPassword())) {
-            teacher.setPassword(EncryptKit.md5(teacher.getPassword()));
+            teacher.setPassword(EncryptKit.md5(pwd));
         }
         return new ResultBean<>(teacherService.update(teacher));
     }

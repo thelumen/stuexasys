@@ -11,6 +11,7 @@ import yang.common.base.ResultBean;
 import yang.common.enums.RoleEnum;
 import yang.common.kit.CommonKit;
 import yang.common.kit.EncryptKit;
+import yang.common.kit.StringKit;
 import yang.controller.common.CommonController;
 import yang.domain.common.Specialty;
 import yang.domain.common.Student;
@@ -62,12 +63,16 @@ public class StudentInAdminController extends CommonController {
      * 更新学生
      *
      * @param student
-     * @return .
+     * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @RequiresPermissions(value = "shiro:sys:manager")
     @ResponseBody
     public Object saveStudentInfo(@RequestBody Student student) {
+        String pwd = student.getPassword().trim();
+        if (StringKit.isBank(pwd) || pwd.length() < 3) {
+            return new ResultBean<>("密码不为空且长度不能小于3位：)");
+        }
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("studentId", student.getStudentId());
         }};
@@ -77,7 +82,7 @@ public class StudentInAdminController extends CommonController {
         }
         Student s = students.get(0);
         if (!s.getPassword().equals(student.getPassword())) {
-            student.setPassword(EncryptKit.md5(student.getPassword()));
+            student.setPassword(EncryptKit.md5(pwd));
         } else {
             student.setPassword(null);
         }
