@@ -212,13 +212,13 @@
                                 url: '${pageContext.request.contextPath}/exam/examInfo/' + info + "/delete",
                                 type: 'delete',
                                 dataType: 'json',
-                                success: function (data) {
+                                success: function (result) {
                                     $.alert({
                                         title: "",
                                         content: result.msg,
                                         backgroundDismiss: true
                                     });
-                                    if (data.code === 0) {
+                                    if (result.code == 0) {
                                         table.bootstrapTable("refresh");
                                         modal_table.bootstrapTable("refresh");
                                     }
