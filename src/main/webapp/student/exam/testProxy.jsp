@@ -103,7 +103,7 @@
                             closeOnConfirm: false,
                             showLoaderOnConfirm: true
                         }, function () {
-                            window.location.href = ('${pageContext.request.contextPath}/student/personPage');
+                            window.location.href = ('${pageContext.request.contextPath}/student/info');
                         });
                     } else if(data.overtime){
                         swal("提交失败", "教师已关闭考试", "error");

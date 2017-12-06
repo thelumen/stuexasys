@@ -97,7 +97,7 @@
                                 closeOnConfirm: false,
                                 showLoaderOnConfirm: true
                             }, function () {
-                                window.location.href = ('${pageContext.request.contextPath}/student/personPage');
+                                window.location.href = ('${pageContext.request.contextPath}/student/info');
                             });
                         } else swal("提交失败", "请向老师反映", "error");
                     }

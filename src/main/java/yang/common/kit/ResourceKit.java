@@ -28,7 +28,6 @@ public final class ResourceKit {
     private static final Logger LOGGER = LogKit.getLogger();
     /**
      * 必须给定一个主目录
-     * 如果不存在的话，则自动创建
      */
     private static final String HOME = "/home/yang";
     /**
@@ -68,19 +67,6 @@ public final class ResourceKit {
     }
 
     /**
-     * 获取相对路径
-     * 如：数据库/xxx.txt
-     *
-     * @param directory 目录文件名
-     * @param target    文件的绝对路径
-     * @return
-     */
-    public static String getRelativePath(String directory, String target) {
-        StringBuilder sb = new StringBuilder(target);
-        return sb.substring(sb.indexOf(directory), sb.length());
-    }
-
-    /**
      * 文件下载
      *
      * @param response
@@ -97,26 +83,14 @@ public final class ResourceKit {
         response.reset();
         response.setContentType("application/x-download");
         response.addHeader("Content-Disposition", "attachment; filename=\"" + realName + "\"");
-        ServletOutputStream outp = null;
-        FileInputStream in = null;
-        try {
-            outp = response.getOutputStream();
-            in = new FileInputStream(filePath);
+        try (ServletOutputStream outp = response.getOutputStream();
+             FileInputStream in = new FileInputStream(filePath);) {
             byte[] b = new byte[1024];
             int i;
             while ((i = in.read(b)) > 0) {
                 outp.write(b, 0, i);
             }
             outp.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (outp != null) {
-                outp.close();
-            }
         }
     }
 
@@ -156,29 +130,6 @@ public final class ResourceKit {
     }
 
     /**
-     * 根据下载索引码返回绝对路径
-     *
-     * @param folderNum 文件夹号.
-     * @param fileNum   文佳号.
-     * @return 文件信息.
-     */
-    public static Map<String, Object> selectWithFileNum(Integer
-                                                                folderNum, Integer fileNum) {
-        Map<String, Object> fileInfoWithMap = new HashMap<>();
-        List<String> filePackagerNames = FileKit.getFileOrDirectoryNames(getResourceHome(), true);//获取主目录下的文件夹名
-        if (filePackagerNames.size() > 0) {
-            String fileName = filePackagerNames.get(folderNum);
-            File fileNameInfo = new File(getResourceHome() + File.separator + fileName);
-            File[] children = fileNameInfo.listFiles();
-            if (null != children && children.length > 0) {
-                fileInfoWithMap.put("fileName", children[fileNum].getName());
-                fileInfoWithMap.put("realPath", children[fileNum].getPath());
-            }
-        }
-        return fileInfoWithMap;
-    }
-
-    /**
      * 备份学生试卷信息
      *
      * @param testPaper
@@ -187,14 +138,13 @@ public final class ResourceKit {
      * @param studentId
      * @throws IOException
      */
-
     public static void backUpExamTaken(TestPaper testPaper, String courseName, String specialtyName, int studentId) throws IOException {
         String test = resetTestName(testPaper.getTestNum());
-        String homePath = getBackupHome() + "/" + specialtyName + "/" + courseName + "/" + test;
+        String homePath = getBackupHome() + File.separator + specialtyName + File.separator + courseName + File.separator + test;
         FileKit.existAndCreateDirectory(homePath);
 
         //新建临时文件，如果文件已存在，就删除新建
-        String tempFilePath = homePath + "/$" + studentId + ".bin";
+        String tempFilePath = homePath + File.separator + "$" + studentId + ".bin";
         FileKit.deleteIfExists(tempFilePath);
 
         byte[] data = FileKit.serialize(testPaper);
@@ -210,9 +160,9 @@ public final class ResourceKit {
      */
     public static void backUpExamInfo(GradeInfo gradeInfo, String specialtyName) throws IOException, ClassNotFoundException {
         String test = resetTestName(gradeInfo.getTestNum());
-        String homePath = getBackupHome() + "/" + specialtyName + "/" + gradeInfo.getCourseName() + "/" + test;
-        String realExamInfo = homePath + "/" + gradeInfo.getStudentId() + ".bin";
-        String tempExamInfo = homePath + "/$" + gradeInfo.getStudentId() + ".bin";
+        String homePath = getBackupHome() + File.separator + specialtyName + File.separator + gradeInfo.getCourseName() + File.separator + test;
+        String realExamInfo = homePath + File.separator + gradeInfo.getStudentId() + ".bin";
+        String tempExamInfo = homePath + File.separator + "$" + gradeInfo.getStudentId() + ".bin";
         //考试信息存在便删除
         FileKit.deleteIfExists(realExamInfo);
         //读取临时文件，并设置学生作答信息
@@ -223,6 +173,12 @@ public final class ResourceKit {
         FileKit.write2File(newData, realExamInfo);
     }
 
+    /**
+     * 数字转相应测试
+     *
+     * @param testNum
+     * @return
+     */
     private static String resetTestName(String testNum) {
         String test;
         switch (Integer.valueOf(testNum)) {

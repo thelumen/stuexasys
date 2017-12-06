@@ -5,7 +5,7 @@
   Time: 14:21
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -23,7 +23,8 @@
                 <div class="panel-group" id="panel-964917">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a class="panel-title" href="#t1" data-toggle="collapse">课程名</a>
+                            <a class="panel-title" href="#t1"
+                               data-toggle="collapse">课程名</a>
                         </div>
                         <div class="panel-collapse in" id="t1">
                             <div class="panel-body">
@@ -47,7 +48,8 @@
             </c:if>
             <c:if test="${!empty resourceInfo}">
             <div class="panel-group" id="panelParent">
-                <c:forEach var="Info" items="${resourceInfo}" varStatus="statue">
+                <c:forEach var="Info" items="${resourceInfo}"
+                           varStatus="statue">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -62,7 +64,8 @@
                         <div class="panel-collapse collapse" id=${statue.count}>
                             </c:if>
                             <c:forEach items="${Info.directory}" var="FileInfo">
-                                <div class="panel-body" style="background: #BCD2EE">
+                                <div class="panel-body"
+                                     style="background: #BCD2EE">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-5">

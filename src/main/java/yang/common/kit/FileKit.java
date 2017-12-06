@@ -158,22 +158,6 @@ public final class FileKit {
     }
 
     /**
-     * 文件是否存在，不存在就创建
-     *
-     * @param filePath
-     */
-    public static void existAndCreateFile(String filePath) {
-        Path path = Paths.get(filePath);
-        if (!Files.exists(path)) {
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                LOGGER.error("创建文件失败！文件路径：{}。具体原因：{}", filePath, e.toString());
-            }
-        }
-    }
-
-    /**
      * 文件夹是否存在，不存在就生成
      *
      * @param dicPath 文件夹路径
