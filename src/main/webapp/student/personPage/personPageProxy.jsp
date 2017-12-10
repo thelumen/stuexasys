@@ -74,10 +74,7 @@
                             title: "",
                             content: result.msg,
                             backgroundDismiss: true
-                        });
-                        if (result.code == 0) {
-                            location.reload();
-                        }
+                        })
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         $.confirm({

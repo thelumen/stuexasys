@@ -37,12 +37,12 @@
     </script>
 </head>
 <body>
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <button type="button" class="navbar-toggle collapsed"
                 data-toggle="collapse"
                 data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false" aria-haspopup="true">
+                aria-expanded="false">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
