@@ -28,7 +28,7 @@ public final class ResourceKit {
     /**
      * 必须给定一个主目录
      */
-    private static final String HOME = "/home/examination";
+    private static final String HOME = "/home/sunday";
     /**
      * 资源主目录
      */
