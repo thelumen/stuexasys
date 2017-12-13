@@ -146,13 +146,6 @@ public class StudentInAdminController extends CommonController {
             Sheet sheet = workbook.getSheet(0);
             //总行数
             int rows = sheet.getRows();
-            if (Objects.equals(sheet.getCell(0, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet.getCell(1, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet.getCell(2, rows - 1).getContents().trim(), "") ||
-                    Objects.equals(sheet.getCell(3, rows - 1).getContents().trim(), "")
-                    ) {
-                return new ResultBean<>("请确保Excel文件的数据内容填写正确与完整！");
-            }
 
             Set<Specialty> specialties = new HashSet<>();
             List<Student> students = new ArrayList<>();
@@ -175,7 +168,7 @@ public class StudentInAdminController extends CommonController {
                 Integer specialtyId = Integer.valueOf(studentId.substring(0, 6));
                 specialty = new Specialty();
                 specialty.setSpecialtyId(specialtyId);
-                specialty.setName(specialtyName);
+                specialty.setName(specialtyName + "(" + specialtyId + ")");
 
                 specialties.add(specialty);
 
