@@ -120,7 +120,6 @@ public class SchoolInAdminController extends CommonController {
     @RequiresPermissions(value = "shiro:sys:admin")
     @ResponseBody
     public Object insertSpecialty(@RequestParam(value = "specialtyId") Integer specialtyId,
-                                  @RequestParam(value = "year") String year,
                                   @RequestParam(value = "specialtyName") String specialtyName) {
         Map<String, Object> params = new HashMap<String, Object>() {{
             put("specialtyId", specialtyId);
@@ -132,7 +131,7 @@ public class SchoolInAdminController extends CommonController {
 
         Specialty s = new Specialty();
         s.setSpecialtyId(specialtyId);
-        s.setName(year + specialtyName);
+        s.setName(specialtyName + "(" + specialtyId + ")");
 
         return new ResultBean<>(specialtyService.insert(s));
     }

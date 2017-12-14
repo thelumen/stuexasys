@@ -439,9 +439,6 @@
             content: '<input id="add_specialtyId" class="form-control" onkeyup="this.value=this.value.replace(/\\D/g,\'\')" ' +
             'onafterpaste="this.value=this.value.replace(/\\D/g,\'\')" maxlength="6" minlength="6"' +
             ' placeholder="专业Id，如：14届计算机，请填写“140401”">' +
-            '<input id="add_year" placeholder="填写两位数数字，如14届计算机，请填写“14”" ' +
-            'onkeyup="this.value=this.value.replace(/\\D/g,\'\')" minlength="2" maxlength="2" ' +
-            'class="form-control" onafterpaste="this.value=this.value.replace(/\\D/g,\'\')">' +
             '<input id="add_specialtyName" type="text" class="form-control" placeholder="专业名称，如：计算机科学与技术">',
             animation: 'right',
             closeAnimation: 'rotateX',
@@ -454,9 +451,8 @@
                     keys: ['enter'],
                     action: function () {
                         var sId = $('#add_specialtyId').val();
-                        var year = $('#add_year').val();
                         var name = $('#add_specialtyName').val();
-                        if (sId == "" || year == "" || name == "") {
+                        if (sId == "" || name == "") {
                             $.alert({
                                 title: "",
                                 content: "请填写完整数据:)",
@@ -472,21 +468,12 @@
                             });
                             return false;
                         }
-                        if (year.length != 2) {
-                            $.alert({
-                                title: "",
-                                content: "请正确填写两位数值:)",
-                                backgroundDismiss: true
-                            });
-                            return false;
-                        }
                         $.ajax({
                             url: '${pageContext.request.contextPath}/admin/school/specialty/add',
                             type: 'post',
                             dataType: 'json',
                             data: {
                                 specialtyId: sId,
-                                year: year,
                                 specialtyName: name
                             },
                             success: function (result) {
