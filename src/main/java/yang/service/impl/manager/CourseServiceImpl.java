@@ -2,7 +2,6 @@ package yang.service.impl.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.manager.CourseMapper;
 import yang.domain.common.Course;
 import yang.service.manager.CourseService;
@@ -35,13 +34,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer courseId) {
         return mapper.delete(courseId) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean update(Course course) {
         return mapper.update(course) > 0;
     }

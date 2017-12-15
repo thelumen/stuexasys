@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.Student2ExamMapper;
 import yang.domain.teacher.ExamTaken;
 import yang.service.teacher.Student2ExamService;
@@ -41,13 +40,11 @@ public class Student2ExamServiceImpl implements Student2ExamService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateExamInfo(ExamTaken examInfo) {
         return mapper.updateExamInfo(examInfo) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean deleteExamInfo(Map<String, Object> params) {
         return mapper.deleteExamInfo(params) > 0;
     }
@@ -65,7 +62,6 @@ public class Student2ExamServiceImpl implements Student2ExamService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean startOrCloseExam(Map<String, Object> params) {
         return mapper.startOrCloseExam(params) > 0;
     }

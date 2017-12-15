@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.TeacherMapper;
 import yang.domain.teacher.Teacher;
 import yang.service.teacher.TeacherService;
@@ -41,13 +40,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean update(Teacher teacher) {
         return mapper.update(teacher) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean delete(int teacherId) {
         return mapper.delete(teacherId) > 0;
     }

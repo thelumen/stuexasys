@@ -2,7 +2,6 @@ package yang.service.impl.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.QuestionMapper;
 import yang.domain.teacher.AnotherTaken;
 import yang.service.teacher.QuestionService;
@@ -21,13 +20,11 @@ public class QuestionServiceImpl implements QuestionService {
     protected QuestionMapper mapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean saveQuestion(AnotherTaken anotherTaken) {
         return mapper.updateAnotherQuestion(anotherTaken) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean delQuestion(Map<String, Object> params) {
         return mapper.deleteAnotherQuestion(params) > 0;
     }

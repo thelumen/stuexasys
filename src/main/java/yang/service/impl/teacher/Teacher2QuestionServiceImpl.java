@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.Teacher2QuestionMapper;
 import yang.domain.common.Another;
 import yang.domain.common.SingleQuestion;
@@ -63,13 +62,11 @@ public class Teacher2QuestionServiceImpl implements Teacher2QuestionService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateTfInfo(TfQuestion tfQuestion) {
         return mapper.updateTfInfo(tfQuestion);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean deleteTfInfo(TfQuestion tfQuestion) {
         return mapper.deleteTfInfo(tfQuestion);
     }
@@ -87,13 +84,11 @@ public class Teacher2QuestionServiceImpl implements Teacher2QuestionService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateSingleInfo(SingleQuestion singleQuestion) {
         return mapper.updateSingleInfo(singleQuestion);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean deleteSingleInfo(SingleQuestion singleQuestion) {
         return mapper.deleteSingleInfo(singleQuestion);
     }

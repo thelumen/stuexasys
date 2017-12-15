@@ -2,7 +2,6 @@ package yang.service.impl.shiro;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.shiro.ResourceMapper;
 import yang.domain.shiro.Resource;
 import yang.service.shiro.ResourceService;
@@ -22,7 +21,6 @@ public class ResourceServiceImpl implements ResourceService {
     protected ResourceMapper mapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public int insert(Resource resource) {
         return mapper.insert(resource);
     }

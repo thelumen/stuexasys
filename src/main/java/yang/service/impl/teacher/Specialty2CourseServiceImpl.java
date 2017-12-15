@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.Specialty2CourseMapper;
 import yang.domain.common.Course;
 import yang.domain.common.Specialty;
@@ -58,7 +57,6 @@ public class Specialty2CourseServiceImpl implements Specialty2CourseService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean deleteTakenInfo(Map<String, Object> params) {
         return mapper.deleteTakenInfo(params) > 0;
     }

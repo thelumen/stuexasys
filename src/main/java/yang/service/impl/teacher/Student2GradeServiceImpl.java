@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.teacher.Student2GradeMapper;
 import yang.domain.teacher.GradeTaken;
 import yang.service.teacher.Student2GradeService;
@@ -38,13 +37,11 @@ public class Student2GradeServiceImpl implements Student2GradeService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateGrade(GradeTaken studentGrade) {
         return mapper.updateGrade(studentGrade) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateAnother(Integer studentId, Integer courseId, int score) {
         return mapper.updateAnother(studentId, courseId, score) > 0;
     }

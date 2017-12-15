@@ -2,7 +2,6 @@ package yang.service.impl.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.dao.manager.SpecialtyMapper;
 import yang.domain.common.Specialty;
 import yang.service.manager.SpecialtyService;
@@ -36,13 +35,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer specialtyId) {
         return mapper.delete(specialtyId) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean update(Specialty specialty) {
         return mapper.update(specialty) > 0;
     }

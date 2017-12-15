@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import yang.common.enums.DeleteType;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.EncryptKit;
@@ -193,7 +192,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean update(StudentInfo studentInfo) {
         int count = 0;
         Map<String, Object> params = new HashMap<String, Object>() {{
@@ -270,7 +268,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean delete(Map<String, Object> params) {
         switch ((DeleteType) params.get("deleteType")) {
             case DeleteWithStudentId:
@@ -372,13 +369,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean updateStudent(Student student) {
         return mapper.updateStudent(student) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public boolean deleteStudent(Map<String, Object> params) {
         return mapper.deleteStudent(params) > 0;
     }
