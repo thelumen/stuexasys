@@ -20,9 +20,9 @@
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
 
-        <property name="initialSize" value="1"/>
-        <property name="minIdle" value="1"/>
-        <property name="maxActive" value="20"/>
+        <property name="initialSize" value="5"/>
+        <property name="minIdle" value="3"/>
+        <property name="maxActive" value="30"/>
 
         <property name="maxWait" value="60000"/>
 
