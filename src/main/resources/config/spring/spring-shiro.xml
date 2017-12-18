@@ -36,28 +36,41 @@
     <!--会话管理器-->
     <bean id="webSessionManager"
           class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <property name="globalSessionTimeout" value="7200000"/>
-        <property name="deleteInvalidSessions" value="true"/>
-        <property name="sessionDAO" ref="shiroSessionDAO"/>
-        <property name="sessionIdCookieEnabled" value="true"/>
-        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="globalSessionTimeout"
+                  value="7200000"/>
+        <property name="deleteInvalidSessions"
+                  value="true"/>
+        <property name="sessionValidationInterval"
+                  value="30000"/>
+        <property name="sessionValidationSchedulerEnabled"
+                  value="true"/>
+        <property name="sessionDAO"
+                  ref="shiroSessionDAO"/>
+        <property name="sessionIdCookieEnabled"
+                  value="true"/>
+        <property name="sessionIdCookie"
+                  ref="sessionIdCookie"/>
     </bean>
 
     <!-- 安全管理器-->
     <bean id="webSecurityManager"
           class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myRealm"/>
-        <property name="sessionManager" ref="webSessionManager"/>
-        <property name="cacheManager" ref="shiroEhCacheManager"/>
+        <property name="sessionManager"
+                  ref="webSessionManager"/>
+        <property name="cacheManager"
+                  ref="shiroEhCacheManager"/>
     </bean>
 
     <!--过滤器-->
     <bean id="shiroFilter"
           class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <property name="securityManager" ref="webSecurityManager"/>
-        <property name="loginUrl" value="/common/user/login.jsp"/>
-        <property name="unauthorizedUrl" value="/common/user/login.jsp"/>
-        <!--<property name="unauthorizedUrl" value="/shiro/error/unauthorized"/>-->
+        <property name="securityManager"
+                  ref="webSecurityManager"/>
+        <property name="loginUrl"
+                  value="/common/user/login.jsp"/>
+        <property name="unauthorizedUrl"
+                  value="/common/user/login.jsp"/>
         <property name="filterChainDefinitions">
             <value>
                 /common/error/*=anon

@@ -18,4 +18,8 @@
                   ref="shiroEhCacheManagerFactoryBean"/>
     </bean>
 
+    <!-- shiro redis缓存 -->
+    <!--<bean id="shiroRedisCacheManager"-->
+          <!--class="yang.common.cache.redis.RedisCacheManager"/>-->
+
 </beans>
