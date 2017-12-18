@@ -13,7 +13,7 @@ import yang.common.cache.school.SubjectCache;
 public class SubjectTask {
 
     @Scheduled(cron = "0 0/30 ?9-17 * * ?")
-    public void run() throws InterruptedException {
+    public void run() {
         SubjectCache.deleteExpiredContent(2);
     }
 

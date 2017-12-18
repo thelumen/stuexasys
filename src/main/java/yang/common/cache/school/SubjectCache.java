@@ -105,6 +105,7 @@ public final class SubjectCache {
             //如果超出指定时间，则删除题目内容
             if (oldDateTime.plusHours(hour).compareTo(LocalDateTime.now()) < 0) {
                 courseAndQuestionMap.remove(entry.getKey());
+                subject2Time.remove(entry.getKey());
             }
         }
     }
