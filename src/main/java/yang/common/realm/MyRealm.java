@@ -5,6 +5,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import yang.common.kit.ShiroKit;
 import yang.domain.manager.Manager;
@@ -23,25 +24,27 @@ import java.util.*;
 
 /**
  * 不做多realm的形式了
- * Created by yang on 2017/2/8.
+ *
+ * @author yang
+ * @date 2017/2/8
  * At 13:36
  */
 @Component("myRealm")
 public class MyRealm extends AuthorizingRealm {
 
-    @javax.annotation.Resource(name = "managerService")
+    @Autowired
     private ManagerService managerService;
 
-    @javax.annotation.Resource(name = "teacherService")
+    @Autowired
     private TeacherService teacherService;
 
-    @javax.annotation.Resource(name = "studentService")
+    @Autowired
     private StudentService studentService;
 
-    @javax.annotation.Resource(name = "roleService")
+    @Autowired
     private RoleService roleService;
 
-    @javax.annotation.Resource(name = "resourceService")
+    @Autowired
     private ResourceService resourceService;
 
     /**
@@ -50,13 +53,14 @@ public class MyRealm extends AuthorizingRealm {
      * @param principalCollection
      * @return
      */
+    @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         ShiroInfo shiroInfo = (ShiroInfo) this.getAuthenticationCacheKey(principalCollection);
 
         authorizationInfo.setRoles(shiroInfo.getRoles());
         authorizationInfo.setStringPermissions(shiroInfo.getPermissions());
+
         return authorizationInfo;
     }
 
@@ -67,6 +71,7 @@ public class MyRealm extends AuthorizingRealm {
      * @return
      * @throws AuthenticationException
      */
+    @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
@@ -77,13 +82,11 @@ public class MyRealm extends AuthorizingRealm {
         String password = new String(token.getPassword());
 
         ShiroInfo shiroInfo = null;
-        if (direction.equals("0")) {
+        if ("0".equals(direction)) {
             shiroInfo = getStudentInfo(realAccount, password);
-        }
-        if (direction.equals("1")) {
+        } else if ("1".equals(direction)) {
             shiroInfo = getTeacherInfo(realAccount, password);
-        }
-        if (direction.equals("2")) {
+        } else if ("2".equals(direction)) {
             shiroInfo = getManagerInfo(realAccount, password);
         }
         if (null != shiroInfo) {
