@@ -1,4 +1,4 @@
-package yang.common.cache;
+package yang.common.cache.school;
 
 import yang.domain.common.Another;
 import yang.domain.common.SingleQuestion;

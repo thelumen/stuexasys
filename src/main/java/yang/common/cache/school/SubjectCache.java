@@ -1,6 +1,10 @@
-package yang.common.cache;
+package yang.common.cache.school;
+
+import yang.domain.common.SingleQuestion;
+import yang.domain.common.TfQuestion;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -42,10 +46,51 @@ public final class SubjectCache {
      * @return
      */
     public static QuestionBank getContent(String courseAndChapterName) {
-        return courseAndQuestionMap.get(courseAndChapterName);
+        QuestionBank bank = courseAndQuestionMap.get(courseAndChapterName);
+        if (null == bank) {
+            return null;
+        }
+        //组题后题目数目不够将会返回null
+        return resetContent(bank);
+    }
+
+
+    private static QuestionBank resetContent(QuestionBank bank) {
+        QuestionBank newBank = new QuestionBank();
+
+        final List<SingleQuestion> singleList = bank.getSingleQuestions();
+        List<TfQuestion> tfList;
+
+        //singleList.stream().filter(question->question.getLevels()==1).collect()
+
+        return null;
+    }
+
+    private enum SubjectEnum {
+        /**
+         * 选择题&判断题的题型难度Enum
+         */
+        SINGLE_QUESTION_SIMPLE(5),
+        SINGLE_QUESTION_NORMAL(10),
+        SINGLE_QUESTION_DIFFICULTY(5),
+
+        TF_QUESTION_SIMPLE(2),
+        TF_QUESTION_NORMAL(2),
+        TF_QUESTION_DIFFICULTY(1);
+
+        Integer number;
+
+        SubjectEnum(Integer number) {
+            this.number = number;
+        }
+
+        public Integer getNumber() {
+            return number;
+        }
     }
 
     /**
+     * 定时器执行任务
      * 删除超出指定时间内的题目内容
      *
      * @param hour
