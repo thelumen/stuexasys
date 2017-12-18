@@ -76,7 +76,6 @@
                data-toolbar="#teacher_grade_toolbar"
                data-method="post"
                data-show-export="true"
-               data-url="${pageContext.request.contextPath}/grade/list"
                data-side-pagination="server"
                data-show-refresh="true"
                data-id-field="specialtyId"
