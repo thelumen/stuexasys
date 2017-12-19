@@ -5,8 +5,8 @@
 
     <!--新增学生-->
     <insert id="insert" parameterType="yang.domain.common.Student">
-        INSERT INTO com_student(studentId, password, name, specialtyId, gender)
-         VALUES (#{studentId},#{password},#{name},#{specialtyId},#{gender})
+        INSERT INTO com_student (studentId, password, name, specialtyId, gender)
+        VALUES (#{studentId}, #{password}, #{name}, #{specialtyId}, #{gender})
     </insert>
 
     <!--更新学生-->
@@ -58,7 +58,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 4)
+        ORDER BY rand() LIMIT 20)
         UNION
         (SELECT *
         FROM com_single_question
@@ -68,7 +68,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 14)
+        ORDER BY rand() LIMIT 70)
         UNION
         (SELECT *
         FROM com_single_question
@@ -78,7 +78,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 2)
+        ORDER BY rand() LIMIT 10)
     </select>
 
     <!--查询判断题题库-->
@@ -92,7 +92,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 1)
+        ORDER BY rand() LIMIT 5)
         UNION
         (SELECT *
         FROM com_tf_question
@@ -102,7 +102,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 3)
+        ORDER BY rand() LIMIT 15)
         UNION
         (SELECT *
         FROM com_tf_question
@@ -112,7 +112,7 @@
                  open="(" separator="," close=")">
             #{sectionItem}
         </foreach>
-        ORDER BY rand() LIMIT 1)
+        ORDER BY rand() LIMIT 5)
     </select>
 
     <!--查询成绩信息-->
@@ -287,6 +287,15 @@
             </if>
         </set>
         WHERE studentId=#{studentId} AND courseId= #{courseId}
+        <!--<if test="grade1!=null">-->
+            <!--AND (SELECT com_grade.grade1 from(select Max(grade1) grade1 from com_grade)com_grade )&lt;#{grade1}-->
+        <!--</if>-->
+        <!--<if test="grade2!=null">-->
+            <!--AND (SELECT com_grade.grade2 from(select Max(grade2) grade2 from com_grade)com_grade )&lt;#{grade2}-->
+        <!--</if>-->
+        <!--<if test="grade3!=null">-->
+            <!--AND (SELECT com_grade.grade3 from(select Max(grade3) grade1 from com_grade)com_grade )&lt;#{grade3}-->
+        <!--</if>-->
     </update>
 
     <!--更新学生附加题的答案-->

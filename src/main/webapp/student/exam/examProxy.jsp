@@ -16,6 +16,19 @@
     <script>
         $(function () {
             $("button.btn-success").click(function () {
+                $("#startTestButton").attr('disabled',true);//设置为不可用
+                //计时器实现
+                var timeS = 5;//等待时间,单位秒
+                var setI = setInterval(countDown, 1000);
+                function countDown() {
+                    timeS = timeS - 1;
+                    $("#startTestButtonLab").text(timeS);
+                    if (timeS === 0) {
+                        clearInterval(setI);//结束计时器
+                        $("#startTestButtonLab").text("开始考试");
+                        $("#startTestButton").attr('disabled',false);//设置为可用
+                    }
+                }
                 var rows = this.value;
                 var s = rows.split("_");
                 var testNum = 0;
@@ -95,14 +108,17 @@
                                                 pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <c:if test="${Info.test==1}">
-                                    <button type="button"
+                                    <button id="startTestButton"
+                                            type="button"
                                             class="btn btn-success"
+                                            style="width: 100px"
                                             value="${Info.courseId}_${Info.content}_${Info.testNum}_${Info.courseName}">
-                                        <label>开始考试</label>
+                                        <label id="startTestButtonLab">开始考试</label>
                                     </button>
                                 </c:if>
                                 <c:if test="${!(Info.test==1)}">
                                     <button type="button"
+                                            style="width: 100px"
                                             class="btn btn-primary"
                                             disabled="disabled">
                                         <label>等待开始</label>

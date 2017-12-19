@@ -3,6 +3,7 @@ package yang.dao.student;
 import org.springframework.stereotype.Repository;
 import yang.domain.common.Student;
 import yang.domain.student.*;
+import yang.domain.teacher.GradeTaken;
 
 import java.util.List;
 import java.util.Map;

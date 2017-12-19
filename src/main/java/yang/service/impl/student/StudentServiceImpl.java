@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import yang.common.cache.EQCache;
 import yang.common.enums.DeleteType;
+import yang.common.enums.QuestionType;
 import yang.common.kit.ChapterKit;
 import yang.common.kit.EncryptKit;
+import yang.common.kit.GetTest;
 import yang.common.kit.LogKit;
 import yang.dao.student.StudentMapper;
 import yang.domain.common.Student;
 import yang.domain.student.*;
+import yang.domain.teacher.GradeTaken;
 import yang.service.student.StudentService;
 
 import java.util.*;
@@ -26,6 +30,7 @@ import java.util.*;
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
     private static final Logger LOGGER = LogKit.getLogger();
+    private final Object object = new Object();
 
     @Autowired
     protected StudentMapper mapper;
@@ -151,33 +156,38 @@ public class StudentServiceImpl implements StudentService {
             put("courseId", gradeInfo.getCourseId());
             put("studentId", gradeInfo.getStudentId());
         }};
+        List<GradeInfo> gradeTakenList;
+        int grade = gradeInfo.getGrade();
         switch (gradeInfo.getTestNum()) {
             case "1":
-                uploadGrade.put("grade1", gradeInfo.getGrade());
-                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                uploadGrade.put("grade1", grade);
+                gradeTakenList = mapper.selectGradeInfo(uploadGrade);
+                if (gradeTakenList.size() == 0) {
                     if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = mapper.updateGrade(uploadGrade) > 0;
+                changedRow = gradeTakenList.get(0).getGrade1() >= grade || mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "2":
-                uploadGrade.put("grade2", gradeInfo.getGrade());
-                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                uploadGrade.put("grade2", grade);
+                gradeTakenList = mapper.selectGradeInfo(uploadGrade);
+                if (gradeTakenList.size() == 0) {
                     if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = mapper.updateGrade(uploadGrade) > 0;
+                changedRow = gradeTakenList.get(0).getGrade2() >= grade || mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "3":
-                uploadGrade.put("grade3", gradeInfo.getGrade());
-                if (mapper.selectGradeInfo(uploadGrade).size() == 0) {
+                uploadGrade.put("grade3", grade);
+                gradeTakenList = mapper.selectGradeInfo(uploadGrade);
+                if (gradeTakenList.size() == 0) {
                     if (!(mapper.insertGrade(uploadGrade) > 0)) {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = mapper.updateGrade(uploadGrade) > 0;
+                changedRow = gradeTakenList.get(0).getGrade3() >= grade || mapper.updateGrade(uploadGrade) > 0;
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
@@ -284,20 +294,48 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public TestPaper selectQuestion(ExamInfo examInfo) {
-        if (examInfo == null) {
+        Objects.requireNonNull(examInfo);
+        TestPaper testPaper = EQCache.getQuestionCache(examInfo);
+        if (testPaper == null) {
+            synchronized (object) {
+                testPaper = EQCache.getQuestionCache(examInfo);
+                if (null == testPaper) {
+                    String[] sectionArray = examInfo.getContent().split(",");
+                    Map<String, Object> testInfo = new HashMap<>();
+                    testInfo.put("courseId", examInfo.getCourseId());
+                    testInfo.put("sectionList", ChapterKit.getChapterTransport(sectionArray));
+
+                    List<SingleTaken> singleTakenList = mapper.selectQuestionOfSingle(testInfo);
+                    List<TfTaken> tfTakenList = mapper.selectQuestionOfTf(testInfo);
+
+                    testPaper = new TestPaper();
+                    testPaper.setSingleTakenList(singleTakenList);
+                    testPaper.setTfTakenList(tfTakenList);
+
+                    EQCache.setQuestionCache(examInfo, testPaper);
+                }
+            }
+        }
+
+        List<SingleTaken> singleTakenList = (List<SingleTaken>) GetTest.randQuestion(testPaper.getSingleTakenList(), QuestionType.Single);
+        List<TfTaken> tfTakenList = (List<TfTaken>) GetTest.randQuestion(testPaper.getTfTakenList(), QuestionType.TF);
+
+        //null值判断
+        if (null == singleTakenList) {
+            LOGGER.debug("选择题组题出现问题");
             return null;
         }
-        String[] strArray = examInfo.getContent().split(",");
-        //将得到的 章节(sectionInfo) 字符串与其他 参数(examInfo) 发往数据库进行查询 并按 难度(levels) 排序
-        Map<String, Object> testInfo = new HashMap<>();
-        testInfo.put("courseId", examInfo.getCourseId());
-        testInfo.put("sectionList", ChapterKit.getChapterTransport(strArray));
-        //返回 按章节查询出的全部 选择题（singleTakenList） 和 判断题 （tfTakenList）
-        List<SingleTaken> singleTakenList = mapper.selectQuestionOfSingle(testInfo);
-        List<TfTaken> tfTakenList = mapper.selectQuestionOfTf(testInfo);
+        if (null == tfTakenList) {
+            LOGGER.debug("判断题组题出现问题");
+            return null;
+        }
         //判断返回题目数是否足够
-        if (singleTakenList.size() != 20 || tfTakenList.size() != 5) {
-            LOGGER.debug("组题出现异常");
+        if (singleTakenList.size() != 20) {
+            LOGGER.debug("返回选择题题目数不足");
+            return null;
+        }
+        if (tfTakenList.size() != 5) {
+            LOGGER.debug("返回判断题题目数不足");
             return null;
         }
         //对返回的答案进行加密
@@ -346,12 +384,13 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         //将得到的 选择题(testSingleList) 和 判断题(testTfList) 整合到 一个对象（testPaper） 中返回
-        TestPaper testPaper = new TestPaper();
-        testPaper.setCourseName(examInfo.getCourseName());
-        testPaper.setSingleTakenList(singleTakenList);
-        testPaper.setTfTakenList(tfTakenList);
-        testPaper.setTestNum(examInfo.getTestNum());
-        return testPaper;
+        TestPaper returnPaper = new TestPaper();
+        returnPaper.setCourseName(examInfo.getCourseName());
+        returnPaper.setSingleTakenList(singleTakenList);
+        returnPaper.setTfTakenList(tfTakenList);
+        returnPaper.setTestNum(examInfo.getTestNum());
+
+        return returnPaper;
     }
 
     @Override

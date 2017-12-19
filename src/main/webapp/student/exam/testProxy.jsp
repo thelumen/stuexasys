@@ -80,6 +80,32 @@
                     }
                 });
             });
+
+            //放弃考试按钮
+            $("#giveUpTest").click(function () {
+                $.confirm({
+                    title: "",
+                    content: "确定要放弃吗?",
+                    animation: 'left',
+                    backgroundDismiss: true,
+                    closeAnimation: 'rotateX',
+                    type: 'purple',
+                    buttons: {
+                        ok: {
+                            text: "是的!",
+                            theme: 'dark',
+                            btnClass: 'btn-primary',
+                            keys: ['enter'],
+                            action: function () {
+                                clearInterval(setI);//结束计时器
+                                window.location.href = ('${pageContext.request.contextPath}/student/main');
+                            }
+                        },
+                        cancel: function () {
+                        }
+                    }
+                });
+            });
         });
 
         //提交到服务器
@@ -121,7 +147,7 @@
                                     btnClass: 'btn-primary',
                                     keys: ['enter'],
                                     action: function () {
-                                        window.location.href = ('${pageContext.request.contextPath}/student/info');
+                                        window.location.href = ('${pageContext.request.contextPath}/student/main');
                                     }
                                 }
                             }
@@ -249,7 +275,13 @@
                             class="btn btn-primary">
                         <label>提交试卷</label>
                     </button>
+                    &nbsp;&nbsp;
+                    <button type="button" id="giveUpTest"
+                            class="btn btn-danger">
+                        <label>放弃考试</label>
+                    </button>
                 </p>
+                <p style="color: whitesmoke">&nbsp;&nbsp;&nbsp;&nbsp;重复作答只取最高成绩</p>
             </form>
             <input id="hideArea" type="hidden">
         </div>
