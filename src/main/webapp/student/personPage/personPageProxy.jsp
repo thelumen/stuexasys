@@ -22,6 +22,9 @@
             text-align: center;
             vertical-align: middle !important;
         }
+        .yearSelect{
+            width: 150px;
+        }
     </style>
     <script>
         //校验邮箱
@@ -31,7 +34,7 @@
             if (!myreg.test(email)) {
                 $.alert({
                     title: "",
-                    content: "邮箱格式不正确：(",
+                    content: "邮箱格式不正确:(",
                     backgroundDismiss: true
                 });
                 return false;
@@ -113,6 +116,21 @@
             $("#changePasswordButton").click(function () {
                 $("#changePasswordContent").slideToggle("slow");
             });
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/student/year',
+                dataType: 'json',
+                success: function (data) {
+                    $(".yearSelect").select2({
+                        placeholder: "学期",
+                        allowClear: true,
+                        data: data,
+                        maximumSelectionLength: 3
+                    });
+                }
+            });
+
+
         });
     </script>
 </head>
@@ -194,7 +212,10 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane table-responsive" id="panel-463107">
-                        <table class="table table-hover">
+                        <select id="courseSelect" class="yearSelect" multiple="multiple"></select>
+                        <button id="courseSelectButton" class="btn btn-primary" type="button">查找</button>
+                        <table class="table table-hover"
+                               id="courseTable">
                             <thead>
                             <tr>
                                 <th>课程名称</th>
@@ -226,7 +247,10 @@
                     </div>
                     <div class="tab-pane active table-responsive"
                          id="panel-282388">
-                        <table class="table table-hover">
+                        <select id="gradeSelect" class="yearSelect" multiple="multiple"></select>
+                        <button id="gradeSelectButton" class="btn btn-primary" type="button">查找</button>
+                        <table class="table table-hover"
+                               id="gradeTable">
                             <thead>
                             <tr>
                                 <th>课程名称</th>

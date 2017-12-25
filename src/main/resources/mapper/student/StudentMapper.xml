@@ -287,15 +287,6 @@
             </if>
         </set>
         WHERE studentId=#{studentId} AND courseId= #{courseId}
-        <!--<if test="grade1!=null">-->
-            <!--AND (SELECT com_grade.grade1 from(select Max(grade1) grade1 from com_grade)com_grade )&lt;#{grade1}-->
-        <!--</if>-->
-        <!--<if test="grade2!=null">-->
-            <!--AND (SELECT com_grade.grade2 from(select Max(grade2) grade2 from com_grade)com_grade )&lt;#{grade2}-->
-        <!--</if>-->
-        <!--<if test="grade3!=null">-->
-            <!--AND (SELECT com_grade.grade3 from(select Max(grade3) grade1 from com_grade)com_grade )&lt;#{grade3}-->
-        <!--</if>-->
     </update>
 
     <!--更新学生附加题的答案-->

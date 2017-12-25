@@ -46,10 +46,21 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
-        model.addAttribute("studentCourse", studentService.selectCourse(StudentKit.getStudentIdWithMap()));
-        model.addAttribute("studentGrade", studentService.selectGrade(StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentCourse", studentService.selectCourse(null,StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentGrade", studentService.selectGrade(null,StudentKit.getStudentIdWithMap()));
         model.addAttribute("studentInfo", studentService.selectStudentInfo(null, StudentKit.getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
+    }
+
+    /**
+     * 加载学生学年信息下拉菜单
+     *
+     * @return .
+     */
+    @RequestMapping(value = "/year", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getStudentYear(){
+        return StudentKit.makeStudentYear();
     }
 
     /**

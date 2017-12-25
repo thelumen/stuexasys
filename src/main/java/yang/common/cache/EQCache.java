@@ -45,7 +45,7 @@ public class EQCache {
         //定义删除方法
         Runnable runnable = () -> questionCache.remove(key);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        //设置cache一小时后执行删除方法
+        //设置cache两小时后执行删除方法
         service.schedule(runnable, 2, TimeUnit.HOURS);
     }
 

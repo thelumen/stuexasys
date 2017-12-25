@@ -27,18 +27,20 @@ public interface StudentService {
     /**
      * 查询学生成绩信息
      *
+     * @param page   .
      * @param params .
      * @return List<GradeTaken>
      */
-    List<GradeTaken> selectGrade(Map<String, Object> params);
+    List<GradeTaken> selectGrade(Page page, Map<String, Object> params);
 
     /**
      * 查询学生课程信息
      *
+     * @param page   .
      * @param params .
      * @return List<GradeTaken>
      */
-    List<CourseTaken> selectCourse(Map<String, Object> params);
+    List<CourseTaken> selectCourse(Page page, Map<String, Object> params);
 
     /**
      * 查询学生考试信息
