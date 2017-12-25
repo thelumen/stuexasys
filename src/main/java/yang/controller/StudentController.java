@@ -46,8 +46,8 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
-        model.addAttribute("studentCourse", studentService.selectCourse(null,StudentKit.getStudentIdWithMap()));
-        model.addAttribute("studentGrade", studentService.selectGrade(null,StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentCourse", studentService.selectCourse(null, StudentKit.getStudentIdWithMap()));
+        model.addAttribute("studentGrade", studentService.selectGrade(null, StudentKit.getStudentIdWithMap()));
         model.addAttribute("studentInfo", studentService.selectStudentInfo(null, StudentKit.getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
     }
@@ -59,7 +59,7 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/year", method = RequestMethod.GET)
     @ResponseBody
-    public Object getStudentYear(){
+    public Object getStudentYear() {
         return StudentKit.makeStudentYear();
     }
 
@@ -188,7 +188,9 @@ public class StudentController extends CommonController {
         examInfo.setCourseName(s[1]);
         examInfo.setTestNum("4");
         TestPaper testPaper = studentService.selectTestPaperAnother(StudentKit.getStudentIdWithInt(), examInfo);
-        ResourceKit.backUpExamTaken(testPaper, s[1], StudentKit.getCurrentStudent().getSpecialtyName(), StudentKit.getStudentIdWithInt());
+        if (null != testPaper) {
+            ResourceKit.backUpExamTaken(testPaper, s[3], StudentKit.getCurrentStudent().getSpecialtyName(), StudentKit.getStudentIdWithInt());
+        }
         model.addAttribute("testPaper", testPaper);
         return "/student/exam/testAnotherProxy";
     }
