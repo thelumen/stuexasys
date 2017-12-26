@@ -230,10 +230,16 @@
         WHERE
             g.studentId = s.studentId AND g.courseId = c.courseId AND tc.specialtyId = s.specialtyId AND
             tc.courseId = c.courseId AND g.studentId = #{studentId}
+        <if test="startTime != null">
+            AND tc.starttime &gt; #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND tc.endtime &lt; #{endTime}
+        </if>
     </select>
 
     <!--查询学生课程-->
-    <select id="selectCourse" parameterType="java.util.Map"
+    <select id="selectCourse" parameterType="yang.domain.student.CourseTaken"
             resultType="yang.domain.student.CourseTaken">
         SELECT DISTINCT
             c.name AS courseName,
@@ -244,6 +250,12 @@
         FROM com_course c, com_teacher_l_course tc, com_student s
         WHERE
             c.courseId = tc.courseId AND s.specialtyId = tc.specialtyId AND s.studentId = #{studentId}
+        <if test="startTime != null">
+            AND tc.starttime &gt; #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND tc.endtime &lt; #{endTime}
+        </if>
     </select>
 
     <!--更新学生信息-->

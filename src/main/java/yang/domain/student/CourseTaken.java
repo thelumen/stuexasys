@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
+ *
  * Created by 花间一壶酒 on 2017/5/30.
  */
 public final class CourseTaken {
+    private Integer studentId;
     private String courseName;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date startTime;
@@ -15,6 +17,14 @@ public final class CourseTaken {
     private Date endTime;
     private Integer period;
     private Integer credit;
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
 
     public String getCourseName() {
         return courseName;

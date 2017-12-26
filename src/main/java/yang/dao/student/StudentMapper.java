@@ -59,10 +59,10 @@ public interface StudentMapper {
     /**
      * 查询学生成绩信息
      *
-     * @param params .
+     * @param courseTaken .
      * @return List<GradeTaken>
      */
-    List<GradeTaken> selectGrade(Map<String, Object> params);
+    List<GradeTaken> selectGrade(CourseTaken courseTaken);
 
     /**
      * 查询学生考试信息
@@ -83,10 +83,10 @@ public interface StudentMapper {
     /**
      * 查询学生课程信息
      *
-     * @param params .
+     * @param courseTaken .
      * @return List<CourseTaken>
      */
-    List<CourseTaken> selectCourse(Map<String, Object> params);
+    List<CourseTaken> selectCourse(CourseTaken courseTaken);
 
     /**
      * 查询考试信息

@@ -22,7 +22,8 @@
             text-align: center;
             vertical-align: middle !important;
         }
-        .yearSelect{
+
+        .yearSelect {
             width: 150px;
         }
     </style>
@@ -98,6 +99,22 @@
             }
         }
 
+        //查询课程表
+        function updateCourseTable() {
+            var year = $("#courseSelect").val();
+            $("#courseTable").bootstrapTable("refresh", {
+                url: "${pageContext.request.contextPath}/student/year/course/" + year
+            });
+        }
+
+        //查询成绩表
+        function updateGradeTable() {
+            var year = $("#gradeSelect").val();
+            $("#gradeTable").bootstrapTable("refresh", {
+                url: "${pageContext.request.contextPath}/student/year/grade/" + year
+            });
+        }
+
         $(function () {
             if (window.history && window.history.pushState) {
                 $(window).on('popstate', function () {
@@ -125,12 +142,61 @@
                         placeholder: "学期",
                         allowClear: true,
                         data: data,
-                        maximumSelectionLength: 3
+                        maximumSelectionLength: 4
                     });
                 }
             });
 
+            //课程表初始化
+            $("#courseTable").bootstrapTable({
+                method: "post",
+                url: "${pageContext.request.contextPath}/student/year/course/0",
+                sidePagination: "server",
+                idField: "courseName",
+                columns: [{
+                    field: 'courseName',
+                    title: '课程名称'
+                }, {
+                    field: 'startTime',
+                    title: '开课时间'
+                }, {
+                    field: 'endTime',
+                    title: '结课时间'
+                }, {
+                    field: 'period',
+                    title: '学时'
+                }, {
+                    field: 'credit',
+                    title: '学分'
+                }]
+            });
 
+            //成绩表初始化
+            $("#gradeTable").bootstrapTable({
+                method: "post",
+                url: "${pageContext.request.contextPath}/student/year/grade/0",
+                sidePagination: "server",
+                idField: "courseName",
+                columns: [{
+                    field: 'courseName',
+                    title: '课程名称'
+                }, {
+                    field: 'grade1',
+                    title: '测试一'
+                }, {
+                    field: 'grade2',
+                    title: '测试二'
+                }, {
+                    field: 'grade3',
+                    title: '测试三'
+                }, {
+                    field: 'grade4',
+                    title: '测试四'
+                }, {
+                    field: 'total',
+                    title: '总分'
+                }]
+            })
         });
     </script>
 </head>
@@ -212,67 +278,23 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane table-responsive" id="panel-463107">
-                        <select id="courseSelect" class="yearSelect" multiple="multiple"></select>
-                        <button id="courseSelectButton" class="btn btn-primary" type="button">查找</button>
+                        <select id="courseSelect" class="yearSelect"></select>
+                        <button id="courseSelectButton" class="btn btn-primary" type="button"
+                                onclick="updateCourseTable()">查找
+                        </button>
                         <table class="table table-hover"
                                id="courseTable">
-                            <thead>
-                            <tr>
-                                <th>课程名称</th>
-                                <th>开课时间</th>
-                                <th>结课时间</th>
-                                <th>学时</th>
-                                <th>学分</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:if test="${!empty studentCourse}">
-                                <c:forEach items="${studentCourse}" var="Info">
-                                    <tr>
-                                        <td>${Info.courseName}</td>
-                                        <td><fmt:formatDate
-                                                value="${Info.startTime}"
-                                                pattern="yyyy-MM-dd"/></td>
-                                        <td><fmt:formatDate
-                                                value="${Info.endTime}"
-                                                pattern="yyyy-MM-dd"/></td>
-                                        <td>${Info.period}</td>
-                                        <td>${Info.credit}</td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                            </tbody>
                         </table>
                         <p style="color: #002a80">(学分请以教务处数据为准)</p>
                     </div>
                     <div class="tab-pane active table-responsive"
                          id="panel-282388">
-                        <select id="gradeSelect" class="yearSelect" multiple="multiple"></select>
-                        <button id="gradeSelectButton" class="btn btn-primary" type="button">查找</button>
+                        <select id="gradeSelect" class="yearSelect"></select>
+                        <button id="gradeSelectButton" class="btn btn-primary" type="button"
+                                onclick="updateGradeTable()">查找
+                        </button>
                         <table class="table table-hover"
                                id="gradeTable">
-                            <thead>
-                            <tr>
-                                <th>课程名称</th>
-                                <th>测试一</th>
-                                <th>测试二</th>
-                                <th>测试三</th>
-                                <th>测试四</th>
-                                <th>总分</th>
-                            </tr>
-                            </thead>
-                            <c:if test="${!empty studentGrade}">
-                                <c:forEach items="${studentGrade}" var="Info">
-                                    <tr>
-                                        <td>${Info.courseName}</td>
-                                        <td>${Info.grade1}</td>
-                                        <td>${Info.grade2}</td>
-                                        <td>${Info.grade3}</td>
-                                        <td>${Info.grade4}</td>
-                                        <td>${Info.total}</td>
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
                         </table>
                     </div>
                 </div>

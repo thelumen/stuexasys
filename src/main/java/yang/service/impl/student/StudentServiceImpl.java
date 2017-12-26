@@ -48,11 +48,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<GradeTaken> selectGrade(Page page, Map<String, Object> params) {
+    public List<GradeTaken> selectGrade(Page page, CourseTaken courseTaken) {
         if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+            PageHelper.startPage(page.getPageNum(), 6, page.getOrderBy());
         }
-        List<GradeTaken> gradeTakens = mapper.selectGrade(params);
+        List<GradeTaken> gradeTakens = mapper.selectGrade(courseTaken);
         if (null != gradeTakens && gradeTakens.size() > 0) {
             return gradeTakens;
         }
@@ -60,11 +60,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<CourseTaken> selectCourse(Page page, Map<String, Object> params) {
+    public List<CourseTaken> selectCourse(Page page, CourseTaken courseTaken) {
         if (null != page) {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
+            PageHelper.startPage(page.getPageNum(), 6, page.getOrderBy());
         }
-        List<CourseTaken> courseTakens = mapper.selectCourse(params);
+        List<CourseTaken> courseTakens = mapper.selectCourse(courseTaken);
         if (null != courseTakens && courseTakens.size() > 0) {
             return courseTakens;
         }

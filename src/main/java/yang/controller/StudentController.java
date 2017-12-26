@@ -8,6 +8,7 @@ import yang.common.base.ResultBean;
 import yang.common.kit.*;
 import yang.controller.common.CommonController;
 import yang.domain.common.Student;
+import yang.domain.student.CourseTaken;
 import yang.domain.student.ExamInfo;
 import yang.domain.student.GradeInfo;
 import yang.domain.student.TestPaper;
@@ -15,6 +16,8 @@ import yang.domain.student.TestPaper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +49,6 @@ public class StudentController extends CommonController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions(value = "shiro:sys:student")
     public String personPage(Model model) {
-        model.addAttribute("studentCourse", studentService.selectCourse(null,StudentKit.getStudentIdWithMap()));
-        model.addAttribute("studentGrade", studentService.selectGrade(null,StudentKit.getStudentIdWithMap()));
         model.addAttribute("studentInfo", studentService.selectStudentInfo(null, StudentKit.getStudentIdWithMap()).get(0));
         return "/student/personPage/personPageProxy";
     }
@@ -59,8 +60,39 @@ public class StudentController extends CommonController {
      */
     @RequestMapping(value = "/year", method = RequestMethod.GET)
     @ResponseBody
-    public Object getStudentYear(){
+    public Object getStudentYear() {
         return StudentKit.makeStudentYear();
+    }
+
+    /**
+     * 查询学生课程
+     *
+     * @param params 分页信息
+     * @param year   查询年号
+     * @return 对应的课程表
+     */
+    @RequestMapping(value = "/year/{type}/{year}", method = RequestMethod.POST)
+    @ResponseBody
+    public Object getStudentYearCourse(@RequestBody Map<String, Object> params,
+                                       @PathVariable(value = "type") String type,
+                                       @PathVariable(value = "year") int year) throws ParseException {
+        CourseTaken courseTaken = new CourseTaken();
+        //默认显示当前学期课程表
+        if (0 == year) {
+            year = StudentKit.judgeSection() - 1;//结束年号减一获取开始年号
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        courseTaken.setStudentId(StudentKit.getStudentIdWithInt());
+        courseTaken.setStartTime(sdf.parse(String.valueOf(year) + "-08-01"));
+        courseTaken.setEndTime(sdf.parse(String.valueOf(year + 1) + "-08-01"));
+        switch (type) {
+            case "course":
+                return CommonKit.getTakenInfo(studentService.selectCourse(CommonKit.getMapInfo2Page(params), courseTaken));
+            case "grade":
+                return CommonKit.getTakenInfo(studentService.selectGrade(CommonKit.getMapInfo2Page(params), courseTaken));
+            default:
+                return null;
+        }
     }
 
     /**

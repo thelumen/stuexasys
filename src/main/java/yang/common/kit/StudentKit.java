@@ -59,18 +59,42 @@ public final class StudentKit {
     public static List<Map<String, Object>> makeStudentYear() {
         List<Map<String, Object>> yearList = new ArrayList<>();
         Map<String, Object> year;
-        String studentId = "" + getStudentIdWithInt();
-        int startYear = Integer.valueOf(studentId.substring(0, 2)) + 2000;//截取学号前两位，组装成入学年
-        Calendar calendar = Calendar.getInstance();
-        int parentYear = calendar.get(Calendar.YEAR);
-        int parentMouth = calendar.get(Calendar.MONTH);// 0 代表一月 11 代表十二月
-        int endYear = parentMouth > 8 ? parentYear + 1 : parentYear;// 获取学期结束年
-        for (; startYear < endYear; startYear++) {
+        int startYear = Integer.valueOf(String.valueOf(getStudentIdWithInt()).substring(0, 2)) + 2000;//截取学号前两位，组装成入学年
+        int endYear = judgeSection();
+        for (; startYear < endYear; endYear--) {
             year = new HashMap<>();
-            year.put("id", startYear);
-            year.put("text", startYear + "-" + (startYear + 1));
+            year.put("id", endYear - 1);
+            year.put("text", endYear - 1 + "-" + endYear);
             yearList.add(year);
         }
         return yearList;
+    }
+
+    /**
+     * 获取当前时间
+     *
+     * @param until 希望获取的时间类型
+     * @return int 类型的返回值
+     */
+    public static int getParentTime(String until) {
+        Calendar calendar = Calendar.getInstance();
+        switch (until) {
+            case "year":
+                return calendar.get(Calendar.YEAR);
+            case "month":
+                return calendar.get(Calendar.MONTH);// 0 代表一月 11 代表十二月
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * 根据当前月份判断所属的结束学期年号
+     *
+     * @return 年号
+     */
+    public static int judgeSection() {
+        int parentYear = getParentTime("year");
+        return getParentTime("month") > 8 ? parentYear + 1 : parentYear;
     }
 }
