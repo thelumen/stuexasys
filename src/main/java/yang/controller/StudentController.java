@@ -289,8 +289,7 @@ public class StudentController extends CommonController {
             info.put("single", single);
             info.put("tf", tf);
         }
-        ResourceKit.backUpExamInfo(gradeInfo, StudentKit.getCurrentStudent().getSpecialtyName());
-        info.put("issuccess", studentService.insertGrade(gradeInfo));
+        info.put("issuccess", studentService.insertGrade(gradeInfo,StudentKit.getCurrentStudent().getSpecialtyName()));
         return info;
     }
 

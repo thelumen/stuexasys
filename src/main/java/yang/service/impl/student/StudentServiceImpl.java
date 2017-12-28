@@ -10,16 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import yang.common.cache.EQCache;
 import yang.common.enums.DeleteType;
 import yang.common.enums.QuestionType;
-import yang.common.kit.ChapterKit;
-import yang.common.kit.EncryptKit;
-import yang.common.kit.GetTest;
-import yang.common.kit.LogKit;
+import yang.common.kit.*;
 import yang.dao.student.StudentMapper;
 import yang.domain.common.Student;
 import yang.domain.student.*;
 import yang.domain.teacher.GradeTaken;
 import yang.service.student.StudentService;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -50,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<GradeTaken> selectGrade(Page page, CourseTaken courseTaken) {
         if (null != page) {
-            PageHelper.startPage(page.getPageNum(), 6, page.getOrderBy());
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
         List<GradeTaken> gradeTakens = mapper.selectGrade(courseTaken);
         if (null != gradeTakens && gradeTakens.size() > 0) {
@@ -62,7 +60,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<CourseTaken> selectCourse(Page page, CourseTaken courseTaken) {
         if (null != page) {
-            PageHelper.startPage(page.getPageNum(), 6, page.getOrderBy());
+            PageHelper.startPage(page.getPageNum(), page.getPageSize(), page.getOrderBy());
         }
         List<CourseTaken> courseTakens = mapper.selectCourse(courseTaken);
         if (null != courseTakens && courseTakens.size() > 0) {
@@ -155,7 +153,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean insertGrade(GradeInfo gradeInfo) {
+    public boolean insertGrade(GradeInfo gradeInfo, String specialtyName) {
         boolean changedRow;
         Map<String, Object> uploadGrade = new HashMap<String, Object>() {{
             put("Id", gradeInfo.getId());
@@ -173,7 +171,8 @@ public class StudentServiceImpl implements StudentService {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = gradeTakenList.get(0).getGrade1() >= grade || mapper.updateGrade(uploadGrade) > 0;
+                //只有当新成绩大于原成绩时才进行更新和备份
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade1() >= grade, gradeInfo, uploadGrade,specialtyName);
                 break;
             case "2":
                 uploadGrade.put("grade2", grade);
@@ -183,7 +182,7 @@ public class StudentServiceImpl implements StudentService {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = gradeTakenList.get(0).getGrade2() >= grade || mapper.updateGrade(uploadGrade) > 0;
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade2() >= grade, gradeInfo, uploadGrade,specialtyName);
                 break;
             case "3":
                 uploadGrade.put("grade3", grade);
@@ -193,7 +192,7 @@ public class StudentServiceImpl implements StudentService {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = gradeTakenList.get(0).getGrade3() >= grade || mapper.updateGrade(uploadGrade) > 0;
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade3() >= grade, gradeInfo, uploadGrade,specialtyName);
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
@@ -201,6 +200,9 @@ public class StudentServiceImpl implements StudentService {
                     changedRow = mapper.insertAnotherResult(uploadGrade) > 0;
                 } catch (DataAccessException e) {
                     changedRow = mapper.updateAnotherResult(uploadGrade) > 0;
+                }
+                if(changedRow){
+                    backupExam(gradeInfo,specialtyName);
                 }
                 break;
             default:
@@ -323,8 +325,8 @@ public class StudentServiceImpl implements StudentService {
             }
         }
 
-        List<SingleTaken> singleTakenList = (List<SingleTaken>) GetTest.randQuestion(testPaper.getSingleTakenList(), QuestionType.Single);
-        List<TfTaken> tfTakenList = (List<TfTaken>) GetTest.randQuestion(testPaper.getTfTakenList(), QuestionType.TF);
+        List<SingleTaken> singleTakenList = (List<SingleTaken>) TestPaperMakeKit.randQuestion(testPaper.getSingleTakenList(), QuestionType.Single);
+        List<TfTaken> tfTakenList = (List<TfTaken>) TestPaperMakeKit.randQuestion(testPaper.getTfTakenList(), QuestionType.TF);
 
         //null值判断
         if (null == singleTakenList) {
@@ -424,5 +426,40 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean deleteStudent(Map<String, Object> params) {
         return mapper.deleteStudent(params) > 0;
+    }
+
+    /**
+     * 判断更新
+     *
+     * @param changedRow
+     * @param gradeInfo
+     * @param uploadGrade
+     * @param specialtyName
+     * @return
+     */
+    private boolean judgeUpdate(boolean changedRow,GradeInfo gradeInfo,Map<String, Object> uploadGrade,String specialtyName){
+            if (!changedRow) {
+                if(mapper.updateGrade(uploadGrade) > 0){
+                    backupExam(gradeInfo,specialtyName);
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        return true;
+    }
+
+    /**
+     * 备份方法
+     *
+     * @param gradeInfo
+     * @param specialtyName
+     */
+    private void backupExam(GradeInfo gradeInfo,String specialtyName){
+        try {
+                ResourceKit.backUpExamInfo(gradeInfo,specialtyName);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

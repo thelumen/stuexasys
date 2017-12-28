@@ -65,7 +65,7 @@ public interface StudentService {
      * @param gradeInfo 参数.
      * @return int 插入成功的行数
      */
-    boolean insertGrade(GradeInfo gradeInfo);
+    boolean insertGrade(GradeInfo gradeInfo,String specialtyName);
 
     /**
      * 更新学生信息

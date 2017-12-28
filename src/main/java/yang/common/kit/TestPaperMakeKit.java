@@ -15,7 +15,7 @@ import java.util.Set;
  * <p>
  * Created by 花间一壶酒 on 2017/12/16.
  */
-public final class GetTest {
+public final class TestPaperMakeKit {
 
     private static final Logger LOGGER = LogKit.getLogger();
 
