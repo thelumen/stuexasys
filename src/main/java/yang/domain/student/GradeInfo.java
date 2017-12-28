@@ -8,11 +8,11 @@ public class GradeInfo {
     private Integer studentId;
     private Integer courseId;
     private String courseName;
-    private Integer grade;
-    private Integer grade1;
-    private Integer grade2;
-    private Integer grade3;
-    private Integer grade4;
+    private int grade;
+    private int grade1;
+    private int grade2;
+    private int grade3;
+    private int grade4;
     private String testNum;
     private String result;
     private String[] answer;
@@ -33,35 +33,35 @@ public class GradeInfo {
         this.answer = answer;
     }
 
-    public Integer getGrade1() {
+    public int getGrade1() {
         return grade1;
     }
 
-    public void setGrade1(Integer grade1) {
+    public void setGrade1(int grade1) {
         this.grade1 = grade1;
     }
 
-    public Integer getGrade2() {
+    public int getGrade2() {
         return grade2;
     }
 
-    public void setGrade2(Integer grade2) {
+    public void setGrade2(int grade2) {
         this.grade2 = grade2;
     }
 
-    public Integer getGrade3() {
+    public int getGrade3() {
         return grade3;
     }
 
-    public void setGrade3(Integer grade3) {
+    public void setGrade3(int grade3) {
         this.grade3 = grade3;
     }
 
-    public Integer getGrade4() {
+    public int getGrade4() {
         return grade4;
     }
 
-    public void setGrade4(Integer grade4) {
+    public void setGrade4(int grade4) {
         this.grade4 = grade4;
     }
 

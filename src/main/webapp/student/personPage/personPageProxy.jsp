@@ -141,8 +141,7 @@
                     $(".yearSelect").select2({
                         placeholder: "学期",
                         allowClear: true,
-                        data: data,
-                        maximumSelectionLength: 4
+                        data: data
                     });
                 }
             });
