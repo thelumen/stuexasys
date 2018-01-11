@@ -1,5 +1,6 @@
 package yang.common.cache;
 
+import yang.common.kit.FileKit;
 import yang.domain.student.ExamInfo;
 import yang.domain.student.TestPaper;
 
@@ -28,7 +29,7 @@ public class EQCache {
      */
     public static TestPaper getQuestionCache(ExamInfo examInfo) {
         Objects.requireNonNull(examInfo);
-        return (TestPaper) questionCache.get(getQuestionKeyFromExamInfo(examInfo));
+        return (TestPaper) FileKit.deepCopy(questionCache.get(getQuestionKeyFromExamInfo(examInfo)));
     }
 
     /**
@@ -40,8 +41,8 @@ public class EQCache {
     public static void setQuestionCache(ExamInfo examInfo, TestPaper testPaper) {
         Objects.requireNonNull(examInfo);
         Objects.requireNonNull(testPaper);
-        String key=getQuestionKeyFromExamInfo(examInfo);
-        questionCache.put(key, testPaper);
+        String key = getQuestionKeyFromExamInfo(examInfo);
+        questionCache.put(key, FileKit.deepCopy(testPaper));
         //定义删除方法
         Runnable runnable = () -> questionCache.remove(key);
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();

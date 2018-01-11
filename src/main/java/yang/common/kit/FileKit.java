@@ -218,4 +218,14 @@ public final class FileKit {
         return Files.deleteIfExists(p);
     }
 
+
+    /**
+     * 复制对象方法
+     * 对象需要实现serialize接口
+     * @param o .
+     * @return .
+     */
+    public static Object deepCopy(Object o) {
+        return deserialize(serialize(o));
+    }
 }
