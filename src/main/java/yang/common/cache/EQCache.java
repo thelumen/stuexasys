@@ -59,4 +59,44 @@ public class EQCache {
     private static String getQuestionKeyFromExamInfo(ExamInfo examInfo) {
         return examInfo.getCourseId().toString() + Arrays.toString(examInfo.getContent().split(","));
     }
+
+    /**
+     * 获取学生题目缓存
+     *
+     * @param examInfo 考试信息.
+     * @return 考试内容.
+     */
+    public static TestPaper getStudentQuestionCache(ExamInfo examInfo, int studentId) {
+        Objects.requireNonNull(examInfo);
+        return (TestPaper) FileKit.deepCopy(questionCache.get(getStudentQuestionKeyFromExamInfo(examInfo, studentId)));
+    }
+
+    /**
+     * 设置学生题目缓存
+     *
+     * @param examInfo  考试信息.
+     * @param studentId 学生id
+     * @param testPaper 考试内容.
+     */
+    public static void setStudentQuestionCache(ExamInfo examInfo, int studentId, TestPaper testPaper) {
+        Objects.requireNonNull(examInfo);
+        Objects.requireNonNull(testPaper);
+        String key = getStudentQuestionKeyFromExamInfo(examInfo,studentId);
+        questionCache.put(key, FileKit.deepCopy(testPaper));
+        //定义删除方法
+        Runnable runnable = () -> questionCache.remove(key);
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        //设置cache两小时后执行删除方法
+        service.schedule(runnable, 2, TimeUnit.HOURS);
+    }
+
+    /**
+     * 根据考试信息与学生id生成键值
+     *
+     * @param examInfo 考试信息.
+     * @return 信息键值.
+     */
+    private static String getStudentQuestionKeyFromExamInfo(ExamInfo examInfo, int studentId) {
+        return examInfo.getCourseId().toString() + Arrays.toString(examInfo.getContent().split(",")) + studentId;
+    }
 }

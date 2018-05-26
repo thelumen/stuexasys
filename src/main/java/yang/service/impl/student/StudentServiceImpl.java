@@ -172,7 +172,7 @@ public class StudentServiceImpl implements StudentService {
                     }
                 }
                 //只有当新成绩大于原成绩时才进行更新和备份
-                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade1() >= grade, gradeInfo, uploadGrade,specialtyName);
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade1() >= grade, gradeInfo, uploadGrade, specialtyName);
                 break;
             case "2":
                 uploadGrade.put("grade2", grade);
@@ -182,7 +182,7 @@ public class StudentServiceImpl implements StudentService {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade2() >= grade, gradeInfo, uploadGrade,specialtyName);
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade2() >= grade, gradeInfo, uploadGrade, specialtyName);
                 break;
             case "3":
                 uploadGrade.put("grade3", grade);
@@ -192,7 +192,7 @@ public class StudentServiceImpl implements StudentService {
                         LOGGER.debug("学生课程与成绩关联数据添加失败");
                     }
                 }
-                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade3() >= grade, gradeInfo, uploadGrade,specialtyName);
+                changedRow = judgeUpdate(gradeTakenList.get(0).getGrade3() >= grade, gradeInfo, uploadGrade, specialtyName);
                 break;
             case "4":
                 uploadGrade.put("result", gradeInfo.getResult());
@@ -201,8 +201,8 @@ public class StudentServiceImpl implements StudentService {
                 } catch (DataAccessException e) {
                     changedRow = mapper.updateAnotherResult(uploadGrade) > 0;
                 }
-                if(changedRow){
-                    backupExam(gradeInfo,specialtyName);
+                if (changedRow) {
+                    backupExam(gradeInfo, specialtyName);
                 }
                 break;
             default:
@@ -301,9 +301,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public TestPaper selectQuestion(ExamInfo examInfo) {
+    public TestPaper selectQuestion(ExamInfo examInfo, int studentId) {
         Objects.requireNonNull(examInfo);
-        TestPaper testPaper = EQCache.getQuestionCache(examInfo);
+        //检查缓存中是否有该学生的试卷缓存
+        TestPaper testPaper = EQCache.getStudentQuestionCache(examInfo, studentId);
+        if (testPaper != null)
+            return testPaper;
+        //检查缓存中是否有当前考试的缓存
+        testPaper = EQCache.getQuestionCache(examInfo);
         if (testPaper == null) {
             synchronized (object) {
                 testPaper = EQCache.getQuestionCache(examInfo);
@@ -324,7 +329,6 @@ public class StudentServiceImpl implements StudentService {
                 }
             }
         }
-
         List<SingleTaken> singleTakenList = (List<SingleTaken>) TestPaperMakeKit.randQuestion(testPaper.getSingleTakenList(), QuestionType.Single);
         List<TfTaken> tfTakenList = (List<TfTaken>) TestPaperMakeKit.randQuestion(testPaper.getTfTakenList(), QuestionType.TF);
 
@@ -397,7 +401,7 @@ public class StudentServiceImpl implements StudentService {
         returnPaper.setSingleTakenList(singleTakenList);
         returnPaper.setTfTakenList(tfTakenList);
         returnPaper.setTestNum(examInfo.getTestNum());
-
+        EQCache.setStudentQuestionCache(examInfo, studentId, returnPaper);
         return returnPaper;
     }
 
@@ -437,15 +441,15 @@ public class StudentServiceImpl implements StudentService {
      * @param specialtyName
      * @return
      */
-    private boolean judgeUpdate(boolean changedRow,GradeInfo gradeInfo,Map<String, Object> uploadGrade,String specialtyName){
-            if (!changedRow) {
-                if(mapper.updateGrade(uploadGrade) > 0){
-                    backupExam(gradeInfo,specialtyName);
-                    return true;
-                }else {
-                    return false;
-                }
+    private boolean judgeUpdate(boolean changedRow, GradeInfo gradeInfo, Map<String, Object> uploadGrade, String specialtyName) {
+        if (!changedRow) {
+            if (mapper.updateGrade(uploadGrade) > 0) {
+                backupExam(gradeInfo, specialtyName);
+                return true;
+            } else {
+                return false;
             }
+        }
         return true;
     }
 
@@ -455,9 +459,9 @@ public class StudentServiceImpl implements StudentService {
      * @param gradeInfo
      * @param specialtyName
      */
-    private void backupExam(GradeInfo gradeInfo,String specialtyName){
+    private void backupExam(GradeInfo gradeInfo, String specialtyName) {
         try {
-                ResourceKit.backUpExamInfo(gradeInfo,specialtyName);
+            ResourceKit.backUpExamInfo(gradeInfo, specialtyName);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

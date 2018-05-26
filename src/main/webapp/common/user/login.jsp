@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body style="background: url(${pageContext.request.contextPath}/common/image/sea.jpg);background-attachment: fixed">
+<body style="background: url(${pageContext.request.contextPath}/common/image/sea.jpg) fixed;">
 <c:if test="${!empty exception}">
     <script>
         $.alert({
@@ -49,8 +49,8 @@
     <div class="row">
         <div class="col-md-7">
             <div style="vertical-align: middle">
-                <br><br><br><br>
-                <img src="${pageContext.request.contextPath}/common/image/bg-login.jpg"
+                <br><br>
+                <img src="${pageContext.request.contextPath}/common/image/bg-t.jpg"
                      class="img-responsive center-block">
             </div>
         </div>
@@ -91,8 +91,6 @@
             </form>
         </div>
     </div>
-    <br><br><br><br> <br><br><br>
-    <p style="text-align: center">辽宁工业大学 电子与信息工程学院 学生考核管理平台</p>
 </div>
 </body>
 </html>

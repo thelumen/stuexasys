@@ -32,7 +32,7 @@ public class OrdinaryTest {
 
     @Test
     public void t1() {
-        out.println(EncryptKit.md5("111"));
+        out.println(EncryptKit.md5("20140901"));
     }
 
 }

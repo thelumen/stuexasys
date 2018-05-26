@@ -198,7 +198,7 @@ public class StudentController extends CommonController {
         examInfo.setContent(s[1]);
         examInfo.setTestNum(s[2]);
         examInfo.setCourseName(s[3]);
-        TestPaper testPaper = studentService.selectQuestion(examInfo);
+        TestPaper testPaper = studentService.selectQuestion(examInfo, StudentKit.getStudentIdWithInt());
         if (null != testPaper) {
             ResourceKit.backUpExamTaken(testPaper, s[3], StudentKit.getCurrentStudent().getSpecialtyName(), StudentKit.getStudentIdWithInt());
         }
@@ -289,7 +289,7 @@ public class StudentController extends CommonController {
             info.put("single", single);
             info.put("tf", tf);
         }
-        info.put("issuccess", studentService.insertGrade(gradeInfo,StudentKit.getCurrentStudent().getSpecialtyName()));
+        info.put("issuccess", studentService.insertGrade(gradeInfo, StudentKit.getCurrentStudent().getSpecialtyName()));
         return info;
     }
 

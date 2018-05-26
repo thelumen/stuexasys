@@ -89,7 +89,7 @@ public interface StudentService {
      * @param examInfo .
      * @return .
      */
-    TestPaper selectQuestion(ExamInfo examInfo);
+    TestPaper selectQuestion(ExamInfo examInfo,int studentId);
 
     /**
      * 查询学生
