@@ -276,12 +276,12 @@
                         <label>提交试卷</label>
                     </button>
                     &nbsp;&nbsp;
-                    <button type="button" id="giveUpTest"
-                            class="btn btn-danger">
-                        <label>放弃考试</label>
-                    </button>
+                    <%--<button type="button" id="giveUpTest"--%>
+                            <%--class="btn btn-danger">--%>
+                        <%--<label>放弃考试</label>--%>
+                    <%--</button>--%>
                 </p>
-                <p style="color: whitesmoke">&nbsp;&nbsp;&nbsp;&nbsp;重复作答取最高成绩</p>
+                <%--<p style="color: whitesmoke">&nbsp;&nbsp;&nbsp;&nbsp;重复作答取最高成绩</p>--%>
             </form>
             <input id="hideArea" type="hidden">
         </div>
